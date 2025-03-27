@@ -71,7 +71,7 @@ public class Tecnico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tecnico().setVisible(true);
+                new Tecnico().setVisible(true);//prueba cambio
             }
         });
     }
