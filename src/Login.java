@@ -31,14 +31,13 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         contrasena = new javax.swing.JPasswordField();
         IniciaSesion = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         Usuario = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        Linea = new javax.swing.JLabel();
+        Linea2 = new javax.swing.JLabel();
         sesion = new javax.swing.JTextField();
         Contraseña = new javax.swing.JLabel();
         FondoUniversidad = new javax.swing.JLabel();
@@ -47,8 +46,12 @@ public class Login extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CandadoInicioSesion.png"))); // NOI18N
+        jLabel2.setPreferredSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 270, 100, 86));
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         contrasena.setBorder(null);
@@ -69,19 +72,15 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel1.setText("Bienvenido al Sistema ");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 10, 180, 20));
-
-        jLabel4.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel4.setText("de Historial Clínico");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 160, -1));
-
-        Usuario.setFont(new java.awt.Font("Candara", 1, 12)); // NOI18N
+        Usuario.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         Usuario.setText("Usuario");
         jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, -1));
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 3));
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 220, 3));
+
+        Linea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
+        jPanel2.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 3));
+
+        Linea2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
+        jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 220, 3));
 
         sesion.setBorder(null);
         sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -91,9 +90,9 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 220, 30));
 
-        Contraseña.setFont(new java.awt.Font("Candara", 1, 12)); // NOI18N
+        Contraseña.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         Contraseña.setText("Contraseña");
-        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 70, -1));
+        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, 260, 260));
 
@@ -201,12 +200,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Contraseña;
     private javax.swing.JLabel FondoUniversidad;
     private javax.swing.JButton IniciaSesion;
+    private javax.swing.JLabel Linea;
+    private javax.swing.JLabel Linea2;
     private javax.swing.JLabel Usuario;
     private javax.swing.JPasswordField contrasena;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField sesion;
     // End of variables declaration//GEN-END:variables
