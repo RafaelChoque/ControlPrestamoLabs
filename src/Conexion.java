@@ -22,7 +22,7 @@ public class Conexion {
             return con;
         } catch (SQLException ex) {
             System.out.println("Error en la conexión: " + ex.toString());
-            return null;
+            return null;//.
         }
     }
 }
