@@ -127,12 +127,12 @@ public class Login extends javax.swing.JFrame {
                 if (activo) { // Verifica si el usuario está activo
                     if (pass.equals(p)) {
                         // Redirige a la interfaz correspondiente según el rol
-                        if (priv.equals("paciente")) {
+                        if (priv.equals("TecnicoPrestamo")) {
 
-                        } else if (priv.equals("medico")) {
+                        } else if (priv.equals("TecnicoEquipo")) {
 
                         } else if (priv.equals("administrador")) {
-                            Administrador ventanaadmin = new Administrador();
+                            AdministradorTecnicoPrestamo ventanaadmin = new AdministradorTecnicoPrestamo();
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         }

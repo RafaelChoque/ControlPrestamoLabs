@@ -10,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class Administrador extends javax.swing.JFrame {
+public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
     /**
      * Creates new form Administrador
      */
-    public Administrador() {
+    public AdministradorTecnicoPrestamo() {
         initComponents();
     }
 
@@ -56,7 +56,7 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AgregarTecnico.setText("Agregar Técnico");
+        AgregarTecnico.setText("Agregar Técnico de Prestamos");
         getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -235,7 +235,7 @@ public class Administrador extends javax.swing.JFrame {
         
         String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
         String contrasena = JOptionPane.showInputDialog("Ingrese la contraseña");
-        String rol = "cambiar aqui";
+        String rol = "Tecnicos de Prestamo";
         int idUsuario = 0;
         int activo = 1;
         
@@ -258,18 +258,18 @@ public class Administrador extends javax.swing.JFrame {
                 return;
             }
             
-            PreparedStatement pTecnico = con.prepareStatement("INSERT INTO tecnico(id_usuario, RU, nombre, apellido, CI, telefono) VALUES(?,?,?,?,?,?)");
-            pTecnico.setInt(1, idUsuario);
-            pTecnico.setInt(2, ru);
-            pTecnico.setString(3, nombre);
-            pTecnico.setString(4, apellido);
-            pTecnico.setInt(5, ci);
-            pTecnico.setInt(6, telefono);
+            PreparedStatement psTecnicoPrestamo = con.prepareStatement("INSERT INTO tecnico_prestamos(id_usuario, RU, nombre, apellido, CI, telefono) VALUES(?,?,?,?,?,?)");
+            psTecnicoPrestamo.setInt(1, idUsuario);
+            psTecnicoPrestamo.setInt(2, ru);
+            psTecnicoPrestamo.setString(3, nombre);
+            psTecnicoPrestamo.setString(4, apellido);
+            psTecnicoPrestamo.setInt(5, ci);
+            psTecnicoPrestamo.setInt(6, telefono);
             
-            pTecnico.executeUpdate();
+            psTecnicoPrestamo.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
             
-            Administrador interfaz = new Administrador();
+            AdministradorTecnicoPrestamo interfaz = new AdministradorTecnicoPrestamo();
             interfaz.setVisible(true);
             
             
@@ -281,7 +281,7 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        int idTecnico = Integer.parseInt(ID.getText());
+        int idTecnicoPrestamo = Integer.parseInt(ID.getText());
         int ru = Integer.parseInt(RU.getText());
         String nombre = Nombre.getText();
         String apellido = Apellido.getText();
@@ -290,18 +290,18 @@ public class Administrador extends javax.swing.JFrame {
         
         String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario:");
         String contrasena = JOptionPane.showInputDialog("Ingrese la contraseña:");
-        String rol ="tecnico";
+        String rol ="Tecnicos de Prestamo";
         int activo = 1;
         try{
             Connection con = Conexion.obtenerConexion();
             
-            PreparedStatement psSelect = con.prepareStatement("SELECT id_usuario FROM tecnico WHERE id_tecnico = ?");
-            psSelect.setInt(1, idTecnico);
+            PreparedStatement psSelect = con.prepareStatement("SELECT id_usuario FROM tecnico_prestamos WHERE id_tecnico_prestamos = ?");
+            psSelect.setInt(1, idTecnicoPrestamo);
             ResultSet rs= psSelect.executeQuery();
             
             int idUsuario = 0;
             if(rs.next()){
-                idUsuario = rs.getInt("tecnico_id");
+                idUsuario = rs.getInt("id_tecnico_prestamos");
             }else{
                 JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
                 return;
@@ -314,13 +314,13 @@ public class Administrador extends javax.swing.JFrame {
             psUsuario.setInt(4, activo);
             psUsuario.setInt(5, idUsuario);
             
-            PreparedStatement psTecnico = con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
-            psTecnico.setInt(1, ru);
-            psTecnico.setString(2, nombre);
-            psTecnico.setString(3, apellido);
-            psTecnico.setInt(4, ci);
-            psTecnico.setInt(5, telefono);
-            psTecnico.setInt(5, idTecnico);
+            PreparedStatement psTecnicoPrestamo = con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
+            psTecnicoPrestamo.setInt(1, ru);
+            psTecnicoPrestamo.setString(2, nombre);
+            psTecnicoPrestamo.setString(3, apellido);
+            psTecnicoPrestamo.setInt(4, ci);
+            psTecnicoPrestamo.setInt(5, telefono);
+            psTecnicoPrestamo.setInt(5, idTecnicoPrestamo);
 
             psUsuario.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
@@ -331,22 +331,22 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        int tecnicoId = Integer.parseInt(ID.getText());
+        int tecnicoPrestamoId = Integer.parseInt(ID.getText());
         
         try{
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico WHERE id_tecnico=?");
-            psObtenerUsuario.setInt(1, tecnicoId);
+            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_prestamos WHERE id_tecnico_prestamos=?");
+            psObtenerUsuario.setInt(1, tecnicoPrestamoId);
             ResultSet rs = psObtenerUsuario.executeQuery();
             
             if(rs.next()){
                 int usuarioId = rs.getInt("id_tecnico");
                 
-                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM tecnico WHERE id_tecnico=?");
-                psTecnico.setInt(1,tecnicoId);
+                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM tecnico_prestamos WHERE id_tecnico_prestamos=?");
+                psTecnico.setInt(1,tecnicoPrestamoId);
                 psTecnico.executeUpdate();
                 
-                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM tecnico WHERE id_tecnico=?");
+                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM tecnico_prestamos WHERE id_tecnico_prestamos=?");
                 psUsuario.setInt(1,usuarioId);
                 psUsuario.executeUpdate();
             
@@ -412,20 +412,21 @@ public class Administrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Administrador().setVisible(true);
+                new AdministradorTecnicoPrestamo().setVisible(true);
             }
         });
     }
