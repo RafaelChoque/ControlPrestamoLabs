@@ -25,10 +25,15 @@ public class TecnicoEquipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TecnicoEquipo = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TecnicoEquipo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        TecnicoEquipo.setText("Técnico de Equipos");
+        getContentPane().add(TecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
@@ -73,5 +78,6 @@ public class TecnicoEquipos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoGris;
+    private javax.swing.JLabel TecnicoEquipo;
     // End of variables declaration//GEN-END:variables
 }

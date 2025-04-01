@@ -19,6 +19,7 @@ public class Conexion {
 
         try {
             Connection con = DriverManager.getConnection(url, user, password);
+
             return con;
         } catch (SQLException ex) {
             System.out.println("Error en la conexión: " + ex.toString());
