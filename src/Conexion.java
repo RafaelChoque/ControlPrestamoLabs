@@ -20,7 +20,7 @@ public class Conexion {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
 
-            return con;
+            return con; //Comentario aFMNSAIOFNSAIOGNA
         } catch (SQLException ex) {
             System.out.println("Error en la conexión: " + ex.toString());
             return null;//.
