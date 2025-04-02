@@ -48,7 +48,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CandadoInicioSesion.png"))); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 270, 100, 86));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 100, 80));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -60,7 +60,7 @@ public class Login extends javax.swing.JFrame {
                 contrasenaActionPerformed(evt);
             }
         });
-        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 220, 30));
+        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 220, 30));
 
         IniciaSesion.setBackground(new java.awt.Color(53, 140, 198));
         IniciaSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -70,17 +70,17 @@ public class Login extends javax.swing.JFrame {
                 IniciaSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
         Usuario.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         Usuario.setText("Usuario");
-        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, -1));
+        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 70, -1));
 
         Linea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
-        jPanel2.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 3));
+        jPanel2.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 3));
 
         Linea2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
-        jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 220, 3));
+        jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 220, 3));
 
         sesion.setBorder(null);
         sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -88,13 +88,13 @@ public class Login extends javax.swing.JFrame {
                 sesionActionPerformed(evt);
             }
         });
-        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 220, 30));
+        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 220, 30));
 
         Contraseña.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         Contraseña.setText("Contraseña");
-        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, -1));
+        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, 260, 260));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 310, 280, 220));
 
         FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoUniversidad.png"))); // NOI18N
         getContentPane().add(FondoUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

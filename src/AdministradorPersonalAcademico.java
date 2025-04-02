@@ -62,6 +62,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         HabilitarDeshabilitar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaAdmiPersonalAcademico = new javax.swing.JTable();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,7 +78,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         AgregarTecnico.setText("Agregar Personal Academico");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
+        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel3.setText("Nombre");
@@ -227,6 +228,9 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TablaAdmiPersonalAcademico);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 1120, 360));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -503,6 +507,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
     private javax.swing.JTextField CI;
+    private javax.swing.JLabel FondoGris1;
     private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JTextField ID;
     private javax.swing.JLabel Izquierda;

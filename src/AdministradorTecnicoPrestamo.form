@@ -401,7 +401,7 @@
     <Component class="javax.swing.JLabel" name="FondoGris">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/Fondo_1.png"/>
+          <Image iconType="3" name="/Imagenes/Fondo_3.png"/>
         </Property>
       </Properties>
       <Constraints>
