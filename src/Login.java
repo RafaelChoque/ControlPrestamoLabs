@@ -128,8 +128,7 @@ public class Login extends javax.swing.JFrame {
                     if (pass.equals(p)) {
                         // Redirige a la interfaz correspondiente según el rol
                         if (priv.equals("Tecnico de Prestamos")) {
-                            TecnicoPrestamo ventanaTecnicoPrestamo = new TecnicoPrestamo();
-                            ventanaTecnicoPrestamo.setVisible(true);
+ 
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
 

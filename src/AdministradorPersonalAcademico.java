@@ -249,8 +249,8 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     int ci=Integer.parseInt(ciText);
     int telefono=Integer.parseInt(telefonoText);
     // usuario y contra
-    String username=JOptionPane.showInputDialog("INGRESE AL USUARIO");
-    String contrasena=JOptionPane.showInputDialog("INGRESE LA CONTRASEÑA");
+    String username=JOptionPane.showInputDialog("Ingrese el nombre de usuario");
+    String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña");
     String rol="Personal Academico";
     int idUsuario=0;
     int activo = 1;
@@ -267,7 +267,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 if(rs.next()){
                     idUsuario=rs.getInt(1);
                 }else{
-                    JOptionPane.showMessageDialog(null, "ERROR AL OBTENER EL ID DEL USUARIO");
+                    JOptionPane.showMessageDialog(null, "Error al obtener el ID del usuario");
                     return;
                 }
                 PreparedStatement psPersonalAcademico=con.prepareStatement("INSERT INTO personal_academico(id_usuario, RU, nombre, apellido, CI, telefono)VALUES(?,?,?,?,?,?)");
@@ -279,7 +279,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 psPersonalAcademico.setInt(6, telefono);
                 
                 psPersonalAcademico.executeUpdate();
-                JOptionPane.showMessageDialog(null, "REGISTRO SE GUARDO CON EXITO");
+                JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
                 AdministradorPersonalAcademico interfaz=new AdministradorPersonalAcademico();
                 interfaz.setVisible(true);
                 
@@ -292,7 +292,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         if (ID.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "SELECCIONAR AL PERSONAL QUE DESEA MODIFICAR");
+            JOptionPane.showMessageDialog(null, "Seleccione a un personal antes de modificar");
             return;
         }
         int idPersonalAcademico=Integer.parseInt(ID.getText());
@@ -302,8 +302,8 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         int ci=Integer.parseInt(CI.getText());
         int telefono=Integer.parseInt(Telefono.getText());
         
-        String username = JOptionPane.showInputDialog("INGRESE EL NOMBRE DEL USUARIO: ");
-        String contrasena=JOptionPane.showInputDialog("INGRESAR LA CONTRASEÑA: ");
+        String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario: ");
+        String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña: ");
         String rol="Personal Academico";
         int activo=1;
         try{
@@ -316,7 +316,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             if(rs.next()){
                 idUsuario=rs.getInt("id_usuario");
             }else{
-                JOptionPane.showMessageDialog(null, "PERSONA NO ENCONTRADA");
+                JOptionPane.showMessageDialog(null, "Personal no encontrado.");
                 return;
             }
             PreparedStatement psUsuario=con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
@@ -334,7 +334,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psPersonalAcademico.setInt(5, telefono);
             psPersonalAcademico.setInt(6, idPersonalAcademico);
             psPersonalAcademico.executeUpdate();
-            JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA MODIFICADO");
+            JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
             Limpiar();
             cargarTabla();
         }catch(SQLException ex){
@@ -345,7 +345,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         if (ID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "SELECCIONAR A LA PERSONA PARA ELIMINARLA");
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un personal a eliminar");
             return;
         }                
         int tecnicoPrestamoId = Integer.parseInt(ID.getText());
@@ -362,11 +362,11 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
                 psUsuario.setInt(1,usuarioId);
                 psUsuario.executeUpdate();
-                JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA ELIMINADO");
+                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
                 Limpiar();
                 cargarTabla();
             }else{
-                JOptionPane.showMessageDialog(null,"PERSONA NO ENCONTRADA");
+                JOptionPane.showMessageDialog(null,"No se encontro al personal");
             }
         }catch (SQLException ex){
             System.out.println(ex.toString());

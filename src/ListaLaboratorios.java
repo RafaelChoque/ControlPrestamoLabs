@@ -7,6 +7,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.sql.Connection;
+import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -41,8 +48,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        ListaLaboratorios = new javax.swing.JTable();
+        BtnAñadirLaboratorio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -51,14 +58,12 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1540, 863));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1540, 863));
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, 20));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -70,7 +75,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 90, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 90, 20));
         jTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -92,8 +97,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 String query = jTextField1.getText().toLowerCase();  // Obtiene el texto y lo convierte a minúsculas
 
                 // Crear un TableRowSorter para ordenar y filtrar la tabla
-                TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable2.getModel());
-                jTable2.setRowSorter(sorter);
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(ListaLaboratorios.getModel());
+                ListaLaboratorios.setRowSorter(sorter);
 
                 // Si el campo de texto está vacío, no se filtra
                 if (query.trim().isEmpty()) {
@@ -106,42 +111,45 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 190, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 190, 40));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        ListaLaboratorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Laboratorio", "Computadoras", "Bloque"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setToolTipText("");
-        jTable2.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
+        ListaLaboratorios.setToolTipText("");
+        ListaLaboratorios.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
 
         // Quitar las líneas verticales y mostrar solo las horizontales
-        jTable2.setShowGrid(true);
-        jTable2.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las líneas
-        jTable2.setShowVerticalLines(false);   // Quitar líneas verticales
-        jTable2.setShowHorizontalLines(true);  // Mostrar líneas horizontales
+        ListaLaboratorios.setShowGrid(true);
+        ListaLaboratorios.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las líneas
+        ListaLaboratorios.setShowVerticalLines(false);   // Quitar líneas verticales
+        ListaLaboratorios.setShowHorizontalLines(true);  // Mostrar líneas horizontales
 
         // Ajustar la altura de las filas
-        jTable2.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado según el tamaño deseado)
+        ListaLaboratorios.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado según el tamaño deseado)
 
         // Configurar el renderizado para las filas
-        jTable2.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+        ListaLaboratorios.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override
             public java.awt.Component getTableCellRendererComponent(
                 javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -161,28 +169,28 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 return c;
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(ListaLaboratorios);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 600, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 1160, 550));
 
-        jButton1.setBackground(new java.awt.Color(29, 41, 57));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Añadir Laboratorio");
-        jButton1.setToolTipText("");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnAñadirLaboratorio.setBackground(new java.awt.Color(29, 41, 57));
+        BtnAñadirLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BtnAñadirLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAñadirLaboratorio.setText("Añadir Laboratorio");
+        BtnAñadirLaboratorio.setToolTipText("");
+        BtnAñadirLaboratorio.setBorderPainted(false);
+        BtnAñadirLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BtnAñadirLaboratorio.setFocusPainted(false);
+        BtnAñadirLaboratorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnAñadirLaboratorioActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 130, 210, 50));
+        getContentPane().add(BtnAñadirLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 180, 210, 50));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Lista de Laboratorios");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 240, 50));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 240, 50));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
         getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
@@ -191,24 +199,59 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 1250, 730));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 720));
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1540, 870));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void cargarTabla(){
+    DefaultTableModel modeloTabla = (DefaultTableModel) ListaLaboratorios.getModel();
+    modeloTabla.setRowCount(0);
+    
+    PreparedStatement ps;
+    ResultSet rs;
+    ResultSetMetaData rsmd;
+    int columnas;
+    
+    int [] anchos = {10,100,100,100};
+    for(int i=0;i < ListaLaboratorios.getColumnCount(); i++){
+        ListaLaboratorios.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+    }
+    
+    try{
+        Connection con = Conexion.obtenerConexion();
+        ps = con.prepareStatement(
+        "aqui va query"
+        );
+        rs = ps.executeQuery();
+        rsmd = rs.getMetaData();
+        columnas = rsmd.getColumnCount();
+        
+        while(rs.next()){
+            Object[] fila = new Object[columnas];
+            for (int indice = 0; indice<columnas-1; indice++){
+                fila[indice] = rs.getObject(indice + 1);
+            }
+            modeloTabla.addRow(fila);
+        }
+       
+    }catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.toString());
+    }
+    
+}
+    private void BtnAñadirLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAñadirLaboratorioActionPerformed
         // TODO add your handling code here:
 
         AgregarLaboratorio dialog = new AgregarLaboratorio(this, true);  // "this" es la ventana principal
         dialog.setLocationRelativeTo(this);  // Centra el JDialog sobre la ventana principal
         dialog.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BtnAñadirLaboratorioActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -251,17 +294,17 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAñadirLaboratorio;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JTable ListaLaboratorios;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

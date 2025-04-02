@@ -35,7 +35,6 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        AgregarTecnico = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -57,16 +56,15 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTecnicoEquipo = new javax.swing.JTable();
         Superior = new javax.swing.JLabel();
+        ListaTecnicos = new javax.swing.JLabel();
+        AgregarTecnico = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AgregarTecnico.setText("Agregar Técnico de Equipos");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
         getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
@@ -218,6 +216,17 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
+
+        ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ListaTecnicos.setText("Lista de Personal de Mantenimiento de Equipos");
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 500, -1));
+
+        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AgregarTecnico.setText("Agregar Personal de Mantenimiento de Equipos");
+        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
@@ -580,10 +589,12 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
     private javax.swing.JTextField CI;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JTextField ID;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JLabel ListaTecnicos;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField RU;

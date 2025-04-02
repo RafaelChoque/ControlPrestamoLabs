@@ -34,10 +34,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         perfil = new javax.swing.JLabel();
         AgregarTecnico = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JLabel();
+        txtCI = new javax.swing.JLabel();
+        txtRU = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JLabel();
         guardar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
@@ -46,15 +47,16 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         Nombre = new javax.swing.JTextField();
         Apellido = new javax.swing.JTextField();
         CI = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         RU = new javax.swing.JTextField();
         ID = new javax.swing.JTextField();
         HabilitarDeshabilitar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTecnicoPrestamo = new javax.swing.JTable();
+        ListaTecnicos = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,30 +68,34 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
         AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         AgregarTecnico.setText("Agregar Técnico de Prestamos");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
+        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setToolTipText("");
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel3.setText("Nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+        txtNombre.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        txtNombre.setText("Nombre");
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
 
-        jLabel4.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel4.setText("Apellido");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 30));
+        txtApellido.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        txtApellido.setText("Apellido");
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 30));
 
-        jLabel5.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel5.setText("CI");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
+        txtCI.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        txtCI.setText("CI");
+        jPanel1.add(txtCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
 
-        jLabel6.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel6.setText("RU");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, 30));
+        txtRU.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        txtRU.setText("RU");
+        jPanel1.add(txtRU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, 30));
 
-        guardar.setBackground(new java.awt.Color(53, 140, 198));
+        txtTelefono.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        txtTelefono.setText("Teléfono");
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 30));
+
+        guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +105,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
 
-        modificar.setBackground(new java.awt.Color(53, 140, 198));
+        modificar.setBackground(new java.awt.Color(29, 41, 57));
         modificar.setForeground(new java.awt.Color(255, 255, 255));
         modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +125,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, -1, -1));
 
-        limpiar.setBackground(new java.awt.Color(53, 140, 198));
+        limpiar.setBackground(new java.awt.Color(29, 41, 57));
         limpiar.setForeground(new java.awt.Color(255, 255, 255));
         limpiar.setText("Limpiar");
         limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -156,10 +162,6 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 300, -1));
-
-        jLabel7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel7.setText("Teléfono");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 30));
         jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 300, -1));
 
         ID.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +171,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 10, -1));
 
-        HabilitarDeshabilitar.setBackground(new java.awt.Color(53, 140, 198));
+        HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
         HabilitarDeshabilitar.setText("Habilitar/Deshabilitar");
         HabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +213,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaTecnicoPrestamo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 1120, 360));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 1120, 330));
+
+        ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ListaTecnicos.setText("Lista de Tecnicos de Prestamos");
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 340, -1));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
         getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
@@ -221,6 +227,9 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
@@ -585,10 +594,12 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
     private javax.swing.JTextField CI;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JTextField ID;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JLabel ListaTecnicos;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField RU;
@@ -597,15 +608,15 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
     private javax.swing.JLabel perfil;
+    private javax.swing.JLabel txtApellido;
+    private javax.swing.JLabel txtCI;
+    private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtRU;
+    private javax.swing.JLabel txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
