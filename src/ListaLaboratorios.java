@@ -27,11 +27,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         LogoSale = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
-        FondoGris = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(null);
+        setMaximumSize(new java.awt.Dimension(1540, 863));
+        setPreferredSize(new java.awt.Dimension(1540, 863));
         setSize(new java.awt.Dimension(1541, 864));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -41,11 +43,15 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 310, 240));
+
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
 
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 1540, 870));
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,9 +92,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FondoGris;
+    private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
