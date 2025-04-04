@@ -39,6 +39,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     private void initComponents() {
 
         LogoSale = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
         AgregarTecnico = new javax.swing.JLabel();
@@ -68,7 +69,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 170, 60));
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
@@ -529,5 +533,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
+    private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }
