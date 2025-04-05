@@ -46,12 +46,24 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        txtLaboratorio = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtComputadora = new javax.swing.JTextField();
+        txtBloque = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLaboratorios = new javax.swing.JTable();
-        BtnAñadirLaboratorio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -63,6 +75,77 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         setUndecorated(true);
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setText("ID:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        txtId.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 320, -1));
+        jPanel1.add(txtLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 320, -1));
+
+        jLabel3.setText("Laboratorio:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+
+        jLabel4.setText("Computadoras:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        jPanel1.add(txtComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 320, -1));
+        jPanel1.add(txtBloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 320, -1));
+
+        jLabel7.setText("Bloque:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        btnGuardar.setBackground(new java.awt.Color(29, 41, 57));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
+
+        btnModificar.setBackground(new java.awt.Color(29, 41, 57));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Guardar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+
+        btnEliminar.setBackground(new java.awt.Color(29, 41, 57));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Guardar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
+
+        btnLimpiar.setBackground(new java.awt.Color(29, 41, 57));
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setText("Guardar");
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 260, 540, 550));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, 20));
@@ -173,22 +256,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblLaboratorios);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 1160, 550));
-
-        BtnAñadirLaboratorio.setBackground(new java.awt.Color(29, 41, 57));
-        BtnAñadirLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BtnAñadirLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
-        BtnAñadirLaboratorio.setText("Añadir Laboratorio");
-        BtnAñadirLaboratorio.setToolTipText("");
-        BtnAñadirLaboratorio.setBorderPainted(false);
-        BtnAñadirLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BtnAñadirLaboratorio.setFocusPainted(false);
-        BtnAñadirLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAñadirLaboratorioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BtnAñadirLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 180, 210, 50));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 600, 550));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Lista de Laboratorios");
@@ -240,19 +308,64 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         }
     }    
 
-    private void BtnAñadirLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAñadirLaboratorioActionPerformed
-        // TODO add your handling code here:
-
-        AgregarLaboratorio dialog = new AgregarLaboratorio(this, true, this);  // "this" es la ventana principal
-        dialog.setLocationRelativeTo(this);  // Centra el JDialog sobre la ventana principal
-        dialog.setVisible(true);
-    }//GEN-LAST:event_BtnAñadirLaboratorioActionPerformed
-
     
     
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+String idStr = txtId.getText();
+        String laboratorio = txtLaboratorio.getText();
+        String computadorasStr = txtComputadora.getText();
+        String bloque = txtBloque.getText();
+
+        if (idStr.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+            return;
+        }
+        int id = Integer.parseInt(idStr);
+        int computadoras = Integer.parseInt(computadorasStr);
+        
+        try{
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (id_laboratorio, nombre, cantidad_computadoras, bloque) VALUES (?,?,?,?)");
+            ps.setInt(1, id);
+            ps.setString(2, laboratorio);
+            ps.setInt(3, computadoras);
+            ps.setString(4, bloque);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, ("Registro Guardado"));
+            limpiar();
+            cargarTabla();
+            
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void limpiar(){
+        txtId.setText("");
+        txtLaboratorio.setText("");
+        txtComputadora.setText("");
+        txtBloque.setText("");
+       
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     
@@ -292,17 +405,29 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAñadirLaboratorio;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblLaboratorios;
+    private javax.swing.JTextField txtBloque;
+    private javax.swing.JTextField txtComputadora;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtLaboratorio;
     // End of variables declaration//GEN-END:variables
 }
