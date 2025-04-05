@@ -33,6 +33,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     public ListaLaboratorios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        cargarTabla();
+        
     }
 
     /**
@@ -48,7 +50,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListaLaboratorios = new javax.swing.JTable();
+        tblLaboratorios = new javax.swing.JTable();
         BtnAñadirLaboratorio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
@@ -97,8 +99,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 String query = jTextField1.getText().toLowerCase();  // Obtiene el texto y lo convierte a minúsculas
 
                 // Crear un TableRowSorter para ordenar y filtrar la tabla
-                TableRowSorter<TableModel> sorter = new TableRowSorter<>(ListaLaboratorios.getModel());
-                ListaLaboratorios.setRowSorter(sorter);
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(tblLaboratorios.getModel());
+                tblLaboratorios.setRowSorter(sorter);
 
                 // Si el campo de texto está vacío, no se filtra
                 if (query.trim().isEmpty()) {
@@ -113,7 +115,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 190, 40));
 
-        ListaLaboratorios.setModel(new javax.swing.table.DefaultTableModel(
+        tblLaboratorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -122,7 +124,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -136,20 +138,20 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        ListaLaboratorios.setToolTipText("");
-        ListaLaboratorios.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
+        tblLaboratorios.setToolTipText("");
+        tblLaboratorios.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
 
         // Quitar las líneas verticales y mostrar solo las horizontales
-        ListaLaboratorios.setShowGrid(true);
-        ListaLaboratorios.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las líneas
-        ListaLaboratorios.setShowVerticalLines(false);   // Quitar líneas verticales
-        ListaLaboratorios.setShowHorizontalLines(true);  // Mostrar líneas horizontales
+        tblLaboratorios.setShowGrid(true);
+        tblLaboratorios.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las líneas
+        tblLaboratorios.setShowVerticalLines(false);   // Quitar líneas verticales
+        tblLaboratorios.setShowHorizontalLines(true);  // Mostrar líneas horizontales
 
         // Ajustar la altura de las filas
-        ListaLaboratorios.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado según el tamaño deseado)
+        tblLaboratorios.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado según el tamaño deseado)
 
         // Configurar el renderizado para las filas
-        ListaLaboratorios.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+        tblLaboratorios.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override
             public java.awt.Component getTableCellRendererComponent(
                 javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -169,7 +171,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 return c;
             }
         });
-        jScrollPane2.setViewportView(ListaLaboratorios);
+        jScrollPane2.setViewportView(tblLaboratorios);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 1160, 550));
 
@@ -209,57 +211,52 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarTabla(){
-    DefaultTableModel modeloTabla = (DefaultTableModel) ListaLaboratorios.getModel();
-    modeloTabla.setRowCount(0);
-    
-    PreparedStatement ps;
-    ResultSet rs;
-    ResultSetMetaData rsmd;
-    int columnas;
-    
-    int [] anchos = {10,100,100,100};
-    for(int i=0;i < ListaLaboratorios.getColumnCount(); i++){
-        ListaLaboratorios.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-    }
-    
-    try{
-        Connection con = Conexion.obtenerConexion();
-        ps = con.prepareStatement(
-        "aqui va query"
-        );
-        rs = ps.executeQuery();
-        rsmd = rs.getMetaData();
-        columnas = rsmd.getColumnCount();
+
+    public void cargarTabla(){
         
-        while(rs.next()){
-            Object[] fila = new Object[columnas];
-            for (int indice = 0; indice<columnas-1; indice++){
-                fila[indice] = rs.getObject(indice + 1);
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblLaboratorios.getModel();
+        modeloTabla.setRowCount(0);
+        
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas;
+        
+        try{
+            Connection con = Conexion.obtenerConexion();
+            ps = con.prepareStatement("SELECT id_laboratorio, nombre, cantidad_computadoras, bloque FROM laboratorios");
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+            
+            while (rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int indice=0; indice<columnas; indice++){
+                    fila[indice]=rs.getObject(indice + 1);
+                }modeloTabla.addRow(fila);
             }
-            modeloTabla.addRow(fila);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
         }
-       
-    }catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex.toString());
-    }
-    
-}
+    }    
+
     private void BtnAñadirLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAñadirLaboratorioActionPerformed
         // TODO add your handling code here:
 
-        AgregarLaboratorio dialog = new AgregarLaboratorio(this, true);  // "this" es la ventana principal
+        AgregarLaboratorio dialog = new AgregarLaboratorio(this, true, this);  // "this" es la ventana principal
         dialog.setLocationRelativeTo(this);  // Centra el JDialog sobre la ventana principal
         dialog.setVisible(true);
     }//GEN-LAST:event_BtnAñadirLaboratorioActionPerformed
 
+    
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -291,6 +288,7 @@ private void cargarTabla(){
             }
         });
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -298,7 +296,6 @@ private void cargarTabla(){
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
-    private javax.swing.JTable ListaLaboratorios;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
     private javax.swing.JLabel jLabel1;
@@ -306,5 +303,6 @@ private void cargarTabla(){
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblLaboratorios;
     // End of variables declaration//GEN-END:variables
 }
