@@ -12,7 +12,10 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -25,6 +28,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     public ListaLaboratorios() {
         initComponents();
+        cbSeccion.setBorder(BorderFactory.createEmptyBorder());
+        cbSeccion.setBackground(Color.WHITE); 
         txtID.setVisible(false);
         this.setLocationRelativeTo(null);
         cargarTabla();
@@ -40,6 +45,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtLaboratorio = new javax.swing.JTextField();
@@ -71,9 +77,14 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setMaximumSize(new java.awt.Dimension(1540, 863));
+        setMinimumSize(new java.awt.Dimension(1540, 863));
+        setPreferredSize(new java.awt.Dimension(1540, 863));
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barra.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 80));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -155,6 +166,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 340, -1));
 
         cbSeccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hardware", "Redes", "Telecomunicaciones", "Electronica" }));
+        cbSeccion.setBorder(null);
         cbSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeccionActionPerformed(evt);
@@ -281,6 +293,11 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 return c;
             }
         });
+        tblLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLaboratoriosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblLaboratorios);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 690, 550));
@@ -290,7 +307,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 240, 50));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
@@ -307,6 +324,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     public void cargarTabla(){
         
         DefaultTableModel modeloTabla = (DefaultTableModel) tblLaboratorios.getModel();
@@ -316,6 +334,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
+        
+        
         
         try{
             Connection con = Conexion.obtenerConexion();
@@ -382,15 +402,58 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         cbSeccion.setSelectedIndex(-1);
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        int id  = Integer.parseInt(txtID.getText());
+        String codigo = txtCodigo.getText();
+        String laboratorio = txtLaboratorio.getText();
+        String computadorasStr = txtComputadora.getText();
+        String bloque = txtBloque.getText();
+        String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
+
+        if (codigo.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty() || seccion.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+            return;
+        }
+        
+        int computadoras = Integer.parseInt(computadorasStr);
+        
+        try{
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("UPDATE laboratorios SET codigo_lab = ?, nombre_lab = ?, cantidad_computadoras = ?, bloque = ?, seccion = ? WHERE id_lab = ?");
+            ps.setString(1, codigo);
+            ps.setString(2, laboratorio);
+            ps.setInt(3, computadoras);
+            ps.setString(4, bloque);
+            ps.setString(5, seccion);
+            ps.setInt(6, id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, ("Registro Modificado"));
+            limpiar();
+            cargarTabla();
+            
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        int id  = Integer.parseInt(txtID.getText());
+        
+        try{
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("DELETE FROM laboratorios WHERE id_lab = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, ("Registro Eliminado"));
+            limpiar();
+            cargarTabla();
+            
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+       limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
@@ -404,6 +467,33 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void tblLaboratoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLaboratoriosMouseClicked
+        try{
+            int fila = tblLaboratorios.getSelectedRow();
+            int id = Integer.parseInt(tblLaboratorios.getValueAt(fila, 0).toString());
+            PreparedStatement ps;
+            ResultSet rs;
+            Connection con = Conexion.obtenerConexion();
+            ps = con.prepareStatement("SELECT codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado FROM laboratorios WHERE id_lab=?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                txtID.setText(String.valueOf(id));
+                txtCodigo.setText(rs.getString("codigo_lab"));
+                txtLaboratorio.setText(rs.getString("nombre_lab"));
+                txtComputadora.setText(rs.getString("cantidad_computadoras"));
+                txtBloque.setText(rs.getString("bloque"));
+                cbSeccion.setSelectedItem(rs.getString("seccion"));
+                //txtCodigo.setText(rs.getString("codigo_lab"));
+                
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+            
+        }
+    }//GEN-LAST:event_tblLaboratoriosMouseClicked
 
 
     
@@ -460,6 +550,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
