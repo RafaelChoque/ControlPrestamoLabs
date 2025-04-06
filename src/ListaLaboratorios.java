@@ -20,18 +20,12 @@ import javax.swing.table.DefaultTableModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-/**
- *
- * @author Erlan
- */
 
 public class ListaLaboratorios extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ListaLaboratorios
-     */
     public ListaLaboratorios() {
         initComponents();
+        txtID.setVisible(false);
         this.setLocationRelativeTo(null);
         cargarTabla();
         
@@ -61,8 +55,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnHabilitarDeshabilitar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbSeccion = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -87,18 +82,18 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel8.setText("Datos");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 30));
-        jPanel1.add(txtLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 290, -1));
+        jPanel1.add(txtLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 340, -1));
 
         jLabel3.setText("Laboratorio:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         jLabel4.setText("Computadoras:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-        jPanel1.add(txtComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 290, -1));
-        jPanel1.add(txtBloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 290, -1));
+        jPanel1.add(txtComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 340, -1));
+        jPanel1.add(txtBloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 340, -1));
 
         jLabel7.setText("Bloque:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         btnGuardar.setBackground(new java.awt.Color(29, 41, 57));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,18 +152,25 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         jLabel9.setText("Codigo:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 290, -1));
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 340, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbSeccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hardware", "Redes", "Telecomunicaciones", "Electronica" }));
+        cbSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbSeccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+        jPanel1.add(cbSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 160, -1));
 
         jLabel10.setText("Sección:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 230, 490, 250));
 
@@ -232,10 +234,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -317,7 +319,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         
         try{
             Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT id_laboratorio, nombre, cantidad_computadoras, bloque FROM laboratorios");
+            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado FROM laboratorios");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -340,25 +342,28 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-String idStr = txtId.getText();
+        String codigo = txtCodigo.getText();
         String laboratorio = txtLaboratorio.getText();
         String computadorasStr = txtComputadora.getText();
         String bloque = txtBloque.getText();
+        String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
 
-        if (idStr.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty()) {
+        if (codigo.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty() || seccion.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
             return;
         }
-        int id = Integer.parseInt(idStr);
+        
         int computadoras = Integer.parseInt(computadorasStr);
         
         try{
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (id_laboratorio, nombre, cantidad_computadoras, bloque) VALUES (?,?,?,?)");
-            ps.setInt(1, id);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado) VALUES (?,?,?,?,?,?)");
+            ps.setString(1, codigo);
             ps.setString(2, laboratorio);
             ps.setInt(3, computadoras);
             ps.setString(4, bloque);
+            ps.setString(5, seccion);
+            ps.setInt(6, 1);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, ("Registro Guardado"));
             limpiar();
@@ -370,11 +375,11 @@ String idStr = txtId.getText();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void limpiar(){
-        txtId.setText("");
+        txtCodigo.setText("");
         txtLaboratorio.setText("");
         txtComputadora.setText("");
         txtBloque.setText("");
-       
+        cbSeccion.setSelectedIndex(-1);
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
@@ -392,9 +397,13 @@ String idStr = txtId.getText();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHabilitarDeshabilitarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbSeccionActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
 
     
@@ -444,7 +453,7 @@ String idStr = txtId.getText();
     private javax.swing.JButton btnHabilitarDeshabilitar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbSeccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -461,6 +470,7 @@ String idStr = txtId.getText();
     private javax.swing.JTextField txtBloque;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComputadora;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLaboratorio;
     // End of variables declaration//GEN-END:variables
 }
