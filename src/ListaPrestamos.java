@@ -1,4 +1,5 @@
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.*;
@@ -204,14 +205,9 @@ public class ListaPrestamos extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(ListaPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         /* Create and display the form */

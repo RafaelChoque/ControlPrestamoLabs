@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
@@ -68,7 +70,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
         AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         AgregarTecnico.setText("Agregar Técnico de Prestamos");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
+        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setToolTipText("");
@@ -76,24 +78,24 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        txtNombre.setText("Nombre");
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+        txtNombre.setText("Nombre:");
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 30));
 
         txtApellido.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        txtApellido.setText("Apellido");
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 30));
+        txtApellido.setText("Apellido:");
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, 30));
 
         txtCI.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        txtCI.setText("CI");
-        jPanel1.add(txtCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
+        txtCI.setText("CI:");
+        jPanel1.add(txtCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 30));
 
         txtRU.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        txtRU.setText("RU");
-        jPanel1.add(txtRU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, 30));
+        txtRU.setText("RU:");
+        jPanel1.add(txtRU, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, 30));
 
         txtTelefono.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        txtTelefono.setText("Teléfono");
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 30));
+        txtTelefono.setText("Teléfono:");
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, 30));
 
         guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,36 +142,36 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 TelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 300, -1));
+        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 300, -1));
 
         Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 300, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 300, -1));
 
         Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApellidoActionPerformed(evt);
             }
         });
-        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 300, -1));
+        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 300, -1));
 
         CI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CIActionPerformed(evt);
             }
         });
-        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 300, -1));
-        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 300, -1));
+        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
+        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 300, -1));
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
             }
         });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 10, -1));
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 10, 10, -1));
 
         HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,7 +183,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 200, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 1120, 270));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 1120, 270));
 
         TablaTecnicoPrestamo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -564,20 +566,9 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministradorTecnicoPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //</editor-fold>
         //</editor-fold>

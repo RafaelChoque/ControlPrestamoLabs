@@ -7,11 +7,13 @@
  *
  * @author Rafael
  */
+import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -62,7 +64,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 220, 30));
 
-        IniciaSesion.setBackground(new java.awt.Color(53, 140, 198));
+        IniciaSesion.setBackground(new java.awt.Color(29, 41, 57));
         IniciaSesion.setForeground(new java.awt.Color(255, 255, 255));
         IniciaSesion.setText("Iniciar Sesion");
         IniciaSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -172,20 +174,9 @@ public class Login extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //</editor-fold>
 

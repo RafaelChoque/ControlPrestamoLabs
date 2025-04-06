@@ -64,7 +64,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1000" y="230" width="490" height="250"/>
+          <AbsoluteConstraints x="1000" y="210" width="490" height="250"/>
         </Constraint>
       </Constraints>
 
@@ -176,7 +176,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="90" y="210" width="-1" height="-1"/>
+              <AbsoluteConstraints x="240" y="210" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -198,7 +198,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="180" y="210" width="-1" height="-1"/>
+              <AbsoluteConstraints x="410" y="210" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -220,7 +220,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="260" y="210" width="-1" height="-1"/>
+              <AbsoluteConstraints x="330" y="210" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -242,7 +242,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="340" y="210" width="-1" height="-1"/>
+              <AbsoluteConstraints x="90" y="210" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -267,9 +267,6 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Hardware&quot;, &quot;Redes&quot;, &quot;Telecomunicaciones&quot;, &quot;Electronica&quot; })" type="code"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
             </Property>
           </Properties>
           <Events>
@@ -314,7 +311,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="310" y="190" width="-1" height="20"/>
+          <AbsoluteConstraints x="310" y="170" width="-1" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -336,11 +333,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTextField1.getDocument().addDocumentListener(new DocumentListener() {&#xa;    @Override&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        filterTable(); // Llama al m&#xe9;todo para filtrar la tabla&#xa;    }&#xa;&#xa;    @Override&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        filterTable(); // Llama al m&#xe9;todo para filtrar la tabla&#xa;    }&#xa;&#xa;    @Override&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        filterTable(); // Llama al m&#xe9;todo para filtrar la tabla&#xa;    }&#xa;&#xa;    // M&#xe9;todo para filtrar la tabla&#xa;    private void filterTable() {&#xa;        String query = jTextField1.getText().toLowerCase();  // Obtiene el texto y lo convierte a min&#xfa;sculas&#xa;&#xa;        // Crear un TableRowSorter para ordenar y filtrar la tabla&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tblLaboratorios.getModel());&#xa;        tblLaboratorios.setRowSorter(sorter);&#xa;&#xa;        // Si el campo de texto est&#xe1; vac&#xed;o, no se filtra&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null);  // Muestra todas las filas&#xa;        } else {&#xa;            // Filtra solo por la primera columna (ID en este caso)&#xa;            sorter.setRowFilter(RowFilter.regexFilter(query, 0));  // 0 es la columna de ID&#xa;        }&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String placeholder = &quot;Buscar ID&quot;;&#xa;&#xa;// Al inicio, pon el placeholder en el campo de texto&#xa;jTextField1.setText(placeholder);&#xa;jTextField1.setForeground(Color.GRAY); // Estilo de texto gu&#xed;a&#xa;&#xa;// Listener para manejar el enfoque&#xa;jTextField1.addFocusListener(new FocusAdapter() {&#xa;    @Override&#xa;    public void focusGained(FocusEvent e) {&#xa;        if (jTextField1.getText().equals(placeholder)) {&#xa;            jTextField1.setText(&quot;&quot;);&#xa;            jTextField1.setForeground(Color.BLACK); // Color normal para escribir&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent e) {&#xa;        if (jTextField1.getText().isEmpty()) {&#xa;            jTextField1.setText(placeholder);&#xa;            jTextField1.setForeground(Color.GRAY);&#xa;        }&#xa;    }&#xa;});&#xa;&#xa;// Listener para filtrar&#xa;jTextField1.getDocument().addDocumentListener(new DocumentListener() {&#xa;    @Override&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    private void filterTable() {&#xa;        String query = jTextField1.getText().toLowerCase();&#xa;&#xa;        // Si el texto es el placeholder, no filtrar nada&#xa;        if (query.equals(placeholder.toLowerCase())) {&#xa;            tblLaboratorios.setRowSorter(null); // Mostrar todos&#xa;            return;&#xa;        }&#xa;&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tblLaboratorios.getModel());&#xa;        tblLaboratorios.setRowSorter(sorter);&#xa;&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null); // Mostrar todo&#xa;        } else {&#xa;            sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)&#xa;        }&#xa;    }&#xa;});"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="340" y="190" width="90" height="20"/>
+          <AbsoluteConstraints x="340" y="170" width="90" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -352,7 +349,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="290" y="180" width="190" height="40"/>
+          <AbsoluteConstraints x="290" y="160" width="190" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -362,7 +359,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="290" y="230" width="690" height="550"/>
+          <AbsoluteConstraints x="290" y="210" width="690" height="550"/>
         </Constraint>
       </Constraints>
 
@@ -428,9 +425,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblLaboratoriosMouseClicked"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tblLaboratorios.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas&#xa;&#xa;// Quitar las l&#xed;neas verticales y mostrar solo las horizontales&#xa;tblLaboratorios.setShowGrid(true);&#xa;tblLaboratorios.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las l&#xed;neas&#xa;tblLaboratorios.setShowVerticalLines(false);   // Quitar l&#xed;neas verticales&#xa;tblLaboratorios.setShowHorizontalLines(true);  // Mostrar l&#xed;neas horizontales&#xa;&#xa;// Ajustar la altura de las filas&#xa;tblLaboratorios.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado seg&#xfa;n el tama&#xf1;o deseado)&#xa;&#xa;// Configurar el renderizado para las filas&#xa;tblLaboratorios.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {&#xa;    @Override&#xa;    public java.awt.Component getTableCellRendererComponent(&#xa;        javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, &#xa;        int row, int column) {&#xa;&#xa;        // Obt&#xe9;n el componente que se usar&#xe1; para representar la celda&#xa;        java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);&#xa;        &#xa;        // Establecer el fondo blanco para las celdas&#xa;        c.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas&#xa;&#xa;        // Si la celda es seleccionada, cambia el color del fondo&#xa;        if (isSelected) {&#xa;            c.setBackground(new java.awt.Color(0, 120, 215));  // Fondo azul para fila seleccionada&#xa;        }&#xa;        &#xa;        return c;&#xa;    }&#xa;});"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

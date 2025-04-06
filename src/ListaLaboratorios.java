@@ -1,10 +1,11 @@
-
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.sql.Connection;
@@ -12,10 +13,7 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -28,9 +26,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     public ListaLaboratorios() {
         initComponents();
-        cbSeccion.setBorder(BorderFactory.createEmptyBorder());
-        cbSeccion.setBackground(Color.WHITE); 
+        FondoBlanco.setFocusable(true);
+        FondoBlanco.requestFocusInWindow();
+
+
+
         txtID.setVisible(false);
+
         this.setLocationRelativeTo(null);
         cargarTabla();
         
@@ -126,7 +128,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
         btnEliminar.setBackground(new java.awt.Color(29, 41, 57));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,7 +139,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
         btnLimpiar.setBackground(new java.awt.Color(29, 41, 57));
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -148,7 +150,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnLimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
+        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         btnHabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         btnHabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,14 +161,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnHabilitarDeshabilitarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
+        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
         jLabel9.setText("Codigo:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 340, -1));
 
         cbSeccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hardware", "Redes", "Telecomunicaciones", "Electronica" }));
-        cbSeccion.setBorder(null);
         cbSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeccionActionPerformed(evt);
@@ -184,10 +185,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 230, 490, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 490, 250));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, -1, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -199,43 +200,71 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 90, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        String placeholder = "Buscar ID";
+
+        // Al inicio, pon el placeholder en el campo de texto
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY); // Estilo de texto guía
+
+        // Listener para manejar el enfoque
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK); // Color normal para escribir
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        // Listener para filtrar
         jTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterTable(); // Llama al método para filtrar la tabla
+                filterTable();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterTable(); // Llama al método para filtrar la tabla
+                filterTable();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterTable(); // Llama al método para filtrar la tabla
+                filterTable();
             }
 
-            // Método para filtrar la tabla
             private void filterTable() {
-                String query = jTextField1.getText().toLowerCase();  // Obtiene el texto y lo convierte a minúsculas
+                String query = jTextField1.getText().toLowerCase();
 
-                // Crear un TableRowSorter para ordenar y filtrar la tabla
+                // Si el texto es el placeholder, no filtrar nada
+                if (query.equals(placeholder.toLowerCase())) {
+                    tblLaboratorios.setRowSorter(null); // Mostrar todos
+                    return;
+                }
+
                 TableRowSorter<TableModel> sorter = new TableRowSorter<>(tblLaboratorios.getModel());
                 tblLaboratorios.setRowSorter(sorter);
 
-                // Si el campo de texto está vacío, no se filtra
                 if (query.trim().isEmpty()) {
-                    sorter.setRowFilter(null);  // Muestra todas las filas
+                    sorter.setRowFilter(null); // Mostrar todo
                 } else {
-                    // Filtra solo por la primera columna (ID en este caso)
-                    sorter.setRowFilter(RowFilter.regexFilter(query, 0));  // 0 es la columna de ID
+                    sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)
                 }
             }
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 190, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
 
         tblLaboratorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -261,38 +290,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             }
         });
         tblLaboratorios.setToolTipText("");
-        tblLaboratorios.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
-
-        // Quitar las líneas verticales y mostrar solo las horizontales
-        tblLaboratorios.setShowGrid(true);
-        tblLaboratorios.setGridColor(new java.awt.Color(240, 240, 240));  // Color gris claro para las líneas
-        tblLaboratorios.setShowVerticalLines(false);   // Quitar líneas verticales
-        tblLaboratorios.setShowHorizontalLines(true);  // Mostrar líneas horizontales
-
-        // Ajustar la altura de las filas
-        tblLaboratorios.setRowHeight(25);  // Establecer la altura de las filas a 25 (ajustado según el tamaño deseado)
-
-        // Configurar el renderizado para las filas
-        tblLaboratorios.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
-            @Override
-            public java.awt.Component getTableCellRendererComponent(
-                javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus,
-                int row, int column) {
-
-                // Obtén el componente que se usará para representar la celda
-                java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                // Establecer el fondo blanco para las celdas
-                c.setBackground(new java.awt.Color(255, 255, 255));  // Fondo blanco para las celdas
-
-                // Si la celda es seleccionada, cambia el color del fondo
-                if (isSelected) {
-                    c.setBackground(new java.awt.Color(0, 120, 215));  // Fondo azul para fila seleccionada
-                }
-
-                return c;
-            }
-        });
         tblLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLaboratoriosMouseClicked(evt);
@@ -300,7 +297,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblLaboratorios);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 690, 550));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 550));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Lista de Laboratorios");
@@ -359,6 +356,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -499,13 +497,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        /*    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -519,7 +517,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ListaLaboratorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ListaLaboratorios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
         //</editor-fold>
 
         /* Create and display the form */
