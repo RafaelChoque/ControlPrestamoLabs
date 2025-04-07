@@ -4,14 +4,22 @@
  */
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
     /**
@@ -33,8 +41,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
-        AgregarTecnico = new javax.swing.JLabel();
+        Barra = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtNombre = new javax.swing.JLabel();
         txtApellido = new javax.swing.JLabel();
@@ -52,6 +63,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         RU = new javax.swing.JTextField();
         ID = new javax.swing.JTextField();
         HabilitarDeshabilitar = new javax.swing.JButton();
+        AgregarTecnico = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTecnicoPrestamo = new javax.swing.JTable();
         ListaTecnicos = new javax.swing.JLabel();
@@ -65,37 +77,107 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Buscar");
+        jTextField1.setToolTipText("");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        String placeholder = "Buscar RU";
+
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY);
+
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String query = jTextField1.getText().toLowerCase();
+
+                if (query.equals(placeholder.toLowerCase())) {
+                    TablaTecnicoPrestamo.setRowSorter(null);
+                    return;
+                }
+
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaTecnicoPrestamo.getModel());
+                TablaTecnicoPrestamo.setRowSorter(sorter);
+
+                if (query.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 1, 3));
+                }
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
 
-        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AgregarTecnico.setText("Agregar Técnico de Prestamos");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
+        Barra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barra.png"))); // NOI18N
+        getContentPane().add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 80));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel1.setToolTipText("");
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNombre.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         txtNombre.setText("Nombre:");
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 30));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
-        txtApellido.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         txtApellido.setText("Apellido:");
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, 30));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
-        txtCI.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         txtCI.setText("CI:");
-        jPanel1.add(txtCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 30));
+        jPanel1.add(txtCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
-        txtRU.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         txtRU.setText("RU:");
-        jPanel1.add(txtRU, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, 30));
+        jPanel1.add(txtRU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        txtTelefono.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         txtTelefono.setText("Teléfono:");
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, 30));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
 
         guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,7 +187,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         modificar.setBackground(new java.awt.Color(29, 41, 57));
         modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,7 +197,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 modificarActionPerformed(evt);
             }
         });
-        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
         eliminar.setBackground(new java.awt.Color(255, 0, 0));
         eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,7 +207,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, -1, -1));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
         limpiar.setBackground(new java.awt.Color(29, 41, 57));
         limpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,43 +217,43 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 limpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, -1, -1));
+        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         Telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 300, -1));
+        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 350, -1));
 
         Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 300, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 350, -1));
 
         Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApellidoActionPerformed(evt);
             }
         });
-        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 300, -1));
+        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, -1));
 
         CI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CIActionPerformed(evt);
             }
         });
-        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 300, -1));
-        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 300, -1));
+        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 350, -1));
+        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 350, -1));
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
             }
         });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 10, 10, -1));
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
         HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,9 +263,13 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 HabilitarDeshabilitarActionPerformed(evt);
             }
         });
-        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 200, -1, -1));
+        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 1120, 270));
+        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        AgregarTecnico.setText("Agregar Técnico de Prestamos");
+        jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 500, 250));
 
         TablaTecnicoPrestamo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,14 +301,14 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaTecnicoPrestamo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 1120, 330));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 610));
 
         ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaTecnicos.setText("Lista de Tecnicos de Prestamos");
-        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 340, -1));
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 340, -1));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
@@ -556,6 +642,10 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -584,6 +674,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
+    private javax.swing.JLabel Barra;
     private javax.swing.JTextField CI;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
@@ -599,8 +690,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
     private javax.swing.JLabel perfil;
