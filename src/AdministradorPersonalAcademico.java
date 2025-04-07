@@ -1,5 +1,8 @@
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -7,7 +10,12 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 /*
@@ -40,12 +48,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        LogoSale = new javax.swing.JLabel();
-        perfil = new javax.swing.JLabel();
-        Superior = new javax.swing.JLabel();
-        Izquierda = new javax.swing.JLabel();
-        AgregarTecnico = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        ListaPersonal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -63,55 +66,47 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         RU = new javax.swing.JTextField();
         ID = new javax.swing.JTextField();
         HabilitarDeshabilitar = new javax.swing.JButton();
+        AgregarTecnico = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaAdmiPersonalAcademico = new javax.swing.JTable();
+        TablaPersonalAcademico = new javax.swing.JTable();
+        Barra = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
+        LogoSale = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
+        Izquierda = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
-
-        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
-        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
-
-        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AgregarTecnico.setText("Agregar Personal Academico");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel3.setText("Nombre");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+        ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ListaPersonal.setText("Lista de Personal Académico");
+        getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 340, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel1.setToolTipText("");
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel4.setText("Nombre");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+        jLabel4.setText("Nombre:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
-        jLabel5.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel5.setText("Apellido");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 30));
+        jLabel5.setText("Apellido:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
-        jLabel6.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel6.setText("CI");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
+        jLabel6.setText("CI:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
-        jLabel7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel7.setText("RU");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, 30));
+        jLabel7.setText("RU:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        guardar.setBackground(new java.awt.Color(53, 140, 198));
+        guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,9 +114,9 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
-        modificar.setBackground(new java.awt.Color(53, 140, 198));
+        modificar.setBackground(new java.awt.Color(29, 41, 57));
         modificar.setForeground(new java.awt.Color(255, 255, 255));
         modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +124,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 modificarActionPerformed(evt);
             }
         });
-        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
         eliminar.setBackground(new java.awt.Color(255, 0, 0));
         eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,9 +134,9 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, -1, -1));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
-        limpiar.setBackground(new java.awt.Color(53, 140, 198));
+        limpiar.setBackground(new java.awt.Color(29, 41, 57));
         limpiar.setForeground(new java.awt.Color(255, 255, 255));
         limpiar.setText("Limpiar");
         limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,49 +144,48 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 limpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, -1, -1));
+        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         Telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 300, -1));
+        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 350, -1));
 
         Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 300, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 350, -1));
 
         Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApellidoActionPerformed(evt);
             }
         });
-        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 300, -1));
+        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, -1));
 
         CI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CIActionPerformed(evt);
             }
         });
-        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 300, -1));
+        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 350, -1));
 
-        jLabel8.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        jLabel8.setText("Teléfono");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 30));
-        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 300, -1));
+        jLabel8.setText("Teléfono:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
+        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 350, -1));
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
             }
         });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 10, -1));
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
-        HabilitarDeshabilitar.setBackground(new java.awt.Color(53, 140, 198));
+        HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
         HabilitarDeshabilitar.setText("Habilitar/Deshabilitar");
         HabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,11 +193,15 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 HabilitarDeshabilitarActionPerformed(evt);
             }
         });
-        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 200, -1, -1));
+        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 1120, 270));
+        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        AgregarTecnico.setText("Agregar Personal Académico");
+        jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        TablaAdmiPersonalAcademico.setModel(new javax.swing.table.DefaultTableModel(
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 500, 250));
+
+        TablaPersonalAcademico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -226,14 +224,111 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaAdmiPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
+        TablaPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaAdmiPersonalAcademicoMouseClicked(evt);
+                TablaPersonalAcademicoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TablaAdmiPersonalAcademico);
+        jScrollPane1.setViewportView(TablaPersonalAcademico);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 1120, 360));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 610));
+
+        Barra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barra.png"))); // NOI18N
+        getContentPane().add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 80));
+
+        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Buscar");
+        jTextField1.setToolTipText("");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        String placeholder = "Buscar RU";
+
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY);
+
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String query = jTextField1.getText().toLowerCase();
+
+                if (query.equals(placeholder.toLowerCase())) {
+                    TablaPersonalAcademico.setRowSorter(null);
+                    return;
+                }
+
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaPersonalAcademico.getModel());
+                TablaPersonalAcademico.setRowSorter(sorter);
+
+                if (query.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 1, 3));
+                }
+            }
+        });
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
+
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
+
+        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
+        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+
+        jLabel3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        jLabel3.setText("Nombre");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1540, 870));
@@ -413,10 +508,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         
     }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
 
-    private void TablaAdmiPersonalAcademicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaAdmiPersonalAcademicoMouseClicked
+    private void TablaPersonalAcademicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPersonalAcademicoMouseClicked
        try {
-           int fila =TablaAdmiPersonalAcademico.getSelectedRow();
-           int id = Integer.parseInt(TablaAdmiPersonalAcademico.getValueAt(fila, 0).toString());
+           int fila =TablaPersonalAcademico.getSelectedRow();
+           int id = Integer.parseInt(TablaPersonalAcademico.getValueAt(fila, 0).toString());
            PreparedStatement ps;
            ResultSet rs;
            Connection con=Conexion.obtenerConexion();
@@ -436,10 +531,14 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, ex.toString());
        }
        
-    }//GEN-LAST:event_TablaAdmiPersonalAcademicoMouseClicked
+    }//GEN-LAST:event_TablaPersonalAcademicoMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void cargarTabla(){
-        DefaultTableModel modeloTabla=(DefaultTableModel) TablaAdmiPersonalAcademico.getModel();
+        DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
         ResultSet rs;
@@ -447,8 +546,8 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         int columnas;
         
         int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
-        for (int i=0; i<TablaAdmiPersonalAcademico.getColumnCount(); i++){
-            TablaAdmiPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
+            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
         try {
             Connection con=Conexion.obtenerConexion();
@@ -501,27 +600,33 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
+    private javax.swing.JLabel Barra;
     private javax.swing.JTextField CI;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JTextField ID;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JLabel ListaPersonal;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField RU;
     private javax.swing.JLabel Superior;
-    private javax.swing.JTable TablaAdmiPersonalAcademico;
+    private javax.swing.JTable TablaPersonalAcademico;
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
     private javax.swing.JLabel perfil;
