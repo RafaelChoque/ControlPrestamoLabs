@@ -1,3 +1,9 @@
+
+import com.sun.jdi.connect.spi.Connection;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -25,21 +31,284 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        LogoSale = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        ID = new javax.swing.JTextField();
+        AgregarTecnico = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        nombre = new javax.swing.JTextField();
+        motivo = new javax.swing.JTextField();
+        fecha = new com.toedter.calendar.JDateChooser();
+        bloque = new javax.swing.JComboBox<>();
+        laboratorio = new javax.swing.JComboBox<>();
+        hora = new javax.swing.JSpinner();
+        guardar = new javax.swing.JButton();
+        limpiar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        Superior = new javax.swing.JLabel();
+        Izquierda = new javax.swing.JLabel();
+        ListaPersonal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
+        jPanel1.setToolTipText("");
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setText("Motivo del Prestamo");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+
+        jLabel5.setText("Fecha:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
+
+        jLabel6.setText("Bloque:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
+
+        jLabel7.setText("Nombre del Solicitante:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        jLabel8.setText("Laboratorio:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
+
+        ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 10, -1));
+
+        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        AgregarTecnico.setText("Agregar Personal Académico");
+        jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel1.setText("Horario:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+
+        jLabel2.setText("Disponibilidad");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 350, -1));
+        jPanel1.add(motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 350, -1));
+        jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 350, -1));
+
+        bloque.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 350, -1));
+
+        laboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 350, -1));
+        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 350, -1));
+
+        guardar.setBackground(new java.awt.Color(29, 41, 57));
+        guardar.setForeground(new java.awt.Color(255, 255, 255));
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+
+        limpiar.setBackground(new java.awt.Color(29, 41, 57));
+        limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        limpiar.setText("Limpiar");
+        limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, -1, -1));
+
+        jButton1.setText("jButton1");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 670, 320));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Laboratorio", "Bloque", "Solicitante", "Fecha", "Motivo"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 187, -1, 420));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
+
+        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
+        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+
+        ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ListaPersonal.setText("Lista de Prestamos");
+        getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 340, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, 20));
+
+        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Buscar");
+        jTextField1.setToolTipText("");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 90, 20));
+        String placeholder = "Buscar RU";
+
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY);
+
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String query = jTextField1.getText().toLowerCase();
+
+                if (query.equals(placeholder.toLowerCase())) {
+                    TablaPersonalAcademico.setRowSorter(null);
+                    return;
+                }
+
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaPersonalAcademico.getModel());
+                TablaPersonalAcademico.setRowSorter(sorter);
+
+                if (query.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 1, 3));
+                }
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 190, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarTabla(){
+        //aqui 
+    }
+    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
+        ID.setVisible(false);
+    }//GEN-LAST:event_IDActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+      // Obtener los valores de los campos
+    String solicitante = nombre.getText(); // Nombre del solicitante
+    String Motivo = motivo.getText(); // Motivo del préstamo
+    Date Fecha = fecha.getDate(); // Fecha del préstamo obtenida desde JCalendar (JDateChooser)
+    String Bloque = (String) bloqueComboBox.getSelectedItem(); // Bloque obtenido desde JComboBox
+    String Laboratorio = (String) laboratorioComboBox.getSelectedItem(); // Laboratorio desde JComboBox
+    int horario = (Integer) horarioSpinner.getValue(); // Hora seleccionada desde JSpinner (esto asume que el spinner contiene horas)
+
+    // Validación de los campos
+    if (solicitante.isEmpty() || motivo.isEmpty() || fecha == null || bloque == null || laboratorio == null || horario == 0) {
+        JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+        return;
+    }
+
+    try {
+        // Conexión a la base de datos
+        Connection con = Conexion.obtenerConexion();
+
+        // Insertar datos del préstamo
+        PreparedStatement psPrestamo = con.prepareStatement("INSERT INTO prestamos(solicitante, motivo, fecha, bloque, laboratorio, horario) VALUES(?,?,?,?,?,?)");
+        psPrestamo.setString(1, solicitante); // Nombre del solicitante
+        psPrestamo.setString(2, motivo); // Motivo del préstamo
+        psPrestamo.setDate(3, new java.sql.Date(fecha.getTime())); // Convertir Date a java.sql.Date
+        psPrestamo.setString(4, bloque); // Bloque seleccionado en el JComboBox
+        psPrestamo.setString(5, laboratorio); // Laboratorio seleccionado en el JComboBox
+        psPrestamo.setInt(6, horario); // Hora seleccionada en el JSpinner
+        psPrestamo.executeUpdate();
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(null, "Registro guardado exitosamente.");
+        
+        // Redirigir a la interfaz correspondiente (si es necesario)
+        AdministradorPersonalAcademico interfaz = new AdministradorPersonalAcademico();
+        interfaz.setVisible(true);
+
+        // Limpiar campos y recargar tabla (si es necesario)
+        Limpiar();
+        cargarTabla();
+
+    } catch (SQLException ex) {
+        System.out.println(ex.toString());
+        JOptionPane.showMessageDialog(null, "Error al guardar el registro.");
+    }
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_limpiarActionPerformed
+ private void Limpiar() {
+    nombre.setText("");  
+    motivo.setText("");  
+    fecha.setDate(null);
+    bloque.setSelectedIndex(-1); 
+    laboratorio.setSelectedIndex(-1); 
+    
+    hora.setValue(0); 
+}
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,5 +346,33 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AgregarTecnico;
+    private javax.swing.JTextField ID;
+    private javax.swing.JLabel Izquierda;
+    private javax.swing.JLabel ListaPersonal;
+    private javax.swing.JLabel LogoSale;
+    private javax.swing.JLabel Superior;
+    private javax.swing.JComboBox<String> bloque;
+    private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JButton guardar;
+    private javax.swing.JSpinner hora;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> laboratorio;
+    private javax.swing.JButton limpiar;
+    private javax.swing.JTextField motivo;
+    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }
