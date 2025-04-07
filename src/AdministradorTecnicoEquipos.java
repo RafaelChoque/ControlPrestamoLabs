@@ -8,14 +8,23 @@
  * @author Rafael
  */
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     /**
@@ -37,7 +46,11 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Barra = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -56,11 +69,11 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         RU = new javax.swing.JTextField();
         ID = new javax.swing.JTextField();
         HabilitarDeshabilitar = new javax.swing.JButton();
+        AgregarTecnico = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTecnicoEquipo = new javax.swing.JTable();
         Superior = new javax.swing.JLabel();
         ListaTecnicos = new javax.swing.JLabel();
-        AgregarTecnico = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
@@ -69,32 +82,107 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Barra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barra.png"))); // NOI18N
+        getContentPane().add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 80));
+
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 60));
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
+
+        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Buscar");
+        jTextField1.setToolTipText("");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        String placeholder = "Buscar RU";
+
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY);
+
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String query = jTextField1.getText().toLowerCase();
+
+                if (query.equals(placeholder.toLowerCase())) {
+                    TablaTecnicoEquipo.setRowSorter(null);
+                    return;
+                }
+
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaTecnicoEquipo.getModel());
+                TablaTecnicoEquipo.setRowSorter(sorter);
+
+                if (query.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 1, 3));
+                }
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel1.setToolTipText("");
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel3.setText("Nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
-        jLabel4.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel4.setText("Apellido");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
-        jLabel5.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel5.setText("CI");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
-        jLabel6.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel6.setText("RU");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         guardar.setBackground(new java.awt.Color(53, 140, 198));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,7 +192,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         modificar.setBackground(new java.awt.Color(53, 140, 198));
         modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,7 +202,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 modificarActionPerformed(evt);
             }
         });
-        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
         eliminar.setBackground(new java.awt.Color(255, 0, 0));
         eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,7 +212,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, -1, -1));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
         limpiar.setBackground(new java.awt.Color(53, 140, 198));
         limpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,47 +222,46 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 limpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, -1, -1));
+        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         Telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 300, -1));
+        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 350, -1));
 
         Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 300, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 350, -1));
 
         Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApellidoActionPerformed(evt);
             }
         });
-        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 300, -1));
+        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 350, -1));
 
         CI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CIActionPerformed(evt);
             }
         });
-        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 300, -1));
+        jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 350, -1));
 
-        jLabel7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
         jLabel7.setText("Teléfono");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 30));
-        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 300, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
+        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 350, -1));
 
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
             }
         });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 10, -1));
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
         HabilitarDeshabilitar.setBackground(new java.awt.Color(53, 140, 198));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -184,9 +271,13 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 HabilitarDeshabilitarActionPerformed(evt);
             }
         });
-        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 200, -1, -1));
+        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 1120, 270));
+        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        AgregarTecnico.setText("Agregar Personal de Mantenimiento de Equipos");
+        jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 500, 250));
 
         TablaTecnicoEquipo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,21 +309,17 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaTecnicoEquipo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 1120, 360));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 620));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
 
         ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaTecnicos.setText("Lista de Personal de Mantenimiento de Equipos");
-        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 500, -1));
-
-        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AgregarTecnico.setText("Agregar Personal de Mantenimiento de Equipos");
-        getContentPane().add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 500, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 740));
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
@@ -279,7 +366,217 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
         }
+    }    private void Limpiar(){
+        RU.setText("");
+        Nombre.setText("");
+        Apellido.setText("");
+        CI.setText("");
+        Telefono.setText("");
     }
+    private void TablaTecnicoEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaTecnicoEquipoMouseClicked
+        try {
+            int fila = TablaTecnicoEquipo.getSelectedRow();
+            int id = Integer.parseInt(TablaTecnicoEquipo.getValueAt(fila, 0).toString());
+
+            PreparedStatement ps;
+            ResultSet rs;
+
+            Connection con = Conexion.obtenerConexion();
+            ps = con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM tecnico_equipos WHERE id_tecnico_equipos=?");
+
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ID.setText(String.valueOf(id));
+                RU.setText(rs.getString("RU"));
+                Nombre.setText(rs.getString("nombre"));
+                Apellido.setText(rs.getString("apellido"));
+                CI.setText(rs.getString("CI"));
+                Telefono.setText(rs.getString("telefono"));
+
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }//GEN-LAST:event_TablaTecnicoEquipoMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
+        int fila = TablaTecnicoEquipo.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un Tecnico.");
+            return;
+        }
+
+        int tecnicoId = Integer.parseInt(TablaTecnicoEquipo.getValueAt(fila, 0).toString());
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            // Obtener el id_usuario
+            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos=?");
+            psObtenerUsuario.setInt(1, tecnicoId);
+            ResultSet rsUsuario = psObtenerUsuario.executeQuery();
+
+            if (!rsUsuario.next()) {
+                JOptionPane.showMessageDialog(null, "Error al encontrar el usuario asociado al técnico.");
+                return;
+            }
+
+            int idUsuario = rsUsuario.getInt("id_usuario");
+
+            PreparedStatement psEstado = con.prepareStatement("SELECT activo FROM usuarios WHERE id_usuario=?");
+            psEstado.setInt(1, idUsuario);
+            ResultSet rsEstado = psEstado.executeQuery();
+
+            if (!rsEstado.next()) {
+                JOptionPane.showMessageDialog(null, "Error al encontrar el estado del usuario.");
+                return;
+            }
+
+            int estadoActual = rsEstado.getInt("activo");
+
+            int nuevoEstado = (estadoActual == 1) ? 0 : 1;
+
+            PreparedStatement psActualizar = con.prepareStatement("UPDATE usuarios SET activo=? WHERE id_usuario=?");
+            psActualizar.setInt(1, nuevoEstado);
+            psActualizar.setInt(2, idUsuario);
+            psActualizar.executeUpdate();
+
+            String mensaje = (nuevoEstado == 1) ? "Técnico habilitado." : "Técnico deshabilitado.";
+            JOptionPane.showMessageDialog(null, mensaje);
+
+            cargarTabla();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
+
+    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
+        ID.setVisible(false);
+    }//GEN-LAST:event_IDActionPerformed
+
+    private void CIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CIActionPerformed
+
+    private void ApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ApellidoActionPerformed
+
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActionPerformed
+
+    private void TelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TelefonoActionPerformed
+
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_limpiarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if (ID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un técnico a eliminar");
+            return;
+        }
+
+        int tecnicoEquiposId = Integer.parseInt(ID.getText());
+
+        try{
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos=?");
+            psObtenerUsuario.setInt(1, tecnicoEquiposId);
+            ResultSet rs = psObtenerUsuario.executeQuery();
+
+            if(rs.next()){
+                int usuarioId = rs.getInt("id_usuario");
+
+                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM tecnico_equipos WHERE id_tecnico_equipos=?");
+                psTecnico.setInt(1,tecnicoEquiposId);
+                psTecnico.executeUpdate();
+
+                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
+                psUsuario.setInt(1,usuarioId);
+                psUsuario.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
+                Limpiar();
+            }else{
+                JOptionPane.showMessageDialog(null,"No se encontro al técnico");
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        if (ID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un técnico antes de modificar.");
+            return;
+        }
+
+        int idTecnicoEquipos = Integer.parseInt(ID.getText());
+        int ru = Integer.parseInt(RU.getText());
+        String nombre = Nombre.getText();
+        String apellido = Apellido.getText();
+        int ci = Integer.parseInt(CI.getText());
+        int telefono = Integer.parseInt(Telefono.getText());
+
+        String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario:");
+        String contrasena = JOptionPane.showInputDialog("Ingrese la contraseña:");
+        String rol ="Tecnico de Mantenimientos";
+        int activo = 1;
+        try{
+            Connection con = Conexion.obtenerConexion();
+
+            PreparedStatement psSelect = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos = ?");
+            psSelect.setInt(1, idTecnicoEquipos);
+            ResultSet rs= psSelect.executeQuery();
+
+            int idUsuario = 0;
+            if(rs.next()){
+                idUsuario = rs.getInt("id_usuario");
+            }else{
+                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
+                return;
+            }
+
+            PreparedStatement psUsuario = con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
+            psUsuario.setString(1, username);
+            psUsuario.setString(2, contrasena);
+            psUsuario.setString(3, rol);
+            psUsuario.setInt(4, activo);
+            psUsuario.setInt(5, idUsuario);
+
+            psUsuario.executeUpdate();
+
+            PreparedStatement psTecnicoEquipos = con.prepareStatement("UPDATE tecnico_equipos SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_tecnico_equipos = ?");
+            psTecnicoEquipos.setInt(1, ru);
+            psTecnicoEquipos.setString(2, nombre);
+            psTecnicoEquipos.setString(3, apellido);
+            psTecnicoEquipos.setInt(4, ci);
+            psTecnicoEquipos.setInt(5, telefono);
+            psTecnicoEquipos.setInt(6, idTecnicoEquipos);
+
+            psTecnicoEquipos.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
+            Limpiar();
+            cargarTabla();
+        }catch(SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_modificarActionPerformed
+
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         String ruText = RU.getText();
         String nombre = Nombre.getText();
@@ -291,7 +588,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
             return;
         }
-        
+
         int ru = Integer.parseInt(ruText);
         int ci = Integer.parseInt(ciText);
         int telefono = Integer.parseInt(telefonoText);
@@ -339,222 +636,11 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
             Limpiar();
             cargarTabla();
-            
+
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
-
     }//GEN-LAST:event_guardarActionPerformed
-
-    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        if (ID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Seleccione un técnico antes de modificar.");
-            return; 
-        }
-        
-        int idTecnicoEquipos = Integer.parseInt(ID.getText());
-        int ru = Integer.parseInt(RU.getText());
-        String nombre = Nombre.getText();
-        String apellido = Apellido.getText();
-        int ci = Integer.parseInt(CI.getText());
-        int telefono = Integer.parseInt(Telefono.getText());
-
-        String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario:");
-        String contrasena = JOptionPane.showInputDialog("Ingrese la contraseña:");
-        String rol ="Tecnico de Mantenimientos";
-        int activo = 1;
-        try{
-            Connection con = Conexion.obtenerConexion();
-
-            PreparedStatement psSelect = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos = ?");
-            psSelect.setInt(1, idTecnicoEquipos);
-            ResultSet rs= psSelect.executeQuery();
-
-            int idUsuario = 0;
-            if(rs.next()){
-                idUsuario = rs.getInt("id_usuario");
-            }else{
-                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
-                return;
-            }
-
-            PreparedStatement psUsuario = con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
-            psUsuario.setString(1, username);
-            psUsuario.setString(2, contrasena);
-            psUsuario.setString(3, rol);
-            psUsuario.setInt(4, activo);
-            psUsuario.setInt(5, idUsuario);
-            
-            psUsuario.executeUpdate();
-
-            PreparedStatement psTecnicoEquipos = con.prepareStatement("UPDATE tecnico_equipos SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_tecnico_equipos = ?");
-            psTecnicoEquipos.setInt(1, ru);
-            psTecnicoEquipos.setString(2, nombre);
-            psTecnicoEquipos.setString(3, apellido);
-            psTecnicoEquipos.setInt(4, ci);
-            psTecnicoEquipos.setInt(5, telefono);
-            psTecnicoEquipos.setInt(6, idTecnicoEquipos);
-
-            psTecnicoEquipos.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
-            Limpiar();
-            cargarTabla();
-        }catch(SQLException ex) {
-            System.out.println(ex.toString());
-        }
-    }//GEN-LAST:event_modificarActionPerformed
-
-    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        if (ID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un técnico a eliminar");
-            return;
-        }
-        
-        int tecnicoEquiposId = Integer.parseInt(ID.getText());
-
-        try{
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-            psObtenerUsuario.setInt(1, tecnicoEquiposId);
-            ResultSet rs = psObtenerUsuario.executeQuery();
-
-            if(rs.next()){
-                int usuarioId = rs.getInt("id_usuario");
-
-                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-                psTecnico.setInt(1,tecnicoEquiposId);
-                psTecnico.executeUpdate();
-
-                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
-                psUsuario.setInt(1,usuarioId);
-                psUsuario.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
-                Limpiar();
-            }else{
-                JOptionPane.showMessageDialog(null,"No se encontro al técnico");
-            }
-        }catch (SQLException ex){
-            System.out.println(ex.toString());
-        }
-    }//GEN-LAST:event_eliminarActionPerformed
-
-    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_limpiarActionPerformed
-    private void Limpiar(){
-        RU.setText("");
-        Nombre.setText("");
-        Apellido.setText("");
-        CI.setText("");
-        Telefono.setText("");
-    }
-    private void TelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TelefonoActionPerformed
-
-    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreActionPerformed
-
-    private void ApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ApellidoActionPerformed
-
-    private void CIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CIActionPerformed
-
-    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
-        ID.setVisible(false);
-    }//GEN-LAST:event_IDActionPerformed
-
-    private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
-        int fila = TablaTecnicoEquipo.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un Tecnico.");
-            return;
-        }
-
-        int tecnicoId = Integer.parseInt(TablaTecnicoEquipo.getValueAt(fila, 0).toString());
-
-        try {
-            Connection con = Conexion.obtenerConexion();
-
-            // Obtener el id_usuario 
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-            psObtenerUsuario.setInt(1, tecnicoId);
-            ResultSet rsUsuario = psObtenerUsuario.executeQuery();
-
-            if (!rsUsuario.next()) {
-                JOptionPane.showMessageDialog(null, "Error al encontrar el usuario asociado al técnico.");
-                return;
-            }
-
-            int idUsuario = rsUsuario.getInt("id_usuario");
-
-       
-            PreparedStatement psEstado = con.prepareStatement("SELECT activo FROM usuarios WHERE id_usuario=?");
-            psEstado.setInt(1, idUsuario);
-            ResultSet rsEstado = psEstado.executeQuery();
-
-            if (!rsEstado.next()) {
-                JOptionPane.showMessageDialog(null, "Error al encontrar el estado del usuario.");
-                return;
-            }
-
-            int estadoActual = rsEstado.getInt("activo");
-
-            
-            int nuevoEstado = (estadoActual == 1) ? 0 : 1;
-
-            
-            PreparedStatement psActualizar = con.prepareStatement("UPDATE usuarios SET activo=? WHERE id_usuario=?");
-            psActualizar.setInt(1, nuevoEstado);
-            psActualizar.setInt(2, idUsuario);
-            psActualizar.executeUpdate();
-
-           
-            String mensaje = (nuevoEstado == 1) ? "Técnico habilitado." : "Técnico deshabilitado.";
-            JOptionPane.showMessageDialog(null, mensaje);
-
-       
-            cargarTabla();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
-
-    private void TablaTecnicoEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaTecnicoEquipoMouseClicked
-        try {
-            int fila = TablaTecnicoEquipo.getSelectedRow();
-            int id = Integer.parseInt(TablaTecnicoEquipo.getValueAt(fila, 0).toString());
-
-            PreparedStatement ps;
-            ResultSet rs;
-
-            Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                ID.setText(String.valueOf(id));
-                RU.setText(rs.getString("RU"));
-                Nombre.setText(rs.getString("nombre"));
-                Apellido.setText(rs.getString("apellido"));
-                CI.setText(rs.getString("CI"));
-                Telefono.setText(rs.getString("telefono"));
-
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }
-    }//GEN-LAST:event_TablaTecnicoEquipoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -583,6 +669,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AgregarTecnico;
     private javax.swing.JTextField Apellido;
+    private javax.swing.JLabel Barra;
     private javax.swing.JTextField CI;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
@@ -598,13 +685,16 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
     private javax.swing.JLabel perfil;
