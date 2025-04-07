@@ -172,19 +172,19 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setText("Nombre");
+        jLabel3.setText("Nombre:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
-        jLabel4.setText("Apellido");
+        jLabel4.setText("Apellido:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
-        jLabel5.setText("CI");
+        jLabel5.setText("CI:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
-        jLabel6.setText("RU");
+        jLabel6.setText("RU:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        guardar.setBackground(new java.awt.Color(53, 140, 198));
+        guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +194,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
-        modificar.setBackground(new java.awt.Color(53, 140, 198));
+        modificar.setBackground(new java.awt.Color(29, 41, 57));
         modificar.setForeground(new java.awt.Color(255, 255, 255));
         modificar.setText("Modificar");
         modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +214,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
 
-        limpiar.setBackground(new java.awt.Color(53, 140, 198));
+        limpiar.setBackground(new java.awt.Color(29, 41, 57));
         limpiar.setForeground(new java.awt.Color(255, 255, 255));
         limpiar.setText("Limpiar");
         limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +252,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jPanel1.add(CI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 350, -1));
 
-        jLabel7.setText("Teléfono");
+        jLabel7.setText("Teléfono:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
         jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 350, -1));
 
@@ -263,7 +263,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
-        HabilitarDeshabilitar.setBackground(new java.awt.Color(53, 140, 198));
+        HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
         HabilitarDeshabilitar.setText("Habilitar/Deshabilitar");
         HabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +309,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaTecnicoEquipo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 620));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 610));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
@@ -319,7 +319,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 500, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 740));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
