@@ -104,7 +104,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Computadoras:"/>
+            <Property name="text" type="java.lang.String" value="Unidades:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -112,7 +112,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtComputadora">
+        <Component class="javax.swing.JTextField" name="txtUnidades">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="110" width="340" height="-1"/>
@@ -372,7 +372,7 @@
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Codigo" type="java.lang.String"/>
                 <Column editable="false" title="Laboratorio" type="java.lang.String"/>
-                <Column editable="false" title="Computadoras" type="java.lang.Integer"/>
+                <Column editable="false" title="Unidades" type="java.lang.Integer"/>
                 <Column editable="false" title="Bloque" type="java.lang.String"/>
                 <Column editable="false" title="Secci&#xf3;n" type="java.lang.String"/>
                 <Column editable="false" title="Estado" type="java.lang.String"/>

@@ -53,7 +53,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         txtLaboratorio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtComputadora = new javax.swing.JTextField();
+        txtUnidades = new javax.swing.JTextField();
         txtBloque = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
@@ -100,9 +100,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel3.setText("Laboratorio:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        jLabel4.setText("Computadoras:");
+        jLabel4.setText("Unidades:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-        jPanel1.add(txtComputadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 340, -1));
+        jPanel1.add(txtUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 340, -1));
         jPanel1.add(txtBloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 340, -1));
 
         jLabel7.setText("Bloque:");
@@ -271,7 +271,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Laboratorio", "Computadoras", "Bloque", "Sección", "Estado"
+                "ID", "Codigo", "Laboratorio", "Unidades", "Bloque", "Sección", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -336,7 +336,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         
         try{
             Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado FROM laboratorios");
+            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, unidades, bloque, seccion, estado FROM laboratorios");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -362,7 +362,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String codigo = txtCodigo.getText();
         String laboratorio = txtLaboratorio.getText();
-        String computadorasStr = txtComputadora.getText();
+        String computadorasStr = txtUnidades.getText();
         String bloque = txtBloque.getText();
         String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
 
@@ -375,7 +375,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         
         try{
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado) VALUES (?,?,?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (codigo_lab, nombre_lab, unidades, bloque, seccion, estado) VALUES (?,?,?,?,?,?)");
             ps.setString(1, codigo);
             ps.setString(2, laboratorio);
             ps.setInt(3, computadoras);
@@ -395,7 +395,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private void limpiar(){
         txtCodigo.setText("");
         txtLaboratorio.setText("");
-        txtComputadora.setText("");
+        txtUnidades.setText("");
         txtBloque.setText("");
         cbSeccion.setSelectedIndex(-1);
     }
@@ -403,7 +403,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         int id  = Integer.parseInt(txtID.getText());
         String codigo = txtCodigo.getText();
         String laboratorio = txtLaboratorio.getText();
-        String computadorasStr = txtComputadora.getText();
+        String computadorasStr = txtUnidades.getText();
         String bloque = txtBloque.getText();
         String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
 
@@ -416,7 +416,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         
         try{
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("UPDATE laboratorios SET codigo_lab = ?, nombre_lab = ?, cantidad_computadoras = ?, bloque = ?, seccion = ? WHERE id_lab = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE laboratorios SET codigo_lab = ?, nombre_lab = ?, unidades = ?, bloque = ?, seccion = ? WHERE id_lab = ?");
             ps.setString(1, codigo);
             ps.setString(2, laboratorio);
             ps.setInt(3, computadoras);
@@ -473,7 +473,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             PreparedStatement ps;
             ResultSet rs;
             Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT codigo_lab, nombre_lab, cantidad_computadoras, bloque, seccion, estado FROM laboratorios WHERE id_lab=?");
+            ps = con.prepareStatement("SELECT codigo_lab, nombre_lab, unidades, bloque, seccion, estado FROM laboratorios WHERE id_lab=?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             
@@ -481,7 +481,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 txtID.setText(String.valueOf(id));
                 txtCodigo.setText(rs.getString("codigo_lab"));
                 txtLaboratorio.setText(rs.getString("nombre_lab"));
-                txtComputadora.setText(rs.getString("cantidad_computadoras"));
+                txtUnidades.setText(rs.getString("unidades"));
                 txtBloque.setText(rs.getString("bloque"));
                 cbSeccion.setSelectedItem(rs.getString("seccion"));
                 //txtCodigo.setText(rs.getString("codigo_lab"));
@@ -558,8 +558,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JTable tblLaboratorios;
     private javax.swing.JTextField txtBloque;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtComputadora;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLaboratorio;
+    private javax.swing.JTextField txtUnidades;
     // End of variables declaration//GEN-END:variables
 }
