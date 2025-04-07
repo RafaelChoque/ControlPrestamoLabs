@@ -79,9 +79,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1540, 863));
         setMinimumSize(new java.awt.Dimension(1540, 863));
-        setPreferredSize(new java.awt.Dimension(1540, 863));
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -130,7 +128,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
-        btnEliminar.setBackground(new java.awt.Color(29, 41, 57));
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -455,7 +453,50 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
-        // TODO add your handling code here:
+        int fila = tblLaboratorios.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un laboratorio.");
+            return;
+        }
+
+        int laboratorioId = Integer.parseInt(tblLaboratorios.getValueAt(fila, 0).toString());
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM laboratorios WHERE ID_lab = ?");
+            psObtenerEstado.setInt(1, laboratorioId);
+            ResultSet rsEstado = psObtenerEstado.executeQuery();
+
+            if (!rsEstado.next()) {
+                JOptionPane.showMessageDialog(null, "Error al encontrar el laboratorio.");
+                return;
+            }
+
+            String estadoActual = rsEstado.getString("estado");
+
+            String nuevoEstado;
+            if ("Disponible".equals(estadoActual)) {
+                nuevoEstado = "Ocupado";  
+            } else if ("Ocupado".equals(estadoActual)) {
+                nuevoEstado = "Mantenimiento";  
+            } else {
+                nuevoEstado = "Disponible"; 
+            }
+
+            PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE laboratorios SET estado = ? WHERE ID_lab = ?");
+            psActualizarEstado.setString(1, nuevoEstado);
+            psActualizarEstado.setInt(2, laboratorioId);
+            psActualizarEstado.executeUpdate();
+
+            String mensaje = "Laboratorio " + nuevoEstado.toLowerCase() + ".";
+            JOptionPane.showMessageDialog(null, mensaje);
+
+            cargarTabla();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnHabilitarDeshabilitarActionPerformed
 
     private void cbSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeccionActionPerformed
@@ -484,7 +525,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 txtUnidades.setText(rs.getString("unidades"));
                 txtBloque.setText(rs.getString("bloque"));
                 cbSeccion.setSelectedItem(rs.getString("seccion"));
-                //txtCodigo.setText(rs.getString("codigo_lab"));
+
                 
             }
         }catch(SQLException e){
