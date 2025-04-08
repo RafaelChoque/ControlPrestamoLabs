@@ -1,8 +1,13 @@
-
-import com.sun.jdi.connect.spi.Connection;
-import java.util.Date;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.*;
+import java.util.Date;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -38,27 +43,22 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        ID = new javax.swing.JTextField();
-        AgregarTecnico = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
-        motivo = new javax.swing.JTextField();
+        Nombre = new javax.swing.JTextField();
+        Motivo = new javax.swing.JTextField();
         fecha = new com.toedter.calendar.JDateChooser();
-        bloque = new javax.swing.JComboBox<>();
-        laboratorio = new javax.swing.JComboBox<>();
-        hora = new javax.swing.JSpinner();
+        BloqueComboBox = new javax.swing.JComboBox<>();
+        LaboratorioComboBox = new javax.swing.JComboBox<>();
+        HorarioSpinner = new javax.swing.JSpinner();
         guardar = new javax.swing.JButton();
-        limpiar = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         Superior = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
         ListaPersonal = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaPrestamos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -87,32 +87,26 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel8.setText("Laboratorio:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
 
-        ID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 10, -1));
-
-        AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        AgregarTecnico.setText("Agregar Personal Académico");
-        jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
         jLabel1.setText("Horario:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         jLabel2.setText("Disponibilidad");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 350, -1));
-        jPanel1.add(motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 350, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 350, -1));
+        jPanel1.add(Motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 350, -1));
         jPanel1.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 350, -1));
 
-        bloque.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 350, -1));
+        BloqueComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        BloqueComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueComboBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BloqueComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 350, -1));
 
-        laboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 350, -1));
-        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 350, -1));
+        LaboratorioComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(LaboratorioComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 350, -1));
+        jPanel1.add(HorarioSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 350, -1));
 
         guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,35 +118,20 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
-        limpiar.setBackground(new java.awt.Color(29, 41, 57));
-        limpiar.setForeground(new java.awt.Color(255, 255, 255));
-        limpiar.setText("Limpiar");
-        limpiar.addActionListener(new java.awt.event.ActionListener() {
+        Limpiar.setBackground(new java.awt.Color(29, 41, 57));
+        Limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limpiarActionPerformed(evt);
+                LimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, -1, -1));
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, -1, -1));
 
         jButton1.setText("jButton1");
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 190, 670, 320));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Laboratorio", "Bloque", "Solicitante", "Fecha", "Motivo"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 187, -1, 420));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
@@ -164,116 +143,79 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         ListaPersonal.setText("Lista de Prestamos");
         getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 340, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, 20));
-
-        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("Buscar");
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        TablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Laboratorio", "Solicitante", "Bloque", "Fecha", "Motivo", "Horario"
+            }
+        ));
+        TablaPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaPrestamosMouseClicked(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 90, 20));
-        String placeholder = "Buscar RU";
+        jScrollPane1.setViewportView(TablaPrestamos);
 
-        jTextField1.setText(placeholder);
-        jTextField1.setForeground(Color.GRAY);
-
-        jTextField1.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (jTextField1.getText().equals(placeholder)) {
-                    jTextField1.setText("");
-                    jTextField1.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (jTextField1.getText().isEmpty()) {
-                    jTextField1.setText(placeholder);
-                    jTextField1.setForeground(Color.GRAY);
-                }
-            }
-        });
-
-        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            private void filterTable() {
-                String query = jTextField1.getText().toLowerCase();
-
-                if (query.equals(placeholder.toLowerCase())) {
-                    TablaPersonalAcademico.setRowSorter(null);
-                    return;
-                }
-
-                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaPersonalAcademico.getModel());
-                TablaPersonalAcademico.setRowSorter(sorter);
-
-                if (query.trim().isEmpty()) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 1, 3));
-                }
-            }
-        });
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 190, 40));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTabla(){
-        //aqui 
-    }
-    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
-        ID.setVisible(false);
-    }//GEN-LAST:event_IDActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-      // Obtener los valores de los campos
-    String solicitante = nombre.getText(); // Nombre del solicitante
-    String Motivo = motivo.getText(); // Motivo del préstamo
+    // Obtener los valores de los campos
+    String solicitante = Nombre.getText(); // Nombre del solicitante
+    String motivo = Motivo.getText(); // Motivo del préstamo
     Date Fecha = fecha.getDate(); // Fecha del préstamo obtenida desde JCalendar (JDateChooser)
-    String Bloque = (String) bloqueComboBox.getSelectedItem(); // Bloque obtenido desde JComboBox
-    String Laboratorio = (String) laboratorioComboBox.getSelectedItem(); // Laboratorio desde JComboBox
-    int horario = (Integer) horarioSpinner.getValue(); // Hora seleccionada desde JSpinner (esto asume que el spinner contiene horas)
+    String Bloque = (String) BloqueComboBox.getSelectedItem(); // Bloque obtenido desde JComboBox
+    String Laboratorio = (String) LaboratorioComboBox.getSelectedItem(); // Laboratorio desde JComboBox
+    int horario = (Integer) HorarioSpinner.getValue(); // Hora seleccionada desde JSpinner
 
     // Validación de los campos
-    if (solicitante.isEmpty() || motivo.isEmpty() || fecha == null || bloque == null || laboratorio == null || horario == 0) {
+    if (solicitante.isEmpty() || motivo.isEmpty() || Fecha == null || Bloque == null || Laboratorio == null || horario == 0){
         JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
         return;
     }
+
+    // Usuario y contraseña
+    String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
+    String contrasena = JOptionPane.showInputDialog("Ingrese la contraseña");
+    String rol = "Personal Academico"; // El rol se mantiene como "Personal Academico"
+    int idUsuario = 0;
+    int activo = 1;
 
     try {
         // Conexión a la base de datos
         Connection con = Conexion.obtenerConexion();
 
-        // Insertar datos del préstamo
+        // Insertar datos del usuario
+        PreparedStatement psUsuario;
+        psUsuario = con.prepareStatement("INSERT INTO usuarios(username, contrasena, rol, activo)VALUES(?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+        psUsuario.setString(1, username);
+        psUsuario.setString(2, contrasena);
+        psUsuario.setString(3, rol);
+        psUsuario.setInt(4, activo);
+        psUsuario.executeUpdate();
+
+        // Obtener el ID del usuario recién creado
+        ResultSet rs = psUsuario.getGeneratedKeys();
+        if (rs.next()) {
+            idUsuario = rs.getInt(1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID del usuario");
+            return;
+        }
+        // Insertar datos del préstamo (solicitante, motivo, fecha, bloque, laboratorio, horario)
         PreparedStatement psPrestamo = con.prepareStatement("INSERT INTO prestamos(solicitante, motivo, fecha, bloque, laboratorio, horario) VALUES(?,?,?,?,?,?)");
         psPrestamo.setString(1, solicitante); // Nombre del solicitante
         psPrestamo.setString(2, motivo); // Motivo del préstamo
-        psPrestamo.setDate(3, new java.sql.Date(fecha.getTime())); // Convertir Date a java.sql.Date
-        psPrestamo.setString(4, bloque); // Bloque seleccionado en el JComboBox
-        psPrestamo.setString(5, laboratorio); // Laboratorio seleccionado en el JComboBox
+        psPrestamo.setDate(3, new java.sql.Date(Fecha.getTime())); // Convertir Date a java.sql.Date
+        psPrestamo.setString(4, Bloque); // Bloque seleccionado en el JComboBox
+        psPrestamo.setString(5, Laboratorio); // Laboratorio seleccionado en el JComboBox
         psPrestamo.setInt(6, horario); // Hora seleccionada en el JSpinner
         psPrestamo.executeUpdate();
 
@@ -281,98 +223,137 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Registro guardado exitosamente.");
         
         // Redirigir a la interfaz correspondiente (si es necesario)
-        AdministradorPersonalAcademico interfaz = new AdministradorPersonalAcademico();
+        FormularioPrestamo interfaz = new FormularioPrestamo();
         interfaz.setVisible(true);
 
         // Limpiar campos y recargar tabla (si es necesario)
         Limpiar();
         cargarTabla();
 
-    } catch (SQLException ex) {
+    }catch (SQLException ex) {
         System.out.println(ex.toString());
         JOptionPane.showMessageDialog(null, "Error al guardar el registro.");
     }
     }//GEN-LAST:event_guardarActionPerformed
 
-    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
         Limpiar();
-    }//GEN-LAST:event_limpiarActionPerformed
- private void Limpiar() {
-    nombre.setText("");  
-    motivo.setText("");  
-    fecha.setDate(null);
-    bloque.setSelectedIndex(-1); 
-    laboratorio.setSelectedIndex(-1); 
-    
-    hora.setValue(0); 
+    }//GEN-LAST:event_LimpiarActionPerformed
+private void Limpiar(){
+    Nombre.setText("");  
+    Motivo.setText("");  
+    fecha.setDate(null);  // Limpiar el JDateChooser
+    BloqueComboBox.setSelectedIndex(-1);  // Reiniciar el JComboBox de bloque
+    LaboratorioComboBox.setSelectedIndex(-1);  // Reiniciar el JComboBox de laboratorio
+    HorarioSpinner.setValue(1);  // Reiniciar el JSpinner (hora)
 }
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void BloqueComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_BloqueComboBoxActionPerformed
 
-    /**
+    private void TablaPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPrestamosMouseClicked
+      try {
+           int fila =TablaPrestamos.getSelectedRow();
+           int id = Integer.parseInt(TablaPrestamos.getValueAt(fila, 0).toString());
+           PreparedStatement ps;
+           ResultSet rs;
+           Connection con=Conexion.obtenerConexion();
+           ps= con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM prestamos WHERE id_prestamos=?");/*REVISAR EN GRUPO PUES LA BASE DE DATOS NO TIENE LOS DATOS QUE PIDE ESTA INTERFAZ*/
+           ps.setInt(1,id);
+           rs=ps.executeQuery();
+           
+           while (rs.next()) {
+               Nombre.setText(rs.getString("Solicitante"));
+               Motivo.setText(rs.getString("Motivo"));
+               fecha.setDate(rs.getDate("Fecha"));
+               BloqueComboBox.setSelectedItem(rs.getString("Bloque"));
+               LaboratorioComboBox.setSelectedItem(rs.getString("Laboratorio"));
+               HorarioSpinner.setValue(rs.getInt("Horario"));
+           }
+       }   catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, ex.toString());
+       }
+       
+    }//GEN-LAST:event_TablaPrestamosMouseClicked
+    private void cargarTabla(){
+        DefaultTableModel modeloTabla=(DefaultTableModel) TablaPrestamos.getModel();
+        modeloTabla.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        java.sql.ResultSetMetaData rsmd;
+        int columnas;
+        
+        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
+        for (int i=0; i<TablaPrestamos.getColumnCount(); i++){
+            TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+        try {
+            Connection con=Conexion.obtenerConexion();
+            ps = con.prepareStatement(
+                    "SELECT t.id_personal, t.RU, t.nombre, t.apellido, t.CI, t.telefono, u.activo "
+                    +"FROM prestamos p"                                                             /*hacer en grupo para analizar la base de datos */
+                    +"INNER JOIN usuarios u ON t.id_usuario = u.id_usuario"
+            );
+            rs= ps.executeQuery();
+            rsmd=rs.getMetaData();
+            columnas=rsmd.getColumnCount();
+            
+            while (rs.next()){
+                Object[] fila=new Object[columnas];
+                for (int indice=0; indice<columnas-1; indice++){
+                    fila[indice]= rs.getObject(indice+1);
+                }
+                //activo o inactivo
+                fila[columnas-1]=rs.getInt("Activo")==1?"Activo":"Inactivo";
+                modeloTabla.addRow(fila);
+            }
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }
+  /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormularioPrestamo().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AgregarTecnico;
-    private javax.swing.JTextField ID;
+    private javax.swing.JComboBox<String> BloqueComboBox;
+    private javax.swing.JSpinner HorarioSpinner;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JComboBox<String> LaboratorioComboBox;
+    private javax.swing.JButton Limpiar;
     private javax.swing.JLabel ListaPersonal;
     private javax.swing.JLabel LogoSale;
+    private javax.swing.JTextField Motivo;
+    private javax.swing.JTextField Nombre;
     private javax.swing.JLabel Superior;
-    private javax.swing.JComboBox<String> bloque;
+    private javax.swing.JTable TablaPrestamos;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton guardar;
-    private javax.swing.JSpinner hora;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JComboBox<String> laboratorio;
-    private javax.swing.JButton limpiar;
-    private javax.swing.JTextField motivo;
-    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }
