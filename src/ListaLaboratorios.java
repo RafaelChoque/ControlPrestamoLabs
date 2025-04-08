@@ -1,5 +1,6 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.RowFilter;
@@ -37,7 +38,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         cargarTabla();
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +48,19 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnCerrarSesion1 = new javax.swing.JButton();
+        btnCerrarSesion2 = new javax.swing.JButton();
+        btnCerrarSesion3 = new javax.swing.JButton();
+        btnCerrarSesion4 = new javax.swing.JButton();
+        btnCerrarSesion5 = new javax.swing.JButton();
+        btnCerrarSesion6 = new javax.swing.JButton();
+        btnCerrarSesion7 = new javax.swing.JButton();
+        btnCerrarSesion8 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtLaboratorio = new javax.swing.JTextField();
@@ -77,14 +90,179 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoBlanco = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
+        Superior1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1540, 863));
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barra.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 40, 80));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Menú Principal");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, 20, 30));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 813, 229, 40));
+
+        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion1.setText("Cerrar Sesión");
+        btnCerrarSesion1.setBorder(null);
+        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion1MouseExited(evt);
+            }
+        });
+        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
+
+        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion2.setText("Cerrar Sesión");
+        btnCerrarSesion2.setBorder(null);
+        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion2MouseExited(evt);
+            }
+        });
+        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
+
+        btnCerrarSesion3.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion3.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion3.setText("Cerrar Sesión");
+        btnCerrarSesion3.setBorder(null);
+        btnCerrarSesion3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion3MouseExited(evt);
+            }
+        });
+        btnCerrarSesion3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
+
+        btnCerrarSesion4.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion4.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion4.setText("Cerrar Sesión");
+        btnCerrarSesion4.setBorder(null);
+        btnCerrarSesion4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion4MouseExited(evt);
+            }
+        });
+        btnCerrarSesion4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
+
+        btnCerrarSesion5.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion5.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion5.setText("Cerrar Sesión");
+        btnCerrarSesion5.setBorder(null);
+        btnCerrarSesion5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion5MouseExited(evt);
+            }
+        });
+        btnCerrarSesion5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 229, 40));
+
+        btnCerrarSesion6.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion6.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion6.setText("Cerrar Sesión");
+        btnCerrarSesion6.setBorder(null);
+        btnCerrarSesion6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion6MouseExited(evt);
+            }
+        });
+        btnCerrarSesion6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 229, 40));
+
+        btnCerrarSesion7.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion7.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion7.setText("Cerrar Sesión");
+        btnCerrarSesion7.setBorder(null);
+        btnCerrarSesion7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion7MouseExited(evt);
+            }
+        });
+        btnCerrarSesion7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 229, 40));
+
+        btnCerrarSesion8.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion8.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion8.setText("Cerrar Sesión");
+        btnCerrarSesion8.setBorder(null);
+        btnCerrarSesion8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion8MouseExited(evt);
+            }
+        });
+        btnCerrarSesion8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrarSesion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 229, 40));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, 40));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -183,14 +361,14 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, 10, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 490, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 180, 490, 250));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, 20));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("Buscar");
+        jTextField1.setText("Buscar ID");
         jTextField1.setToolTipText("");
         jTextField1.setBorder(null);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +376,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 139, 90, 20));
         String placeholder = "Buscar ID";
 
         // Al inicio, pon el placeholder en el campo de texto
@@ -262,7 +440,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 190, 40));
 
         tblLaboratorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,26 +473,32 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblLaboratorios);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 550));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 690, 550));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Lista de Laboratorios");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 240, 50));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 50));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 720));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1270, 740));
 
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
-        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 860));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+        FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
+        FondoGris1.setMinimumSize(new java.awt.Dimension(1540, 863));
+        FondoGris1.setPreferredSize(new java.awt.Dimension(1540, 863));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 920));
+
+        Superior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -534,6 +718,78 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblLaboratoriosMouseClicked
 
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion1MouseExited
+
+    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+
+    private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion2MouseExited
+
+    private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
+
+    private void btnCerrarSesion3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion3MouseExited
+
+    private void btnCerrarSesion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion3ActionPerformed
+
+    private void btnCerrarSesion4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion4MouseExited
+
+    private void btnCerrarSesion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion4ActionPerformed
+
+    private void btnCerrarSesion5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion5MouseExited
+
+    private void btnCerrarSesion5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion5ActionPerformed
+
+    private void btnCerrarSesion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion6MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion6MouseExited
+
+    private void btnCerrarSesion6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion6ActionPerformed
+
+    private void btnCerrarSesion7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion7MouseExited
+
+    private void btnCerrarSesion7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion7ActionPerformed
+
+    private void btnCerrarSesion8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion8MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion8MouseExited
+
+    private void btnCerrarSesion8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion8ActionPerformed
+
 
     
     
@@ -577,6 +833,16 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
+    private javax.swing.JLabel Superior1;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnCerrarSesion1;
+    private javax.swing.JButton btnCerrarSesion2;
+    private javax.swing.JButton btnCerrarSesion3;
+    private javax.swing.JButton btnCerrarSesion4;
+    private javax.swing.JButton btnCerrarSesion5;
+    private javax.swing.JButton btnCerrarSesion6;
+    private javax.swing.JButton btnCerrarSesion7;
+    private javax.swing.JButton btnCerrarSesion8;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHabilitarDeshabilitar;
@@ -585,6 +851,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbSeccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -596,6 +864,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel perfil;
     private javax.swing.JTable tblLaboratorios;
     private javax.swing.JTextField txtBloque;
     private javax.swing.JTextField txtCodigo;
