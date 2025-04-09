@@ -8,11 +8,20 @@
  * @author Rafael
  */
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 public class Login extends javax.swing.JFrame {
 
@@ -21,6 +30,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents(); /*WASAAAAAAAAAAAAA*/
+        contrasena.setEchoChar('•');
+        btnMostrarContraseña.setIcon(ojoOcultar);
     }
     
 
@@ -34,14 +45,15 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel2 = new RoundedPanel();
+        btnMostrarContraseña = new javax.swing.JButton();
+        Contraseña = new javax.swing.JLabel();
+        Linea3 = new javax.swing.JLabel();
         contrasena = new javax.swing.JPasswordField();
         IniciaSesion = new javax.swing.JButton();
         Usuario = new javax.swing.JLabel();
-        Linea = new javax.swing.JLabel();
         Linea2 = new javax.swing.JLabel();
         sesion = new javax.swing.JTextField();
-        Contraseña = new javax.swing.JLabel();
         FondoUniversidad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,19 +62,35 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CandadoInicioSesion.png"))); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 100, 80));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 230, 100, 80));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnMostrarContraseña.setBorder(null);
+        btnMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 30, 20));
+
+        Contraseña.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        Contraseña.setForeground(new java.awt.Color(102, 102, 102));
+        Contraseña.setText("Contraseña");
+        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 90, -1));
+
+        Linea3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BarraAzulLogin.png"))); // NOI18N
+        jPanel2.add(Linea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 410, 10));
+
+        contrasena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         contrasena.setBorder(null);
         contrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contrasenaActionPerformed(evt);
             }
         });
-        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 220, 30));
+        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 370, 20));
 
         IniciaSesion.setBackground(new java.awt.Color(29, 41, 57));
         IniciaSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,38 +100,50 @@ public class Login extends javax.swing.JFrame {
                 IniciaSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 150, 40));
 
-        Usuario.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        Usuario.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        Usuario.setForeground(new java.awt.Color(102, 102, 102));
         Usuario.setText("Usuario");
-        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 70, -1));
+        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 70, 20));
 
-        Linea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
-        jPanel2.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 3));
+        Linea2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BarraAzulLogin.png"))); // NOI18N
+        jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 410, 10));
 
-        Linea2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LineaNegraSesion.png"))); // NOI18N
-        jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 220, 3));
-
+        sesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         sesion.setBorder(null);
         sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sesionActionPerformed(evt);
             }
         });
-        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 220, 30));
+        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 360, 20));
 
-        Contraseña.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        Contraseña.setText("Contraseña");
-        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 490, 320));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 310, 280, 220));
-
-        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoUniversidad.png"))); // NOI18N
+        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoSalesiana.jpg"))); // NOI18N
         getContentPane().add(FondoUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public class RoundedPanel extends JPanel {
+    private int arcWidth = 30;  // Radio horizontal
+    private int arcHeight = 30; // Radio vertical
 
+    public RoundedPanel() {
+        setOpaque(false); // Esto es clave para que no se dibuje el fondo por defecto
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setColor(getBackground()); // Usa el color de fondo que le pongas
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+        g2.dispose();
+        super.paintComponent(g);
+    }
+}
     private void IniciaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciaSesionActionPerformed
         String user = sesion.getText();
         @SuppressWarnings("deprecation")
@@ -164,6 +204,19 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_contrasenaActionPerformed
 
+        ImageIcon ojoMostrar = new ImageIcon(getClass().getResource("/Imagenes/Ojo1.png"));
+        ImageIcon ojoOcultar = new ImageIcon(getClass().getResource("/Imagenes/Ojo2.png"));
+    private void btnMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarContraseñaActionPerformed
+
+        if (contrasena.getEchoChar() == '•') {
+            contrasena.setEchoChar((char) 0);  // Muestra la contraseña
+            btnMostrarContraseña.setIcon(ojoMostrar);
+        } else {
+            contrasena.setEchoChar('•');  // Oculta la contraseña
+             btnMostrarContraseña.setIcon(ojoOcultar);
+        }
+    }//GEN-LAST:event_btnMostrarContraseñaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -192,9 +245,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Contraseña;
     private javax.swing.JLabel FondoUniversidad;
     private javax.swing.JButton IniciaSesion;
-    private javax.swing.JLabel Linea;
     private javax.swing.JLabel Linea2;
+    private javax.swing.JLabel Linea3;
     private javax.swing.JLabel Usuario;
+    private javax.swing.JButton btnMostrarContraseña;
     private javax.swing.JPasswordField contrasena;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
