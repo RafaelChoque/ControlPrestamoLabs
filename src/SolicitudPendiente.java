@@ -118,19 +118,22 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     }//GEN-LAST:event_AprobarSolicitudActionPerformed
 
     private void RechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudActionPerformed
-        try {
-            int fila = TablaSolicitudes.getSelectedRow();
-            int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+    // try {
+        // int fila = TablaSolicitudes.getSelectedRow(); // Obtiene la fila seleccionada en la tabla de solicitudes
+        // int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString()); // Obtiene el ID de la solicitud seleccionada
 
-            String motivo = MotivoRechazo.getText().trim();
+        // String motivo = MotivoRechazo.getText().trim(); // Obtiene el motivo de rechazo desde el campo de texto
 
-            if (motivo.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud.");
-                return;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
-        }
+        // if (motivo.isEmpty()) { // Verifica si el campo de motivo está vacío
+            // JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud."); // Muestra un mensaje si no se ha ingresado motivo
+            // return; // Sale del método si no se ha ingresado motivo
+        // }
+
+        // Aquí va el código para actualizar el estado de la solicitud en la base de datos (pendiente de implementación)
+
+    // } catch (SQLException ex) {
+        // JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage()); // Muestra un mensaje de error en caso de excepción SQL
+    // }
     }//GEN-LAST:event_RechazarSolicitudActionPerformed
 
     /**
