@@ -29,6 +29,8 @@ import javax.swing.table.TableRowSorter;
  */
 public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
+    private int idUsuario;
+
     /**
      * Creates new form AdministradorPersonalAcademico
      */
@@ -53,14 +55,8 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         Superior = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         CerrarSesion = new javax.swing.JButton();
-        btnCerrarSesion8 = new javax.swing.JButton();
-        btnCerrarSesion7 = new javax.swing.JButton();
-        btnCerrarSesion6 = new javax.swing.JButton();
-        btnCerrarSesion5 = new javax.swing.JButton();
-        btnCerrarSesion4 = new javax.swing.JButton();
-        btnCerrarSesion3 = new javax.swing.JButton();
-        btnCerrarSesion2 = new javax.swing.JButton();
-        btnCerrarSesion1 = new javax.swing.JButton();
+        btnPrestamos = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
@@ -123,141 +119,39 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         });
         getContentPane().add(CerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 813, 229, 40));
 
-        btnCerrarSesion8.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion8.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion8.setText("Cerrar Sesión");
-        btnCerrarSesion8.setBorder(null);
-        btnCerrarSesion8.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPrestamos.setBackground(new java.awt.Color(29, 41, 57));
+        btnPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPrestamos.setForeground(new java.awt.Color(241, 241, 241));
+        btnPrestamos.setText("Prestamos");
+        btnPrestamos.setBorder(null);
+        btnPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion8MouseExited(evt);
+                btnPrestamosMouseExited(evt);
             }
         });
-        btnCerrarSesion8.addActionListener(new java.awt.event.ActionListener() {
+        btnPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion8ActionPerformed(evt);
+                btnPrestamosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 229, 40));
+        getContentPane().add(btnPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
 
-        btnCerrarSesion7.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion7.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion7.setText("Cerrar Sesión");
-        btnCerrarSesion7.setBorder(null);
-        btnCerrarSesion7.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("Inicio");
+        btnInicio.setBorder(null);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion7MouseExited(evt);
+                btnInicioMouseExited(evt);
             }
         });
-        btnCerrarSesion7.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion7ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 229, 40));
-
-        btnCerrarSesion6.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion6.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion6.setText("Cerrar Sesión");
-        btnCerrarSesion6.setBorder(null);
-        btnCerrarSesion6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion6MouseExited(evt);
-            }
-        });
-        btnCerrarSesion6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 229, 40));
-
-        btnCerrarSesion5.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion5.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion5.setText("Cerrar Sesión");
-        btnCerrarSesion5.setBorder(null);
-        btnCerrarSesion5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion5MouseExited(evt);
-            }
-        });
-        btnCerrarSesion5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 229, 40));
-
-        btnCerrarSesion4.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion4.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion4.setText("Cerrar Sesión");
-        btnCerrarSesion4.setBorder(null);
-        btnCerrarSesion4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion4MouseExited(evt);
-            }
-        });
-        btnCerrarSesion4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
-
-        btnCerrarSesion3.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion3.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion3.setText("Cerrar Sesión");
-        btnCerrarSesion3.setBorder(null);
-        btnCerrarSesion3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion3MouseExited(evt);
-            }
-        });
-        btnCerrarSesion3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
-
-        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion2.setText("Cerrar Sesión");
-        btnCerrarSesion2.setBorder(null);
-        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion2MouseExited(evt);
-            }
-        });
-        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
-
-        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion1.setText("Cerrar Sesión");
-        btnCerrarSesion1.setBorder(null);
-        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion1MouseExited(evt);
-            }
-        });
-        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
+        getContentPane().add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -793,79 +687,42 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
     private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
         // TODO add your handling code here:
-           // Crear la ventana de login
-    Login login = new Login();
-    login.setLocationRelativeTo(null); // Centrar la ventana
-    login.setVisible(true);
-
-    // Cerrar o esconder la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
+        // Crear la ventana de login
+        Login login = new Login();
+        login.setLocationRelativeTo(null); // Centrar la ventana
+        login.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
     // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_CerrarSesionActionPerformed
 
-    private void btnCerrarSesion8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion8MouseExited
+    private void btnPrestamosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrestamosMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion8MouseExited
+    }//GEN-LAST:event_btnPrestamosMouseExited
 
-    private void btnCerrarSesion8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion8ActionPerformed
+    private void btnPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamosActionPerformed
+      // Crear la ventana de FormularioPrestamo y pasar el idUsuario
+    FormularioPrestamo formulario = new FormularioPrestamo(this.idUsuario);
+    formulario.setLocationRelativeTo(null); // Centrar la ventana
+    formulario.setVisible(true);
 
-    }//GEN-LAST:event_btnCerrarSesion8ActionPerformed
+    // Cerrar esta ventana
+    this.dispose();
+    }//GEN-LAST:event_btnPrestamosActionPerformed
 
-    private void btnCerrarSesion7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion7MouseExited
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion7MouseExited
+    }//GEN-LAST:event_btnInicioMouseExited
 
-    private void btnCerrarSesion7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion7ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion7ActionPerformed
-
-    private void btnCerrarSesion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion6MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion6MouseExited
-
-    private void btnCerrarSesion6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion6ActionPerformed
-
-    private void btnCerrarSesion5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion5MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion5MouseExited
-
-    private void btnCerrarSesion5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion5ActionPerformed
-
-    private void btnCerrarSesion4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion4MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion4MouseExited
-
-    private void btnCerrarSesion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion4ActionPerformed
-
-    private void btnCerrarSesion3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion3MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion3MouseExited
-
-    private void btnCerrarSesion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion3ActionPerformed
-
-    private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion2MouseExited
-
-    private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
-
-    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1MouseExited
-
-    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+        // Crear la ventana de InicioPersonalAcademico
+        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
+        inicio.setLocationRelativeTo(null); // Centrar la ventana
+        inicio.setVisible(true);
+        // Cerrar la ventana actual
+        this.dispose(); // O puedes usar this.setVisible(false); si prefieres ocultarla
+    }//GEN-LAST:event_btnInicioActionPerformed
 
 
     /**
@@ -909,14 +766,8 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaPersonalAcademico;
     private javax.swing.JTextField Telefono;
-    private javax.swing.JButton btnCerrarSesion1;
-    private javax.swing.JButton btnCerrarSesion2;
-    private javax.swing.JButton btnCerrarSesion3;
-    private javax.swing.JButton btnCerrarSesion4;
-    private javax.swing.JButton btnCerrarSesion5;
-    private javax.swing.JButton btnCerrarSesion6;
-    private javax.swing.JButton btnCerrarSesion7;
-    private javax.swing.JButton btnCerrarSesion8;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnPrestamos;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel10;
