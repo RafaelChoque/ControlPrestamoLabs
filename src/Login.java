@@ -54,6 +54,9 @@ public class Login extends javax.swing.JFrame {
         Usuario = new javax.swing.JLabel();
         Linea2 = new javax.swing.JLabel();
         sesion = new javax.swing.JTextField();
+        lblErrorUsuario = new javax.swing.JLabel();
+        lblErrorContrasena = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         FondoUniversidad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,15 +78,15 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(btnMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 30, 20));
 
-        Contraseña.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        Contraseña.setFont(new java.awt.Font("Candara", 0, 24)); // NOI18N
         Contraseña.setForeground(new java.awt.Color(102, 102, 102));
         Contraseña.setText("Contraseña");
-        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 90, -1));
+        jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 168, 120, -1));
 
         Linea3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BarraAzulLogin.png"))); // NOI18N
         jPanel2.add(Linea3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 410, 10));
 
-        contrasena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        contrasena.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         contrasena.setBorder(null);
         contrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,24 +96,25 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 370, 20));
 
         IniciaSesion.setBackground(new java.awt.Color(29, 41, 57));
+        IniciaSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         IniciaSesion.setForeground(new java.awt.Color(255, 255, 255));
-        IniciaSesion.setText("Iniciar Sesion");
+        IniciaSesion.setText("Iniciar Sesión");
         IniciaSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IniciaSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 150, 40));
+        jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 170, 40));
 
-        Usuario.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        Usuario.setFont(new java.awt.Font("Candara", 0, 24)); // NOI18N
         Usuario.setForeground(new java.awt.Color(102, 102, 102));
         Usuario.setText("Usuario");
-        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 70, 20));
+        jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 68, 80, 30));
 
         Linea2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BarraAzulLogin.png"))); // NOI18N
         jPanel2.add(Linea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 410, 10));
 
-        sesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        sesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         sesion.setBorder(null);
         sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +123,18 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 360, 20));
 
+        lblErrorUsuario.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(lblErrorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 260, 20));
+
+        lblErrorContrasena.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(lblErrorContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 270, 20));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 490, 320));
 
-        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoSalesiana.jpg"))); // NOI18N
+        jLabel1.setText("Sistema de Control y Prestamo de Laboratorios de Electronica, Hardware, Redes y Telecomunicaciones - LosJackson");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 840, 620, -1));
+
+        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoLogin.png"))); // NOI18N
         getContentPane().add(FondoUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -148,6 +161,34 @@ public class RoundedPanel extends JPanel {
         String user = sesion.getText();
         @SuppressWarnings("deprecation")
         String pass = contrasena.getText();
+        
+        lblErrorUsuario.setText("");
+        lblErrorContrasena.setText("");
+        lblErrorUsuario.setText("");
+        lblErrorUsuario.setIcon(null);
+        lblErrorContrasena.setText("");
+        lblErrorContrasena.setIcon(null);
+        
+        
+        boolean camposValidos = true;
+        if (user.isEmpty()) {
+            ImageIcon iconoAdvertencia = new ImageIcon(getClass().getResource("/imagenes/Exclamacion3.png"));
+            lblErrorUsuario.setIcon(iconoAdvertencia);
+            lblErrorUsuario.setText("Porfavor introduzca un usuario.");
+
+            camposValidos = false;
+        }
+        if (pass.isEmpty()) {
+            ImageIcon iconoAdvertencia = new ImageIcon(getClass().getResource("/imagenes/Exclamacion3.png"));
+            lblErrorContrasena.setIcon(iconoAdvertencia);
+            lblErrorContrasena.setText("Porfavor introduzca una contraseña.");
+            camposValidos = false;
+        }
+
+        if (!camposValidos) {
+            return;
+        }
+        
         String query = "SELECT id_usuario, username, contrasena, rol, activo FROM usuarios "
                 + "WHERE username = ? AND contrasena = ?";
         try {
@@ -158,6 +199,7 @@ public class RoundedPanel extends JPanel {
             ps.setString(2, pass);
 
             ResultSet rs = ps.executeQuery();
+            
             //verifica si existe un usuario con los datos proporcionados
             if (rs.next()) {
                 String u = rs.getString("username");
@@ -177,6 +219,11 @@ public class RoundedPanel extends JPanel {
                         } else if (priv.equals("Administrador")) {
                             AdministradorTecnicoPrestamo ventanaadmin = new AdministradorTecnicoPrestamo();
                             ventanaadmin.setVisible(true);
+                            this.dispose();
+                        } else if (priv.equals("Personal Academico")) {
+                            // Lógica para redirigir a la interfaz de Personal Académico
+                            FormularioPrestamo ventanaAcademico = new FormularioPrestamo(idusuario);
+                            ventanaAcademico.setVisible(true);
                             this.dispose();
                         }
                     } else {
@@ -250,8 +297,13 @@ public class RoundedPanel extends JPanel {
     private javax.swing.JLabel Usuario;
     private javax.swing.JButton btnMostrarContraseña;
     private javax.swing.JPasswordField contrasena;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblErrorContrasena;
+    private javax.swing.JLabel lblErrorUsuario;
     private javax.swing.JTextField sesion;
     // End of variables declaration//GEN-END:variables
 }
+
+
