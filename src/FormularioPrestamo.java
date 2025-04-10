@@ -37,14 +37,13 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
         cargarNombreApellido(idusuario);
-HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
-    JSpinner.DateEditor editorInicio = new JSpinner.DateEditor(HorarioPersonalizadoInicio, "HH:mm");
-    HorarioPersonalizadoInicio.setEditor(editorInicio);
+        HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
+        JSpinner.DateEditor editorInicio = new JSpinner.DateEditor(HorarioPersonalizadoInicio, "HH:mm");
+        HorarioPersonalizadoInicio.setEditor(editorInicio);
 
-    // Configurar el JSpinner para la hora de fin
-    HorarioPersonalizadoFin.setModel(new SpinnerDateModel());
-    JSpinner.DateEditor editorFin = new JSpinner.DateEditor(HorarioPersonalizadoFin, "HH:mm");
-    HorarioPersonalizadoFin.setEditor(editorFin);
+        HorarioPersonalizadoFin.setModel(new SpinnerDateModel());
+        JSpinner.DateEditor editorFin = new JSpinner.DateEditor(HorarioPersonalizadoFin, "HH:mm");
+        HorarioPersonalizadoFin.setEditor(editorFin);
     }
 
     private FormularioPrestamo() {
@@ -91,6 +90,7 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
@@ -270,58 +270,58 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
     }
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // Obtener los valores del formulario
+        
         String motivo = Motivo.getText();
-        Date fechaGeneral = Fecha.getDate();  // Fecha seleccionada en JDateChooser
+        Date fechaGeneral = Fecha.getDate();  
         String tipoHorario = TipoHorario.getSelectedItem().toString();
 
-        // Inicializar las variables para hora de inicio y fin
+        
         String horaInicio = "";
         String horaFin = "";
 
         if (tipoHorario.equals("Fijo")) {
-            // Obtener el horario seleccionado del ComboBox
-            String horaSeleccionada = HorarioFijo.getSelectedItem().toString();  // ComboBox para horario fijo
+           
+            String horaSeleccionada = HorarioFijo.getSelectedItem().toString();  
             String[] horas = horaSeleccionada.split("-");
 
-            // Extraer hora de inicio y fin
+            
             horaInicio = horas[0].trim();
             horaFin = horas[1].trim();
         } else if (tipoHorario.equals("Personalizado")) {
-            horaInicio = HorarioPersonalizadoInicio.getValue().toString();  // JSpinner para hora de inicio personalizada
-            horaFin = HorarioPersonalizadoFin.getValue().toString();  // JSpinner para hora de fin personalizada
+            horaInicio = HorarioPersonalizadoInicio.getValue().toString();  
+            horaFin = HorarioPersonalizadoFin.getValue().toString();  
         }
 
-        // Convertir la fecha y hora a un formato compatible
+        
         java.sql.Date sqlFecha = new java.sql.Date(fechaGeneral.getTime());
 
-        // Validar el formato de hora
-        String formatoHora = "^(\\d{1,2}):(\\d{2})$";  // Validación simple para horas y minutos
+        
+        String formatoHora = "^(\\d{1,2}):(\\d{2})$";  
         if (!horaInicio.matches(formatoHora) || !horaFin.matches(formatoHora)) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un formato de hora válido.");
             return;
         }
 
-        // Parsear las horas
+        
         java.sql.Time sqlHoraInicio = java.sql.Time.valueOf(horaInicio + ":00");
         java.sql.Time sqlHoraFin = java.sql.Time.valueOf(horaFin + ":00");
 
-        // Obtener el laboratorio seleccionado y el personal académico
-        int idLaboratorio = obtenerLaboratorioSeleccionado();  // Método ficticio
-        int idPersonalAcademico = obtenerIdPersonalAcademico();  // Método ficticio
+        
+        int idLaboratorio = obtenerLaboratorioSeleccionado();  
+        int idPersonalAcademico = obtenerIdPersonalAcademico();  
 
-        // Guardar en la base de datos
+        
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement("INSERT INTO prestamos (ID_lab, id_personal_academico, motivo, fecha, horario_inicio, horario_fin, estado, tipo_horario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, idLaboratorio);
             ps.setInt(2, idPersonalAcademico);
             ps.setString(3, motivo);
-            ps.setDate(4, sqlFecha);  // Fecha del préstamo
-            ps.setTime(5, sqlHoraInicio);  // Hora de inicio
-            ps.setTime(6, sqlHoraFin);  // Hora de fin
-            ps.setString(7, "Pendiente");  // Estado del préstamo
-            ps.setString(8, tipoHorario);  // Tipo de horario (Fijo o Personalizado)
+            ps.setDate(4, sqlFecha);  
+            ps.setTime(5, sqlHoraInicio);  
+            ps.setTime(6, sqlHoraFin); 
+            ps.setString(7, "Pendiente");  
+            ps.setString(8, tipoHorario);  
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -340,26 +340,26 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
         limpiarFormulario();
     }//GEN-LAST:event_LimpiarActionPerformed
     private void limpiarFormulario() {
-        // Limpiar todos los campos del formulario
+        
         Nombre.setText("");
         Apellido.setText("");
         Motivo.setText("");
         Fecha.setDate(null);
-        TipoHorario.setSelectedIndex(0);  // Seleccionar el primer item (Fijo)
-        HorarioFijo.setSelectedIndex(0);  // Seleccionar el primer horario fijo
-        HorarioPersonalizadoFin.setValue(new Date());  // Limpiar el valor del JSpinner
-        Bloque.setSelectedIndex(0);  // Seleccionar el primer bloque
-        Seccion.setSelectedIndex(0);  // Seleccionar la primera sección
+        TipoHorario.setSelectedIndex(0);  
+        HorarioFijo.setSelectedIndex(0);  
+        HorarioPersonalizadoFin.setValue(new Date());  
+        Bloque.setSelectedIndex(0);  
+        Seccion.setSelectedIndex(0);  
     }
 
     private int obtenerLaboratorioSeleccionado() {
-        // Aquí debes obtener el ID del laboratorio seleccionado
-        return 1;  // Retornar un valor por defecto por ahora
+        
+        return 1;  
     }
 
     private int obtenerIdPersonalAcademico() {
-        // Aquí debes obtener el ID del personal académico que está logueado
-        return 1;  // Retornar un valor por defecto por ahora
+        
+        return 1;  
     }
     private void BloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueActionPerformed
         // TODO add your handling code here:
@@ -370,32 +370,31 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
     }//GEN-LAST:event_TablaPrestamosMouseClicked
 
     private void HorarioFijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioFijoActionPerformed
-        // Obtener el horario seleccionado del JComboBox
         String selectedTime = (String) HorarioFijo.getSelectedItem();
 
-        // Dividir la cadena por el guion (–) para obtener la hora de inicio y fin
+        
         String[] times = selectedTime.split("–");
 
-        // Extraer la hora de inicio y fin
-        String startTime = times[0].trim(); // Hora de inicio
-        String endTime = times[1].trim();   // Hora de fin
+        
+        String startTime = times[0].trim(); 
+        String endTime = times[1].trim();   
 
-        // Mostrar las horas obtenidas para verificar
+        
         System.out.println("Hora de inicio: " + startTime);
         System.out.println("Hora de fin: " + endTime);
 
-        // Crear un objeto SimpleDateFormat para parsear las horas
+        
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         try {
-            Date startDate = format.parse(startTime);  // Hora de inicio
-            Date endDate = format.parse(endTime);      // Hora de fin
+            Date startDate = format.parse(startTime);  
+            Date endDate = format.parse(endTime);      
 
-            // Asignar las horas al JSpinner de inicio y fin
+            
             ((JSpinner.DefaultEditor) HorarioPersonalizadoInicio.getEditor()).getTextField().setText(format.format(startDate));
             ((JSpinner.DefaultEditor) HorarioPersonalizadoFin.getEditor()).getTextField().setText(format.format(endDate));
 
         } catch (Exception ex) {
-            ex.printStackTrace(); // Manejar el error si la hora no tiene el formato esperado
+            ex.printStackTrace(); 
         }
     }//GEN-LAST:event_HorarioFijoActionPerformed
 
@@ -409,22 +408,22 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
     }//GEN-LAST:event_TipoHorarioActionPerformed
     private void cargarTabla() {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
-        modeloTabla.setRowCount(0);  // Limpiar la tabla antes de llenarla
+        modeloTabla.setRowCount(0);  
 
         PreparedStatement ps;
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
 
-        // Definir los anchos de las columnas de la tabla
+        
         int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80, 80,80};
         for (int i = 0; i < TablaPrestamos.getColumnCount(); i++) {
             TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
 
         try {
-            // Establecer la conexión con la base de datos
-            Connection con = Conexion.obtenerConexion();  // Usar tu método de conexión
+            
+            Connection con = Conexion.obtenerConexion();  
             ps = con.prepareStatement(
                     "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.tipo_horario "
                     + "FROM prestamos p "
@@ -435,13 +434,13 @@ HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
 
-            // Llenar la tabla con los datos obtenidos
+            
             while (rs.next()) {
                 Object[] fila = new Object[columnas];
                 for (int indice = 0; indice < columnas; indice++) {
                     fila[indice] = rs.getObject(indice + 1);
                 }
-                modeloTabla.addRow(fila);  // Añadir la fila a la tabla
+                modeloTabla.addRow(fila);  
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);

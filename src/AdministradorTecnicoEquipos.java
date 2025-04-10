@@ -542,7 +542,8 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
         }
-    }    private void Limpiar(){
+    }    
+    private void Limpiar(){
         RU.setText("");
         Nombre.setText("");
         Apellido.setText("");
@@ -887,15 +888,10 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
-              // Crear la ventana de login
-              Login login = new Login();
-              login.setLocationRelativeTo(null); // Centrar la ventana
-              login.setVisible(true);
-
-    // Cerrar o esconder la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
-    // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        Login login = new Login();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**

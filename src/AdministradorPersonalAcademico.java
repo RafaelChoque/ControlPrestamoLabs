@@ -36,7 +36,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         initComponents();
         ID.setVisible(false);
         this.setLocationRelativeTo(null);
-        cargarTabla();
+        //cargarTabla();
     }
 
     /**
@@ -502,7 +502,42 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /*private void cargarTabla(){
+        DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
+        modeloTabla.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas;
+        
+        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
+        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
+            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+        try {
+            Connection con=Conexion.obtenerConexion();
+            ps = con.prepareStatement(
+                    "SELECT p.id_personal_academico, p.RU, p.nombre, p.apellido, p.CI, p.telefono, u.activo "
+                    +"FROM personal_academico p"
+                    +"INNER JOIN usuarios u ON p.id_usuario = u.id_usuario"
+            );
+            rs= ps.executeQuery();
+            rsmd=rs.getMetaData();
+            columnas=rsmd.getColumnCount();
+            
+            while (rs.next()){
+                Object[] fila=new Object[columnas];
+                for (int indice=0; indice<columnas-1; indice++){
+                    fila[indice]= rs.getObject(indice+1);
+                }
+                //activo o inactivo
+                fila[columnas-1]=rs.getInt("activo")==1?"Activo":"Inactivo";
+                modeloTabla.addRow(fila);
+            }
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }*/
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     String ruText=RU.getText();
     String nombre=Nombre.getText();
@@ -552,7 +587,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 interfaz.setVisible(true);
                 
                 Limpiar();
-                cargarTabla();
+                //cargarTabla();
     }catch(SQLException ex){
         System.out.print(ex.toString());
     }
@@ -594,7 +629,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psUsuario.setInt(4, activo);
             psUsuario.setInt(5, idUsuario);
             psUsuario.executeUpdate();
-            PreparedStatement psPersonalAcademico=con.prepareStatement("UPDATE personal_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_personal_academico = ?");
+            PreparedStatement psPersonalAcademico=con.prepareStatement("UPDATE personal_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_personal_academico= ?");
             psPersonalAcademico.setInt(1, ru);
             psPersonalAcademico.setString(2, nombre);
             psPersonalAcademico.setString(3, apellido);
@@ -604,7 +639,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psPersonalAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
             Limpiar();
-            cargarTabla();
+            //cargarTabla();
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
@@ -632,7 +667,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 psUsuario.executeUpdate();
                 JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
                 Limpiar();
-                cargarTabla();
+                //cargarTabla();
             }else{
                 JOptionPane.showMessageDialog(null,"No se encontro al personal");
             }
@@ -672,7 +707,55 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_IDActionPerformed
 
     private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
-        
+                int fila = TablaPersonalAcademico.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un Tecnico.");
+            return;
+        }
+
+        int tecnicoId = Integer.parseInt(TablaPersonalAcademico.getValueAt(fila, 0).toString());
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            // Obtener el id_usuario
+            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM personal_academico WHERE id_personal_academico=?");
+            psObtenerUsuario.setInt(1, tecnicoId);
+            ResultSet rsUsuario = psObtenerUsuario.executeQuery();
+
+            if (!rsUsuario.next()) {
+                JOptionPane.showMessageDialog(null, "Error al encontrar el usuario asociado al técnico.");
+                return;
+            }
+
+            int idUsuario = rsUsuario.getInt("id_usuario");
+
+            PreparedStatement psEstado = con.prepareStatement("SELECT activo FROM usuarios WHERE id_usuario=?");
+            psEstado.setInt(1, idUsuario);
+            ResultSet rsEstado = psEstado.executeQuery();
+
+            if (!rsEstado.next()) {
+                JOptionPane.showMessageDialog(null, "Error al encontrar el estado del usuario.");
+                return;
+            }
+
+            int estadoActual = rsEstado.getInt("activo");
+
+            int nuevoEstado = (estadoActual == 1) ? 0 : 1;
+
+            PreparedStatement psActualizar = con.prepareStatement("UPDATE usuarios SET activo=? WHERE id_usuario=?");
+            psActualizar.setInt(1, nuevoEstado);
+            psActualizar.setInt(2, idUsuario);
+            psActualizar.executeUpdate();
+
+            String mensaje = (nuevoEstado == 1) ? "Personal habilitado." : "Personal deshabilitado.";
+            JOptionPane.showMessageDialog(null, mensaje);
+
+            //cargarTabla();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
 
     private void TablaPersonalAcademicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPersonalAcademicoMouseClicked
@@ -682,7 +765,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
            PreparedStatement ps;
            ResultSet rs;
            Connection con=Conexion.obtenerConexion();
-           ps= con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM personal_academico WHERE id_personal=?");
+           ps= con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM personal_academico WHERE id_personal_academico=?");
            ps.setInt(1,id);
            rs=ps.executeQuery();
            
@@ -784,42 +867,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
 
-    private void cargarTabla(){
-        DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
-        modeloTabla.setRowCount(0);
-        PreparedStatement ps;
-        ResultSet rs;
-        ResultSetMetaData rsmd;
-        int columnas;
-        
-        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
-        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
-            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-        }
-        try {
-            Connection con=Conexion.obtenerConexion();
-            ps = con.prepareStatement(
-                    "SELECT t.id_personal, t.RU, t.nombre, t.apellido, t.CI, t.telefono, u.activo "
-                    +"FROM personal_academico t"
-                    +"INNER JOIN usuarios u ON t.id_usuario = u.id_usuario"
-            );
-            rs= ps.executeQuery();
-            rsmd=rs.getMetaData();
-            columnas=rsmd.getColumnCount();
-            
-            while (rs.next()){
-                Object[] fila=new Object[columnas];
-                for (int indice=0; indice<columnas-1; indice++){
-                    fila[indice]= rs.getObject(indice+1);
-                }
-                //activo o inactivo
-                fila[columnas-1]=rs.getInt("Activo")==1?"Activo":"Inactivo";
-                modeloTabla.addRow(fila);
-            }
-        } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }
-    }
+
     /**
      * @param args the command line arguments
      */

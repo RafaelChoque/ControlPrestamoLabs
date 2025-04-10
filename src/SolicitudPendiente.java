@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 public class SolicitudPendiente extends javax.swing.JFrame {
 
     /**
@@ -22,6 +23,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
      */
     public SolicitudPendiente() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -40,6 +42,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         RechazarSolicitud = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         MotivoRechazo = new javax.swing.JTextArea();
+        AgregarPrestamo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -49,14 +52,14 @@ public class SolicitudPendiente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Docente", "Motivo", "Fecha de Inicio", "Fecha de Fin", "Estado"
+                "ID", "Laboratorio", "Docente", "Motivo", "Fecha de Inicio", "Fecha de Fin", "Estado", "Motivo del Rechazo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
+                false, false, false, false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -69,7 +72,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaSolicitudes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 710, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 930, -1));
 
         jLabel1.setText("SOLICITUDES PENDIENTES");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
@@ -80,7 +83,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 AprobarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, -1, -1));
+        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 90, -1, -1));
 
         RechazarSolicitud.setText("Rechazar");
         RechazarSolicitud.addActionListener(new java.awt.event.ActionListener() {
@@ -88,17 +91,59 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 RechazarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, -1, -1));
+        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, -1, -1));
 
         MotivoRechazo.setColumns(20);
         MotivoRechazo.setRows(5);
         jScrollPane2.setViewportView(MotivoRechazo);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 400, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 400, 210));
+
+        AgregarPrestamo.setText("Seleccionar Laboratorio");
+        getContentPane().add(AgregarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void cargarTabla() {
+    DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
+    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de llenarla
+    
+    PreparedStatement ps;
+    ResultSet rs;
+    ResultSetMetaData rsmd;
+    int columnas;
 
+    
+    int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80};
+    for (int i = 0; i < TablaSolicitudes.getColumnCount(); i++) {
+        TablaSolicitudes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+    }
+
+    try {
+        
+        Connection con = Conexion.obtenerConexion();  
+        ps = con.prepareStatement(
+            "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha_inicio, p.fecha_fin, p.estado "
+            + "FROM prestamos p "
+            + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+            + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
+        );
+        rs = ps.executeQuery();
+        rsmd = rs.getMetaData();
+        columnas = rsmd.getColumnCount();
+
+        
+        while (rs.next()) {
+            Object[] fila = new Object[columnas];
+            for (int indice = 0; indice < columnas; indice++) {
+                fila[indice] = rs.getObject(indice + 1);
+            }
+            modeloTabla.addRow(fila);  
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     private void AprobarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprobarSolicitudActionPerformed
         try{
         int fila = TablaSolicitudes.getSelectedRow();
@@ -118,22 +163,36 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     }//GEN-LAST:event_AprobarSolicitudActionPerformed
 
     private void RechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudActionPerformed
-    // try {
-        // int fila = TablaSolicitudes.getSelectedRow(); // Obtiene la fila seleccionada en la tabla de solicitudes
-        // int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString()); // Obtiene el ID de la solicitud seleccionada
+    int fila = TablaSolicitudes.getSelectedRow();
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para rechazar.");
+        return;
+    }
 
-        // String motivo = MotivoRechazo.getText().trim(); // Obtiene el motivo de rechazo desde el campo de texto
+    String motivo = MotivoRechazo.getText().trim();
+    if (motivo.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud.");
+        return;
+    }
 
-        // if (motivo.isEmpty()) { // Verifica si el campo de motivo está vacío
-            // JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud."); // Muestra un mensaje si no se ha ingresado motivo
-            // return; // Sale del método si no se ha ingresado motivo
-        // }
+    try {
+        int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
 
-        // Aquí va el código para actualizar el estado de la solicitud en la base de datos (pendiente de implementación)
+        Connection con = Conexion.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Rechazado', motivo = ? WHERE id_prestamo = ?");
+        ps.setString(1, motivo);
+        ps.setInt(2, idSolicitud);
+        ps.executeUpdate();
 
-    // } catch (SQLException ex) {
-        // JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage()); // Muestra un mensaje de error en caso de excepción SQL
-    // }
+        JOptionPane.showMessageDialog(null, "Solicitud rechazada correctamente.");
+        MotivoRechazo.setText(""); 
+        
+        
+        cargarTabla();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
+    }
     }//GEN-LAST:event_RechazarSolicitudActionPerformed
 
     /**
@@ -162,6 +221,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarPrestamo;
     private javax.swing.JButton AprobarSolicitud;
     private javax.swing.JTextArea MotivoRechazo;
     private javax.swing.JButton RechazarSolicitud;

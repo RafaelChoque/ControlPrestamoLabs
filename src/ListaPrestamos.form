@@ -353,7 +353,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="280" y="180" width="710" height="-1"/>
+          <AbsoluteConstraints x="280" y="180" width="1220" height="640"/>
         </Constraint>
       </Constraints>
 
@@ -362,18 +362,36 @@
         <Component class="javax.swing.JTable" name="TablaPrestamos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="10" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Laboratorio" type="java.lang.String"/>
-                <Column editable="false" title="Docente" type="java.lang.String"/>
+                <Column editable="false" title="Nombre" type="java.lang.String"/>
+                <Column editable="false" title="Apellido" type="java.lang.String"/>
                 <Column editable="false" title="Motivo" type="java.lang.String"/>
+                <Column editable="false" title="Bloque" type="java.lang.String"/>
+                <Column editable="false" title="Secci&#xf3;n" type="java.lang.String"/>
                 <Column editable="false" title="Fecha de Inicio" type="java.lang.String"/>
-                <Column editable="true" title="Fecha de Fin" type="java.lang.String"/>
+                <Column editable="false" title="Fecha de Fin" type="java.lang.String"/>
                 <Column editable="false" title="Estado" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -423,7 +441,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Candara" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Historial de Prestamos"/>
+        <Property name="text" type="java.lang.String" value="Historial de Solicitudes"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -444,19 +462,6 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="AgregarPrestamo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar Prestamo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarPrestamoActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1140" y="450" width="-1" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JButton" name="ActualizarTabla">
       <Properties>
         <Property name="text" type="java.lang.String" value="Actualizar Tabla"/>
@@ -466,7 +471,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="650" y="640" width="-1" height="-1"/>
+          <AbsoluteConstraints x="730" y="130" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

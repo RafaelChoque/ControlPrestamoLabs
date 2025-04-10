@@ -30,6 +30,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents(); /*WASAAAAAAAAAAAAA*/
+        
         contrasena.setEchoChar('•');
         btnMostrarContraseña.setIcon(ojoOcultar);
     }

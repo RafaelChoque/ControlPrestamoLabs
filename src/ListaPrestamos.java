@@ -58,7 +58,6 @@ public class ListaPrestamos extends javax.swing.JFrame {
         TablaPrestamos = new javax.swing.JTable();
         ListadePrestamos = new javax.swing.JLabel();
         BuscarSolicitudes = new javax.swing.JButton();
-        AgregarPrestamo = new javax.swing.JButton();
         ActualizarTabla = new javax.swing.JButton();
         FondoGris1 = new javax.swing.JLabel();
 
@@ -246,14 +245,14 @@ public class ListaPrestamos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Docente", "Motivo", "Fecha de Inicio", "Fecha de Fin", "Estado"
+                "ID", "Laboratorio", "Nombre", "Apellido", "Motivo", "Bloque", "Sección", "Fecha de Inicio", "Fecha de Fin", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -266,10 +265,10 @@ public class ListaPrestamos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaPrestamos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 710, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 1220, 640));
 
         ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        ListadePrestamos.setText("Historial de Prestamos");
+        ListadePrestamos.setText("Historial de Solicitudes");
         getContentPane().add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
 
         BuscarSolicitudes.setText("Buscar Solicitudes");
@@ -280,21 +279,13 @@ public class ListaPrestamos extends javax.swing.JFrame {
         });
         getContentPane().add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, -1, -1));
 
-        AgregarPrestamo.setText("Agregar Prestamo");
-        AgregarPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarPrestamoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(AgregarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 450, -1, -1));
-
         ActualizarTabla.setText("Actualizar Tabla");
         ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ActualizarTablaActionPerformed(evt);
             }
         });
-        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 640, -1, -1));
+        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, -1, -1));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
@@ -303,38 +294,42 @@ public class ListaPrestamos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void cargarTabla() {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
-        modeloTabla.setRowCount(0);
+        modeloTabla.setRowCount(0);  
 
         PreparedStatement ps;
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
 
-        int[] anchos = {10, 100, 100, 150, 90, 90, 60};
+       
+        int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80};
         for (int i = 0; i < TablaPrestamos.getColumnCount(); i++) {
             TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
-        try {
-            Connection con = Conexion.obtenerConexion();
 
-            ps = con.prepareStatement(
-            "s"
-            );
+        try {
             
+            Connection con = Conexion.obtenerConexion();  
+            ps = con.prepareStatement(
+                    "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha_inicio, p.fecha_fin, p.estado "
+                    + "FROM prestamos p "
+                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
+            );
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
-            
-            while(rs.next()){
-                Object[] fila = new Object[columnas];
-                for(int i = 0; i<columnas; i++){
-                    fila[i] =rs.getObject(i+1);
-                }
-                modeloTabla.addRow(fila);
-            }
 
+           
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int indice = 0; indice < columnas; indice++) {
+                    fila[indice] = rs.getObject(indice + 1);
+                }
+                modeloTabla.addRow(fila);  
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al cargar la tabla: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     private boolean haySolicitudesPendientes() {
@@ -355,11 +350,11 @@ public class ListaPrestamos extends javax.swing.JFrame {
     }
     private void actualizarColorBotonSolicitud() {
         if (haySolicitudesPendientes()) {
-            // Cambia el color del botón a rojo si hay solicitudes pendientes
+          
             BuscarSolicitudes.setBackground(Color.RED);
             BuscarSolicitudes.setText("¡Solicitudes Pendientes!");
         } else {
-            // Vuelve al color original si no hay solicitudes pendientes
+            
             BuscarSolicitudes.setBackground(UIManager.getColor("Button.background"));
             BuscarSolicitudes.setText("Buscar Solicitudes");
         }
@@ -369,10 +364,6 @@ public class ListaPrestamos extends javax.swing.JFrame {
      solicitudpendientes.setVisible(true);
      
     }//GEN-LAST:event_BuscarSolicitudesActionPerformed
-
-    private void AgregarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarPrestamoActionPerformed
-        
-    }//GEN-LAST:event_AgregarPrestamoActionPerformed
 
     private void ActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaActionPerformed
         cargarTabla();
@@ -474,7 +465,6 @@ public class ListaPrestamos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTabla;
-    private javax.swing.JButton AgregarPrestamo;
     private javax.swing.JButton BuscarSolicitudes;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
