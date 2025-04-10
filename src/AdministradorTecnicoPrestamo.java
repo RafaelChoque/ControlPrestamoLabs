@@ -41,8 +41,8 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        LogoSale1 = new javax.swing.JLabel();
         perfil1 = new javax.swing.JLabel();
+        LogoSale2 = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -89,11 +89,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 60));
-
         perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        LogoSale2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        getContentPane().add(LogoSale2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
@@ -275,7 +275,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 90, 20));
         String placeholder = "Buscar RU";
 
         jTextField1.setText(placeholder);
@@ -335,10 +335,10 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 190, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -451,7 +451,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         AgregarTecnico.setText("Agregar Técnico de Prestamos");
         jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 500, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 180, 500, 250));
 
         TablaTecnicoPrestamo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -483,17 +483,17 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaTecnicoPrestamo);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 610));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 690, 610));
 
         ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaTecnicos.setText("Lista de Tecnicos de Prestamos");
-        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 340, -1));
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 340, -1));
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
         getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 60));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1270, 760));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
@@ -893,14 +893,11 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
             // TODO add your handling code here:
-              // Crear la ventana de login
               Login login = new Login();
-              login.setLocationRelativeTo(null); // Centrar la ventana
+              login.setLocationRelativeTo(null);
               login.setVisible(true);
-
-    // Cerrar o esconder la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
-    // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+    this.dispose(); 
+    // o this.setVisible(false);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
@@ -939,7 +936,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel ListaTecnicos;
     private javax.swing.JLabel LogoSale;
-    private javax.swing.JLabel LogoSale1;
+    private javax.swing.JLabel LogoSale2;
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField RU;
     private javax.swing.JLabel Superior;

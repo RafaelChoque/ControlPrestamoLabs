@@ -50,6 +50,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        LogoSale = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         btnCerrarSesion1 = new javax.swing.JButton();
         btnCerrarSesion2 = new javax.swing.JButton();
@@ -85,7 +86,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLaboratorios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        LogoSale = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
         Izquierda = new javax.swing.JLabel();
@@ -104,6 +104,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, 20, 30));
+
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
 
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -378,18 +381,14 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 139, 90, 20));
         String placeholder = "Buscar ID";
-
-        // Al inicio, pon el placeholder en el campo de texto
         jTextField1.setText(placeholder);
-        jTextField1.setForeground(Color.GRAY); // Estilo de texto guía
-
-        // Listener para manejar el enfoque
+        jTextField1.setForeground(Color.GRAY);
         jTextField1.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (jTextField1.getText().equals(placeholder)) {
                     jTextField1.setText("");
-                    jTextField1.setForeground(Color.BLACK); // Color normal para escribir
+                    jTextField1.setForeground(Color.BLACK);
                 }
             }
 
@@ -401,8 +400,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 }
             }
         });
-
-        // Listener para filtrar
         jTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -418,21 +415,16 @@ public class ListaLaboratorios extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
                 filterTable();
             }
-
             private void filterTable() {
                 String query = jTextField1.getText().toLowerCase();
-
-                // Si el texto es el placeholder, no filtrar nada
                 if (query.equals(placeholder.toLowerCase())) {
-                    tblLaboratorios.setRowSorter(null); // Mostrar todos
+                    tblLaboratorios.setRowSorter(null);
                     return;
                 }
-
                 TableRowSorter<TableModel> sorter = new TableRowSorter<>(tblLaboratorios.getModel());
                 tblLaboratorios.setRowSorter(sorter);
-
                 if (query.trim().isEmpty()) {
-                    sorter.setRowFilter(null); // Mostrar todo
+                    sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)
                 }
@@ -478,9 +470,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Lista de Laboratorios");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 50));
-
-        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 60));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));

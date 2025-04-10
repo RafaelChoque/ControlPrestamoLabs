@@ -272,7 +272,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaPersonal.setText("Lista de Personal Académico");
-        getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 340, -1));
+        getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 340, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -385,7 +385,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         AgregarTecnico.setText("Agregar Personal Académico");
         jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 500, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 180, 500, 250));
 
         TablaPersonalAcademico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -417,7 +417,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaPersonalAcademico);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 690, 610));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 690, 610));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -429,7 +429,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 90, 20));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 90, 20));
         String placeholder = "Buscar RU";
 
         jTextField1.setText(placeholder);
@@ -489,13 +489,13 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         });
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 190, 40));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 730));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1270, 760));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1540, 870));

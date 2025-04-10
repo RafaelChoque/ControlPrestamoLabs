@@ -106,7 +106,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 private void cargarTabla() {
     DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
-    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de llenarla
+    modeloTabla.setRowCount(0);  
     
     PreparedStatement ps;
     ResultSet rs;

@@ -59,6 +59,18 @@
         </Constraint>
       </Constraints>
     </Component>
+    <Component class="javax.swing.JLabel" name="LogoSale">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/LogoUSB.png"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="20" y="0" width="170" height="60"/>
+        </Constraint>
+      </Constraints>
+    </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -601,7 +613,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String placeholder = &quot;Buscar ID&quot;;&#xa;&#xa;// Al inicio, pon el placeholder en el campo de texto&#xa;jTextField1.setText(placeholder);&#xa;jTextField1.setForeground(Color.GRAY); // Estilo de texto gu&#xed;a&#xa;&#xa;// Listener para manejar el enfoque&#xa;jTextField1.addFocusListener(new FocusAdapter() {&#xa;    @Override&#xa;    public void focusGained(FocusEvent e) {&#xa;        if (jTextField1.getText().equals(placeholder)) {&#xa;            jTextField1.setText(&quot;&quot;);&#xa;            jTextField1.setForeground(Color.BLACK); // Color normal para escribir&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent e) {&#xa;        if (jTextField1.getText().isEmpty()) {&#xa;            jTextField1.setText(placeholder);&#xa;            jTextField1.setForeground(Color.GRAY);&#xa;        }&#xa;    }&#xa;});&#xa;&#xa;// Listener para filtrar&#xa;jTextField1.getDocument().addDocumentListener(new DocumentListener() {&#xa;    @Override&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    private void filterTable() {&#xa;        String query = jTextField1.getText().toLowerCase();&#xa;&#xa;        // Si el texto es el placeholder, no filtrar nada&#xa;        if (query.equals(placeholder.toLowerCase())) {&#xa;            tblLaboratorios.setRowSorter(null); // Mostrar todos&#xa;            return;&#xa;        }&#xa;&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tblLaboratorios.getModel());&#xa;        tblLaboratorios.setRowSorter(sorter);&#xa;&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null); // Mostrar todo&#xa;        } else {&#xa;            sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)&#xa;        }&#xa;    }&#xa;});"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String placeholder = &quot;Buscar ID&quot;;&#xa;jTextField1.setText(placeholder);&#xa;jTextField1.setForeground(Color.GRAY); &#xa;jTextField1.addFocusListener(new FocusAdapter() {&#xa;    @Override&#xa;    public void focusGained(FocusEvent e) {&#xa;        if (jTextField1.getText().equals(placeholder)) {&#xa;            jTextField1.setText(&quot;&quot;);&#xa;            jTextField1.setForeground(Color.BLACK); &#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent e) {&#xa;        if (jTextField1.getText().isEmpty()) {&#xa;            jTextField1.setText(placeholder);&#xa;            jTextField1.setForeground(Color.GRAY);&#xa;        }&#xa;    }&#xa;});&#xa;jTextField1.getDocument().addDocumentListener(new DocumentListener() {&#xa;    @Override&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;    private void filterTable() {&#xa;        String query = jTextField1.getText().toLowerCase();&#xa;        if (query.equals(placeholder.toLowerCase())) {&#xa;            tblLaboratorios.setRowSorter(null); &#xa;            return;&#xa;        }&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tblLaboratorios.getModel());&#xa;        tblLaboratorios.setRowSorter(sorter);&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null); &#xa;        } else {&#xa;            sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)&#xa;        }&#xa;    }&#xa;});"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -706,18 +718,6 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="270" y="90" width="240" height="50"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="LogoSale">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/logosaleint.png"/>
-        </Property>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="0" width="170" height="60"/>
         </Constraint>
       </Constraints>
     </Component>

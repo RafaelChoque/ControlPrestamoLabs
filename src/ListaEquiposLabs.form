@@ -28,12 +28,12 @@
     <Component class="javax.swing.JLabel" name="LogoSale">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/logosaleint.png"/>
+          <Image iconType="3" name="/Imagenes/LogoUSB.png"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="0" width="170" height="60"/>
+          <AbsoluteConstraints x="20" y="0" width="170" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -356,7 +356,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="310" y="150" width="240" height="40"/>
+          <AbsoluteConstraints x="270" y="90" width="240" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -378,7 +378,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="330" y="210" width="-1" height="-1"/>
+          <AbsoluteConstraints x="270" y="130" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -406,7 +406,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="260" y="110" width="1250" height="720"/>
+          <AbsoluteConstraints x="250" y="80" width="1250" height="720"/>
         </Constraint>
       </Constraints>
     </Component>

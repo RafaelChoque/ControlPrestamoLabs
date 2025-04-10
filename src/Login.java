@@ -80,7 +80,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(btnMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 30, 20));
 
         Contraseña.setFont(new java.awt.Font("Candara", 0, 24)); // NOI18N
-        Contraseña.setForeground(new java.awt.Color(102, 102, 102));
+        Contraseña.setForeground(new java.awt.Color(51, 51, 51));
         Contraseña.setText("Contraseña");
         jPanel2.add(Contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 168, 120, -1));
 
@@ -94,7 +94,7 @@ public class Login extends javax.swing.JFrame {
                 contrasenaActionPerformed(evt);
             }
         });
-        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 370, 20));
+        jPanel2.add(contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 190, 370, 20));
 
         IniciaSesion.setBackground(new java.awt.Color(29, 41, 57));
         IniciaSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -108,7 +108,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(IniciaSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 170, 40));
 
         Usuario.setFont(new java.awt.Font("Candara", 0, 24)); // NOI18N
-        Usuario.setForeground(new java.awt.Color(102, 102, 102));
+        Usuario.setForeground(new java.awt.Color(51, 51, 51));
         Usuario.setText("Usuario");
         jPanel2.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 68, 80, 30));
 
@@ -122,7 +122,7 @@ public class Login extends javax.swing.JFrame {
                 sesionActionPerformed(evt);
             }
         });
-        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 360, 20));
+        jPanel2.add(sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 90, 360, 20));
 
         lblErrorUsuario.setForeground(new java.awt.Color(255, 0, 0));
         jPanel2.add(lblErrorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 260, 20));
@@ -141,17 +141,17 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public class RoundedPanel extends JPanel {
-    private int arcWidth = 30;  // Radio horizontal
-    private int arcHeight = 30; // Radio vertical
+    private int arcWidth = 30;  
+    private int arcHeight = 30;     
 
     public RoundedPanel() {
-        setOpaque(false); // Esto es clave para que no se dibuje el fondo por defecto
+        setOpaque(false);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setColor(getBackground()); // Usa el color de fondo que le pongas
+        g2.setColor(getBackground());
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
         g2.dispose();
@@ -201,17 +201,15 @@ public class RoundedPanel extends JPanel {
 
             ResultSet rs = ps.executeQuery();
             
-            //verifica si existe un usuario con los datos proporcionados
             if (rs.next()) {
                 String u = rs.getString("username");
                 String p = rs.getString("contrasena");
                 String priv = rs.getString("rol");
                 int idusuario = rs.getInt("id_usuario");
-                boolean activo = rs.getBoolean("activo"); // Obtén el estado activo
+                boolean activo = rs.getBoolean("activo"); 
 
-                if (activo) { // Verifica si el usuario está activo
+                if (activo) { 
                     if (pass.equals(p)) {
-                        // Redirige a la interfaz correspondiente según el rol
                         if (priv.equals("Tecnico de Prestamos")) {
  
                             this.dispose();
@@ -222,7 +220,6 @@ public class RoundedPanel extends JPanel {
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Personal Academico")) {
-                            // Lógica para redirigir a la interfaz de Personal Académico
                             FormularioPrestamo ventanaAcademico = new FormularioPrestamo(idusuario);
                             ventanaAcademico.setVisible(true);
                             this.dispose();
@@ -257,10 +254,10 @@ public class RoundedPanel extends JPanel {
     private void btnMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarContraseñaActionPerformed
 
         if (contrasena.getEchoChar() == '•') {
-            contrasena.setEchoChar((char) 0);  // Muestra la contraseña
+            contrasena.setEchoChar((char) 0);  
             btnMostrarContraseña.setIcon(ojoMostrar);
         } else {
-            contrasena.setEchoChar('•');  // Oculta la contraseña
+            contrasena.setEchoChar('•'); 
              btnMostrarContraseña.setIcon(ojoOcultar);
         }
     }//GEN-LAST:event_btnMostrarContraseñaActionPerformed

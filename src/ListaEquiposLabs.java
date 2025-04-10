@@ -51,8 +51,8 @@ public class ListaEquiposLabs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 60));
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
 
         perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -229,7 +229,7 @@ public class ListaEquiposLabs extends javax.swing.JFrame {
 
         ListaCompus.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaCompus.setText("Lista de Computadoras");
-        getContentPane().add(ListaCompus, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 240, 40));
+        getContentPane().add(ListaCompus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 40));
 
         Laboratorio.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         getContentPane().add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 240, 40));
@@ -247,10 +247,10 @@ public class ListaEquiposLabs extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, -1, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 1250, 720));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1250, 720));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
