@@ -1,4 +1,8 @@
-
+package Administrador;
+import PersonalAcademico.InicioPersonalAcademico;
+import PersonalAcademico.FormularioPrestamo;
+import ConexionLogin.Login;
+import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -16,6 +20,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 
 
 /*

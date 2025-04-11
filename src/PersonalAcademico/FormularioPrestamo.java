@@ -1,4 +1,7 @@
+package PersonalAcademico;
 
+
+import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +76,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         MotivoRechazo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        MostrarMotivoRechazo = new javax.swing.JTextArea();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -289,16 +292,39 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         MotivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        MotivoRechazo.setText("Motivo del Rechazo");
+        MotivoRechazo.setText("Descripción");
         jPanel2.add(MotivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        MostrarMotivoRechazo.setColumns(20);
-        MostrarMotivoRechazo.setRows(5);
-        jScrollPane2.setViewportView(MostrarMotivoRechazo);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 520, 160));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 100, 570, 220));
+            },
+            new String [] {
+                "ID", "Laboratorio", "Estado", "Motivo del Rechazo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 530, 290));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 100, 570, 360));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -398,6 +424,8 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaPersonal.setText("Historial de Prestamos");
         getContentPane().add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 240, -1));
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         TablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -522,6 +550,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
             }
+            cargarTabla();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el préstamo: " + e.getMessage());
         }
@@ -737,7 +766,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton Limpiar;
     private javax.swing.JLabel ListaPersonal;
     private javax.swing.JLabel LogoSale;
-    private javax.swing.JTextArea MostrarMotivoRechazo;
     private javax.swing.JTextField Motivo;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
@@ -772,6 +800,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }

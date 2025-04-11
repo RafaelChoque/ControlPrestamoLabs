@@ -1,3 +1,5 @@
+package ConexionLogin;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,6 +9,10 @@
  *
  * @author Rafael
  */
+import TecnicoDePrestamos.ListaPrestamos;
+import Administrador.AdministradorTecnicoPrestamo;
+import PersonalAcademico.FormularioPrestamo;
+import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -211,7 +217,8 @@ public class RoundedPanel extends JPanel {
                 if (activo) { 
                     if (pass.equals(p)) {
                         if (priv.equals("Tecnico de Prestamos")) {
- 
+                            ListaPrestamos ventanaTecnicoPrestamo = new ListaPrestamos();
+                            ventanaTecnicoPrestamo.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
 

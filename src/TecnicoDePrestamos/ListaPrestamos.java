@@ -1,4 +1,7 @@
+package TecnicoDePrestamos;
 
+
+import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.sql.Connection;

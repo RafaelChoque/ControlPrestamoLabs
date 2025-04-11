@@ -1,3 +1,5 @@
+package Administrador;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,6 +9,11 @@
  *
  * @author Rafael
  */
+import TecnicoDePrestamos.ListaPrestamos;
+import TecnicoDePrestamos.ListaLaboratorios;
+import TecnicoDePrestamos.ListaEquiposLabs;
+import ConexionLogin.Login;
+import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -24,7 +31,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     /**
@@ -208,7 +215,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 90, 10));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 90, 20));
         String placeholder = "Buscar RU";
 
         jTextField1.setText(placeholder);
@@ -268,10 +275,10 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 10));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 190, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 190, 40));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouseer.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 10, 60, 60));
@@ -423,7 +430,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
         ListaTecnicos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaTecnicos.setText("Lista de Personal de Mantenimiento de Equipos");
-        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 500, 20));
+        getContentPane().add(ListaTecnicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 500, 30));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1270, 760));
@@ -752,13 +759,13 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicio2MouseExited
 
     private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
-        // Crear la ventana de InicioAdmiTecnico
-    InicioAdmiTecnico inicio = new InicioAdmiTecnico();
-    inicio.setLocationRelativeTo(null); // Centrar la ventana
-    inicio.setVisible(true);
-    // Cerrar o esconder la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
-    // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        
+        InicioAdmiTecnicoPrestamos inicio = new InicioAdmiTecnicoPrestamos();
+        inicio.setLocationRelativeTo(null); 
+        inicio.setVisible(true);
+        
+        this.dispose(); 
+        
     }//GEN-LAST:event_btnInicio2ActionPerformed
 
     private void btnPersonalAcademicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoMouseExited

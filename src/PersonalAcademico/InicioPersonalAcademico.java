@@ -1,3 +1,5 @@
+package PersonalAcademico;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -32,7 +34,6 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         Izquierda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1540, 870));
 
         InicioPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         InicioPersonal.setText("INICIO");
