@@ -64,11 +64,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         btnCerrarSesion1 = new javax.swing.JButton();
         btnCerrarSesion2 = new javax.swing.JButton();
         btnCerrarSesion3 = new javax.swing.JButton();
-        btnCerrarSesion4 = new javax.swing.JButton();
-        btnCerrarSesion5 = new javax.swing.JButton();
-        btnCerrarSesion6 = new javax.swing.JButton();
-        btnCerrarSesion7 = new javax.swing.JButton();
-        btnCerrarSesion8 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -190,91 +185,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         getContentPane().add(btnCerrarSesion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
 
-        btnCerrarSesion4.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion4.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion4.setText("Cerrar Sesión");
-        btnCerrarSesion4.setBorder(null);
-        btnCerrarSesion4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion4MouseExited(evt);
-            }
-        });
-        btnCerrarSesion4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
-
-        btnCerrarSesion5.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion5.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion5.setText("Cerrar Sesión");
-        btnCerrarSesion5.setBorder(null);
-        btnCerrarSesion5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion5MouseExited(evt);
-            }
-        });
-        btnCerrarSesion5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 229, 40));
-
-        btnCerrarSesion6.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion6.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion6.setText("Cerrar Sesión");
-        btnCerrarSesion6.setBorder(null);
-        btnCerrarSesion6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion6MouseExited(evt);
-            }
-        });
-        btnCerrarSesion6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 229, 40));
-
-        btnCerrarSesion7.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion7.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion7.setText("Cerrar Sesión");
-        btnCerrarSesion7.setBorder(null);
-        btnCerrarSesion7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion7MouseExited(evt);
-            }
-        });
-        btnCerrarSesion7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion7ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 229, 40));
-
-        btnCerrarSesion8.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion8.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion8.setText("Cerrar Sesión");
-        btnCerrarSesion8.setBorder(null);
-        btnCerrarSesion8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion8MouseExited(evt);
-            }
-        });
-        btnCerrarSesion8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 229, 40));
-
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, 40));
 
@@ -386,7 +296,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
         jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, -1));
 
-        HorarioFijo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:30-9:00", "9:15-10:45", "11:00-12:30" }));
+        HorarioFijo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:30 - 9:00", "9:15 - 10:45", "11:00 - 12:30" }));
         HorarioFijo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HorarioFijoActionPerformed(evt);
@@ -550,7 +460,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
             }
-            cargarTabla();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el préstamo: " + e.getMessage());
         }
@@ -592,29 +501,35 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void HorarioFijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioFijoActionPerformed
         String selectedTime = (String) HorarioFijo.getSelectedItem();
 
-        
-        String[] times = selectedTime.split("–");
+        if (selectedTime == null || selectedTime.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún horario.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         
-        String startTime = times[0].trim(); 
-        String endTime = times[1].trim();   
+        String[] times = selectedTime.split(" - ");
 
-        
+        if (times.length < 2) {
+            JOptionPane.showMessageDialog(this, "Formato de horario inválido. Asegúrate de seleccionar un horario como '7:30 - 9:00'.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String startTime = times[0].trim();
+        String endTime = times[1].trim();
+
         System.out.println("Hora de inicio: " + startTime);
         System.out.println("Hora de fin: " + endTime);
 
-        
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         try {
-            Date startDate = format.parse(startTime);  
-            Date endDate = format.parse(endTime);      
+            Date startDate = format.parse(startTime);
+            Date endDate = format.parse(endTime);
 
-            
             ((JSpinner.DefaultEditor) HorarioPersonalizadoInicio.getEditor()).getTextField().setText(format.format(startDate));
             ((JSpinner.DefaultEditor) HorarioPersonalizadoFin.getEditor()).getTextField().setText(format.format(endDate));
-
         } catch (Exception ex) {
-            ex.printStackTrace(); 
+            JOptionPane.showMessageDialog(this, "Error al convertir la hora. Asegúrate de que el horario tenga el formato correcto (HH:mm).", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_HorarioFijoActionPerformed
 
@@ -658,46 +573,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void btnCerrarSesion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCerrarSesion3ActionPerformed
-
-    private void btnCerrarSesion4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion4MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion4MouseExited
-
-    private void btnCerrarSesion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion4ActionPerformed
-
-    private void btnCerrarSesion5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion5MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion5MouseExited
-
-    private void btnCerrarSesion5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion5ActionPerformed
-
-    private void btnCerrarSesion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion6MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion6MouseExited
-
-    private void btnCerrarSesion6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion6ActionPerformed
-
-    private void btnCerrarSesion7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion7MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion7MouseExited
-
-    private void btnCerrarSesion7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion7ActionPerformed
-
-    private void btnCerrarSesion8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion8MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion8MouseExited
-
-    private void btnCerrarSesion8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion8ActionPerformed
     private void cargarTabla() {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
         modeloTabla.setRowCount(0);  
@@ -777,11 +652,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnCerrarSesion2;
     private javax.swing.JButton btnCerrarSesion3;
-    private javax.swing.JButton btnCerrarSesion4;
-    private javax.swing.JButton btnCerrarSesion5;
-    private javax.swing.JButton btnCerrarSesion6;
-    private javax.swing.JButton btnCerrarSesion7;
-    private javax.swing.JButton btnCerrarSesion8;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
