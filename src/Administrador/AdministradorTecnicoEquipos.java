@@ -14,6 +14,7 @@ import TecnicoDePrestamos.ListaLaboratorios;
 import TecnicoDePrestamos.ListaEquiposLabs;
 import ConexionLogin.Login;
 import ConexionLogin.Conexion;
+import PersonalAcademico.InicioPersonalAcademico;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -31,7 +32,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     /**
@@ -760,7 +760,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
         
-        InicioAdmiTecnicoPrestamos inicio = new InicioAdmiTecnicoPrestamos();
+        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
         inicio.setLocationRelativeTo(null); 
         inicio.setVisible(true);
         
@@ -773,12 +773,11 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPersonalAcademicoMouseExited
 
     private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de ListaLaboratorios
-        ListaLaboratorios lista = new ListaLaboratorios();
-        lista.setLocationRelativeTo(null); // Centrar la ventana
-        lista.setVisible(true);
-
+         // Crear la ventana de AdministradorPersonalAcademico
+        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
+        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setVisible(true);
+    
         // Cerrar o esconder la ventana actual
         this.dispose(); // Cierra completamente la ventana actual
         // o this.setVisible(false); // Solo la oculta, según lo que prefieras
@@ -790,14 +789,6 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
         // TODO add your handling code here:
-        // Crear la ventana de ListaEquiposLabs
-        ListaEquiposLabs listaEquipos = new ListaEquiposLabs();
-        listaEquipos.setLocationRelativeTo(null); // Centrar la ventana
-        listaEquipos.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
 
     private void btnTecnicoPrestamoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoMouseExited
@@ -806,14 +797,12 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
         // TODO add your handling code here:
-        // Crear la ventana de ListaPrestamos
-        ListaPrestamos listaPrestamos = new ListaPrestamos();
-        listaPrestamos.setLocationRelativeTo(null); // Centrar la ventana
-        listaPrestamos.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        // Crear la ventana de AdministradorTecnicoPrestamos
+        AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
+        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setVisible(true);    
+        // Cerrar la ventana actual
+        this.dispose(); // o this.setVisible(false); si prefieres solo ocultarla
     }//GEN-LAST:event_btnTecnicoPrestamoActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
