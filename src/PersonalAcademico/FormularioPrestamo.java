@@ -78,6 +78,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        Actualizar = new javax.swing.JButton();
         Nombre = new javax.swing.JTextField();
         Motivo = new javax.swing.JTextField();
         Fecha = new com.toedter.calendar.JDateChooser();
@@ -256,6 +257,16 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         jLabel1.setText("Horario Fijo");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 20));
+
+        Actualizar.setBackground(new java.awt.Color(29, 41, 57));
+        Actualizar.setForeground(new java.awt.Color(255, 255, 255));
+        Actualizar.setText("Actualizar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 370, -1));
         jPanel1.add(Motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 370, -1));
         jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 370, -1));
@@ -399,58 +410,51 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        
         String motivo = Motivo.getText();
-        Date fechaGeneral = Fecha.getDate();  
+        Date fechaGeneral = Fecha.getDate();
         String tipoHorario = TipoHorario.getSelectedItem().toString();
-
-        
+        String bloque = (String) Bloque.getSelectedItem();
+        String seccion = (String) Seccion.getSelectedItem();
         String horaInicio = "";
         String horaFin = "";
 
         if (tipoHorario.equals("Fijo")) {
-           
-            String horaSeleccionada = HorarioFijo.getSelectedItem().toString();  
+
+            String horaSeleccionada = HorarioFijo.getSelectedItem().toString();
             String[] horas = horaSeleccionada.split("-");
 
-            
             horaInicio = horas[0].trim();
             horaFin = horas[1].trim();
         } else if (tipoHorario.equals("Personalizado")) {
-            horaInicio = HorarioPersonalizadoInicio.getValue().toString();  
-            horaFin = HorarioPersonalizadoFin.getValue().toString();  
+            horaInicio = HorarioPersonalizadoInicio.getValue().toString();
+            horaFin = HorarioPersonalizadoFin.getValue().toString();
         }
 
-        
         java.sql.Date sqlFecha = new java.sql.Date(fechaGeneral.getTime());
 
-        
-        String formatoHora = "^(\\d{1,2}):(\\d{2})$";  
+        String formatoHora = "^(\\d{1,2}):(\\d{2})$";
         if (!horaInicio.matches(formatoHora) || !horaFin.matches(formatoHora)) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un formato de hora válido.");
             return;
         }
 
-        
         java.sql.Time sqlHoraInicio = java.sql.Time.valueOf(horaInicio + ":00");
         java.sql.Time sqlHoraFin = java.sql.Time.valueOf(horaFin + ":00");
 
-        
-        int idLaboratorio = obtenerLaboratorioSeleccionado();  
-        int idPersonalAcademico = obtenerIdPersonalAcademico();  
+        int idLaboratorio = obtenerIdLaboratorio(bloque, seccion);
+        int idPersonalAcademico = obtenerIdPersonalAcademico();
 
-        
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement("INSERT INTO prestamos (ID_lab, id_personal_academico, motivo, fecha, horario_inicio, horario_fin, estado, tipo_horario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, idLaboratorio);
             ps.setInt(2, idPersonalAcademico);
             ps.setString(3, motivo);
-            ps.setDate(4, sqlFecha);  
-            ps.setTime(5, sqlHoraInicio);  
-            ps.setTime(6, sqlHoraFin); 
-            ps.setString(7, "Pendiente");  
-            ps.setString(8, tipoHorario);  
+            ps.setDate(4, sqlFecha);
+            ps.setTime(5, sqlHoraInicio);
+            ps.setTime(6, sqlHoraFin);
+            ps.setString(7, "Pendiente");
+            ps.setString(8, tipoHorario);
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -460,6 +464,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
             }
+            cargarTabla();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el préstamo: " + e.getMessage());
         }
@@ -469,7 +474,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         limpiarFormulario();
     }//GEN-LAST:event_LimpiarActionPerformed
     private void limpiarFormulario() {
-        
         Nombre.setText("");
         Apellido.setText("");
         Motivo.setText("");
@@ -481,14 +485,31 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         Seccion.setSelectedIndex(0);  
     }
 
-    private int obtenerLaboratorioSeleccionado() {
-        
-        return 1;  
+
+    private int obtenerIdLaboratorio(String bloque, String seccion) {
+        int idLaboratorio = -1; // Valor predeterminado si no se encuentra el laboratorio.
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            String query = "SELECT id_lab FROM laboratorios WHERE bloque = ? AND seccion = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, bloque);
+            ps.setString(2, seccion);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                idLaboratorio = rs.getInt("id_lab"); // Obtén el ID del laboratorio.
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID del laboratorio: " + e.getMessage());
+        }
+
+        return idLaboratorio;
     }
 
     private int obtenerIdPersonalAcademico() {
-        
-        return 1;  
+
+        return 1;
     }
     private void BloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueActionPerformed
         // TODO add your handling code here:
@@ -573,6 +594,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void btnCerrarSesion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCerrarSesion3ActionPerformed
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_ActualizarActionPerformed
     private void cargarTabla() {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
         modeloTabla.setRowCount(0);  
@@ -628,6 +653,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Actualizar;
     private javax.swing.JTextField Apellido;
     private javax.swing.JComboBox<String> Bloque;
     private com.toedter.calendar.JDateChooser Fecha;
