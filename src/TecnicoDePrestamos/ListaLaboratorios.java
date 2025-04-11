@@ -4,6 +4,8 @@ import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.RowFilter;
@@ -18,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -33,7 +36,11 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
+        panelOverlay.setVisible(false);
+        panelOverlay.setBackground(new Color(0, 0, 0, 0));
 
+        panelSidebar.setVisible(false);
+        panelSidebar.setLocation(-250, 0);
 
         txtID.setVisible(false);
 
@@ -41,6 +48,53 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         cargarTabla();
         
     }
+    
+    private boolean sidebarMostrado = false;
+    private Timer animacion;
+    
+    private void mostrarSidebar() {
+    panelOverlay.setVisible(true);
+    sidebarMostrado = true;
+    panelSidebar.setLocation(-250, 0);
+
+    animacion = new Timer(5, new ActionListener() {
+        int x = panelSidebar.getX();
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (x < 0) {
+                x += 10;
+                panelSidebar.setLocation(x, 0);
+            } else {
+                panelSidebar.setLocation(0, 0);
+                animacion.stop();
+            }
+        }
+    });
+    animacion.start();
+}
+
+    
+    private void ocultarSidebar() {
+        animacion = new Timer(5, new ActionListener() {
+            int x = panelSidebar.getX();
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (x > -250) {
+                    x -= 10;
+                    panelSidebar.setLocation(x, 0);
+                } else {
+                    panelSidebar.setLocation(-250, 0);
+                    panelOverlay.setVisible(false);
+                    sidebarMostrado = false;
+                    animacion.stop();
+                }
+            }
+        });
+        animacion.start();
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,10 +105,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSidebar = new javax.swing.JPanel();
+        btnCerrarSidebar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        LogoSale = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         btnCerrarSesion1 = new javax.swing.JButton();
         btnCerrarSesion2 = new javax.swing.JButton();
         btnCerrarSesion3 = new javax.swing.JButton();
@@ -63,7 +117,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnCerrarSesion6 = new javax.swing.JButton();
         btnCerrarSesion7 = new javax.swing.JButton();
         btnCerrarSesion8 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
+        LogoSale = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -89,9 +146,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLaboratorios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
-        Izquierda = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         Superior1 = new javax.swing.JLabel();
 
@@ -101,33 +158,24 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCerrarSidebar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnCerrarSidebar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSidebarActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Menú Principal");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, 20, 30));
-
-        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.setBorder(null);
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseExited(evt);
-            }
-        });
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 813, 229, 40));
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 230, 40));
 
         btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -144,7 +192,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
+        panelSidebar.add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
         btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -161,7 +209,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
+        panelSidebar.add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
 
         btnCerrarSesion3.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -178,7 +226,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion3ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
+        panelSidebar.add(btnCerrarSesion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
 
         btnCerrarSesion4.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -195,7 +243,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion4ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
+        panelSidebar.add(btnCerrarSesion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
 
         btnCerrarSesion5.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -212,7 +260,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion5ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 229, 40));
+        panelSidebar.add(btnCerrarSesion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
         btnCerrarSesion6.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -229,7 +277,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion6ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 229, 40));
+        panelSidebar.add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
         btnCerrarSesion7.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -246,7 +294,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion7ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 229, 40));
+        panelSidebar.add(btnCerrarSesion7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
         btnCerrarSesion8.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -263,10 +311,37 @@ public class ListaLaboratorios extends javax.swing.JFrame {
                 btnCerrarSesion8ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 229, 40));
+        panelSidebar.add(btnCerrarSesion8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, 40));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 750, -1, 30));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 750, 229, 40));
+
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 170, 60));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -475,14 +550,19 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel1.setText("Lista de Laboratorios");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 50));
 
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1270, 740));
-
-        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
-        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 860));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
@@ -711,13 +791,35 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblLaboratoriosMouseClicked
 
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+    private void btnCerrarSidebarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSidebarActionPerformed
+        new Thread(() -> {
+            int duracion = 250; // duración total en milisegundos
+            int pasos = 25;     // cantidad de pasos en la animación
+            int delay = duracion / pasos;
 
-    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+            for (int i = pasos; i >= 0; i--) {
+                int x = -250 + (i * 10); // Mueve de 0 a -250
+                int alpha = (int)(i * (120.0 / pasos)); // transparencia: 120 a 0
 
-    }//GEN-LAST:event_btnCerrarSesionMouseExited
+                // Mover sidebar hacia la izquierda
+                panelSidebar.setLocation(x, 0);
+
+                // Cambiar transparencia del overlay
+                Color overlayColor = new Color(0, 0, 0, alpha);
+                panelOverlay.setBackground(overlayColor);
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Ocultar sidebar y overlay al final de la animación
+            panelSidebar.setVisible(false);
+            panelOverlay.setVisible(false);
+        }).start();
+    }//GEN-LAST:event_btnCerrarSidebarActionPerformed
 
     private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
         // TODO add your handling code here:
@@ -783,6 +885,46 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCerrarSesion8ActionPerformed
 
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        panelOverlay.setVisible(true);
+
+        panelSidebar.setVisible(true);
+        panelSidebar.setLocation(-250, 0);
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
+
+        new Thread(() -> {
+            int duracion = 250; 
+            int pasos = 25;
+            int delay = duracion / pasos;
+
+            for (int i = 0; i <= pasos; i++) {
+                int x = -250 + (i * 10);
+                int alpha = (int)(i * (120.0 / pasos)); 
+
+                panelSidebar.setLocation(x, 0);
+
+                Color overlayColor = new Color(0, 0, 0, alpha);
+                panelOverlay.setBackground(overlayColor);
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }//GEN-LAST:event_btnMenuActionPerformed
+
 
     
     
@@ -823,7 +965,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
-    private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
     private javax.swing.JLabel Superior1;
@@ -836,10 +977,12 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrarSesion6;
     private javax.swing.JButton btnCerrarSesion7;
     private javax.swing.JButton btnCerrarSesion8;
+    private javax.swing.JButton btnCerrarSidebar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHabilitarDeshabilitar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cbSeccion;
     private javax.swing.JLabel jLabel1;
@@ -857,6 +1000,8 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLayeredPane panelOverlay;
+    private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tblLaboratorios;
     private javax.swing.JTextField txtBloque;
