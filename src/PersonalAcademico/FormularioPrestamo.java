@@ -1,6 +1,5 @@
 package PersonalAcademico;
 
-
 import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
@@ -33,13 +32,23 @@ import java.awt.event.*;
  */
 public class FormularioPrestamo extends javax.swing.JFrame {
 
+    private int idusuario;
+
     /**
      * Creates new form FormularioPrestamo
+     *
+     * @param idusuario
      */
     public FormularioPrestamo(int idusuario) {
         initComponents();
-        cargarTabla();
+        this.idusuario = idusuario;
+
+        Nombre.setEditable(false);
+        Apellido.setEditable(false);
+
+        cargarTabla(idusuario);
         cargarNombreApellido(idusuario);
+
         HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
         JSpinner.DateEditor editorInicio = new JSpinner.DateEditor(HorarioPersonalizadoInicio, "HH:mm");
         HorarioPersonalizadoInicio.setEditor(editorInicio);
@@ -97,6 +106,9 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         HorarioPersonalizadoInicio = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        SeleccionLab = new javax.swing.JTextField();
+        DisponibilidadPrestamo = new javax.swing.JButton();
         ListaPersonal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPrestamos = new javax.swing.JTable();
@@ -213,7 +225,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Estado", "Motivo del Rechazo"
+                "ID", "Motivo", "Bloque", "Tipo de  Horario"
             }
         ) {
             Class[] types = new Class [] {
@@ -250,13 +262,13 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
 
         jLabel6.setText("Horario Personalizado");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, 20));
 
         jLabel7.setText("Apellido");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
         jLabel1.setText("Horario Fijo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 20));
 
         Actualizar.setBackground(new java.awt.Color(29, 41, 57));
         Actualizar.setForeground(new java.awt.Color(255, 255, 255));
@@ -266,7 +278,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 ActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
+        jPanel1.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 370, -1));
         jPanel1.add(Motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 370, -1));
         jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 370, -1));
@@ -281,13 +293,13 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         guardar.setBackground(new java.awt.Color(29, 41, 57));
         guardar.setForeground(new java.awt.Color(255, 255, 255));
-        guardar.setText("Guardar");
+        guardar.setText("Solicitar Laboratorio");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         Limpiar.setBackground(new java.awt.Color(29, 41, 57));
         Limpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,15 +309,15 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 LimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, -1, -1));
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
         Formulario.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Formulario.setText("Formulario de Prestamos");
         jPanel1.add(Formulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
 
         jLabel8.setText("Tipo de Horario");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
-        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 20));
+        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 150, -1));
 
         HorarioFijo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:30 - 9:00", "9:15 - 10:45", "11:00 - 12:30" }));
         HorarioFijo.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +325,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 HorarioFijoActionPerformed(evt);
             }
         });
-        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, -1));
+        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 150, -1));
 
         jLabel9.setText("Bloque:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
@@ -331,16 +343,34 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 TipoHorarioActionPerformed(evt);
             }
         });
-        jPanel1.add(TipoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 150, -1));
+        jPanel1.add(TipoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, -1));
 
-        jLabel11.setText("Seccion:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 20));
-        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 150, -1));
+        jLabel11.setText("Laboratorio");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
+        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 150, -1));
 
         jLabel2.setText("Hasta:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, -1, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 610, 360));
+        jLabel15.setText("Seccion:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 20));
+
+        SeleccionLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeleccionLabActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 150, -1));
+
+        DisponibilidadPrestamo.setText("Seleccion de Laboratorio");
+        DisponibilidadPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisponibilidadPrestamoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(DisponibilidadPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 610, 380));
 
         ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaPersonal.setText("Historial de Prestamos");
@@ -353,7 +383,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Nombre", "Apellido", "Motivo", "Bloque", "Seccion", "Fecha", "Horario Inicio", "Horario Fin", "Estado", "Tipo Horario"
+                "ID", "Laboratorio", "Nombre", "Apellido", "Motivo", "Bloque", "Seccion", "Fecha", "Horario Inicio", "Horario Fin", "Estado de Solicitud", "Tipo Horario"
             }
         ) {
             Class[] types = new Class [] {
@@ -412,32 +442,61 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         String motivo = Motivo.getText();
         Date fechaGeneral = Fecha.getDate();
+        String laboratorio = SeleccionLab.getText();
         String tipoHorario = TipoHorario.getSelectedItem().toString();
         String bloque = (String) Bloque.getSelectedItem();
         String seccion = (String) Seccion.getSelectedItem();
         String horaInicio = "";
         String horaFin = "";
 
-        if (tipoHorario.equals("Fijo")) {
-
-            String horaSeleccionada = HorarioFijo.getSelectedItem().toString();
-            String[] horas = horaSeleccionada.split("-");
-
-            horaInicio = horas[0].trim();
-            horaFin = horas[1].trim();
-        } else if (tipoHorario.equals("Personalizado")) {
-            horaInicio = HorarioPersonalizadoInicio.getValue().toString();
-            horaFin = HorarioPersonalizadoFin.getValue().toString();
-        }
-
-        java.sql.Date sqlFecha = new java.sql.Date(fechaGeneral.getTime());
-
-        String formatoHora = "^(\\d{1,2}):(\\d{2})$";
-        if (!horaInicio.matches(formatoHora) || !horaFin.matches(formatoHora)) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un formato de hora válido.");
+        if (motivo.isEmpty() || laboratorio.isEmpty() || fechaGeneral == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos requeridos.");
             return;
         }
 
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+
+        if (tipoHorario.equals("Fijo")) {
+            String horaSeleccionada = (String) HorarioFijo.getSelectedItem();
+            if (horaSeleccionada == null || horaSeleccionada.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Seleccione un horario fijo válido.");
+                return;
+            }
+
+            String[] horas = horaSeleccionada.split("-");
+            if (horas.length != 2) {
+                JOptionPane.showMessageDialog(null, "Formato de horario fijo inválido. Use el formato 'HH:mm - HH:mm'.");
+                return;
+            }
+
+            horaInicio = horas[0].trim();
+            horaFin = horas[1].trim();
+
+        } else if (tipoHorario.equals("Personalizado")) {
+            try {
+                Date inicio = (Date) HorarioPersonalizadoInicio.getValue();
+                Date fin = (Date) HorarioPersonalizadoFin.getValue();
+
+                if (inicio.after(fin)) {
+                    JOptionPane.showMessageDialog(null, "La hora de inicio no puede ser mayor que la de fin.");
+                    return;
+                }
+
+                horaInicio = formatoHora.format(inicio);
+                horaFin = formatoHora.format(fin);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al obtener las horas personalizadas.");
+                return;
+            }
+        }
+
+        String regexHora = "^(\\d{1,2}):(\\d{2})$";
+        if (!horaInicio.matches(regexHora) || !horaFin.matches(regexHora)) {
+            JOptionPane.showMessageDialog(null, "El formato de la hora debe ser HH:mm.");
+            return;
+        }
+
+        java.sql.Date sqlFecha = new java.sql.Date(fechaGeneral.getTime());
         java.sql.Time sqlHoraInicio = java.sql.Time.valueOf(horaInicio + ":00");
         java.sql.Time sqlHoraFin = java.sql.Time.valueOf(horaFin + ":00");
 
@@ -460,11 +519,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(null, "Préstamo guardado exitosamente");
                 limpiarFormulario();
-                cargarTabla();
+                cargarTabla(idusuario);
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
             }
-            cargarTabla();
+            cargarTabla(idusuario);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el préstamo: " + e.getMessage());
         }
@@ -474,20 +533,17 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         limpiarFormulario();
     }//GEN-LAST:event_LimpiarActionPerformed
     private void limpiarFormulario() {
-        Nombre.setText("");
-        Apellido.setText("");
         Motivo.setText("");
         Fecha.setDate(null);
-        TipoHorario.setSelectedIndex(0);  
-        HorarioFijo.setSelectedIndex(0);  
-        HorarioPersonalizadoFin.setValue(new Date());  
-        Bloque.setSelectedIndex(0);  
-        Seccion.setSelectedIndex(0);  
+        TipoHorario.setSelectedIndex(0);
+        HorarioFijo.setSelectedIndex(0);
+        HorarioPersonalizadoFin.setValue(new Date());
+        Bloque.setSelectedIndex(0);
+        Seccion.setSelectedIndex(0);
     }
 
-
     private int obtenerIdLaboratorio(String bloque, String seccion) {
-        int idLaboratorio = -1; // Valor predeterminado si no se encuentra el laboratorio.
+        int idLaboratorio = -1;
 
         try {
             Connection con = Conexion.obtenerConexion();
@@ -498,7 +554,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                idLaboratorio = rs.getInt("id_lab"); // Obtén el ID del laboratorio.
+                idLaboratorio = rs.getInt("id_lab");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener el ID del laboratorio: " + e.getMessage());
@@ -508,9 +564,21 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }
 
     private int obtenerIdPersonalAcademico() {
-
-        return 1;
+        int id = -1;
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("SELECT id_personal_academico FROM personal_academico WHERE id_usuario = ?");
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_personal_academico");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID del personal académico: " + e.getMessage());
+        }
+        return id;
     }
+
     private void BloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BloqueActionPerformed
@@ -527,7 +595,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             return;
         }
 
-        
         String[] times = selectedTime.split(" - ");
 
         if (times.length < 2) {
@@ -596,46 +663,61 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesion3ActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        cargarTabla();
+        cargarTabla(idusuario);
     }//GEN-LAST:event_ActualizarActionPerformed
-    private void cargarTabla() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
-        modeloTabla.setRowCount(0);  
 
-        PreparedStatement ps;
-        ResultSet rs;
-        ResultSetMetaData rsmd;
-        int columnas;
+    private void DisponibilidadPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisponibilidadPrestamoActionPerformed
+        DisponibilidadPrestamos disponibilidadpres = new DisponibilidadPrestamos();
+        disponibilidadpres.setLocationRelativeTo(null);
+        disponibilidadpres.setVisible(true);
+    }//GEN-LAST:event_DisponibilidadPrestamoActionPerformed
 
-        
-        int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80, 80,80};
-        for (int i = 0; i < TablaPrestamos.getColumnCount(); i++) {
-            TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-        }
-
+    private void SeleccionLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionLabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeleccionLabActionPerformed
+    public void cargarTabla(int idusuario) {
         try {
-            
-            Connection con = Conexion.obtenerConexion();  
-            ps = con.prepareStatement(
-                    "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.tipo_horario "
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.tipo_horario "
                     + "FROM prestamos p "
                     + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
-            );
-            rs = ps.executeQuery();
-            rsmd = rs.getMetaData();
-            columnas = rsmd.getColumnCount();
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                    + "WHERE pa.id_usuario = ?";
 
-            
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) TablaPrestamos.getModel();
+            model.setRowCount(0);
+
             while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int indice = 0; indice < columnas; indice++) {
-                    fila[indice] = rs.getObject(indice + 1);
-                }
-                modeloTabla.addRow(fila);  
+                int idPrestamo = rs.getInt("id_prestamo");
+                String nombreLab = rs.getString("Nombre_lab");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String motivo = rs.getString("motivo");
+                String bloque = rs.getString("bloque");
+                String seccion = rs.getString("seccion");
+                Date fecha = rs.getDate("fecha");
+                Time horaInicio = rs.getTime("horario_inicio");
+                Time horaFin = rs.getTime("horario_fin");
+                String estado = rs.getString("estado");
+                String tipoHorario = rs.getString("tipo_horario");
+
+                model.addRow(new Object[]{
+                    idPrestamo, nombreLab, nombre, apellido, motivo,
+                    bloque, seccion, fecha, horaInicio, horaFin, estado, tipoHorario
+                });
             }
+
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Aún no tienes préstamos registrados.");
+            }
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.toString());
         }
     }
 
@@ -656,6 +738,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton Actualizar;
     private javax.swing.JTextField Apellido;
     private javax.swing.JComboBox<String> Bloque;
+    private javax.swing.JButton DisponibilidadPrestamo;
     private com.toedter.calendar.JDateChooser Fecha;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
@@ -671,6 +754,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
     private javax.swing.JComboBox<String> Seccion;
+    private javax.swing.JTextField SeleccionLab;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaPrestamos;
     private javax.swing.JComboBox<String> TipoHorario;
@@ -685,6 +769,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
