@@ -17,6 +17,8 @@ import ConexionLogin.Conexion;
 import PersonalAcademico.InicioPersonalAcademico;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.Connection;
@@ -26,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -40,8 +43,64 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     public AdministradorTecnicoEquipos() {
         initComponents();
         ID.setVisible(false);
+        FondoBlanco.setFocusable(true);
+        FondoBlanco.requestFocusInWindow();
+
+        panelOverlay.setVisible(false);
+        panelOverlay.setBackground(new Color(0, 0, 0, 0));
+
+        panelSidebar.setVisible(false);
+        panelSidebar.setLocation(-250, 0);
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
+        });
+        panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        });
         this.setLocationRelativeTo(null);
         cargarTabla();
+    }
+    private boolean sidebarMostrado = false;
+    private Timer animacion;
+
+    private void mostrarSidebar() {
+        panelOverlay.setVisible(true);
+        sidebarMostrado = true;
+        panelSidebar.setLocation(-250, 0);
+
+        animacion = new Timer(5, new ActionListener() {
+            int x = panelSidebar.getX();
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (x < 0) {
+                    x += 10;
+                    panelSidebar.setLocation(x, 0);
+                } else {
+                    panelSidebar.setLocation(0, 0);
+                    animacion.stop();
+                }
+            }
+        });
+        animacion.start();
+    }
+
+    private void ocultarSidebar() {
+        animacion = new Timer(5, new ActionListener() {
+            int x = panelSidebar.getX();
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (x > -250) {
+                    x -= 10;
+                    panelSidebar.setLocation(x, 0);
+                } else {
+                    panelSidebar.setLocation(-250, 0);
+                    panelOverlay.setVisible(false);
+                    sidebarMostrado = false;
+                    animacion.stop();
+                }
+            }
+        });
+        animacion.start();
     }
 
     /**
@@ -53,18 +112,19 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        perfil1 = new javax.swing.JLabel();
-        LogoSale = new javax.swing.JLabel();
-        Superior = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        panelSidebar = new javax.swing.JPanel();
+        btnCerrarSidebar = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         btnInicio2 = new javax.swing.JButton();
         btnPersonalAcademico = new javax.swing.JButton();
         btnTecnicoEquipo = new javax.swing.JButton();
         btnTecnicoPrestamo = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
-        Izquierda = new javax.swing.JLabel();
+        perfil1 = new javax.swing.JLabel();
+        LogoSale = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -92,27 +152,33 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         ListaTecnicos = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
+        btnCerrarSidebar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnCerrarSidebar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSidebarActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Menú Principal");
+        panelSidebar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Menú Principal");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 230, 40));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, 40));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
 
         btnInicio2.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -129,7 +195,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 btnInicio2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInicio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
+        panelSidebar.add(btnInicio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 229, 40));
 
         btnPersonalAcademico.setBackground(new java.awt.Color(29, 41, 57));
         btnPersonalAcademico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -146,7 +212,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 btnPersonalAcademicoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPersonalAcademico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
+        panelSidebar.add(btnPersonalAcademico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
 
         btnTecnicoEquipo.setBackground(new java.awt.Color(29, 41, 57));
         btnTecnicoEquipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -163,7 +229,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 btnTecnicoEquipoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnTecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
+        panelSidebar.add(btnTecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
 
         btnTecnicoPrestamo.setBackground(new java.awt.Color(29, 41, 57));
         btnTecnicoPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -180,10 +246,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 btnTecnicoPrestamoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnTecnicoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, 20, 30));
+        panelSidebar.add(btnTecnicoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 229, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -200,10 +263,18 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 813, 229, 40));
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 813, 229, 40));
 
-        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
-        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        getContentPane().add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 170, 60));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -437,6 +508,11 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -820,6 +896,36 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnCerrarSidebarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSidebarActionPerformed
+        new Thread(() -> {
+            int duracion = 250; // duración total en milisegundos
+            int pasos = 25;     // cantidad de pasos en la animación
+            int delay = duracion / pasos;
+
+            for (int i = pasos; i >= 0; i--) {
+                int x = -250 + (i * 10); // Mueve de 0 a -250
+                int alpha = (int)(i * (120.0 / pasos)); // transparencia: 120 a 0
+
+                // Mover sidebar hacia la izquierda
+                panelSidebar.setLocation(x, 0);
+
+                // Cambiar transparencia del overlay
+                Color overlayColor = new Color(0, 0, 0, alpha);
+                panelOverlay.setBackground(overlayColor);
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Ocultar sidebar y overlay al final de la animación
+            panelSidebar.setVisible(false);
+            panelOverlay.setVisible(false);
+        }).start();
+    }//GEN-LAST:event_btnCerrarSidebarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -852,7 +958,6 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JLabel FondoGris;
     private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JTextField ID;
-    private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel ListaTecnicos;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JTextField Nombre;
@@ -861,15 +966,16 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JTable TablaTecnicoEquipo;
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnCerrarSidebar;
     private javax.swing.JButton btnInicio2;
     private javax.swing.JButton btnPersonalAcademico;
     private javax.swing.JButton btnTecnicoEquipo;
     private javax.swing.JButton btnTecnicoPrestamo;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -882,6 +988,8 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton limpiar;
     private javax.swing.JButton modificar;
+    private javax.swing.JLayeredPane panelOverlay;
+    private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
     private javax.swing.JLabel perfil1;
     // End of variables declaration//GEN-END:variables
