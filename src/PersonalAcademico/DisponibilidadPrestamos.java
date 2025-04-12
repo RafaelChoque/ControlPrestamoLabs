@@ -4,6 +4,27 @@
  */
 package PersonalAcademico;
 
+import ConexionLogin.Conexion;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.*;
+import java.util.Date;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.util.Calendar;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.*;
+import java.awt.event.*;
+
 /**
  *
  * @author Rafael
@@ -13,6 +34,9 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     /**
      * Creates new form DisponibilidadPrestamos
      */
+    private String laboratorioSeleccionado = null;
+    private int laboratorioSeleccionadoId = -1;
+    private int idusuario;
     public DisponibilidadPrestamos() {
         initComponents();
     }
@@ -27,16 +51,23 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        Fecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         Reservas = new javax.swing.JTable();
+        Bloque = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
+        SeleccionLab = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("VER DISPONIBILIDAD");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
+        getContentPane().add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
         Reservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -54,16 +85,120 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        Reservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReservasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Reservas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 820, 390));
+        getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, 20));
+
+        jLabel2.setText("BLOQUE");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+
+        btnLimpiar.setText("Limpiar");
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, -1, -1));
+
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 90, -1));
+        getContentPane().add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 230, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void ReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservasMouseClicked
+        int filaSeleccionada = Reservas.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            laboratorioSeleccionadoId = (int) Reservas.getValueAt(filaSeleccionada, 0);  // Obtener ID_lab
+            laboratorioSeleccionado = (String) Reservas.getValueAt(filaSeleccionada, 1); // Nombre_lab
+        }
+    }//GEN-LAST:event_ReservasMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        cargarDisponibilidad();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        if (laboratorioSeleccionado != null && laboratorioSeleccionadoId != -1) {
+            FormularioPrestamo formulario = new FormularioPrestamo(idusuario);  // Pasar ID del laboratorio
+            formulario.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un laboratorio.");
+        }
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void cargarDisponibilidad() {
+        DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
+        modelo.setRowCount(0);
+
+        java.util.Date fechaSeleccionada = Fecha.getDate();
+        String bloqueTexto = Bloque.getText().trim();
+
+        if (fechaSeleccionada == null || bloqueTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha y escribir un bloque.");
+            return;
+        }
+
+        String fechaSQL = new SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada);
+
+        String query = "SELECT l.ID_lab, l.Nombre_lab, p.fecha, p.horario_inicio, p.horario_fin "
+                + "FROM laboratorios l "
+                + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab AND p.fecha = ? "
+                + "WHERE l.Bloque = ?";
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, fechaSQL);
+            ps.setString(2, bloqueTexto);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("ID_lab"),
+                    rs.getString("Nombre_lab"),
+                    rs.getString("fecha") != null ? rs.getString("fecha") : "Disponible",
+                    rs.getString("horario_inicio") != null ? rs.getString("horario_inicio") : "-",
+                    rs.getString("horario_fin") != null ? rs.getString("horario_fin") : "-"
+                };
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + ex.getMessage());
+        }
+    }
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -97,9 +232,16 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Bloque;
+    private com.toedter.calendar.JDateChooser Fecha;
+    private javax.swing.JButton Guardar;
     private javax.swing.JTable Reservas;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JTextField SeleccionLab;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
