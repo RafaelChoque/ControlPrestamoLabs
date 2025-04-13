@@ -696,44 +696,43 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void SeleccionLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionLabActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SeleccionLabActionPerformed
-    public void cargarTabla(int idusuario) {
-        try {
-            Connection con = Conexion.obtenerConexion();
+public void cargarTabla(int idusuario) {
+    try {
+        Connection con = Conexion.obtenerConexion();
 
-            String query = "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
-                    + "FROM prestamos p "
-                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
-                    + "WHERE pa.id_usuario = ?";
+        String query = "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
+                + "FROM prestamos p "
+                + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                + "WHERE pa.id_usuario = ?";
 
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, idusuario);
-            ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) TablaPrestamos.getModel();
-            model.setRowCount(0);
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, idusuario);
+        ResultSet rs = ps.executeQuery();
+        DefaultTableModel model = (DefaultTableModel) TablaPrestamos.getModel();
+        model.setRowCount(0);
 
-            while (rs.next()) {
-                int idPrestamo = rs.getInt("id_prestamo");
-                String nombreLab = rs.getString("Nombre_lab");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                Date fecha = rs.getDate("fecha");
-                Time horaInicio = rs.getTime("horario_inicio");
-                Time horaFin = rs.getTime("horario_fin");
-                String estado = rs.getString("estado");
-                String MotivoRechazo = rs.getString("motivo_rechazo");
+        while (rs.next()) {
+            int idPrestamo = rs.getInt("id_prestamo");
+            String nombreLab = rs.getString("Nombre_lab");
+            String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
+            Date fecha = rs.getDate("fecha");
+            Time horaInicio = rs.getTime("horario_inicio");
+            Time horaFin = rs.getTime("horario_fin");
+            String estado = rs.getString("estado");
+            String motivoRechazo = rs.getString("motivo_rechazo"); // Obtener el motivo de rechazo
 
-
-                model.addRow(new Object[]{
-                    idPrestamo, nombreLab, nombre, apellido, 
-                     fecha, horaInicio, horaFin, estado, 
-                });
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
+            model.addRow(new Object[]{
+                idPrestamo, nombreLab, nombre, apellido, 
+                fecha, horaInicio, horaFin, estado, motivoRechazo // Añadir el motivo de rechazo aquí
+            });
         }
+
+    } catch (SQLException ex) {
+        System.out.println(ex.toString());
     }
+}
     public void cargarTabla2() {
         try {
             Connection con = Conexion.obtenerConexion();
