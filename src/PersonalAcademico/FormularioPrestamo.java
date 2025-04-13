@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 
 /*
@@ -47,6 +48,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         Apellido.setEditable(false);
 
         cargarTabla(idusuario);
+        cargarTabla2();
         cargarNombreApellido(idusuario);
 
         HorarioPersonalizadoInicio.setModel(new SpinnerDateModel());
@@ -80,7 +82,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         MotivoRechazo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaPrestamos2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -220,19 +222,19 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPrestamos2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Motivo", "Bloque", "Tipo de  Horario"
+                "ID", "Motivo", "Bloque", "Seccion", "Tipo de  Horario"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -243,11 +245,19 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        int[]anchos2 = {50, 215, 70, 130, 130};
+        DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();
+        centerRenderer2.setHorizontalAlignment(SwingConstants.CENTER);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 530, 290));
+        for (int i = 0; i < anchos2.length; i++) {
+            TablaPrestamos2.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
+            TablaPrestamos2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer2);
+        }
+        jScrollPane2.setViewportView(TablaPrestamos2);
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 100, 570, 360));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 590, 320));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 630, 380));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -370,7 +380,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(DisponibilidadPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 610, 380));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 550, 380));
 
         ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListaPersonal.setText("Historial de Prestamos");
@@ -383,14 +393,14 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Nombre", "Apellido", "Motivo", "Bloque", "Seccion", "Fecha", "Horario Inicio", "Horario Fin", "Estado de Solicitud", "Tipo Horario"
+                "ID", "Laboratorio", "Nombre", "Apellido", "Fecha", "Horario Inicio", "Horario Fin", "Estado de Solicitud", "Motivo del Rechazo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -407,6 +417,14 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaPrestamos);
+        int[] anchos = {50, 100, 120, 200, 120, 120, 100, 130, 250};
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int i = 0; i < anchos.length; i++) {
+            TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            TablaPrestamos.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, 1200, 310));
 
@@ -520,10 +538,12 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Préstamo guardado exitosamente");
                 limpiarFormulario();
                 cargarTabla(idusuario);
+                cargarTabla2();
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
             }
             cargarTabla(idusuario);
+            cargarTabla2();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el préstamo: " + e.getMessage());
         }
@@ -664,6 +684,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         cargarTabla(idusuario);
+        cargarTabla2();
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void DisponibilidadPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisponibilidadPrestamoActionPerformed
@@ -679,7 +700,45 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         try {
             Connection con = Conexion.obtenerConexion();
 
-            String query = "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.tipo_horario "
+            String query = "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
+                    + "FROM prestamos p "
+                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                    + "WHERE pa.id_usuario = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) TablaPrestamos.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idPrestamo = rs.getInt("id_prestamo");
+                String nombreLab = rs.getString("Nombre_lab");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                Date fecha = rs.getDate("fecha");
+                Time horaInicio = rs.getTime("horario_inicio");
+                Time horaFin = rs.getTime("horario_fin");
+                String estado = rs.getString("estado");
+                String MotivoRechazo = rs.getString("motivo_rechazo");
+
+
+                model.addRow(new Object[]{
+                    idPrestamo, nombreLab, nombre, apellido, 
+                     fecha, horaInicio, horaFin, estado, 
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+    public void cargarTabla2() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT p.id_prestamo, p.motivo, l.bloque, l.seccion,p.tipo_horario "
                     + "FROM prestamos p "
                     + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
                     + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
@@ -689,30 +748,22 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             ps.setInt(1, idusuario);
             ResultSet rs = ps.executeQuery();
 
-            DefaultTableModel model = (DefaultTableModel) TablaPrestamos.getModel();
-            model.setRowCount(0);
+            DefaultTableModel model2 = (DefaultTableModel) TablaPrestamos2.getModel();
+            model2.setRowCount(0);
 
             while (rs.next()) {
                 int idPrestamo = rs.getInt("id_prestamo");
-                String nombreLab = rs.getString("Nombre_lab");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
                 String motivo = rs.getString("motivo");
                 String bloque = rs.getString("bloque");
                 String seccion = rs.getString("seccion");
-                Date fecha = rs.getDate("fecha");
-                Time horaInicio = rs.getTime("horario_inicio");
-                Time horaFin = rs.getTime("horario_fin");
-                String estado = rs.getString("estado");
                 String tipoHorario = rs.getString("tipo_horario");
 
-                model.addRow(new Object[]{
-                    idPrestamo, nombreLab, nombre, apellido, motivo,
-                    bloque, seccion, fecha, horaInicio, horaFin, estado, tipoHorario
+                model2.addRow(new Object[]{
+                    idPrestamo, motivo, bloque, seccion, tipoHorario
                 });
             }
 
-            if (model.getRowCount() == 0) {
+            if (model2.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Aún no tienes préstamos registrados.");
             }
 
@@ -757,6 +808,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField SeleccionLab;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaPrestamos;
+    private javax.swing.JTable TablaPrestamos2;
     private javax.swing.JComboBox<String> TipoHorario;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCerrarSesion1;
@@ -781,7 +833,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }

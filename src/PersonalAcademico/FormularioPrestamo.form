@@ -231,7 +231,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="900" y="100" width="570" height="360"/>
+          <AbsoluteConstraints x="840" y="100" width="630" height="380"/>
         </Constraint>
       </Constraints>
 
@@ -261,24 +261,30 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="50" width="530" height="290"/>
+              <AbsoluteConstraints x="20" y="50" width="590" height="320"/>
             </Constraint>
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="TablaPrestamos2">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="0">
+                  <Table columnCount="5" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Integer"/>
                     <Column editable="false" title="Motivo" type="java.lang.String"/>
                     <Column editable="false" title="Bloque" type="java.lang.String"/>
+                    <Column editable="false" title="Seccion" type="java.lang.String"/>
                     <Column editable="false" title="Tipo de  Horario" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -305,6 +311,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="int[]anchos2 = {50, 215, 70, 130, 130};&#xa;DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();&#xa;centerRenderer2.setHorizontalAlignment(SwingConstants.CENTER);&#xa;&#xa;for (int i = 0; i &lt; anchos2.length; i++) {&#xa;    TablaPrestamos2.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);&#xa;    TablaPrestamos2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer2);&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -327,7 +336,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="270" y="100" width="610" height="380"/>
+          <AbsoluteConstraints x="270" y="100" width="550" height="380"/>
         </Constraint>
       </Constraints>
 
@@ -682,38 +691,20 @@
         <Component class="javax.swing.JTable" name="TablaPrestamos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="12" rowCount="0">
+              <Table columnCount="9" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Laboratorio" type="java.lang.String"/>
                 <Column editable="false" title="Nombre" type="java.lang.String"/>
                 <Column editable="false" title="Apellido" type="java.lang.String"/>
-                <Column editable="false" title="Motivo" type="java.lang.String"/>
-                <Column editable="false" title="Bloque" type="java.lang.String"/>
-                <Column editable="false" title="Seccion" type="java.lang.String"/>
                 <Column editable="false" title="Fecha" type="java.lang.String"/>
                 <Column editable="false" title="Horario Inicio" type="java.lang.String"/>
                 <Column editable="false" title="Horario Fin" type="java.lang.String"/>
                 <Column editable="false" title="Estado de Solicitud" type="java.lang.String"/>
-                <Column editable="false" title="Tipo Horario" type="java.lang.String"/>
+                <Column editable="false" title="Motivo del Rechazo" type="java.lang.String"/>
               </Table>
             </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="int[] anchos = {50, 100, 120, 200, 120, 120, 100, 130, 250};&#xa;DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();&#xa;centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);&#xa;&#xa;for (int i = 0; i &lt; anchos.length; i++) {&#xa;    TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);&#xa;    TablaPrestamos.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);&#xa;}">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
