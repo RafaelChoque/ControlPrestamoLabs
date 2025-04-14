@@ -528,7 +528,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /*private void cargarTabla(){
+    private void cargarTabla(){
         DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
@@ -536,15 +536,12 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         ResultSetMetaData rsmd;
         int columnas;
         
-        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
-        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
-            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-        }
+
         try {
             Connection con=Conexion.obtenerConexion();
             ps = con.prepareStatement(
                     "SELECT p.id_personal_academico, p.RU, p.nombre, p.apellido, p.CI, p.telefono, u.activo "
-                    +"FROM personal_academico p"
+                    +"FROM personal_academico p "
                     +"INNER JOIN usuarios u ON p.id_usuario = u.id_usuario"
             );
             rs= ps.executeQuery();
@@ -563,7 +560,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex.toString());
         }
-    }*/
+    }
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     String ruText=RU.getText();
     String nombre=Nombre.getText();
