@@ -7,7 +7,7 @@ package Administrador;
 
 /**
  *
- * @author tralalero tralala
+ * @author tralalero tralala --que tremendo bobo el que escribio eso
  */
 import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
