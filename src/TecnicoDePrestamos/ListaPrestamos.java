@@ -24,12 +24,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListaPrestamos extends javax.swing.JFrame {
 
+    private int idusuario;
+
     /**
      * Creates new form GestionEquipos
      */
     public ListaPrestamos() {
         initComponents();
-        cargarTabla();
+        
     }
 
     /**
@@ -58,10 +60,11 @@ public class ListaPrestamos extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         Izquierda = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaPrestamos = new javax.swing.JTable();
+        TablaSolicitudes = new javax.swing.JTable();
         ListadePrestamos = new javax.swing.JLabel();
         BuscarSolicitudes = new javax.swing.JButton();
         ActualizarTabla = new javax.swing.JButton();
+        FondoBlanco = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -243,19 +246,19 @@ public class ListaPrestamos extends javax.swing.JFrame {
         Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
         getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
 
-        TablaPrestamos.setModel(new javax.swing.table.DefaultTableModel(
+        TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Nombre", "Apellido", "Motivo", "Bloque", "Sección", "Fecha de Inicio", "Fecha de Fin", "Estado"
+                "ID", "Laboratorio", "Docente", "Motivo", "Bloque", "Sección", "Fecha", "Horario Inicio", "Horario Fin", "Estado", "Motivo del rechazo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -266,13 +269,13 @@ public class ListaPrestamos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(TablaPrestamos);
+        jScrollPane1.setViewportView(TablaSolicitudes);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 1220, 640));
 
         ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListadePrestamos.setText("Historial de Solicitudes");
-        getContentPane().add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
+        getContentPane().add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
         BuscarSolicitudes.setText("Buscar Solicitudes");
         BuscarSolicitudes.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +283,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
                 BuscarSolicitudesActionPerformed(evt);
             }
         });
-        getContentPane().add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, -1, -1));
+        getContentPane().add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
 
         ActualizarTabla.setText("Actualizar Tabla");
         ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
@@ -288,15 +291,18 @@ public class ListaPrestamos extends javax.swing.JFrame {
                 ActualizarTablaActionPerformed(evt);
             }
         });
-        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, -1, -1));
+        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1250, 760));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTabla() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) TablaPrestamos.getModel();
+    private void cargarTabla(int idusuario) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
         modeloTabla.setRowCount(0);  
 
         PreparedStatement ps;
@@ -304,26 +310,22 @@ public class ListaPrestamos extends javax.swing.JFrame {
         ResultSetMetaData rsmd;
         int columnas;
 
-       
-        int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80};
-        for (int i = 0; i < TablaPrestamos.getColumnCount(); i++) {
-            TablaPrestamos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-        }
-
         try {
             
             Connection con = Conexion.obtenerConexion();  
             ps = con.prepareStatement(
-                    "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha_inicio, p.fecha_fin, p.estado "
+                    "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, "
+                    + "p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
                     + "FROM prestamos p "
                     + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                    + "WHERE pa.id_usuario = ?"
             );
+            ps.setInt(1, idusuario); 
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
 
-           
             while (rs.next()) {
                 Object[] fila = new Object[columnas];
                 for (int indice = 0; indice < columnas; indice++) {
@@ -369,7 +371,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
     }//GEN-LAST:event_BuscarSolicitudesActionPerformed
 
     private void ActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaActionPerformed
-        cargarTabla();
+        cargarTabla(idusuario);
         actualizarColorBotonSolicitud();
     }//GEN-LAST:event_ActualizarTablaActionPerformed
 
@@ -469,12 +471,13 @@ public class ListaPrestamos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTabla;
     private javax.swing.JButton BuscarSolicitudes;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Izquierda;
     private javax.swing.JLabel ListadePrestamos;
     private javax.swing.JLabel LogoSale;
     private javax.swing.JLabel Superior;
-    private javax.swing.JTable TablaPrestamos;
+    private javax.swing.JTable TablaSolicitudes;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnCerrarSesion2;
