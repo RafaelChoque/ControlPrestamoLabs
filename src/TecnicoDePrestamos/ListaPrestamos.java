@@ -68,6 +68,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         LogoSale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logosaleint.png"))); // NOI18N
@@ -301,7 +302,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTabla(int idusuario) {
+    private void cargarTabla() {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
         modeloTabla.setRowCount(0);  
 
@@ -318,10 +319,8 @@ public class ListaPrestamos extends javax.swing.JFrame {
                     + "p.motivo, l.bloque, l.seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
                     + "FROM prestamos p "
                     + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
-                    + "WHERE pa.id_usuario = ?"
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "            
             );
-            ps.setInt(1, idusuario); 
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -371,7 +370,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
     }//GEN-LAST:event_BuscarSolicitudesActionPerformed
 
     private void ActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaActionPerformed
-        cargarTabla(idusuario);
+        cargarTabla();
         actualizarColorBotonSolicitud();
     }//GEN-LAST:event_ActualizarTablaActionPerformed
 
