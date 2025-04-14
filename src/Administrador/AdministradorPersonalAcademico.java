@@ -44,6 +44,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
      */
     public AdministradorPersonalAcademico() {
         initComponents();
+        cargarTabla();
         ID.setVisible(false);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
