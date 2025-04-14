@@ -45,7 +45,12 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         RechazarSolicitud = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         MotivoRechazo = new javax.swing.JTextArea();
-        AgregarPrestamo = new javax.swing.JButton();
+        VerHorarios = new javax.swing.JButton();
+        motivoRechazo = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
+        Izquierda = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -55,14 +60,14 @@ public class SolicitudPendiente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Laboratorio", "Docente", "Motivo", "Fecha de Inicio", "Fecha de Fin", "Estado", "Motivo del Rechazo"
+                "ID", "Laboratorio", "Docente", "Motivo", "Fecha", "Horario Inicio", "Horario Fin", "Estado", "Motivo del Rechazo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -75,10 +80,11 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaSolicitudes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 930, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 1200, -1));
 
+        jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("SOLICITUDES PENDIENTES");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
 
         AprobarSolicitud.setText("Aprobar");
         AprobarSolicitud.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +92,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 AprobarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 90, -1, -1));
+        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
 
         RechazarSolicitud.setText("Rechazar");
         RechazarSolicitud.addActionListener(new java.awt.event.ActionListener() {
@@ -94,108 +100,123 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 RechazarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, -1, -1));
+        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
 
         MotivoRechazo.setColumns(20);
         MotivoRechazo.setRows(5);
         jScrollPane2.setViewportView(MotivoRechazo);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, 400, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 400, 190));
 
-        AgregarPrestamo.setText("Seleccionar Laboratorio");
-        getContentPane().add(AgregarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
+        VerHorarios.setText("Ver Horarios");
+        getContentPane().add(VerHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, -1, -1));
+
+        motivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        motivoRechazo.setText("Motivo del Rechazo");
+        getContentPane().add(motivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1250, 760));
+
+        Izquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Recuadro azul.png"))); // NOI18N
+        getContentPane().add(Izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 870));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarTabla() {
-    DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
-    modeloTabla.setRowCount(0);  
-    
-    PreparedStatement ps;
-    ResultSet rs;
-    ResultSetMetaData rsmd;
-    int columnas;
+    private void cargarTabla() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) TablaSolicitudes.getModel();
+        modeloTabla.setRowCount(0);
 
-    
-    int[] anchos = {10, 100, 100, 100, 80, 80, 80, 100, 100, 80};
-    for (int i = 0; i < TablaSolicitudes.getColumnCount(); i++) {
-        TablaSolicitudes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-    }
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, "
+                + "p.motivo, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
+                + "FROM prestamos p "
+                + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
+            );
 
-    try {
-        
-        Connection con = Conexion.obtenerConexion();  
-        ps = con.prepareStatement(
-            "SELECT p.id_prestamo, l.Nombre_lab, pa.nombre, pa.apellido, p.motivo, l.bloque, l.seccion, p.fecha_inicio, p.fecha_fin, p.estado "
-            + "FROM prestamos p "
-            + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-            + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
-        );
-        rs = ps.executeQuery();
-        rsmd = rs.getMetaData();
-        columnas = rsmd.getColumnCount();
-
-        
-        while (rs.next()) {
-            Object[] fila = new Object[columnas];
-            for (int indice = 0; indice < columnas; indice++) {
-                fila[indice] = rs.getObject(indice + 1);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_prestamo"),
+                    rs.getString("Nombre_lab"),
+                    rs.getString("nombre_completo"),
+                    rs.getString("motivo"),
+                    rs.getDate("fecha"),
+                    rs.getTime("horario_inicio"),
+                    rs.getTime("horario_fin"),
+                    rs.getString("estado"),
+                    rs.getString("motivo_rechazo")
+                };
+                modeloTabla.addRow(fila);
             }
-            modeloTabla.addRow(fila);  
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar solicitudes: " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
+
     private void AprobarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprobarSolicitudActionPerformed
-        try{
         int fila = TablaSolicitudes.getSelectedRow();
-        int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila,0).toString());
-        
-        Connection con = Conexion.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Aprobado' WHERE id_prestamo = ?");
-        ps.setInt(1,idSolicitud);
-        ps.executeUpdate();
-        
-        JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
-        
-        }catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al aprobar la solicitud: " + ex.getMessage());
-    }
-        
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para aprobar.");
+            return;
+        }
+
+        try {
+            int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Aprobado' WHERE id_prestamo = ?");
+            ps.setInt(1, idSolicitud);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
+            cargarTabla();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al aprobar la solicitud: " + ex.getMessage());
+        }  
     }//GEN-LAST:event_AprobarSolicitudActionPerformed
 
     private void RechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudActionPerformed
-    int fila = TablaSolicitudes.getSelectedRow();
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para rechazar.");
-        return;
-    }
+        int fila = TablaSolicitudes.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para rechazar.");
+            return;
+        }
 
-    String motivo = MotivoRechazo.getText().trim();
-    if (motivo.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud.");
-        return;
-    }
+        String motivo = MotivoRechazo.getText().trim();
+        if (motivo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un motivo para rechazar la solicitud.");
+            return;
+        }
 
-    try {
-        int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+        try {
+            int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE prestamos SET estado = 'Rechazado', motivo_rechazo = ? WHERE id_prestamo = ?"
+            );
+            ps.setString(1, motivo);
+            ps.setInt(2, idSolicitud);
+            ps.executeUpdate();
 
-        Connection con = Conexion.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Rechazado', motivo = ? WHERE id_prestamo = ?");
-        ps.setString(1, motivo);
-        ps.setInt(2, idSolicitud);
-        ps.executeUpdate();
-
-        JOptionPane.showMessageDialog(null, "Solicitud rechazada correctamente.");
-        MotivoRechazo.setText(""); 
-        
-        
-        cargarTabla();
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
-    }
+            JOptionPane.showMessageDialog(null, "Solicitud rechazada correctamente.");
+            MotivoRechazo.setText("");
+            cargarTabla();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
+        }
     }//GEN-LAST:event_RechazarSolicitudActionPerformed
 
     /**
@@ -224,13 +245,18 @@ private void cargarTabla() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AgregarPrestamo;
     private javax.swing.JButton AprobarSolicitud;
+    private javax.swing.JLabel FondoBlanco;
+    private javax.swing.JLabel FondoGris1;
+    private javax.swing.JLabel Izquierda;
     private javax.swing.JTextArea MotivoRechazo;
     private javax.swing.JButton RechazarSolicitud;
+    private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaSolicitudes;
+    private javax.swing.JButton VerHorarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel motivoRechazo;
     // End of variables declaration//GEN-END:variables
 }
