@@ -33,7 +33,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  *
- * @author Jose Sebastian
+ * @author asfasnofgnasogansokl
  */
 public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
