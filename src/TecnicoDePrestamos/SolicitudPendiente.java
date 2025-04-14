@@ -10,6 +10,7 @@ package TecnicoDePrestamos;
  * @author Rafael
  */
 import ConexionLogin.Conexion;
+import PersonalAcademico.DisponibilidadPrestamos;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.Connection;
 import java.sql.*;
@@ -43,6 +44,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         AprobarSolicitud = new javax.swing.JButton();
         RechazarSolicitud = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         MotivoRechazo = new javax.swing.JTextArea();
         VerHorarios = new javax.swing.JButton();
@@ -92,7 +94,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 AprobarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
+        getContentPane().add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
 
         RechazarSolicitud.setText("Rechazar");
         RechazarSolicitud.addActionListener(new java.awt.event.ActionListener() {
@@ -100,20 +102,33 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 RechazarSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+        getContentPane().add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
+
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 90, -1));
 
         MotivoRechazo.setColumns(20);
         MotivoRechazo.setRows(5);
         jScrollPane2.setViewportView(MotivoRechazo);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 400, 190));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 400, 190));
 
         VerHorarios.setText("Ver Horarios");
-        getContentPane().add(VerHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, -1, -1));
+        VerHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerHorariosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VerHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
 
         motivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         motivoRechazo.setText("Motivo del Rechazo");
-        getContentPane().add(motivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
+        getContentPane().add(motivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, -1, -1));
 
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
@@ -219,6 +234,18 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_RechazarSolicitudActionPerformed
 
+    private void VerHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerHorariosActionPerformed
+        DisponibilidadPrestamos disponibilidadpres = new DisponibilidadPrestamos();
+        disponibilidadpres.setLocationRelativeTo(null);
+        disponibilidadpres.setVisible(true);
+    }//GEN-LAST:event_VerHorariosActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        ListaPrestamos listaprestamo = new ListaPrestamos();
+        listaprestamo.setLocationRelativeTo(null);
+        listaprestamo.setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +281,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaSolicitudes;
     private javax.swing.JButton VerHorarios;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
