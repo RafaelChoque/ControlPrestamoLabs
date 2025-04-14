@@ -61,14 +61,15 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         SeleccionLab = new javax.swing.JTextField();
+        FondoBlanco = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("VER DISPONIBILIDAD");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
-        getContentPane().add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, -1));
+        getContentPane().add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 130, -1));
 
         Reservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,14 +94,14 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Reservas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 820, 390));
-        getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, 20));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 870, 410));
+        getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 130, 20));
 
         jLabel2.setText("BLOQUE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
 
         btnLimpiar.setText("Limpiar");
-        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +109,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +117,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, -1, -1));
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
 
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -124,11 +125,14 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
                 GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 90, -1));
-        getContentPane().add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 230, -1));
+        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 480, 90, -1));
+        getContentPane().add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 230, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 900, 510));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -238,6 +242,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Bloque;
     private com.toedter.calendar.JDateChooser Fecha;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JButton Guardar;
     private javax.swing.JTable Reservas;
