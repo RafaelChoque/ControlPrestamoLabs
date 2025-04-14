@@ -31,7 +31,7 @@ import javax.swing.table.TableRowSorter;
 public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
     /**
-     * Creates new form Administrador
+     * Creates ntralalero tralala
      */
     public AdministradorTecnicoPrestamo() {
         initComponents();

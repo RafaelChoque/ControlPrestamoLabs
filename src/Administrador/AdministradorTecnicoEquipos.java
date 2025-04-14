@@ -7,7 +7,7 @@ package Administrador;
 
 /**
  *
- * @author Rafael
+ * @author tralalero tralala
  */
 import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
@@ -38,7 +38,7 @@ import javax.swing.table.TableRowSorter;
 public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdministradorTecnicoEquipos
+     * Creates new form AdministradorTecvtralalero tralalas
      */
     public AdministradorTecnicoEquipos() {
         initComponents();

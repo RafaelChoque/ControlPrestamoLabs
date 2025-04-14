@@ -33,14 +33,14 @@ import javax.swing.table.TableRowSorter;
 
 /**
  *
- * @author asfasnofgnasogansokl
+ * @author tralalero tralala
  */
 public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
     private int idUsuario;
 
     /**
-     * Creates new form AdministradorPersonalAcademico
+     * Creates new form AdministradorPersonalAcademicTralaleloo
      */
     public AdministradorPersonalAcademico() {
         initComponents();
