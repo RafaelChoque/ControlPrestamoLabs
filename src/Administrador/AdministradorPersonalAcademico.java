@@ -559,7 +559,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /*private void cargarTabla(){
+    private void cargarTabla(){
         DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
@@ -575,7 +575,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             Connection con=Conexion.obtenerConexion();
             ps = con.prepareStatement(
                     "SELECT p.id_personal_academico, p.RU, p.nombre, p.apellido, p.CI, p.telefono, u.activo "
-                    +"FROM personal_academico p"
+                    +"FROM personal_academico p "
                     +"INNER JOIN usuarios u ON p.id_usuario = u.id_usuario"
             );
             rs= ps.executeQuery();
@@ -594,7 +594,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex.toString());
         }
-    }*/
+    }
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     String ruText=RU.getText();
     String nombre=Nombre.getText();
@@ -644,7 +644,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 interfaz.setVisible(true);
                 
                 Limpiar();
-                //cargarTabla();
+                cargarTabla();
     }catch(SQLException ex){
         System.out.print(ex.toString());
     }
@@ -696,7 +696,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psPersonalAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
             Limpiar();
-            //cargarTabla();
+            cargarTabla();
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
@@ -724,7 +724,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 psUsuario.executeUpdate();
                 JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
                 Limpiar();
-                //cargarTabla();
+                cargarTabla();
             }else{
                 JOptionPane.showMessageDialog(null,"No se encontro al personal");
             }
@@ -808,7 +808,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             String mensaje = (nuevoEstado == 1) ? "Personal habilitado." : "Personal deshabilitado.";
             JOptionPane.showMessageDialog(null, mensaje);
 
-            //cargarTabla();
+            cargarTabla();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
