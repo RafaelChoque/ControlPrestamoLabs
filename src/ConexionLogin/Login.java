@@ -39,6 +39,8 @@ public class Login extends javax.swing.JFrame {
         
         contrasena.setEchoChar('•');
         btnMostrarContraseña.setIcon(ojoOcultar);
+        contrasena.addActionListener(e -> IniciaSesion.doClick());
+       sesion.addActionListener(e -> IniciaSesion.doClick());
     }
     
 
@@ -246,6 +248,7 @@ public class RoundedPanel extends JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
+       
     }//GEN-LAST:event_IniciaSesionActionPerformed
 
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
