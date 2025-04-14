@@ -61,6 +61,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         SeleccionLab = new javax.swing.JTextField();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -125,6 +126,9 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         });
         getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 90, -1));
         getContentPane().add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 230, -1));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -234,6 +238,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Bloque;
     private com.toedter.calendar.JDateChooser Fecha;
+    private javax.swing.JLabel FondoGris1;
     private javax.swing.JButton Guardar;
     private javax.swing.JTable Reservas;
     private javax.swing.JTextField SeleccionLab;
