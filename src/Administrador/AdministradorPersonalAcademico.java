@@ -17,12 +17,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -61,7 +59,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
         });
         this.setLocationRelativeTo(null);
-        cargarTabla();
+        //cargarTabla();
     }
     private boolean sidebarMostrado = false;
     private Timer animacion;
@@ -129,6 +127,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         btnPersonalAcademico = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         LogoSale = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
         perfil = new javax.swing.JLabel();
         ListaPersonal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -158,7 +157,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         FondoBlanco = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -278,6 +276,11 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         panelSidebar.add(LogoSale, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, -1));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -428,14 +431,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaPersonalAcademico);
-        int[] anchos = {10, 50, 100, 100, 80, 90, 50};
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        for (int i = 0; i < anchos.length; i++) {
-            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            TablaPersonalAcademico.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 690, 610));
 
@@ -531,14 +526,9 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1670, 870));
 
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTabla(){
+    /*private void cargarTabla(){
         DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
@@ -546,12 +536,15 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         ResultSetMetaData rsmd;
         int columnas;
         
-
+        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
+        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
+            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
         try {
             Connection con=Conexion.obtenerConexion();
             ps = con.prepareStatement(
                     "SELECT p.id_personal_academico, p.RU, p.nombre, p.apellido, p.CI, p.telefono, u.activo "
-                    +"FROM personal_academico p "
+                    +"FROM personal_academico p"
                     +"INNER JOIN usuarios u ON p.id_usuario = u.id_usuario"
             );
             rs= ps.executeQuery();
@@ -570,7 +563,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex.toString());
         }
-    }
+    }*/
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     String ruText=RU.getText();
     String nombre=Nombre.getText();
@@ -620,7 +613,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 interfaz.setVisible(true);
                 
                 Limpiar();
-                cargarTabla();
+                //cargarTabla();
     }catch(SQLException ex){
         System.out.print(ex.toString());
     }
@@ -672,7 +665,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psPersonalAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
             Limpiar();
-            cargarTabla();
+            //cargarTabla();
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
@@ -700,7 +693,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 psUsuario.executeUpdate();
                 JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
                 Limpiar();
-                cargarTabla();
+                //cargarTabla();
             }else{
                 JOptionPane.showMessageDialog(null,"No se encontro al personal");
             }
@@ -784,7 +777,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             String mensaje = (nuevoEstado == 1) ? "Personal habilitado." : "Personal deshabilitado.";
             JOptionPane.showMessageDialog(null, mensaje);
 
-            cargarTabla();
+            //cargarTabla();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -825,12 +818,14 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_CerrarSesionMouseExited
 
     private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
+        // TODO add your handling code here:
+        // Crear la ventana de login
         Login login = new Login();
-        login.setLocationRelativeTo(null); 
+        login.setLocationRelativeTo(null); // Centrar la ventana
         login.setVisible(true);
-        
-        this.dispose(); 
-
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+    // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_CerrarSesionActionPerformed
 
     private void btnInicio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio2MouseExited
