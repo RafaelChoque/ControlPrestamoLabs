@@ -152,17 +152,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSidebar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
-        btnInicio2 = new javax.swing.JButton();
-        btnPersonalAcademico = new javax.swing.JButton();
-        btnTecnicoPrestamo = new javax.swing.JButton();
-        btnTecnicoEquipo = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         ListaPersonal = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -193,119 +182,21 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
+        panelSidebar = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        LogoSale1 = new javax.swing.JLabel();
+        btnInicio2 = new javax.swing.JButton();
+        btnPersonalAcademico = new javax.swing.JButton();
+        btnTecnicoPrestamo = new javax.swing.JButton();
+        btnTecnicoEquipo = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
-        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Panel de Control");
-        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.setBorder(null);
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseExited(evt);
-            }
-        });
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
-
-        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
-
-        btnInicio2.setBackground(new java.awt.Color(29, 41, 57));
-        btnInicio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInicio2.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio2.setText("INICIO");
-        btnInicio2.setBorder(null);
-        btnInicio2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnInicio2MouseExited(evt);
-            }
-        });
-        btnInicio2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicio2ActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnInicio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
-
-        btnPersonalAcademico.setBackground(new java.awt.Color(29, 41, 57));
-        btnPersonalAcademico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPersonalAcademico.setForeground(new java.awt.Color(241, 241, 241));
-        btnPersonalAcademico.setText("Personal Academico");
-        btnPersonalAcademico.setBorder(null);
-        btnPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPersonalAcademicoMouseExited(evt);
-            }
-        });
-        btnPersonalAcademico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPersonalAcademicoActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnPersonalAcademico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
-
-        btnTecnicoPrestamo.setBackground(new java.awt.Color(29, 41, 57));
-        btnTecnicoPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnTecnicoPrestamo.setForeground(new java.awt.Color(241, 241, 241));
-        btnTecnicoPrestamo.setText("Tecnico Prestamos");
-        btnTecnicoPrestamo.setBorder(null);
-        btnTecnicoPrestamo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTecnicoPrestamoMouseExited(evt);
-            }
-        });
-        btnTecnicoPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTecnicoPrestamoActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnTecnicoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
-
-        btnTecnicoEquipo.setBackground(new java.awt.Color(29, 41, 57));
-        btnTecnicoEquipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnTecnicoEquipo.setForeground(new java.awt.Color(241, 241, 241));
-        btnTecnicoEquipo.setText("Tecnico Equipo");
-        btnTecnicoEquipo.setBorder(null);
-        btnTecnicoEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTecnicoEquipoMouseExited(evt);
-            }
-        });
-        btnTecnicoEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTecnicoEquipoActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnTecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
-
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -557,6 +448,115 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Panel de Control");
+        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+
+        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+
+        btnInicio2.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio2.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio2.setText("INICIO");
+        btnInicio2.setBorder(null);
+        btnInicio2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInicio2MouseExited(evt);
+            }
+        });
+        btnInicio2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicio2ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnInicio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+
+        btnPersonalAcademico.setBackground(new java.awt.Color(29, 41, 57));
+        btnPersonalAcademico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPersonalAcademico.setForeground(new java.awt.Color(241, 241, 241));
+        btnPersonalAcademico.setText("Personal Academico");
+        btnPersonalAcademico.setBorder(null);
+        btnPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPersonalAcademicoMouseExited(evt);
+            }
+        });
+        btnPersonalAcademico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPersonalAcademicoActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnPersonalAcademico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+
+        btnTecnicoPrestamo.setBackground(new java.awt.Color(29, 41, 57));
+        btnTecnicoPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTecnicoPrestamo.setForeground(new java.awt.Color(241, 241, 241));
+        btnTecnicoPrestamo.setText("Tecnico Prestamos");
+        btnTecnicoPrestamo.setBorder(null);
+        btnTecnicoPrestamo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTecnicoPrestamoMouseExited(evt);
+            }
+        });
+        btnTecnicoPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTecnicoPrestamoActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnTecnicoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+
+        btnTecnicoEquipo.setBackground(new java.awt.Color(29, 41, 57));
+        btnTecnicoEquipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTecnicoEquipo.setForeground(new java.awt.Color(241, 241, 241));
+        btnTecnicoEquipo.setText("Tecnico Equipo");
+        btnTecnicoEquipo.setBorder(null);
+        btnTecnicoEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTecnicoEquipoMouseExited(evt);
+            }
+        });
+        btnTecnicoEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTecnicoEquipoActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnTecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
+
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

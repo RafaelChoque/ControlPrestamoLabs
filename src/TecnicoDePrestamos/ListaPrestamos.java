@@ -272,7 +272,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaSolicitudes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 1220, 640));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 1220, 640));
 
         ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         ListadePrestamos.setText("Historial de Solicitudes");
@@ -284,7 +284,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
                 BuscarSolicitudesActionPerformed(evt);
             }
         });
-        getContentPane().add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
+        getContentPane().add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
         ActualizarTabla.setText("Actualizar Tabla");
         ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +292,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
                 ActualizarTablaActionPerformed(evt);
             }
         });
-        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        getContentPane().add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1250, 760));

@@ -111,6 +111,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         SeleccionLab = new javax.swing.JTextField();
         DisponibilidadPrestamo = new javax.swing.JButton();
+        Sanciones = new javax.swing.JButton();
         ListaPersonal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPrestamos = new javax.swing.JTable();
@@ -372,6 +373,8 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         jPanel1.add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 150, -1));
 
+        DisponibilidadPrestamo.setBackground(new java.awt.Color(29, 41, 57));
+        DisponibilidadPrestamo.setForeground(new java.awt.Color(255, 255, 255));
         DisponibilidadPrestamo.setText("Seleccion de Laboratorio");
         DisponibilidadPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,6 +382,16 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DisponibilidadPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
+
+        Sanciones.setBackground(new java.awt.Color(29, 41, 57));
+        Sanciones.setForeground(new java.awt.Color(255, 255, 255));
+        Sanciones.setText("Sanciones");
+        Sanciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SancionesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 550, 380));
 
@@ -426,7 +439,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             TablaPrestamos.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, 1200, 310));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 660, 1200, 170));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1250, 760));
@@ -696,6 +709,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void SeleccionLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionLabActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SeleccionLabActionPerformed
+
+    private void SancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SancionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SancionesActionPerformed
 public void cargarTabla(int idusuario) {
     try {
         Connection con = Conexion.obtenerConexion();
@@ -803,6 +820,7 @@ public void cargarTabla(int idusuario) {
     private javax.swing.JTextField Motivo;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JButton Sanciones;
     private javax.swing.JComboBox<String> Seccion;
     private javax.swing.JTextField SeleccionLab;
     private javax.swing.JLabel Superior;
