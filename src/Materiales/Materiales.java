@@ -6,13 +6,20 @@ package Materiales;
 
 import ConexionLogin.Conexion;
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -20,11 +27,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Materiales extends javax.swing.JFrame {
 
+    private String categoriaSeleccionada;
+
     /**
      * Creates new form MaterialesHardware
      */
     public Materiales() {
         initComponents();
+        cargarTablaTodo();
     }
 
     /**
@@ -42,28 +52,31 @@ public class Materiales extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        btnGuardar1 = new javax.swing.JButton();
-        btnModificar1 = new javax.swing.JButton();
-        btnEliminar1 = new javax.swing.JButton();
-        btnLimpiar1 = new javax.swing.JButton();
-        btnHabilitarDeshabilitar1 = new javax.swing.JButton();
+        Categoria = new javax.swing.JLabel();
+        btnRedes = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
+        btnTelecomunicaciones = new javax.swing.JButton();
+        btnElectronica = new javax.swing.JButton();
+        MostrarTodo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        txtLaboratorio = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtBloque = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnHabilitarDeshabilitar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        Codigo = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
-        cbSeccion = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        btnVerLaboratorios = new javax.swing.JButton();
+        Laboratorio = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        NumeroSerie = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        TipoEquipo = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Unidades = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMateriales = new javax.swing.JTable();
         FondoBlanco = new javax.swing.JLabel();
@@ -73,6 +86,7 @@ public class Materiales extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -154,66 +168,66 @@ public class Materiales extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        jLabel13.setText("Categoria");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+        Categoria.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Categoria.setText("Categoria");
+        jPanel3.add(Categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
-        btnGuardar1.setBackground(new java.awt.Color(29, 41, 57));
-        btnGuardar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar1.setText("Hardware");
-        btnGuardar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+        btnRedes.setBackground(new java.awt.Color(29, 41, 57));
+        btnRedes.setForeground(new java.awt.Color(255, 255, 255));
+        btnRedes.setText("Redes");
+        btnRedes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRedes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardar1ActionPerformed(evt);
+                btnRedesActionPerformed(evt);
             }
         });
-        jPanel3.add(btnGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+        jPanel3.add(btnRedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, -1));
 
-        btnModificar1.setBackground(new java.awt.Color(29, 41, 57));
-        btnModificar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificar1.setText("Redes");
-        btnModificar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModificar1.addActionListener(new java.awt.event.ActionListener() {
+        Limpiar.setBackground(new java.awt.Color(255, 0, 0));
+        Limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        Limpiar.setText("Limpiar");
+        Limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificar1ActionPerformed(evt);
+                LimpiarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnModificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 140, -1));
+        jPanel3.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        btnEliminar1.setBackground(new java.awt.Color(255, 0, 0));
-        btnEliminar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar1.setText("Limpiar");
-        btnEliminar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
+        btnTelecomunicaciones.setBackground(new java.awt.Color(29, 41, 57));
+        btnTelecomunicaciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnTelecomunicaciones.setText("Telecomunicaciones");
+        btnTelecomunicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTelecomunicaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminar1ActionPerformed(evt);
+                btnTelecomunicacionesActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        jPanel3.add(btnTelecomunicaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 140, -1));
 
-        btnLimpiar1.setBackground(new java.awt.Color(29, 41, 57));
-        btnLimpiar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar1.setText("Telecomunicaciones");
-        btnLimpiar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+        btnElectronica.setBackground(new java.awt.Color(29, 41, 57));
+        btnElectronica.setForeground(new java.awt.Color(255, 255, 255));
+        btnElectronica.setText("Electronica");
+        btnElectronica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnElectronica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiar1ActionPerformed(evt);
+                btnElectronicaActionPerformed(evt);
             }
         });
-        jPanel3.add(btnLimpiar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
+        jPanel3.add(btnElectronica, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
 
-        btnHabilitarDeshabilitar1.setBackground(new java.awt.Color(29, 41, 57));
-        btnHabilitarDeshabilitar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnHabilitarDeshabilitar1.setText("Electronica");
-        btnHabilitarDeshabilitar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHabilitarDeshabilitar1.addActionListener(new java.awt.event.ActionListener() {
+        MostrarTodo.setBackground(new java.awt.Color(29, 41, 57));
+        MostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        MostrarTodo.setText("Mostrar Todo");
+        MostrarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHabilitarDeshabilitar1ActionPerformed(evt);
+                MostrarTodoActionPerformed(evt);
             }
         });
-        jPanel3.add(btnHabilitarDeshabilitar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, -1));
+        jPanel3.add(MostrarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 360, 160, 200));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 370, 170, 200));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -222,14 +236,9 @@ public class Materiales extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel8.setText("Datos");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
-        jPanel1.add(txtLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 410, -1));
-
-        jLabel3.setText("Nombre:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         jLabel4.setText("Codigo:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-        jPanel1.add(txtBloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 410, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         btnGuardar.setBackground(new java.awt.Color(29, 41, 57));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -240,7 +249,7 @@ public class Materiales extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         btnModificar.setBackground(new java.awt.Color(29, 41, 57));
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,7 +260,7 @@ public class Materiales extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -262,7 +271,7 @@ public class Materiales extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, -1, -1));
 
         btnLimpiar.setBackground(new java.awt.Color(29, 41, 57));
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -273,7 +282,7 @@ public class Materiales extends javax.swing.JFrame {
                 btnLimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, -1, -1));
+        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, -1, -1));
 
         btnHabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         btnHabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -284,45 +293,55 @@ public class Materiales extends javax.swing.JFrame {
                 btnHabilitarDeshabilitarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
-
-        jLabel9.setText("Categoria:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 410, -1));
-
-        jLabel10.setText("Tipo de Equipo");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        jPanel1.add(Codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 410, -1));
 
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
             }
         });
-        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
+        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 10, -1));
 
-        cbSeccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hardware", "Redes", "Telecomunicaciones", "Electronica" }));
-        cbSeccion.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setText("Laboratorio");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+
+        btnVerLaboratorios.setText("Ver Laboratorios");
+        btnVerLaboratorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeccionActionPerformed(evt);
+                btnVerLaboratoriosActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 180, -1));
+        jPanel1.add(btnVerLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+        jPanel1.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 410, -1));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 100, 570, 220));
+        jLabel3.setText("Numero de Serie");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 20));
+        jPanel1.add(NumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 410, -1));
+
+        jLabel7.setText("Tipo de Equipo");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(TipoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 410, 20));
+
+        jLabel9.setText("Unidades");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jPanel1.add(Unidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 410, -1));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 100, 550, 260));
 
         tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Num_Serie", "Nombre", "Estado", "ID_Lab"
+                "ID", "Codigo", "Tipo de Equipo", "Numero de Serie", "Estado", "Categoria", "Laboratorio", "Unidades"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -374,69 +393,82 @@ public class Materiales extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void cargarTabla() {
+private void limpiar() {
+    Codigo.setText("");
+    TipoEquipo.setText("");
+    NumeroSerie.setText("");
+    Laboratorio.setText("");
+    categoriaSeleccionada = "";
+}
 
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblMateriales.getModel();
-        modeloTabla.setRowCount(0);
-
-        PreparedStatement ps;
-        ResultSet rs;
-        ResultSetMetaData rsmd;
-        int columnas;
-
-        try {
-            Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, unidades, bloque, seccion, estado FROM laboratorios");
-            rs = ps.executeQuery();
-            rsmd = rs.getMetaData();
-            columnas = rsmd.getColumnCount();
-
-            while (rs.next()) {
-                Object[] fila = new Object[columnas];
-                for (int indice = 0; indice < columnas; indice++) {
-                    fila[indice] = rs.getObject(indice + 1);
-                }
-                modeloTabla.addRow(fila);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
+private void cargarTablaPorCategoria() {
+    DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+    modelo.setRowCount(0);
+    if (categoriaSeleccionada == null || categoriaSeleccionada.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
+        return;
     }
-    
-    
-    
-    
-    
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        panelOverlay.setVisible(true);
-
-        panelSidebar.setVisible(true);
-        panelSidebar.setLocation(-250, 0);
-
-        getContentPane().revalidate();
-        getContentPane().repaint();
-
-        new Thread(() -> {
-            int duracion = 150;
-            int pasos = 25;
-            int delay = duracion / pasos;
-
-            for (int i = 0; i <= pasos; i++) {
-                int x = -250 + (i * 10);
-                int alpha = (int)(i * (120.0 / pasos));
-
-                panelSidebar.setLocation(x, 0);
-
-                Color overlayColor = new Color(0, 0, 0, alpha);
-                panelOverlay.setBackground(overlayColor);
-
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    try (Connection con = Conexion.obtenerConexion()) {
+        // Cambiar la consulta para incluir la sección de laboratorios
+        PreparedStatement ps = con.prepareStatement("SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, m.ID_lab, m.unidades, l.seccion "
+                                                   + "FROM materiales m "
+                                                   + "JOIN laboratorios l ON m.ID_lab = l.ID_lab "
+                                                   + "WHERE l.seccion = ?");
+        ps.setString(1, categoriaSeleccionada);  // Aquí se usa la sección como categoría
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_material"),
+                rs.getString("nombre"),
+                rs.getString("tipo_equipo"),
+                rs.getString("numero_serie"),
+                rs.getString("estado"),
+                rs.getString("seccion"),
+                rs.getString("unidades"),
+                rs.getString("ID_lab")  // Cargar la sección
+                };
+                modelo.addRow(fila);
             }
-        }).start();
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.toString());
+    }
+}
+
+
+private void cargarTablaTodo() {
+    DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+    modelo.setRowCount(0);
+    try {
+        Connection con = Conexion.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement("SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, m.ID_lab, m.unidades, l.seccion "
+                                                   + "FROM materiales m "
+                                                   + "JOIN laboratorios l ON m.ID_lab = l.ID_lab");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Object[] fila = {
+                rs.getInt("id_material"),
+                rs.getString("nombre"),
+                rs.getString("tipo_equipo"),
+                rs.getString("numero_serie"),
+                rs.getString("estado"),
+                rs.getString("seccion"),
+                rs.getString("unidades"),
+                rs.getString("ID_lab")
+            };
+            modelo.addRow(fila);
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.toString());
+    }
+}
+
+
+
+
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -445,86 +477,99 @@ public class Materiales extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String codigo = txtCodigo.getText();
-        String laboratorio = txtLaboratorio.getText();
-        String computadorasStr = txtUnidades.getText();
-        String bloque = txtBloque.getText();
-        String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
+      String codigoText = Codigo.getText();
+    String tipoEquipoText = TipoEquipo.getText();
+    String NumSerieText = NumeroSerie.getText();
+    String laboratorioText = Laboratorio.getText();
+    String unidadesText = Unidades.getText();  // Suponiendo que tienes un campo para unidades
 
-        if (codigo.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty() || seccion.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
-            return;
-        }
+    if (codigoText.isEmpty() || tipoEquipoText.isEmpty() || NumSerieText.isEmpty() || laboratorioText.isEmpty() || unidadesText.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos.");
+        return;
+    }
 
-        int computadoras = Integer.parseInt(computadorasStr);
+    try {
+        Connection con = Conexion.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(
+                "INSERT INTO materiales (nombre, tipo_equipo, numero_serie, estado, ID_lab, unidades) VALUES (?, ?, ?, ?, ?, ?)"
+        );
+        ps.setString(1, codigoText);      // nombre
+        ps.setString(2, tipoEquipoText);  // tipo_equipo
+        ps.setString(3, NumSerieText);    // numero_serie
+        ps.setString(4, "Disponible");    // estado (valor válido del ENUM)
+        ps.setString(5, laboratorioText); // ID_lab
+        ps.setInt(6, Integer.parseInt(unidadesText)); // unidades (convertir a int)
 
-        try{
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO laboratorios (codigo_lab, nombre_lab, unidades, bloque, seccion, estado) VALUES (?,?,?,?,?,?)");
-            ps.setString(1, codigo);
-            ps.setString(2, laboratorio);
-            ps.setInt(3, computadoras);
-            ps.setString(4, bloque);
-            ps.setString(5, seccion);
-            ps.setInt(6, 1);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, ("Registro Guardado"));
-            limpiar();
-            cargarTabla();
+        ps.executeUpdate();
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
+        JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
+        cargarTablaTodo();
+        limpiar();
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al guardar: " + e.toString());
+    }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int id  = Integer.parseInt(txtID.getText());
-        String codigo = txtCodigo.getText();
-        String laboratorio = txtLaboratorio.getText();
-        String computadorasStr = txtUnidades.getText();
-        String bloque = txtBloque.getText();
-        String seccion = cbSeccion.getSelectedItem() != null ? cbSeccion.getSelectedItem().toString() : "";
+    String id = txtID.getText();
+    String nombre = Codigo.getText();
+    String tipo = TipoEquipo.getText();
+    String serie = NumeroSerie.getText();
+    String laboratorio = Laboratorio.getText();
+    String unidades = Unidades.getText();  // Obtén el valor de unidades
 
-        if (codigo.isEmpty() || laboratorio.isEmpty() || computadorasStr.isEmpty() || bloque.isEmpty() || seccion.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
-            return;
-        }
+    if (id.isEmpty() || nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty() || unidades.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor seleccione un material y complete todos los campos.");
+        return;
+    }
 
-        int computadoras = Integer.parseInt(computadorasStr);
+    try {
+        Connection con = Conexion.obtenerConexion();
+        PreparedStatement ps = con.prepareStatement(
+                "UPDATE materiales SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=?, unidades=? WHERE id_material=?"
+        );
+        ps.setString(1, nombre);
+        ps.setString(2, tipo);
+        ps.setString(3, serie);
+        ps.setString(4, laboratorio);
+        ps.setString(5, unidades);  // Actualiza el valor de unidades
+        ps.setInt(6, Integer.parseInt(id));
 
-        try{
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("UPDATE laboratorios SET codigo_lab = ?, nombre_lab = ?, unidades = ?, bloque = ?, seccion = ? WHERE id_lab = ?");
-            ps.setString(1, codigo);
-            ps.setString(2, laboratorio);
-            ps.setInt(3, computadoras);
-            ps.setString(4, bloque);
-            ps.setString(5, seccion);
-            ps.setInt(6, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, ("Registro Modificado"));
-            limpiar();
-            cargarTabla();
+        ps.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
+        cargarTablaTodo();
+        limpiar();
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar: " + e.toString());
+    }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int id  = Integer.parseInt(txtID.getText());
+        String id = txtID.getText();
 
-        try{
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM laboratorios WHERE id_lab = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, ("Registro Eliminado"));
-            limpiar();
-            cargarTabla();
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material.");
+            return;
+        }
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, e.toString());
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este material?", "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Connection con = Conexion.obtenerConexion();
+                PreparedStatement ps = con.prepareStatement("DELETE FROM materiales WHERE id_material=?");
+                ps.setInt(1, Integer.parseInt(id));
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
+                cargarTablaTodo();
+                limpiar();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -535,44 +580,58 @@ public class Materiales extends javax.swing.JFrame {
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
         int fila = tblMateriales.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un laboratorio.");
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un material.");
             return;
         }
 
-        int laboratorioId = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
+        int materialId = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
 
         try {
             Connection con = Conexion.obtenerConexion();
 
-            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM laboratorios WHERE ID_lab = ?");
-            psObtenerEstado.setInt(1, laboratorioId);
+            // Obtenemos el estado actual del material
+            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM materiales WHERE id_material = ?");
+            psObtenerEstado.setInt(1, materialId);
             ResultSet rsEstado = psObtenerEstado.executeQuery();
 
             if (!rsEstado.next()) {
-                JOptionPane.showMessageDialog(null, "Error al encontrar el laboratorio.");
+                JOptionPane.showMessageDialog(null, "Error al encontrar el material.");
                 return;
             }
 
             String estadoActual = rsEstado.getString("estado");
+            System.out.println("Estado actual del material: " + estadoActual);  // Depuración para ver el estado actual
 
             String nuevoEstado;
+            // Cambiamos el estado según el valor actual
             if ("Disponible".equals(estadoActual)) {
-                nuevoEstado = "Ocupado";
-            } else if ("Ocupado".equals(estadoActual)) {
-                nuevoEstado = "Mantenimiento";
+                nuevoEstado = "Mantenimiento";  // Si está disponible, se pasa a mantenimiento
+            } else if ("Mantenimiento".equals(estadoActual)) {
+                nuevoEstado = "Disponible";  // Si está en mantenimiento, se pasa a disponible
             } else {
-                nuevoEstado = "Disponible";
+                nuevoEstado = estadoActual;  // En caso de que el estado no sea ni "Disponible" ni "Mantenimiento"
             }
 
-            PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE laboratorios SET estado = ? WHERE ID_lab = ?");
+            // Depurar el valor que se va a actualizar
+            System.out.println("Nuevo estado: " + nuevoEstado);  // Depuración para ver el nuevo estado
+
+            // Verificamos que el valor de nuevoEstado sea correcto
+            if (!"Disponible".equals(nuevoEstado) && !"Mantenimiento".equals(nuevoEstado)) {
+                JOptionPane.showMessageDialog(null, "Estado inválido. Solo 'Disponible' o 'Mantenimiento' son permitidos.");
+                return;
+            }
+
+            // Actualizamos el estado del material
+            PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE materiales SET estado = ? WHERE id_material = ?");
             psActualizarEstado.setString(1, nuevoEstado);
-            psActualizarEstado.setInt(2, laboratorioId);
+            psActualizarEstado.setInt(2, materialId);
             psActualizarEstado.executeUpdate();
 
-            String mensaje = "Laboratorio " + nuevoEstado.toLowerCase() + ".";
+            // Mostramos un mensaje según el nuevo estado
+            String mensaje = "Material ahora está en estado de " + nuevoEstado.toLowerCase() + ".";
             JOptionPane.showMessageDialog(null, mensaje);
 
-            cargarTabla();
+            cargarTablaPorCategoria();  // Recargamos la tabla para reflejar el cambio de estado
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -584,54 +643,64 @@ public class Materiales extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIDActionPerformed
 
     private void tblMaterialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialesMouseClicked
-        try{
-            int fila = tblMateriales.getSelectedRow();
+    try {
+        // Obtener la fila seleccionada
+        int fila = tblMateriales.getSelectedRow();
+
+        // Asegurarse de que se ha seleccionado una fila válida
+        if (fila != -1) {
+            // Obtener el ID del material seleccionado
             int id = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
+
             PreparedStatement ps;
             ResultSet rs;
             Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT codigo_lab, nombre_lab, unidades, bloque, seccion, estado FROM laboratorios WHERE id_lab=?");
+
+            // Consulta para obtener los detalles del material
+            ps = con.prepareStatement("SELECT m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.ID_lab, m.unidades, l.seccion FROM materiales m JOIN laboratorios l ON m.ID_lab = l.ID_lab WHERE id_material=?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
-            while(rs.next()){
-                txtID.setText(String.valueOf(id));
-                txtCodigo.setText(rs.getString("codigo_lab"));
-                txtLaboratorio.setText(rs.getString("nombre_lab"));
-                txtUnidades.setText(rs.getString("unidades"));
-                txtBloque.setText(rs.getString("bloque"));
-                cbSeccion.setSelectedItem(rs.getString("seccion"));
-
+            while (rs.next()) {
+                Codigo.setText(rs.getString("nombre"));
+                TipoEquipo.setText(rs.getString("tipo_equipo"));
+                NumeroSerie.setText(rs.getString("numero_serie"));
+                Categoria.setText(rs.getString("seccion"));  // Carga la sección desde laboratorios
+                Laboratorio.setText(rs.getString("ID_lab"));
+                Unidades.setText(rs.getString("unidades"));  // Carga el valor de unidades
             }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.toString());
-
         }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex.toString());
+    }
     }//GEN-LAST:event_tblMaterialesMouseClicked
 
-    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardar1ActionPerformed
+    private void btnRedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedesActionPerformed
+        categoriaSeleccionada = "Redes";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnRedesActionPerformed
 
-    private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnModificar1ActionPerformed
+    }//GEN-LAST:event_LimpiarActionPerformed
 
-    private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminar1ActionPerformed
+    private void btnTelecomunicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelecomunicacionesActionPerformed
+        categoriaSeleccionada = "Telecomunicaciones";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnTelecomunicacionesActionPerformed
 
-    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+    private void btnElectronicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElectronicaActionPerformed
+        categoriaSeleccionada = "Electronica";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnElectronicaActionPerformed
 
-    private void btnHabilitarDeshabilitar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHabilitarDeshabilitar1ActionPerformed
+    private void MostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodoActionPerformed
+        cargarTablaTodo();
+    }//GEN-LAST:event_MostrarTodoActionPerformed
 
-    private void cbSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeccionActionPerformed
+    private void btnVerLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLaboratoriosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSeccionActionPerformed
+    }//GEN-LAST:event_btnVerLaboratoriosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -670,28 +739,34 @@ public class Materiales extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Categoria;
+    private javax.swing.JTextField Codigo;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
+    private javax.swing.JTextField Laboratorio;
+    private javax.swing.JButton Limpiar;
+    private javax.swing.JButton MostrarTodo;
+    private javax.swing.JTextField NumeroSerie;
     private javax.swing.JLabel Superior;
+    private javax.swing.JTextField TipoEquipo;
+    private javax.swing.JTextField Unidades;
+    private javax.swing.JButton btnElectronica;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnGuardar1;
     private javax.swing.JButton btnHabilitarDeshabilitar;
-    private javax.swing.JButton btnHabilitarDeshabilitar1;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnModificar1;
-    private javax.swing.JComboBox<String> cbSeccion;
+    private javax.swing.JButton btnRedes;
+    private javax.swing.JButton btnTelecomunicaciones;
+    private javax.swing.JButton btnVerLaboratorios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -701,9 +776,6 @@ public class Materiales extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tblMateriales;
-    private javax.swing.JTextField txtBloque;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtLaboratorio;
     // End of variables declaration//GEN-END:variables
 }
