@@ -4,12 +4,19 @@
  */
 package Materiales;
 
+import ConexionLogin.Conexion;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import java.sql.ResultSet;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -66,6 +73,7 @@ public class MaterialesHardware extends javax.swing.JFrame {
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -140,8 +148,8 @@ public class MaterialesHardware extends javax.swing.JFrame {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 190, 40));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        jLabel1.setText("Materiales");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 50));
+        jLabel1.setText("Materiales de Hardware");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 260, 50));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
@@ -301,29 +309,176 @@ public class MaterialesHardware extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void limpiar() {
+        Codigo.setText("");
+        TipoEquipo.setText("");
+        NumeroSerie.setText("");
+        Laboratorio.setText("");
+        //categoriaSeleccionada = "";
+    }
+
+    private void cargarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Código");
+        modelo.addColumn("Tipo de Equipo");
+        modelo.addColumn("N° Serie");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Laboratorio");
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT mh.id_material_hardware, mh.nombre, mh.tipo_equipo, mh.numero_serie, mh.estado, l.codigo_lab "
+                    + "FROM materiales_hardware mh "
+                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab"
+            );
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Object[] fila = new Object[6];
+                fila[0] = rs.getInt("id_material_hardware");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getString("tipo_equipo");
+                fila[3] = rs.getString("numero_serie");
+                fila[4] = rs.getString("estado");
+                fila[5] = rs.getString("codigo_lab");
+                modelo.addRow(fila);
+            }
+
+            tblMateriales.setModel(modelo);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar materiales: " + e.getMessage());
+        }
+    }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String codigoText = Codigo.getText();
+        String tipoEquipoText = TipoEquipo.getText();
+        String NumSerieText = NumeroSerie.getText();
+        String laboratorioText = Laboratorio.getText();
+        if (codigoText.isEmpty() || tipoEquipoText.isEmpty() || NumSerieText.isEmpty() || laboratorioText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos.");
+            return;
+        }
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO materiales_hardware (nombre, tipo_equipo, numero_serie, estado, ID_lab) VALUES (?, ?, ?, ?, ?)"
+            );
+            ps.setString(1, codigoText);      
+            ps.setString(2, tipoEquipoText);  
+            ps.setString(3, NumSerieText);    
+            ps.setString(4, "Disponible");    
+            ps.setString(5, laboratorioText); 
+            
 
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
+            limpiar();
+            cargarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar: " + e.toString());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        String id = txtID.getText();
+        String nombre = Codigo.getText();
+        String tipo = TipoEquipo.getText();
+        String serie = NumeroSerie.getText();
+        String laboratorio = Laboratorio.getText();
+       
 
+        if (id.isEmpty() || nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material y complete todos los campos.");
+            return;
+        }
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE materiales_hardware SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=? WHERE id_material_hardware=?"
+            );
+            ps.setString(1, nombre);
+            ps.setString(2, tipo);
+            ps.setString(3, serie);
+            ps.setString(4, laboratorio);
+            ps.setInt(6, Integer.parseInt(id));
+
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
+            limpiar();
+            cargarTabla();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar: " + e.toString());
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String id = txtID.getText();
 
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este material?", "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Connection con = Conexion.obtenerConexion();
+                PreparedStatement ps = con.prepareStatement("DELETE FROM materiales_hardware WHERE id_material_hardware=?");
+                ps.setInt(1, Integer.parseInt(id));
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
+                limpiar();
+                cargarTabla();
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-    
+    limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
+        int selectedRow = tblMateriales.getSelectedRow();
 
+        if (selectedRow >= 0) {
+            String id = tblMateriales.getValueAt(selectedRow, 0).toString();
+            String estadoActual = tblMateriales.getValueAt(selectedRow, 4).toString(); // Columna del estado
+
+            String nuevoEstado = estadoActual.equalsIgnoreCase("Disponible") ? "No Disponible" : "Disponible";
+
+            try {
+                Connection con = Conexion.obtenerConexion();
+                PreparedStatement ps = con.prepareStatement(
+                        "UPDATE materiales_hardware SET estado=? WHERE id_material_hardware=?"
+                );
+                ps.setString(1, nuevoEstado);
+                ps.setInt(2, Integer.parseInt(id));
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Estado actualizado a: " + nuevoEstado);
+                cargarTabla();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el estado: " + e.toString());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material de la tabla.");
+        }
     }//GEN-LAST:event_btnHabilitarDeshabilitarActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
