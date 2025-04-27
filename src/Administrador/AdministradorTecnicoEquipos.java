@@ -11,7 +11,6 @@ package Administrador;
  */
 import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
-import TecnicoDePrestamos.ListaEquiposLabs;
 import ConexionLogin.Login;
 import ConexionLogin.Conexion;
 import PersonalAcademico.InicioPersonalAcademico;
