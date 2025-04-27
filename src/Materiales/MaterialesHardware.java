@@ -5,6 +5,7 @@
 package Materiales;
 
 import ConexionLogin.Conexion;
+
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -29,8 +30,12 @@ public class MaterialesHardware extends javax.swing.JFrame {
     /**
      * Creates new form MaterialesHardware
      */
+
     public MaterialesHardware() {
         initComponents();
+        Laboratorio.setEditable(false);
+        cargarTabla();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -235,6 +240,12 @@ public class MaterialesHardware extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnVerLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+
+        Laboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaboratorioActionPerformed(evt);
+            }
+        });
         jPanel1.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 410, -1));
 
         jLabel3.setText("Numero de Serie");
@@ -371,12 +382,11 @@ private void limpiar() {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO materiales_hardware (nombre, tipo_equipo, numero_serie, estado, ID_lab) VALUES (?, ?, ?, ?, ?)"
             );
-            ps.setString(1, codigoText);      
-            ps.setString(2, tipoEquipoText);  
-            ps.setString(3, NumSerieText);    
-            ps.setString(4, "Disponible");    
-            ps.setString(5, laboratorioText); 
-            
+            ps.setString(1, codigoText);
+            ps.setString(2, tipoEquipoText);
+            ps.setString(3, NumSerieText);
+            ps.setString(4, "Disponible");
+            ps.setString(5, laboratorioText);
 
             ps.executeUpdate();
 
@@ -394,7 +404,6 @@ private void limpiar() {
         String tipo = TipoEquipo.getText();
         String serie = NumeroSerie.getText();
         String laboratorio = Laboratorio.getText();
-       
 
         if (id.isEmpty() || nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un material y complete todos los campos.");
@@ -450,7 +459,7 @@ private void limpiar() {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-    limpiar();
+        limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
@@ -486,7 +495,9 @@ private void limpiar() {
     }//GEN-LAST:event_txtIDActionPerformed
 
     private void btnVerLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLaboratoriosActionPerformed
-        // TODO add your handling code here:
+        VerMaterialesParaLabs ver = new VerMaterialesParaLabs(Laboratorio);
+        ver.setLocationRelativeTo(null);
+        ver.setVisible(true);
     }//GEN-LAST:event_btnVerLaboratoriosActionPerformed
 
     private void tblMaterialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialesMouseClicked
@@ -496,6 +507,10 @@ private void limpiar() {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
 
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void LaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LaboratorioActionPerformed
 
     /**
      * @param args the command line arguments

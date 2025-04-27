@@ -486,7 +486,7 @@
             <Component class="javax.swing.JTextField" name="TipoEquipo">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="120" y="140" width="410" height="20"/>
+                  <AbsoluteConstraints x="120" y="140" width="410" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -531,8 +531,8 @@
                     <Column editable="false" title="Numero de Serie" type="java.lang.String"/>
                     <Column editable="false" title="Estado" type="java.lang.String"/>
                     <Column editable="false" title="Categoria" type="java.lang.String"/>
+                    <Column editable="false" title="Unidades" type="java.lang.String"/>
                     <Column editable="false" title="Laboratorio" type="java.lang.String"/>
-                    <Column editable="true" title="Unidades" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
