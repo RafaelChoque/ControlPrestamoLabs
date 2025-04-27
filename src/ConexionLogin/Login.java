@@ -13,6 +13,7 @@ import TecnicoDePrestamos.ListaPrestamos;
 import Administrador.AdministradorTecnicoPrestamo;
 import PersonalAcademico.FormularioPrestamo;
 import ConexionLogin.Conexion;
+import TecnicoDeEquipos.ReparacionesCompus;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -223,7 +224,9 @@ public class RoundedPanel extends JPanel {
                             ventanaTecnicoPrestamo.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
-
+                            ReparacionesCompus ventanaReparacionesCompus = new ReparacionesCompus(idusuario);
+                            ventanaReparacionesCompus.setVisible(true);
+                            this.dispose();
                         } else if (priv.equals("Administrador")) {
                             AdministradorTecnicoPrestamo ventanaadmin = new AdministradorTecnicoPrestamo();
                             ventanaadmin.setVisible(true);
