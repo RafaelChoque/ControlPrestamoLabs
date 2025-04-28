@@ -31,6 +31,8 @@ public class MaterialesHardware extends javax.swing.JFrame {
      * Creates new form MaterialesHardware
      */
 
+
+
     public MaterialesHardware() {
         initComponents();
         Laboratorio.setEditable(false);
@@ -325,42 +327,33 @@ private void limpiar() {
         TipoEquipo.setText("");
         NumeroSerie.setText("");
         Laboratorio.setText("");
-        //categoriaSeleccionada = "";
     }
 
     private void cargarTabla() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("Código");
-        modelo.addColumn("Tipo de Equipo");
-        modelo.addColumn("N° Serie");
-        modelo.addColumn("Estado");
-        modelo.addColumn("Laboratorio");
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+        modelo.setRowCount(0);
 
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT mh.id_material_hardware, mh.nombre, mh.tipo_equipo, mh.numero_serie, mh.estado, l.codigo_lab "
+                    "SELECT mh.id_material_hardware, mh.nombre, mh.tipo_equipo, mh.numero_serie, mh.estado,l.seccion ,l.Codigo_lab "
                     + "FROM materiales_hardware mh "
-                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab"
-            );
+                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab");
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
-                Object[] fila = new Object[6];
-                fila[0] = rs.getInt("id_material_hardware");
-                fila[1] = rs.getString("nombre");
-                fila[2] = rs.getString("tipo_equipo");
-                fila[3] = rs.getString("numero_serie");
-                fila[4] = rs.getString("estado");
-                fila[5] = rs.getString("codigo_lab");
+                Object[] fila = {
+                    rs.getInt("id_material_hardware"),
+                    rs.getString("nombre"),
+                    rs.getString("tipo_equipo"),
+                    rs.getString("numero_serie"),
+                    rs.getString("estado"),
+                    rs.getString("seccion"),
+                    rs.getString("Codigo_lab")
+                };
                 modelo.addRow(fila);
             }
-
-            tblMateriales.setModel(modelo);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar materiales: " + e.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
         }
     }
 
@@ -372,78 +365,116 @@ private void limpiar() {
         String codigoText = Codigo.getText();
         String tipoEquipoText = TipoEquipo.getText();
         String NumSerieText = NumeroSerie.getText();
-        String laboratorioText = Laboratorio.getText();
+        String laboratorioText = Laboratorio.getText(); // Esto será el Codigo_lab
+
         if (codigoText.isEmpty() || tipoEquipoText.isEmpty() || NumSerieText.isEmpty() || laboratorioText.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos.");
             return;
         }
+
         try {
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO materiales_hardware (nombre, tipo_equipo, numero_serie, estado, ID_lab) VALUES (?, ?, ?, ?, ?)"
+
+            // Primero obtenemos el ID_lab basado en el Codigo_lab
+            PreparedStatement psBuscarLab = con.prepareStatement(
+                    "SELECT ID_lab FROM laboratorios WHERE Codigo_lab = ?"
             );
-            ps.setString(1, codigoText);
-            ps.setString(2, tipoEquipoText);
-            ps.setString(3, NumSerieText);
-            ps.setString(4, "Disponible");
-            ps.setString(5, laboratorioText);
+            psBuscarLab.setString(1, laboratorioText);
+            ResultSet rs = psBuscarLab.executeQuery();
 
-            ps.executeUpdate();
+            if (rs.next()) {
+                int idLab = rs.getInt("ID_lab"); // Aquí obtenemos el ID
 
-            JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
-            limpiar();
-            cargarTabla();
+                // Ahora insertamos el material usando el ID_lab
+                PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO materiales_hardware (nombre, tipo_equipo, numero_serie, estado, ID_lab) VALUES (?, ?, ?, ?, ?)"
+                );
+                ps.setString(1, codigoText);
+                ps.setString(2, tipoEquipoText);
+                ps.setString(3, NumSerieText);
+                ps.setString(4, "Disponible");
+                ps.setInt(5, idLab); // Usamos el idLab aquí
+
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
+                cargarTabla();
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Código de laboratorio no encontrado.");
+            }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar: " + e.toString());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String id = txtID.getText();
+        int fila = tblMateriales.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un material de la tabla.");
+            return;
+        }
+
+        String id = tblMateriales.getValueAt(fila, 0).toString();
         String nombre = Codigo.getText();
         String tipo = TipoEquipo.getText();
         String serie = NumeroSerie.getText();
         String laboratorio = Laboratorio.getText();
 
-        if (id.isEmpty() || nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un material y complete todos los campos.");
+        if (nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
             return;
         }
 
-        try {
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(
-                    "UPDATE materiales_hardware SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=? WHERE id_material_hardware=?"
+        try (Connection con = Conexion.obtenerConexion()) {
+            // Primero obtenemos el ID_lab basado en el Codigo_lab
+            PreparedStatement psBuscarLab = con.prepareStatement(
+                    "SELECT ID_lab FROM laboratorios WHERE Codigo_lab = ?"
             );
-            ps.setString(1, nombre);
-            ps.setString(2, tipo);
-            ps.setString(3, serie);
-            ps.setString(4, laboratorio);
-            ps.setInt(6, Integer.parseInt(id));
+            psBuscarLab.setString(1, laboratorio);  // Usamos el valor de 'laboratorio' que ya tienes
+            ResultSet rs = psBuscarLab.executeQuery();
 
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
-            limpiar();
-            cargarTabla();
+            if (rs.next()) {
+                int idLab = rs.getInt("ID_lab"); // Obtener el ID_lab
 
+                // Ahora actualizamos el material usando el ID_lab
+                PreparedStatement ps = con.prepareStatement(
+                        "UPDATE materiales_hardware SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=? WHERE id_material_hardware=?"
+                );
+                ps.setString(1, nombre);
+                ps.setString(2, tipo);
+                ps.setString(3, serie);
+                ps.setInt(4, idLab);  // Usamos el ID_lab aquí
+                ps.setInt(5, Integer.parseInt(id));  // Usamos el ID del material a modificar
+
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
+                limpiar();
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Código de laboratorio no encontrado.");
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar: " + e.toString());
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String id = txtID.getText();
+        int fila = tblMateriales.getSelectedRow();
 
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un material.");
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un material de la tabla.");
             return;
         }
+
+        String id = tblMateriales.getValueAt(fila, 0).toString();
 
         int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este material?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                Connection con = Conexion.obtenerConexion();
+            try (Connection con = Conexion.obtenerConexion()) {
                 PreparedStatement ps = con.prepareStatement("DELETE FROM materiales_hardware WHERE id_material_hardware=?");
                 ps.setInt(1, Integer.parseInt(id));
                 ps.executeUpdate();
@@ -451,7 +482,6 @@ private void limpiar() {
                 JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
                 limpiar();
                 cargarTabla();
-
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
             }
@@ -463,30 +493,57 @@ private void limpiar() {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnHabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHabilitarDeshabilitarActionPerformed
-        int selectedRow = tblMateriales.getSelectedRow();
+        int fila = tblMateriales.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un material.");
+            return;
+        }
 
-        if (selectedRow >= 0) {
-            String id = tblMateriales.getValueAt(selectedRow, 0).toString();
-            String estadoActual = tblMateriales.getValueAt(selectedRow, 4).toString(); // Columna del estado
+        int materialId = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
 
-            String nuevoEstado = estadoActual.equalsIgnoreCase("Disponible") ? "No Disponible" : "Disponible";
+        try (Connection con = Conexion.obtenerConexion()) {
+            // Obtener el estado actual del material
+            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM materiales_hardware WHERE id_material_hardware = ?");
+            psObtenerEstado.setInt(1, materialId);
 
-            try {
-                Connection con = Conexion.obtenerConexion();
-                PreparedStatement ps = con.prepareStatement(
-                        "UPDATE materiales_hardware SET estado=? WHERE id_material_hardware=?"
-                );
-                ps.setString(1, nuevoEstado);
-                ps.setInt(2, Integer.parseInt(id));
-                ps.executeUpdate();
+            try (ResultSet rsEstado = psObtenerEstado.executeQuery()) {
+                if (!rsEstado.next()) {
+                    JOptionPane.showMessageDialog(null, "Error al encontrar el material.");
+                    return;
+                }
 
-                JOptionPane.showMessageDialog(null, "Estado actualizado a: " + nuevoEstado);
+                String estadoActual = rsEstado.getString("estado");
+                System.out.println("Estado actual del material: " + estadoActual);
+
+                // Cambiar el estado según el estado actual
+                String nuevoEstado;
+                if ("Disponible".equals(estadoActual)) {
+                    nuevoEstado = "Mantenimiento";
+                } else if ("Mantenimiento".equals(estadoActual)) {
+                    nuevoEstado = "Disponible";
+                } else {
+                    // Si el estado es diferente a "Disponible" o "Mantenimiento", no lo cambiamos
+                    JOptionPane.showMessageDialog(null, "Estado inválido. Solo 'Disponible' o 'Mantenimiento' son permitidos.");
+                    return;
+                }
+
+                System.out.println("Nuevo estado: " + nuevoEstado);
+
+                // Actualizar el estado en la base de datos
+                PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE materiales_hardware SET estado = ? WHERE id_material_hardware = ?");
+                psActualizarEstado.setString(1, nuevoEstado);
+                psActualizarEstado.setInt(2, materialId);
+                psActualizarEstado.executeUpdate();
+
+                String mensaje = "Material ahora está en estado de " + nuevoEstado.toLowerCase() + ".";
+                JOptionPane.showMessageDialog(null, mensaje);
+
                 cargarTabla();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar el estado: " + e.toString());
+
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un material de la tabla.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnHabilitarDeshabilitarActionPerformed
 
@@ -501,7 +558,34 @@ private void limpiar() {
     }//GEN-LAST:event_btnVerLaboratoriosActionPerformed
 
     private void tblMaterialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialesMouseClicked
+        try {
 
+            int fila = tblMateriales.getSelectedRow();
+
+            if (fila != -1) {
+
+                int id = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
+
+                PreparedStatement ps;
+                ResultSet rs;
+                Connection con = Conexion.obtenerConexion();
+
+                ps = con.prepareStatement("SELECT m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.Codigo_lab, l.seccion FROM materiales_hardware m JOIN laboratorios l ON m.ID_lab = l.ID_lab WHERE id_material_hardware=?");
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    Codigo.setText(rs.getString("nombre"));
+                    TipoEquipo.setText(rs.getString("tipo_equipo"));
+                    NumeroSerie.setText(rs.getString("numero_serie"));
+
+                    Laboratorio.setText(rs.getString("Codigo_lab"));
+
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
     }//GEN-LAST:event_tblMaterialesMouseClicked
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

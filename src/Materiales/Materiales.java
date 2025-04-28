@@ -520,47 +520,47 @@ public class Materiales extends javax.swing.JFrame {
 
         int materialId = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
 
-        try {
-            Connection con = Conexion.obtenerConexion();
-
+        try (Connection con = Conexion.obtenerConexion()) {
+            // Obtener el estado actual del material
             PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM materiales WHERE id_material = ?");
             psObtenerEstado.setInt(1, materialId);
-            ResultSet rsEstado = psObtenerEstado.executeQuery();
 
-            if (!rsEstado.next()) {
-                JOptionPane.showMessageDialog(null, "Error al encontrar el material.");
-                return;
+            try (ResultSet rsEstado = psObtenerEstado.executeQuery()) {
+                if (!rsEstado.next()) {
+                    JOptionPane.showMessageDialog(null, "Error al encontrar el material.");
+                    return;
+                }
+
+                String estadoActual = rsEstado.getString("estado");
+                System.out.println("Estado actual del material: " + estadoActual);
+
+                // Cambiar el estado según el estado actual
+                String nuevoEstado;
+                if ("Disponible".equals(estadoActual)) {
+                    nuevoEstado = "Mantenimiento";
+                } else if ("Mantenimiento".equals(estadoActual)) {
+                    nuevoEstado = "Disponible";
+                } else {
+                    // Si el estado es diferente a "Disponible" o "Mantenimiento", no lo cambiamos
+                    JOptionPane.showMessageDialog(null, "Estado inválido. Solo 'Disponible' o 'Mantenimiento' son permitidos.");
+                    return;
+                }
+
+                System.out.println("Nuevo estado: " + nuevoEstado);
+
+                // Actualizar el estado en la base de datos
+                PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE materiales SET estado = ? WHERE id_material = ?");
+                psActualizarEstado.setString(1, nuevoEstado);
+                psActualizarEstado.setInt(2, materialId);
+                psActualizarEstado.executeUpdate();
+
+                String mensaje = "Material ahora está en estado de " + nuevoEstado.toLowerCase() + ".";
+                JOptionPane.showMessageDialog(null, mensaje);
+
+                cargarTablaPorCategoria();
+                
             }
 
-            String estadoActual = rsEstado.getString("estado");
-            System.out.println("Estado actual del material: " + estadoActual);
-
-            String nuevoEstado;
-
-            if ("Disponible".equals(estadoActual)) {
-                nuevoEstado = "Mantenimiento";
-            } else if ("Mantenimiento".equals(estadoActual)) {
-                nuevoEstado = "Disponible";
-            } else {
-                nuevoEstado = estadoActual;
-            }
-
-            System.out.println("Nuevo estado: " + nuevoEstado);
-
-            if (!"Disponible".equals(nuevoEstado) && !"Mantenimiento".equals(nuevoEstado)) {
-                JOptionPane.showMessageDialog(null, "Estado inválido. Solo 'Disponible' o 'Mantenimiento' son permitidos.");
-                return;
-            }
-
-            PreparedStatement psActualizarEstado = con.prepareStatement("UPDATE materiales SET estado = ? WHERE id_material = ?");
-            psActualizarEstado.setString(1, nuevoEstado);
-            psActualizarEstado.setInt(2, materialId);
-            psActualizarEstado.executeUpdate();
-
-            String mensaje = "Material ahora está en estado de " + nuevoEstado.toLowerCase() + ".";
-            JOptionPane.showMessageDialog(null, mensaje);
-
-            cargarTablaPorCategoria();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
@@ -571,61 +571,90 @@ public class Materiales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String id = txtID.getText();
+        int fila = tblMateriales.getSelectedRow();
 
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un material.");
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un material.");
             return;
         }
+
+        // Obtenemos el ID directamente de la tabla
+        int idMaterial = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
 
         int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este material?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                Connection con = Conexion.obtenerConexion();
+            try (Connection con = Conexion.obtenerConexion()) {
+                // Eliminamos el material utilizando el ID
                 PreparedStatement ps = con.prepareStatement("DELETE FROM materiales WHERE id_material=?");
-                ps.setInt(1, Integer.parseInt(id));
+                ps.setInt(1, idMaterial);
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
                 cargarTablaTodo();
                 limpiar();
-
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
+                JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String id = txtID.getText();
+        int fila = tblMateriales.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material.");
+            return;
+        }
+
+        // Obtener los datos del material seleccionado
+        String id = tblMateriales.getValueAt(fila, 0).toString();
         String nombre = Codigo.getText();
         String tipo = TipoEquipo.getText();
         String serie = NumeroSerie.getText();
         String laboratorio = Laboratorio.getText();
         String unidades = Unidades.getText();
 
-        if (id.isEmpty() || nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty() || unidades.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione un material y complete todos los campos.");
+        // Verificar si los campos están vacíos
+        if (nombre.isEmpty() || tipo.isEmpty() || serie.isEmpty() || laboratorio.isEmpty() || unidades.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
             return;
         }
 
         try {
+            // Establecer la conexión a la base de datos
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(
-                "UPDATE materiales SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=?, unidades=? WHERE id_material=?"
-            );
-            ps.setString(1, nombre);
-            ps.setString(2, tipo);
-            ps.setString(3, serie);
-            ps.setString(4, laboratorio);
-            ps.setString(5, unidades);
-            ps.setInt(6, Integer.parseInt(id));
 
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
-            cargarTablaTodo();
-            limpiar();
+            // Primero obtenemos el ID_lab basado en el Codigo_lab
+            PreparedStatement psBuscarLab = con.prepareStatement(
+                    "SELECT ID_lab FROM laboratorios WHERE Codigo_lab = ?"
+            );
+            psBuscarLab.setString(1, laboratorio);  // Usamos el valor de 'laboratorio' que ya tienes
+            ResultSet rs = psBuscarLab.executeQuery();
+
+            if (rs.next()) {
+                int idLab = rs.getInt("ID_lab"); // Obtener el ID_lab
+
+                // Ahora actualizamos el material utilizando el ID_lab
+                PreparedStatement ps = con.prepareStatement(
+                        "UPDATE materiales SET nombre=?, tipo_equipo=?, numero_serie=?, ID_lab=?, unidades=? WHERE id_material=?"
+                );
+                ps.setString(1, nombre);
+                ps.setString(2, tipo);
+                ps.setString(3, serie);
+                ps.setInt(4, idLab);  // Pasamos el ID_lab obtenido de la consulta
+                ps.setString(5, unidades);
+                ps.setInt(6, Integer.parseInt(id));  // Usamos el ID del material
+
+                // Ejecutar la actualización
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
+                cargarTablaTodo();  // Refrescar la tabla
+                limpiar();  // Limpiar los campos
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el laboratorio especificado.");
+            }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar: " + e.toString());
@@ -697,7 +726,7 @@ public class Materiales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTelecomunicacionesActionPerformed
 
     private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
-        // TODO add your handling code here:
+        limpiar();
     }//GEN-LAST:event_LimpiarActionPerformed
 
     private void btnRedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedesActionPerformed
