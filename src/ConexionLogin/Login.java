@@ -224,7 +224,7 @@ public class RoundedPanel extends JPanel {
                             ventanaTecnicoPrestamo.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
-                            ReparacionesCompus ventanaReparacionesCompus = new ReparacionesCompus(idusuario);
+                            ReparacionesCompus ventanaReparacionesCompus = new ReparacionesCompus();
                             ventanaReparacionesCompus.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Administrador")) {
