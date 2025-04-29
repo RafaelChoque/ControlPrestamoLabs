@@ -19,25 +19,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ReparacionesCompus extends javax.swing.JFrame {
 
-    private int idusuario;
 
     /**
      * Creates new form ReparacionesCompus
-     * @param idusuario
+     
      */
-    public ReparacionesCompus(int idusuario) {
+    public ReparacionesCompus() {
         initComponents();
-        this.idusuario = idusuario;
-
         Nombre.setEditable(false);
-        Apellido.setEditable(false);
+        this.setLocationRelativeTo(null);
         cargarTablaLista();
-        cargarNombreApellido(idusuario);
+        
     }
 
-    private ReparacionesCompus() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -52,12 +46,11 @@ public class ReparacionesCompus extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        Apellido = new javax.swing.JTextField();
-        Nombre = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         Descripcion = new javax.swing.JTextArea();
         Guardar = new javax.swing.JButton();
+        Nombre = new javax.swing.JTextField();
+        BuscarRu = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblCompusArregladas = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -86,27 +79,22 @@ public class ReparacionesCompus extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel8.setText("Datos");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
-        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 300, -1));
+        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 300, -1));
 
         jLabel10.setText("Descripcion:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 70, 20));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 70, 20));
 
         jLabel11.setText("Fecha:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 40, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 40, 20));
 
         jLabel12.setText("Nombre:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 20));
-
-        jLabel7.setText("Apellido");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
-        jPanel1.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 300, -1));
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 300, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         Descripcion.setColumns(20);
         Descripcion.setRows(5);
         jScrollPane2.setViewportView(Descripcion);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 400, 110));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 400, 120));
 
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +102,22 @@ public class ReparacionesCompus extends javax.swing.JFrame {
                 GuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 300, -1));
+
+        BuscarRu.setText("Buscar");
+        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarRuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 90, 440, 350));
 
@@ -156,6 +159,11 @@ public class ReparacionesCompus extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblListaComputadoras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaComputadorasmouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListaComputadoras);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1030, 340));
@@ -166,35 +174,64 @@ public class ReparacionesCompus extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void cargarTablaLista() {
-    DefaultTableModel modelo = (DefaultTableModel) tblListaComputadoras.getModel();
-    modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modelo = (DefaultTableModel) tblListaComputadoras.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
 
-    try {
-        Connection con = Conexion.obtenerConexion();
-        PreparedStatement ps = con.prepareStatement(
-                "SELECT mh.id_material_hardware, mh.nombre, l.Codigo_lab, mh.estado "
-                + "FROM materiales_hardware mh "
-                + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab "
-                + "WHERE mh.estado = 'Mantenimiento'"); // Filtramos por el estado "Mantenimiento"
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT mh.id_material_hardware, mh.nombre, l.Codigo_lab, mh.estado "
+                    + "FROM materiales_hardware mh "
+                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab "
+                    + "WHERE mh.estado = 'Mantenimiento'"); // Filtramos por el estado "Mantenimiento"
 
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Object[] fila = {
-                rs.getInt("id_material_hardware"),
-                rs.getString("nombre"),
-                rs.getString("Codigo_lab"),
-                rs.getString("estado"),
-            };
-            modelo.addRow(fila);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_material_hardware"),
+                    rs.getString("nombre"),
+                    rs.getString("Codigo_lab"),
+                    rs.getString("estado"),};
+                modelo.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
         }
-    } catch (SQLException ex) {
-        System.out.println(ex.toString());
     }
-}
 
-private void cargarTablaReparado(){
-    
-}
+    private void cargarTablaReparado() {
+        DefaultTableModel modelo = (DefaultTableModel) tblCompusArregladas.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT m.id_mantenimiento, mh.nombre AS material_nombre, l.Codigo_lab, "
+                    + "mh.estado, m.fecha, m.descripcion, CONCAT(te.nombre, ' ', te.apellido) AS tecnico_nombre "
+                    + "FROM mantenimiento m "
+                    + "JOIN materiales_hardware mh ON m.id_material_hardware = mh.id_material_hardware "
+                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab "
+                    + "JOIN tecnico_equipos te ON m.id_tecnico_equipos = te.id_tecnico_equipos "
+                    + "ORDER BY m.fecha DESC"
+            );
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_mantenimiento"),
+                    rs.getString("material_nombre"), // nombre del material
+                    rs.getString("Codigo_lab"),
+                    rs.getString("estado"),
+                    rs.getDate("fecha"),
+                    rs.getString("descripcion"),
+                    rs.getString("tecnico_nombre") // nombre + apellido del técnico
+                };
+                modelo.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al cargar datos reparados: " + ex.toString());
+        }
+    }
 
     private int obtenerIdMaterialSeleccionado() {
         int filaSeleccionada = tblListaComputadoras.getSelectedRow();
@@ -207,72 +244,91 @@ private void cargarTablaReparado(){
 
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        String nombretxt = Nombre.getText();
-        String apellidotxt = Apellido.getText();
-        Date fechatxt = Fecha.getDate();
-        String descripciontxt = Descripcion.getText();
+        String nombreCompleto = Nombre.getText().trim(); // Ejemplo: "Juan Pérez"
+        Date fecha = Fecha.getDate();
+        String descripcion = Descripcion.getText();
 
-        if (fechatxt == null || descripciontxt.isEmpty()) {
+        // Validación de campos vacíos
+        if (nombreCompleto.isEmpty() || fecha == null || descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos requeridos.");
             return;
         }
 
-        java.sql.Timestamp fechaSQL = new java.sql.Timestamp(fechatxt.getTime());
-
-        try {
-            Connection con = ConexionLogin.Conexion.obtenerConexion();
-
-            int idMaterial = obtenerIdMaterialSeleccionado();
-
-            // Insertar la reparación
-            String sql = "INSERT INTO mantenimiento (id_material_hardware, fecha, descripcion, id_tecnico_equipos) "
-                    + "VALUES (?, ?, ?, ?)";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMaterial);
-            ps.setTimestamp(2, fechaSQL);
-            ps.setString(3, descripciontxt);
-            ps.setInt(4, idusuario);
-
-            int resultado = ps.executeUpdate();
-
-            if (resultado > 0) {
-                // Actualizar el estado del material a "Disponible"
-                String actualizarEstadoSql = "UPDATE materiales_hardware SET estado = 'Disponible' WHERE id_material_hardware = ?";
-                PreparedStatement psUpdate = con.prepareStatement(actualizarEstadoSql);
-                psUpdate.setInt(1, idMaterial);
-                psUpdate.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "Reparación guardada correctamente y estado actualizado a Disponible.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al guardar la reparación.");
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        int idMaterial = obtenerIdMaterialSeleccionado();
+        if (idMaterial == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un material de la tabla.");
+            return;
         }
-    }//GEN-LAST:event_GuardarActionPerformed
 
-        public void cargarNombreApellido(int idusuario) {
+        java.sql.Timestamp fechaSQL = new java.sql.Timestamp(fecha.getTime());
+
         try {
             Connection con = Conexion.obtenerConexion();
 
-            String query = "SELECT nombre, apellido FROM tecnico_equipos WHERE id_usuario = ?";
-
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, idusuario);
-            ResultSet rs = ps.executeQuery();
+            // Buscar el ID del técnico usando CONCAT(nombre, ' ', apellido)
+            PreparedStatement psBuscarTecnico = con.prepareStatement(
+                    "SELECT id_tecnico_equipos FROM tecnico_equipos WHERE CONCAT(nombre, ' ', apellido) = ?"
+            );
+            psBuscarTecnico.setString(1, nombreCompleto);
+            ResultSet rs = psBuscarTecnico.executeQuery();
 
             if (rs.next()) {
-                Nombre.setText(rs.getString("nombre"));
-                Apellido.setText(rs.getString("apellido"));
+                int idTecnico = rs.getInt("id_tecnico_equipos");
+
+                // Insertar mantenimiento
+                PreparedStatement psInsert = con.prepareStatement(
+                        "INSERT INTO mantenimiento (id_material_hardware, fecha, descripcion, id_tecnico_equipos) VALUES (?, ?, ?, ?)"
+                );
+                psInsert.setInt(1, idMaterial);
+                psInsert.setTimestamp(2, fechaSQL);
+                psInsert.setString(3, descripcion);
+                psInsert.setInt(4, idTecnico);
+
+                int insertado = psInsert.executeUpdate();
+
+                if (insertado > 0) {
+                    // Actualizar estado del material
+                    PreparedStatement psUpdate = con.prepareStatement(
+                            "UPDATE materiales_hardware SET estado = 'Disponible' WHERE id_material_hardware = ?"
+                    );
+                    psUpdate.setInt(1, idMaterial);
+                    psUpdate.executeUpdate();
+
+                    JOptionPane.showMessageDialog(null, "Reparación registrada correctamente y estado actualizado a 'Disponible'.");
+                    cargarTablaLista();
+                    cargarTablaReparado();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar la reparación.");
+                }
+
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontraron datos del personal.");
+                JOptionPane.showMessageDialog(null, "Técnico no encontrado. Verifique el nombre y apellido.");
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar reparación: " + e.getMessage());
         }
-    }
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void tblListaComputadorasmouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaComputadorasmouseClicked
+        int filaSeleccionada = tblListaComputadoras.rowAtPoint(evt.getPoint());
+        if (filaSeleccionada != -1) {
+            int idMaterial = (int) tblListaComputadoras.getValueAt(filaSeleccionada, 0);
+            
+        }
+    }//GEN-LAST:event_tblListaComputadorasmouseClicked
+
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActionPerformed
+
+    private void BuscarRuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRuActionPerformed
+        VerTecnicosEquipos ver = new VerTecnicosEquipos(Nombre);
+        ver.setLocationRelativeTo(null);
+        ver.setVisible(true);
+    }//GEN-LAST:event_BuscarRuActionPerformed
+
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -307,7 +363,7 @@ private void cargarTablaReparado(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Apellido;
+    private javax.swing.JButton BuscarRu;
     private javax.swing.JLabel CompusArregladas;
     private javax.swing.JTextArea Descripcion;
     private com.toedter.calendar.JDateChooser Fecha;
@@ -319,7 +375,6 @@ private void cargarTablaReparado(){
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
