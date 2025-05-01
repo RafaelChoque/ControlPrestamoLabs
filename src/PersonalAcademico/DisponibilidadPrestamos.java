@@ -39,6 +39,8 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     private int idusuario;
     public DisponibilidadPrestamos() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        cargarTablaCompleta();
     }
 
     /**
@@ -56,11 +58,8 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         Reservas = new javax.swing.JTable();
         Bloque = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnLimpiar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
-        SeleccionLab = new javax.swing.JTextField();
         FondoBlanco = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
 
@@ -100,9 +99,6 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         jLabel2.setText("BLOQUE");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
 
-        btnLimpiar.setText("Limpiar");
-        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
-
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,22 +107,13 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         });
         getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
 
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
-
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 480, 90, -1));
-        getContentPane().add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 230, -1));
+        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 90, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 900, 510));
@@ -149,11 +136,6 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         cargarDisponibilidad();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
-
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         if (laboratorioSeleccionado != null && laboratorioSeleccionadoId != -1) {
             FormularioPrestamo formulario = new FormularioPrestamo(idusuario);  // Pasar ID del laboratorio
@@ -163,7 +145,35 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un laboratorio.");
         }
     }//GEN-LAST:event_GuardarActionPerformed
+    private void cargarTablaCompleta() {
+        DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
+        modelo.setRowCount(0);
 
+        // Consulta para obtener todos los laboratorios y su disponibilidad
+        String query = "SELECT l.ID_lab, l.Nombre_lab, p.fecha, p.horario_inicio, p.horario_fin "
+                + "FROM laboratorios l "
+                + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab "
+                + "ORDER BY l.ID_lab, p.fecha";
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Mostrar los datos de cada laboratorio con su préstamo o 'Disponible'
+                Object[] fila = {
+                    rs.getInt("ID_lab"),
+                    rs.getString("Nombre_lab"),
+                    rs.getString("fecha") != null ? rs.getString("fecha") : "Disponible", // Si no hay fecha, muestra "Disponible"
+                    rs.getString("horario_inicio") != null ? rs.getString("horario_inicio") : "-", // Si no hay horario, muestra "-"
+                    rs.getString("horario_fin") != null ? rs.getString("horario_fin") : "-" // Lo mismo para el horario fin
+                };
+                modelo.addRow(fila);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la disponibilidad completa: " + ex.getMessage());
+        }
+    }
     private void cargarDisponibilidad() {
         DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
         modelo.setRowCount(0);
@@ -246,10 +256,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JButton Guardar;
     private javax.swing.JTable Reservas;
-    private javax.swing.JTextField SeleccionLab;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,6 +1,7 @@
 package PersonalAcademico;
 
 import ConexionLogin.Conexion;
+import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,9 +44,14 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     public FormularioPrestamo(int idusuario) {
         initComponents();
         this.idusuario = idusuario;
-
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
         Nombre.setEditable(false);
         Apellido.setEditable(false);
+        Laboratorio.setEditable(false);
+        HorarioFijo.setVisible(false);
+        HorarioPersonalizadoInicio.setVisible(false);
+        HorarioPersonalizadoFin.setVisible(false);
+
 
         cargarTabla(idusuario);
         cargarTabla2();
@@ -107,9 +113,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         HorarioPersonalizadoInicio = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        SeleccionLab = new javax.swing.JTextField();
+        Laboratorio = new javax.swing.JTextField();
         DisponibilidadPrestamo = new javax.swing.JButton();
         Sanciones = new javax.swing.JButton();
+        MaterialExtra = new javax.swing.JButton();
         ListaPersonal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPrestamos = new javax.swing.JTable();
@@ -253,7 +260,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 ActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
+        jPanel1.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, -1, -1));
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 370, -1));
         jPanel1.add(Motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 370, -1));
         jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 370, -1));
@@ -330,12 +337,12 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel15.setText("Seccion:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 20));
 
-        SeleccionLab.addActionListener(new java.awt.event.ActionListener() {
+        Laboratorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeleccionLabActionPerformed(evt);
+                LaboratorioActionPerformed(evt);
             }
         });
-        jPanel1.add(SeleccionLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 150, -1));
+        jPanel1.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 150, -1));
 
         DisponibilidadPrestamo.setBackground(new java.awt.Color(29, 41, 57));
         DisponibilidadPrestamo.setForeground(new java.awt.Color(255, 255, 255));
@@ -355,7 +362,17 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 SancionesActionPerformed(evt);
             }
         });
-        jPanel1.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, -1, -1));
+        jPanel1.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, -1, -1));
+
+        MaterialExtra.setBackground(new java.awt.Color(29, 41, 57));
+        MaterialExtra.setForeground(new java.awt.Color(255, 255, 255));
+        MaterialExtra.setText("Material Extra");
+        MaterialExtra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MaterialExtraActionPerformed(evt);
+            }
+        });
+        jPanel1.add(MaterialExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 550, 380));
 
@@ -437,7 +454,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         String motivo = Motivo.getText();
         Date fechaGeneral = Fecha.getDate();
-        String laboratorio = SeleccionLab.getText();
+        String laboratorio = Laboratorio.getText();
         String tipoHorario = TipoHorario.getSelectedItem().toString();
         String bloque = (String) Bloque.getSelectedItem();
         String seccion = (String) Seccion.getSelectedItem();
@@ -620,11 +637,21 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
     private void TipoHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoHorarioActionPerformed
         String tipo = TipoHorario.getSelectedItem().toString();
-        boolean esPersonalizado = tipo.equals("Personalizado");
 
-        HorarioFijo.setVisible(!esPersonalizado);
-        HorarioPersonalizadoInicio.setVisible(esPersonalizado);
-        HorarioPersonalizadoFin.setVisible(esPersonalizado);
+        if (tipo.equals("Fijo")) {
+            HorarioFijo.setVisible(true);
+            HorarioPersonalizadoInicio.setVisible(false);
+            HorarioPersonalizadoFin.setVisible(false);
+        } else if (tipo.equals("Personalizado")) {
+            HorarioFijo.setVisible(false);
+            HorarioPersonalizadoInicio.setVisible(true);
+            HorarioPersonalizadoFin.setVisible(true);
+        } else {
+            // En caso sea una opción vacía o "Seleccionar...", ocultar todo
+            HorarioFijo.setVisible(false);
+            HorarioPersonalizadoInicio.setVisible(false);
+            HorarioPersonalizadoFin.setVisible(false);
+        }
     }//GEN-LAST:event_TipoHorarioActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
@@ -654,13 +681,19 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         disponibilidadpres.setVisible(true);
     }//GEN-LAST:event_DisponibilidadPrestamoActionPerformed
 
-    private void SeleccionLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionLabActionPerformed
+    private void LaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaboratorioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SeleccionLabActionPerformed
+    }//GEN-LAST:event_LaboratorioActionPerformed
 
     private void SancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SancionesActionPerformed
-        // TODO add your handling code here:
+        SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal();
+        sanciones.setLocationRelativeTo(null);
+        sanciones.setVisible(true);
     }//GEN-LAST:event_SancionesActionPerformed
+
+    private void MaterialExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaterialExtraActionPerformed
+        
+    }//GEN-LAST:event_MaterialExtraActionPerformed
 public void cargarTabla(int idusuario) {
     try {
         Connection con = Conexion.obtenerConexion();
@@ -762,15 +795,16 @@ public void cargarTabla(int idusuario) {
     private javax.swing.JSpinner HorarioPersonalizadoFin;
     private javax.swing.JSpinner HorarioPersonalizadoInicio;
     private javax.swing.JLabel Izquierda;
+    private javax.swing.JTextField Laboratorio;
     private javax.swing.JButton Limpiar;
     private javax.swing.JLabel ListaPersonal;
     private javax.swing.JLabel LogoSale;
+    private javax.swing.JButton MaterialExtra;
     private javax.swing.JTextField Motivo;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
     private javax.swing.JButton Sanciones;
     private javax.swing.JComboBox<String> Seccion;
-    private javax.swing.JTextField SeleccionLab;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaPrestamos;
     private javax.swing.JTable TablaPrestamos2;
