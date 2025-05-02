@@ -4,6 +4,17 @@
  */
 package Sanciones;
 
+import ConexionLogin.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rafael
@@ -15,6 +26,7 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
      */
     public SancionesParaDesignar() {
         initComponents();
+        cargarTablaPrestamos();
     }
 
     /**
@@ -26,21 +38,288 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        AsignacionSancion = new javax.swing.JLabel();
+        Nombretxt = new javax.swing.JTextField();
+        RU = new javax.swing.JLabel();
+        Descripcion = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Descripciontxt = new javax.swing.JTextArea();
+        Fecha = new javax.swing.JLabel();
+        Fechadate = new com.toedter.calendar.JDateChooser();
+        TipoBox = new javax.swing.JComboBox<>();
+        Tipo = new javax.swing.JLabel();
+        Guardar = new javax.swing.JButton();
+        HabilitarDeshabilitar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TblPrestamosAntiguos = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TblSanciones = new javax.swing.JTable();
+        FechaPrestamo = new com.toedter.calendar.JDateChooser();
+        Formulario1 = new javax.swing.JLabel();
+        FechaPrestam = new javax.swing.JLabel();
+        RU2 = new javax.swing.JLabel();
+        Buscar = new javax.swing.JButton();
+        RUtxt = new javax.swing.JTextField();
+        BuscarPrestamo = new javax.swing.JButton();
+        Superior = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion.setText("Asignacion de Sancion");
+        jPanel1.add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
+        jPanel1.add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 270, -1));
+
+        RU.setText("Nombre del Sancionado:");
+        jPanel1.add(RU, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        Descripcion.setText("Descripcion:");
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        Descripciontxt.setColumns(20);
+        Descripciontxt.setRows(5);
+        jScrollPane2.setViewportView(Descripciontxt);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 310, 90));
+
+        Fecha.setText("Fecha:");
+        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 20));
+        jPanel1.add(Fechadate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 310, -1));
+
+        TipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daño de Material", "Perdida de Material", "Incumplimiento de Horario", "Otro"}));
+        TipoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 310, -1));
+
+        Tipo.setText("Tipo:");
+        jPanel1.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
+
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+
+        HabilitarDeshabilitar.setText("Habilitar/Deshabilitar Sancion");
+        HabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HabilitarDeshabilitarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 460, 320));
+
+        TblPrestamosAntiguos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Prestamo", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Docente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TblPrestamosAntiguos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 940, 280));
+
+        TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Descripcion", "Fecha", "Tipo", "Sancionado Por"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TblSanciones);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 1470, -1));
+        getContentPane().add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 160, -1));
+
+        Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Formulario1.setText("Asignacion de Sancion");
+        getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 270, -1));
+
+        FechaPrestam.setText("Fecha del Prestamo");
+        getContentPane().add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 20));
+
+        RU2.setText("RU:");
+        getContentPane().add(RU2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, 20));
+
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, -1, -1));
+        getContentPane().add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 140, -1));
+
+        BuscarPrestamo.setText("Buscar Prestamo");
+        BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarPrestamoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, -1, -1));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void cargarTablaPrestamos() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS docente, "
+                    + "p.fecha, p.horario_inicio, p.horario_fin "
+                    + "FROM prestamos p "
+                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) TblPrestamosAntiguos.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idPrestamo = rs.getInt("id_prestamo");
+                String nombreLab = rs.getString("Nombre_lab");
+                Date fecha = rs.getDate("fecha");
+                Time horaInicio = rs.getTime("horario_inicio");
+                Time horaFin = rs.getTime("horario_fin");
+                String docente = rs.getString("docente");
+
+                model.addRow(new Object[]{
+                    idPrestamo, nombreLab, fecha, horaInicio, horaFin, docente
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+    private void cargarDisponibilidad() {
+        DefaultTableModel modelo = (DefaultTableModel) TblPrestamosAntiguos.getModel();
+        modelo.setRowCount(0);
+
+        java.util.Date fechaSeleccionada = FechaPrestamo.getDate();
+
+        if (fechaSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha.");
+            return;
+        }
+
+        String fechaSQL = new SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada);
+
+        String query = "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS docente, "
+                + "p.fecha, p.horario_inicio, p.horario_fin "
+                + "FROM prestamos p "
+                + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                + "WHERE p.fecha = ?";
+
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, fechaSQL);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idPrestamo = rs.getInt("id_prestamo");
+                String nombreLab = rs.getString("Nombre_lab");
+                Date fecha = rs.getDate("fecha");
+                Time horaInicio = rs.getTime("horario_inicio");
+                Time horaFin = rs.getTime("horario_fin");
+                String docente = rs.getString("docente");
+
+                modelo.addRow(new Object[]{
+                    idPrestamo, nombreLab, fecha, horaInicio, horaFin, docente
+                });
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + ex.getMessage());
+        }
+    }
+
+
+    private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        String descripcion = Descripciontxt.getText().trim();
+        Date fecha = Fechadate.getDate();
+        String tipo = (String) TipoBox.getSelectedItem();
+
+        if (descripcion.isEmpty() || fecha == null || tipo == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos");
+            return;
+        }
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void TipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoBoxActionPerformed
+
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuscarActionPerformed
+
+    private void BuscarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPrestamoActionPerformed
+        cargarDisponibilidad();
+    }//GEN-LAST:event_BuscarPrestamoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +357,31 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AsignacionSancion;
+    private javax.swing.JButton Buscar;
+    private javax.swing.JButton BuscarPrestamo;
+    private javax.swing.JLabel Descripcion;
+    private javax.swing.JTextArea Descripciontxt;
+    private javax.swing.JLabel Fecha;
+    private javax.swing.JLabel FechaPrestam;
+    private com.toedter.calendar.JDateChooser FechaPrestamo;
+    private com.toedter.calendar.JDateChooser Fechadate;
+    private javax.swing.JLabel FondoGris1;
+    private javax.swing.JLabel Formulario1;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JButton HabilitarDeshabilitar;
+    private javax.swing.JTextField Nombretxt;
+    private javax.swing.JLabel RU;
+    private javax.swing.JLabel RU2;
+    private javax.swing.JTextField RUtxt;
+    private javax.swing.JLabel Superior;
+    private javax.swing.JTable TblPrestamosAntiguos;
+    private javax.swing.JTable TblSanciones;
+    private javax.swing.JLabel Tipo;
+    private javax.swing.JComboBox<String> TipoBox;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,14 +29,16 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         Sanciones = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Sanciones1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Sanciones.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Sanciones.setText("Sanciones");
-        getContentPane().add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+        getContentPane().add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,10 +65,20 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 1120, 680));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 1110, 580));
+
+        Sanciones1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Sanciones1.setText("Si Sobrepasa la Cantidad de 5 sanciones, no podra realizar mas prestamos");
+        getContentPane().add(Sanciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1480, 760));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1160, 690));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
+        FondoGris1.setMinimumSize(new java.awt.Dimension(1540, 863));
+        FondoGris1.setPreferredSize(new java.awt.Dimension(1540, 863));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -109,7 +121,9 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoBlanco;
+    private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Sanciones;
+    private javax.swing.JLabel Sanciones1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
