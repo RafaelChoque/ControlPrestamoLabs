@@ -109,6 +109,12 @@ public class VerMaterialesParaLabs extends javax.swing.JFrame {
 
         jLabel2.setText("BLOQUE");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 20));
+
+        Bloque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueActionPerformed(evt);
+            }
+        });
         getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 130, 20));
 
         btnBuscar.setText("Buscar");
@@ -190,6 +196,10 @@ private void cargarTabla() {
             JOptionPane.showMessageDialog(this, "Seleccione un laboratorio para guardar.");
         }
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void BloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueActionPerformed
 
     /**
      * @param args the command line arguments
