@@ -34,13 +34,17 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     /**
      * Creates new form DisponibilidadPrestamos
      */
-    private String laboratorioSeleccionado = null;
-    private int laboratorioSeleccionadoId = -1;
-    private int idusuario;
-    public DisponibilidadPrestamos() {
+
+    private JTextField campoDestino;
+    public DisponibilidadPrestamos(JTextField campoDestino) {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         cargarTablaCompleta();
+        this.campoDestino = campoDestino;
+    }
+
+    private DisponibilidadPrestamos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -125,11 +129,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservasMouseClicked
-        int filaSeleccionada = Reservas.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            laboratorioSeleccionadoId = (int) Reservas.getValueAt(filaSeleccionada, 0);  // Obtener ID_lab
-            laboratorioSeleccionado = (String) Reservas.getValueAt(filaSeleccionada, 1); // Nombre_lab
-        }
+
     }//GEN-LAST:event_ReservasMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -137,12 +137,13 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        if (laboratorioSeleccionado != null && laboratorioSeleccionadoId != -1) {
-            FormularioPrestamo formulario = new FormularioPrestamo(idusuario);  // Pasar ID del laboratorio
-            formulario.setVisible(true);
-            this.dispose();
+        int filaSeleccionada = Reservas.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String nombreLab = Reservas.getValueAt(filaSeleccionada, 1).toString(); // columna Código Laboratorio
+            campoDestino.setText(nombreLab);
+            dispose(); // Cierra la ventana después de seleccionar
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un laboratorio.");
+            JOptionPane.showMessageDialog(this, "Seleccione un laboratorio para guardar.");
         }
     }//GEN-LAST:event_GuardarActionPerformed
     private void cargarTablaCompleta() {
