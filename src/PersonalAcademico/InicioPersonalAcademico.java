@@ -137,10 +137,12 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         panelSidebar = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        btnCerrarSesion1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        btnCerrarSesion6 = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
+        btnFormulario1 = new javax.swing.JButton();
+        btnSancionRecibida1 = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
@@ -165,45 +167,79 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion1.setText("Menú Principal");
-        btnCerrarSesion1.setBorder(null);
-        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion1MouseExited(evt);
-            }
-        });
-        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion1ActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
         panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
 
-        btnCerrarSesion6.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion6.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion6.setText("Cerrar Sesión");
-        btnCerrarSesion6.setBorder(null);
-        btnCerrarSesion6.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion6MouseExited(evt);
+                btnCerrarSesionMouseExited(evt);
             }
         });
-        btnCerrarSesion6.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion6ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnCerrarSesion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
 
         LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
         panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("INICIO");
+        btnInicio.setBorder(null);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInicioMouseExited(evt);
+            }
+        });
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+
+        btnFormulario1.setBackground(new java.awt.Color(29, 41, 57));
+        btnFormulario1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFormulario1.setForeground(new java.awt.Color(241, 241, 241));
+        btnFormulario1.setText("Solicitud de Laboratorios");
+        btnFormulario1.setBorder(null);
+        btnFormulario1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFormulario1MouseExited(evt);
+            }
+        });
+        btnFormulario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFormulario1ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+
+        btnSancionRecibida1.setBackground(new java.awt.Color(29, 41, 57));
+        btnSancionRecibida1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSancionRecibida1.setForeground(new java.awt.Color(241, 241, 241));
+        btnSancionRecibida1.setText("Sanciones");
+        btnSancionRecibida1.setBorder(null);
+        btnSancionRecibida1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSancionRecibida1MouseExited(evt);
+            }
+        });
+        btnSancionRecibida1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSancionRecibida1ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnSancionRecibida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
@@ -246,21 +282,13 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1MouseExited
-
-    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
-
-    private void btnCerrarSesion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion6MouseExited
-
-    }//GEN-LAST:event_btnCerrarSesion6MouseExited
-
-    private void btnCerrarSesion6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion6ActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
@@ -294,6 +322,30 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicioMouseExited
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnFormulario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFormulario1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFormulario1MouseExited
+
+    private void btnFormulario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormulario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFormulario1ActionPerformed
+
+    private void btnSancionRecibida1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionRecibida1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSancionRecibida1MouseExited
+
+    private void btnSancionRecibida1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionRecibida1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSancionRecibida1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -324,9 +376,11 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JLabel Superior;
-    private javax.swing.JButton btnCerrarSesion1;
-    private javax.swing.JButton btnCerrarSesion6;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnFormulario1;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnSancionRecibida1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
