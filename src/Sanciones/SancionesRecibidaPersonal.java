@@ -27,10 +27,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private void initComponents() {
 
         Sanciones = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        Sanciones1 = new javax.swing.JLabel();
-        FondoBlanco = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,47 +35,16 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
 
         Sanciones.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Sanciones.setText("Sanciones");
-        getContentPane().add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        getContentPane().add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Docente", "Laboratorio", "Fecha", "Tipo de Sancion", "Motivo de la Sancion"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 1110, 580));
-
-        Sanciones1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Sanciones1.setText("Si Sobrepasa la Cantidad de 5 sanciones, no podra realizar mas prestamos");
-        getContentPane().add(Sanciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1160, 690));
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setMinimumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setPreferredSize(new java.awt.Dimension(1540, 863));
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 790));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, 0, 1680, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -120,11 +86,8 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Sanciones;
-    private javax.swing.JLabel Sanciones1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel Superior;
     // End of variables declaration//GEN-END:variables
 }
