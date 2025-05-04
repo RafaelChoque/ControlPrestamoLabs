@@ -301,6 +301,14 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
 
     private void btnMantenimientoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoEquipoActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        ReparacionesCompus reparaciones = new ReparacionesCompus();
+        reparaciones.setLocationRelativeTo(null); // Centrar la ventana
+        reparaciones.setVisible(true);
+
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnMantenimientoEquipoActionPerformed
 
     /**

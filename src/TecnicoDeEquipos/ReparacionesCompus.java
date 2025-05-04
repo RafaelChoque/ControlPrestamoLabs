@@ -538,6 +538,14 @@ private void cargarTablaLista() {
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        InicioAdmiTecnicoEquipos iniciotecnico = new InicioAdmiTecnicoEquipos();
+        iniciotecnico.setLocationRelativeTo(null); // Centrar la ventana
+        iniciotecnico.setVisible(true);
+
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnMantenimientoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMantenimientoEquipoMouseExited
