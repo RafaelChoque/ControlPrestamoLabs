@@ -5,8 +5,11 @@
 package Materiales;
 
 import ConexionLogin.Conexion;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.Connection;
@@ -15,6 +18,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import java.sql.ResultSet;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -38,8 +43,105 @@ public class MaterialesHardware extends javax.swing.JFrame {
         Laboratorio.setEditable(false);
         cargarTabla();
         this.setLocationRelativeTo(null);
-    }
+        FondoBlanco.setFocusable(true);
+        FondoBlanco.requestFocusInWindow();
 
+        panelOverlay.setVisible(false);
+        panelOverlay.setBackground(new Color(0, 0, 0, 0));
+
+        panelSidebar.setVisible(false);
+        panelSidebar.setLocation(-250, 0);
+
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {});
+        panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {});
+        
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int x = evt.getX();
+            int y = evt.getY();
+
+            int sidebarX = panelSidebar.getX();
+            int sidebarY = panelSidebar.getY();
+            int sidebarWidth = panelSidebar.getWidth();
+            int sidebarHeight = panelSidebar.getHeight();
+
+            boolean clicFueraSidebar = !(x >= sidebarX && x <= (sidebarX + sidebarWidth)
+                                      && y >= sidebarY && y <= (sidebarY + sidebarHeight));
+
+                if (clicFueraSidebar) {
+                    cerrarSidebar(); // ejecuta la animación
+                }
+            }
+            
+        });
+        
+        getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "cerrarSidebar");
+
+        getRootPane().getActionMap().put("cerrarSidebar", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if (panelSidebar.isVisible()) {
+                    cerrarSidebar();
+                }
+            }
+        });
+        
+        txtID.setVisible(false);
+
+        this.setLocationRelativeTo(null);
+    }
+private boolean sidebarMostrado = false;
+    private Timer animacion;
+    private boolean sidebarListo = false;
+    
+    private void mostrarSidebar() {
+    panelOverlay.setVisible(true);
+    sidebarMostrado = true;
+    panelSidebar.setLocation(-250, 0);
+
+    animacion = new Timer(5, new ActionListener() {
+        int x = panelSidebar.getX();
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (x < 0) {
+                x += 10;
+                panelSidebar.setLocation(x, 0);
+            } else {
+                panelSidebar.setLocation(0, 0);
+                animacion.stop();
+            }
+        }
+    });
+    animacion.start();
+}
+
+    
+    private void cerrarSidebar() {
+    new Thread(() -> {
+        int duracion = 150;
+        int pasos = 25;
+        int delay = duracion / pasos;
+
+        for (int i = pasos; i >= 0; i--) {
+            int x = -250 + (i * 10);
+            int alpha = (int)(i * (120.0 / pasos));
+
+            panelSidebar.setLocation(x, 0);
+            panelOverlay.setBackground(new Color(0, 0, 0, alpha));
+
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        panelSidebar.setVisible(false);
+        panelOverlay.setVisible(false);
+    }).start();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +191,7 @@ public class MaterialesHardware extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMateriales = new javax.swing.JTable();
         FondoBlanco1 = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
@@ -488,6 +591,9 @@ public class MaterialesHardware extends javax.swing.JFrame {
         FondoBlanco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
@@ -780,10 +886,6 @@ private void limpiar() {
         }
     }//GEN-LAST:event_tblMaterialesMouseClicked
 
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-
-    }//GEN-LAST:event_btnMenuActionPerformed
-
     private void LaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaboratorioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LaboratorioActionPerformed
@@ -860,6 +962,38 @@ private void limpiar() {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnComputadorasActionPerformed
 
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        panelOverlay.setVisible(true);
+
+        panelSidebar.setVisible(true);
+        panelSidebar.setLocation(-250, 0);
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
+
+        new Thread(() -> {
+            int duracion = 150;
+            int pasos = 25;
+            int delay = duracion / pasos;
+
+            for (int i = 0; i <= pasos; i++) {
+                int x = -250 + (i * 10);
+                int alpha = (int)(i * (120.0 / pasos));
+
+                panelSidebar.setLocation(x, 0);
+
+                Color overlayColor = new Color(0, 0, 0, alpha);
+                panelOverlay.setBackground(overlayColor);
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }//GEN-LAST:event_btnMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -870,20 +1004,9 @@ private void limpiar() {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaterialesHardware.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaterialesHardware.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaterialesHardware.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaterialesHardware.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //</editor-fold>
 
@@ -897,6 +1020,7 @@ private void limpiar() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Codigo;
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoBlanco1;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JTextField Laboratorio;
