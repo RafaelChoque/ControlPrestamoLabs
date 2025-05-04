@@ -109,12 +109,13 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private FormularioPrestamo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
+
+    FormularioPrestamo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private void mostrarSidebar() {
         panelOverlay.setVisible(true);
@@ -918,6 +919,12 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
         // TODO add your handling code here:
+        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
+        inicio.setLocationRelativeTo(null); // Centrar la ventana
+        inicio.setVisible(true); // Mostrar la nueva ventana
+
+    // Cerrar la ventana actual
+    this.dispose(); // Cierra completamente la ventana actual
     }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
 
     private void btndevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolverActionPerformed

@@ -1,9 +1,10 @@
 package PersonalAcademico;
-
+import PersonalAcademico.FormularioPrestamo;
 import Administrador.AdministradorPersonalAcademico;
 import Administrador.AdministradorTecnicoEquipos;
 import Administrador.AdministradorTecnicoPrestamo;
 import ConexionLogin.Login;
+import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -336,6 +337,13 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
 
     private void btnFormulario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormulario1ActionPerformed
         // TODO add your handling code here:
+        FormularioPrestamo formulario1=new FormularioPrestamo();
+        formulario1.setLocationRelativeTo(null); // Centrar la ventana
+        formulario1.setVisible(true);
+
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnFormulario1ActionPerformed
 
     private void btnSancionRecibida1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionRecibida1MouseExited
@@ -344,6 +352,13 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
 
     private void btnSancionRecibida1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionRecibida1ActionPerformed
         // TODO add your handling code here:
+    // Crear la ventana de SancionesResividaPersonal
+    SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal();
+    sanciones.setLocationRelativeTo(null); // Centrar la ventana
+    sanciones.setVisible(true); // Mostrar la nueva ventana
+
+    // Cerrar la ventana actual
+    this.dispose(); // Cierra completamente la ventana actual
     }//GEN-LAST:event_btnSancionRecibida1ActionPerformed
 
     /**
