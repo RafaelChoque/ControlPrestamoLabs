@@ -141,21 +141,6 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSidebar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        btnInicio = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
-        btnListaLaboratorios = new javax.swing.JButton();
-        btnListaPrestamos = new javax.swing.JButton();
-        btnSolicitudes = new javax.swing.JButton();
-        btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
-        btnMateriales = new javax.swing.JButton();
-        btnComputadoras = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -171,7 +156,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReportes = new javax.swing.JTable();
         AsignacionSancion1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Imprimir = new javax.swing.JButton();
         Limpiar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
@@ -179,10 +164,153 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
         Superior = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
+        panelSidebar = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        LogoSale1 = new javax.swing.JLabel();
+        btnListaLaboratorios = new javax.swing.JButton();
+        btnListaPrestamos = new javax.swing.JButton();
+        btnSolicitudes = new javax.swing.JButton();
+        btnSancionesDesignar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnMateriales = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Desde:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 20));
+        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 250, -1));
+
+        jLabel1.setText("Hasta:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
+        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        RUtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RUtxtActionPerformed(evt);
+            }
+        });
+        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
+
+        jLabel5.setText("Usuario:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        EstadoCompu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Disponible", "Mantenimiento"}));
+        jPanel4.add(EstadoCompu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 180, -1));
+
+        jLabel4.setText("Estado:");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, 20));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Codigo", "Laboratorio", "Estado", "Fecha", "Descripcion", "Realizado Por"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblReportes);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
+
+        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion1.setText("Reportes de Mantenimiento");
+        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+
+        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
+        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
+
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+
+        Buscar.setBackground(new java.awt.Color(29, 41, 57));
+        Buscar.setForeground(new java.awt.Color(255, 255, 255));
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -361,129 +489,6 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setText("Desde:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 20));
-        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 250, -1));
-
-        jLabel1.setText("Hasta:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
-        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        RUtxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RUtxtActionPerformed(evt);
-            }
-        });
-        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
-
-        jLabel5.setText("Usuario:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        EstadoCompu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin Seleccionar", "Disponible", "Mantenimiento"}));
-        jPanel4.add(EstadoCompu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 180, -1));
-
-        jLabel4.setText("Estado:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, 20));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Mantenimiento", "Codigo", "Laboratorio", "Estado", "Fecha", "Descripcion", "Realizado Por"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblReportes);
-
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
-
-        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion1.setText("Reportes de Mantenimiento");
-        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
-
-        jButton1.setBackground(new java.awt.Color(51, 153, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Imprimir");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
-
-        Limpiar.setText("Limpiar");
-        Limpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LimpiarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
-
-        Buscar.setBackground(new java.awt.Color(29, 41, 57));
-        Buscar.setForeground(new java.awt.Color(255, 255, 255));
-        Buscar.setText("Buscar");
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void cargarTablaTodo() {
@@ -503,7 +508,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
             model.setRowCount(0);
 
             while (rs.next()) {
-                int idPrestamo = rs.getInt("id_mantenimiento");
+                int idMantenimiento = rs.getInt("id_mantenimiento");
                 String material = rs.getString("material_nombre");
                 String codigolab = rs.getString("Codigo_lab");
                 String estado = rs.getString("estado");
@@ -513,7 +518,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
                 
 
                 model.addRow(new Object[]{
-                    idPrestamo, material, codigolab, estado, fecha, descripcion, tecnico
+                    idMantenimiento, material, codigolab, estado, fecha, descripcion, tecnico
                 });
             }
 
@@ -545,7 +550,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
                 + "WHERE 1=1 ";
         List<Object> parametros = new ArrayList<>();
 
-        if (!"Sin Seleccionar".equals(estado)) {
+        if (!"Todos".equals(estado)) {
             query += " AND mh.estado = ?";
             parametros.add(estado);
         }
@@ -574,7 +579,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
 
             
             while (rs.next()) {
-                int idPrestamo = rs.getInt("id_mantenimiento");
+                int idMantenimiento = rs.getInt("id_mantenimiento");
                 String material = rs.getString("material_nombre");
                 String codigolab = rs.getString("Codigo_lab");
                 String estadoCompu = rs.getString("estado");
@@ -584,7 +589,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
                 
 
                 model.addRow(new Object[]{
-                    idPrestamo, material, codigolab, estadoCompu, fecha, descripcion, tecnico
+                    idMantenimiento, material, codigolab, estadoCompu, fecha, descripcion, tecnico
                 });
             }
 
@@ -698,6 +703,17 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+        String ru = RUtxt.getText().trim();
+        String estado = EstadoCompu.getSelectedItem().toString();
+        Date fechaDesde = FechaDesde.getDate();
+        Date fechaHasta = FechaHasta.getDate();
+
+        ImprimirReportesMantenimiento reportesMant = new ImprimirReportesMantenimiento(ru, estado, fechaDesde, fechaHasta);
+        reportesMant.setLocationRelativeTo(null); // Centrar la ventana
+        reportesMant.setVisible(true);
+    }//GEN-LAST:event_ImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -730,6 +746,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser FechaHasta;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
+    private javax.swing.JButton Imprimir;
     private javax.swing.JButton Limpiar;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextField RUtxt;
@@ -744,7 +761,6 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
