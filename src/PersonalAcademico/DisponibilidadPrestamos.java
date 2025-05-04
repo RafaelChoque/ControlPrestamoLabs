@@ -146,7 +146,7 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un laboratorio para guardar.");
         }
     }//GEN-LAST:event_GuardarActionPerformed
-    private void cargarTablaCompleta() {
+       private void cargarTablaCompleta() {
         DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
         modelo.setRowCount(0);
 
