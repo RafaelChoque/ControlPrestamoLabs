@@ -1,6 +1,11 @@
 package TecnicoDePrestamos;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,8 +23,103 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
      */
     public InicioAdmiTecnicoPrestamos() {
         initComponents();
-    }
+        FondoBlanco.setFocusable(true);
+        FondoBlanco.requestFocusInWindow();
 
+        panelOverlay.setVisible(false);
+        panelOverlay.setBackground(new Color(0, 0, 0, 0));
+
+        panelSidebar.setVisible(false);
+        panelSidebar.setLocation(-250, 0);
+
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {});
+        panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {});
+        
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int x = evt.getX();
+            int y = evt.getY();
+
+            int sidebarX = panelSidebar.getX();
+            int sidebarY = panelSidebar.getY();
+            int sidebarWidth = panelSidebar.getWidth();
+            int sidebarHeight = panelSidebar.getHeight();
+
+            boolean clicFueraSidebar = !(x >= sidebarX && x <= (sidebarX + sidebarWidth)
+                                      && y >= sidebarY && y <= (sidebarY + sidebarHeight));
+
+                if (clicFueraSidebar) {
+                    cerrarSidebar(); // ejecuta la animación
+                }
+            }
+            
+        });
+        
+        getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "cerrarSidebar");
+
+        getRootPane().getActionMap().put("cerrarSidebar", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if (panelSidebar.isVisible()) {
+                    cerrarSidebar();
+                }
+            }
+        });
+
+        this.setLocationRelativeTo(null);
+    }
+    private boolean sidebarMostrado = false;
+    private Timer animacion;
+    private boolean sidebarListo = false;
+    
+    private void mostrarSidebar() {
+    panelOverlay.setVisible(true);
+    sidebarMostrado = true;
+    panelSidebar.setLocation(-250, 0);
+
+    animacion = new Timer(5, new ActionListener() {
+        int x = panelSidebar.getX();
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (x < 0) {
+                x += 10;
+                panelSidebar.setLocation(x, 0);
+            } else {
+                panelSidebar.setLocation(0, 0);
+                animacion.stop();
+            }
+        }
+    });
+    animacion.start();
+}
+
+    
+    private void cerrarSidebar() {
+    new Thread(() -> {
+        int duracion = 150;
+        int pasos = 25;
+        int delay = duracion / pasos;
+
+        for (int i = pasos; i >= 0; i--) {
+            int x = -250 + (i * 10);
+            int alpha = (int)(i * (120.0 / pasos));
+
+            panelSidebar.setLocation(x, 0);
+            panelOverlay.setBackground(new Color(0, 0, 0, alpha));
+
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        panelSidebar.setVisible(false);
+        panelOverlay.setVisible(false);
+    }).start();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,8 +145,10 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
         btnComputadoras = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
+        perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -239,11 +341,17 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
         });
         getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
 
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -362,20 +470,9 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmiTecnicoPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmiTecnicoPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmiTecnicoPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InicioAdmiTecnicoPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
         }
         //</editor-fold>
         //</editor-fold>
@@ -389,6 +486,7 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JLabel Superior;
@@ -407,5 +505,6 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }
