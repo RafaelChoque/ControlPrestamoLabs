@@ -11,6 +11,7 @@ package TecnicoDePrestamos;
  */
 import ConexionLogin.Conexion;
 import PersonalAcademico.DisponibilidadPrestamos;
+import TecnicoDeEquipos.VerTecnicosEquipos;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -179,6 +180,11 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         RechazarSolicitud = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        Tecnico = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        Nombre = new javax.swing.JTextField();
+        BuscarRu = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
@@ -385,7 +391,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         lblErrorMotivo.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(lblErrorMotivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 235, 300, 20));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 120, 370, 260));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 280, 370, 260));
 
         TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -445,7 +451,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 AprobarSolicitudActionPerformed(evt);
             }
         });
-        jPanel2.add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 390, 180, 40));
+        jPanel2.add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 550, 180, 40));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Solicitudes Pendientes");
@@ -527,7 +533,35 @@ public class SolicitudPendiente extends javax.swing.JFrame {
                 RechazarSolicitudActionPerformed(evt);
             }
         });
-        jPanel2.add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 390, 170, 40));
+        jPanel2.add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 550, 170, 40));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Tecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Tecnico.setText("Tecnico");
+        jPanel3.add(Tecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel13.setText("Nombre:");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 280, -1));
+
+        BuscarRu.setText("Buscar");
+        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarRuActionPerformed(evt);
+            }
+        });
+        jPanel3.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 120, 370, 140));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
@@ -559,11 +593,11 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(
-                "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, "
-                + "p.motivo, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
-                + "FROM prestamos p "
-                + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
+                    "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, "
+                    + "p.motivo, p.fecha, p.horario_inicio, p.horario_fin, p.estado, p.motivo_rechazo "
+                    + "FROM prestamos p "
+                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico"
             );
 
             ResultSet rs = ps.executeQuery();
@@ -591,28 +625,62 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     }
 
     private void AprobarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprobarSolicitudActionPerformed
+        String nombreCompleto = Nombre.getText().trim();
         int fila = TablaSolicitudes.getSelectedRow();
+
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para aprobar.");
             return;
         }
 
         try {
+            // Obtener el id de la solicitud seleccionada
             int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+
+            // Buscar el id_tecnico_prestamos basado en el nombre completo
+            int idTecnico = obtenerIdTecnico(nombreCompleto);
+
+            // Si no se encontró el técnico, mostrar un mensaje
+            if (idTecnico == -1) {
+                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
+                return;
+            }
+
+            // Actualizar el estado de la solicitud y asignar el id_tecnico_prestamos
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Aprobado' WHERE id_prestamo = ?");
-            ps.setInt(1, idSolicitud);
+            PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Aprobado', id_tecnico_prestamos = ? WHERE id_prestamo = ?");
+            ps.setInt(1, idTecnico);  // Asignar el id del técnico
+            ps.setInt(2, idSolicitud); // Filtrar por id_prestamo
             ps.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
-            cargarTabla();
+            cargarTabla(); // Recargar la tabla
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al aprobar la solicitud: " + ex.getMessage());
-        }  
+        }
     }//GEN-LAST:event_AprobarSolicitudActionPerformed
+    private int obtenerIdTecnico(String nombreCompleto) {
+        int idTecnico = -1;
+        try {
+            Connection con = Conexion.obtenerConexion();
+            String query = "SELECT id_tecnico_prestamos FROM tecnico_prestamos WHERE CONCAT(nombre, ' ', apellido) = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, nombreCompleto);
 
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                idTecnico = rs.getInt("id_tecnico_prestamos");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID del técnico.");
+        }
+        return idTecnico;
+    }
     private void RechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudActionPerformed
+        String nombreCompleto = Nombre.getText().trim();
         int fila = TablaSolicitudes.getSelectedRow();
+
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para rechazar.");
             return;
@@ -628,19 +696,32 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         }
 
         try {
+            // Obtener el id de la solicitud seleccionada
             int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
+
+            // Buscar el id_tecnico_prestamos basado en el nombre completo
+            int idTecnico = obtenerIdTecnico(nombreCompleto);
+
+            // Si no se encontró el técnico, mostrar un mensaje
+            if (idTecnico == -1) {
+                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
+                return;
+            }
+
+            // Actualizar el estado de la solicitud, el motivo de rechazo y asignar el id_tecnico_prestamos
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE prestamos SET estado = 'Rechazado', motivo_rechazo = ? WHERE id_prestamo = ?"
+                    "UPDATE prestamos SET estado = 'Rechazado', motivo_rechazo = ?, id_tecnico_prestamos = ? WHERE id_prestamo = ?"
             );
-            ps.setString(1, motivo);
-            ps.setInt(2, idSolicitud);
+            ps.setString(1, motivo);          // Motivo de rechazo
+            ps.setInt(2, idTecnico);          // Asignar el id del técnico
+            ps.setInt(3, idSolicitud);        // Filtrar por id_prestamo
             ps.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Solicitud rechazada correctamente.");
-            MotivoRechazo.setText("");
-            cargarTabla();
-            lblErrorMotivo.setText("");
+            MotivoRechazo.setText("");  // Limpiar campo de motivo
+            cargarTabla();  // Recargar la tabla
+            lblErrorMotivo.setText("");  // Limpiar error
             lblErrorMotivo.setIcon(null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
@@ -770,6 +851,16 @@ public class SolicitudPendiente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnComputadorasActionPerformed
 
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActionPerformed
+
+    private void BuscarRuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRuActionPerformed
+        VerTecnicosPrestamos ver = new VerTecnicosPrestamos(Nombre);
+        ver.setLocationRelativeTo(null);
+        ver.setVisible(true);
+    }//GEN-LAST:event_BuscarRuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -797,13 +888,16 @@ public class SolicitudPendiente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AprobarSolicitud;
+    private javax.swing.JButton BuscarRu;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextArea MotivoRechazo;
+    private javax.swing.JTextField Nombre;
     private javax.swing.JButton RechazarSolicitud;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaSolicitudes;
+    private javax.swing.JLabel Tecnico;
     private javax.swing.JButton VerHorarios;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
@@ -819,11 +913,13 @@ public class SolicitudPendiente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;

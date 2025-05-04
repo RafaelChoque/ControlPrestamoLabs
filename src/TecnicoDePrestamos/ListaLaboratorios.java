@@ -144,6 +144,21 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSidebar = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
+        btnListaLaboratorios = new javax.swing.JButton();
+        btnListaPrestamos = new javax.swing.JButton();
+        btnSancionesDesignar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        LogoSale1 = new javax.swing.JLabel();
+        btnSolicitudes = new javax.swing.JButton();
+        btnReportes1 = new javax.swing.JButton();
+        btnReportes2 = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -175,27 +190,189 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         Superior1 = new javax.swing.JLabel();
-        panelSidebar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        btnInicio = new javax.swing.JButton();
-        btnListaLaboratorios = new javax.swing.JButton();
-        btnListaPrestamos = new javax.swing.JButton();
-        btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
-        btnSolicitudes = new javax.swing.JButton();
-        btnReportes1 = new javax.swing.JButton();
-        btnReportes2 = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1540, 863));
         setUndecorated(true);
         setSize(new java.awt.Dimension(1540, 863));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Panel de Control");
+        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
+
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("INICIO");
+        btnInicio.setBorder(null);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInicioMouseExited(evt);
+            }
+        });
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+
+        btnListaLaboratorios.setBackground(new java.awt.Color(29, 41, 57));
+        btnListaLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
+        btnListaLaboratorios.setText("Lista de Laboratorios");
+        btnListaLaboratorios.setBorder(null);
+        btnListaLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnListaLaboratoriosMouseExited(evt);
+            }
+        });
+        btnListaLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaLaboratoriosActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnListaLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+
+        btnListaPrestamos.setBackground(new java.awt.Color(29, 41, 57));
+        btnListaPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
+        btnListaPrestamos.setText("Lista de Prestamos");
+        btnListaPrestamos.setBorder(null);
+        btnListaPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnListaPrestamosMouseExited(evt);
+            }
+        });
+        btnListaPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaPrestamosActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnListaPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
+
+        btnSancionesDesignar.setBackground(new java.awt.Color(29, 41, 57));
+        btnSancionesDesignar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
+        btnSancionesDesignar.setText("Sanciones para Designar");
+        btnSancionesDesignar.setBorder(null);
+        btnSancionesDesignar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSancionesDesignarMouseExited(evt);
+            }
+        });
+        btnSancionesDesignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSancionesDesignarActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnSancionesDesignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+
+        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes.setText("Computadoras");
+        btnReportes.setBorder(null);
+        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportesMouseExited(evt);
+            }
+        });
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+
+        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+
+        btnSolicitudes.setBackground(new java.awt.Color(29, 41, 57));
+        btnSolicitudes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSolicitudes.setForeground(new java.awt.Color(241, 241, 241));
+        btnSolicitudes.setText("Solicitudes");
+        btnSolicitudes.setBorder(null);
+        btnSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSolicitudesMouseExited(evt);
+            }
+        });
+        btnSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitudesActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+
+        btnReportes1.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes1.setText("Reportes");
+        btnReportes1.setBorder(null);
+        btnReportes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportes1MouseExited(evt);
+            }
+        });
+        btnReportes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportes1ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
+
+        btnReportes2.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes2.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes2.setText("Materiales de Laboratorio");
+        btnReportes2.setBorder(null);
+        btnReportes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportes2MouseExited(evt);
+            }
+        });
+        btnReportes2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportes2ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnReportes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -433,183 +610,6 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
         Superior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));
-
-        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
-        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Panel de Control");
-        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
-
-        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
-        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio.setText("INICIO");
-        btnInicio.setBorder(null);
-        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnInicioMouseExited(evt);
-            }
-        });
-        btnInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
-
-        btnListaLaboratorios.setBackground(new java.awt.Color(29, 41, 57));
-        btnListaLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaLaboratorios.setText("Lista de Laboratorios");
-        btnListaLaboratorios.setBorder(null);
-        btnListaLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnListaLaboratoriosMouseExited(evt);
-            }
-        });
-        btnListaLaboratorios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListaLaboratoriosActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnListaLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
-
-        btnListaPrestamos.setBackground(new java.awt.Color(29, 41, 57));
-        btnListaPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaPrestamos.setText("Lista de Prestamos");
-        btnListaPrestamos.setBorder(null);
-        btnListaPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnListaPrestamosMouseExited(evt);
-            }
-        });
-        btnListaPrestamos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListaPrestamosActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnListaPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
-
-        btnSancionesDesignar.setBackground(new java.awt.Color(29, 41, 57));
-        btnSancionesDesignar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
-        btnSancionesDesignar.setText("Sanciones para Designar");
-        btnSancionesDesignar.setBorder(null);
-        btnSancionesDesignar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSancionesDesignarMouseExited(evt);
-            }
-        });
-        btnSancionesDesignar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSancionesDesignarActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnSancionesDesignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
-
-        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes.setText("Computadoras");
-        btnReportes.setBorder(null);
-        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportesMouseExited(evt);
-            }
-        });
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.setBorder(null);
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseExited(evt);
-            }
-        });
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
-
-        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
-
-        btnSolicitudes.setBackground(new java.awt.Color(29, 41, 57));
-        btnSolicitudes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSolicitudes.setForeground(new java.awt.Color(241, 241, 241));
-        btnSolicitudes.setText("Solicitudes");
-        btnSolicitudes.setBorder(null);
-        btnSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSolicitudesMouseExited(evt);
-            }
-        });
-        btnSolicitudes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSolicitudesActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
-
-        btnReportes1.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes1.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes1.setText("Reportes");
-        btnReportes1.setBorder(null);
-        btnReportes1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportes1MouseExited(evt);
-            }
-        });
-        btnReportes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportes1ActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
-
-        btnReportes2.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes2.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes2.setText("Materiales de Laboratorio");
-        btnReportes2.setBorder(null);
-        btnReportes2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportes2MouseExited(evt);
-            }
-        });
-        btnReportes2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportes2ActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnReportes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
-
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
