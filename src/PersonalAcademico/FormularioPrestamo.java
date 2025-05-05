@@ -1,6 +1,7 @@
 package PersonalAcademico;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -171,7 +172,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         panelSidebar = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        btnCerrarSesion1 = new javax.swing.JButton();
+        btnSolicitudLab = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
@@ -240,22 +241,22 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion1.setText("Solicitud de Laboratorios");
-        btnCerrarSesion1.setBorder(null);
-        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSolicitudLab.setBackground(new java.awt.Color(29, 41, 57));
+        btnSolicitudLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSolicitudLab.setForeground(new java.awt.Color(241, 241, 241));
+        btnSolicitudLab.setText("Solicitud de Laboratorios");
+        btnSolicitudLab.setBorder(null);
+        btnSolicitudLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion1MouseExited(evt);
+                btnSolicitudLabMouseExited(evt);
             }
         });
-        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
+        btnSolicitudLab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion1ActionPerformed(evt);
+                btnSolicitudLabActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+        panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
         panelSidebar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
@@ -897,20 +898,23 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ApellidoActionPerformed
 
-    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
+    private void btnSolicitudLabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudLabMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1MouseExited
+    }//GEN-LAST:event_btnSolicitudLabMouseExited
 
-    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
+    private void btnSolicitudLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudLabActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+    }//GEN-LAST:event_btnSolicitudLabActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
@@ -918,13 +922,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesion2MouseExited
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        // TODO add your handling code here:
         InicioPersonalAcademico inicio = new InicioPersonalAcademico();
-        inicio.setLocationRelativeTo(null); // Centrar la ventana
-        inicio.setVisible(true); // Mostrar la nueva ventana
-
-    // Cerrar la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
+        inicio.setLocationRelativeTo(null);
+        inicio.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
 
     private void btndevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolverActionPerformed
@@ -1071,9 +1072,9 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JTable TablaPrestamos2;
     private javax.swing.JComboBox<String> TipoHorario;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnCerrarSesion2;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JButton btndevolver;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
