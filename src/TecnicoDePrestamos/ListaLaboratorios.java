@@ -1,6 +1,7 @@
 package TecnicoDePrestamos;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Reportes.InicioReportes;
@@ -155,13 +156,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnListaLaboratorios = new javax.swing.JButton();
         btnListaPrestamos = new javax.swing.JButton();
         btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         btnSolicitudes = new javax.swing.JButton();
-        btnReportes1 = new javax.swing.JButton();
-        btnReportes2 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnMaterialesLab = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -280,22 +281,22 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         panelSidebar.add(btnSancionesDesignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
-        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes.setText("Computadoras");
-        btnReportes.setBorder(null);
-        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnComputadoras.setBackground(new java.awt.Color(29, 41, 57));
+        btnComputadoras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnComputadoras.setForeground(new java.awt.Color(241, 241, 241));
+        btnComputadoras.setText("Computadoras");
+        btnComputadoras.setBorder(null);
+        btnComputadoras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportesMouseExited(evt);
+                btnComputadorasMouseExited(evt);
             }
         });
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+        btnComputadoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
+                btnComputadorasActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+        panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
         panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
@@ -337,39 +338,39 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         panelSidebar.add(btnSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
 
-        btnReportes1.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes1.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes1.setText("Reportes");
-        btnReportes1.setBorder(null);
-        btnReportes1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes.setText("Reportes");
+        btnReportes.setBorder(null);
+        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportes1MouseExited(evt);
+                btnReportesMouseExited(evt);
             }
         });
-        btnReportes1.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportes1ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
+        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
-        btnReportes2.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes2.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes2.setText("Materiales de Laboratorio");
-        btnReportes2.setBorder(null);
-        btnReportes2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMaterialesLab.setBackground(new java.awt.Color(29, 41, 57));
+        btnMaterialesLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMaterialesLab.setForeground(new java.awt.Color(241, 241, 241));
+        btnMaterialesLab.setText("Materiales de Laboratorio");
+        btnMaterialesLab.setBorder(null);
+        btnMaterialesLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportes2MouseExited(evt);
+                btnMaterialesLabMouseExited(evt);
             }
         });
-        btnReportes2.addActionListener(new java.awt.event.ActionListener() {
+        btnMaterialesLab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportes2ActionPerformed(evt);
+                btnMaterialesLabActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnReportes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+        panelSidebar.add(btnMaterialesLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
@@ -838,14 +839,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos();
-        inicioP.setLocationRelativeTo(null); // Centrar la ventana
+        inicioP.setLocationRelativeTo(null);
         inicioP.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -861,14 +858,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ListaPrestamos listPrest = new ListaPrestamos();
-        listPrest.setLocationRelativeTo(null); // Centrar la ventana
+        listPrest.setLocationRelativeTo(null);
         listPrest.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -876,37 +869,32 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSancionesDesignarMouseExited
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         SancionesParaDesignar sancionesDesig = new SancionesParaDesignar();
-        sancionesDesig.setLocationRelativeTo(null); // Centrar la ventana
+        sancionesDesig.setLocationRelativeTo(null);
         sancionesDesig.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnSancionesDesignarActionPerformed
 
-    private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
+    private void btnComputadorasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComputadorasMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportesMouseExited
+    }//GEN-LAST:event_btnComputadorasMouseExited
 
-    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
+    private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
         MaterialesHardware hardware = new MaterialesHardware();
-        hardware.setLocationRelativeTo(null); // Centrar la ventana
+        hardware.setLocationRelativeTo(null);
         hardware.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
-    }//GEN-LAST:event_btnReportesActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnComputadorasActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
@@ -946,45 +934,33 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         SolicitudPendiente solicitud = new SolicitudPendiente();
-        solicitud.setLocationRelativeTo(null); // Centrar la ventana
+        solicitud.setLocationRelativeTo(null);
         solicitud.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
-    private void btnReportes1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportes1MouseExited
+    private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportes1MouseExited
+    }//GEN-LAST:event_btnReportesMouseExited
 
-    private void btnReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes1ActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         InicioReportes inicioReport = new InicioReportes();
-        inicioReport.setLocationRelativeTo(null); // Centrar la ventana
+        inicioReport.setLocationRelativeTo(null);
         inicioReport.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
-    }//GEN-LAST:event_btnReportes1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnReportesActionPerformed
 
-    private void btnReportes2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportes2MouseExited
+    private void btnMaterialesLabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesLabMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportes2MouseExited
+    }//GEN-LAST:event_btnMaterialesLabMouseExited
 
-    private void btnReportes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes2ActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
+    private void btnMaterialesLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesLabActionPerformed
         Materiales materiales = new Materiales();
-        materiales.setLocationRelativeTo(null); // Centrar la ventana
+        materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
-    }//GEN-LAST:event_btnReportes2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnMaterialesLabActionPerformed
 
 
     
@@ -1030,6 +1006,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JLabel Superior;
     private javax.swing.JLabel Superior1;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnComputadoras;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHabilitarDeshabilitar;
@@ -1037,11 +1014,10 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
+    private javax.swing.JButton btnMaterialesLab;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnReportes;
-    private javax.swing.JButton btnReportes1;
-    private javax.swing.JButton btnReportes2;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
     private javax.swing.JComboBox<String> cbSeccion;
