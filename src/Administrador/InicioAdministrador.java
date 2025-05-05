@@ -4,6 +4,7 @@
  */
 package Administrador;
 
+import ConexionLogin.Login;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -131,7 +132,7 @@ public class InicioAdministrador extends javax.swing.JFrame {
         panelSidebar = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        btnCerrarSesion1 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCerrarSesion6 = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
@@ -163,22 +164,22 @@ public class InicioAdministrador extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion1.setText("INICIO");
-        btnCerrarSesion1.setBorder(null);
-        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("INICIO");
+        btnInicio.setBorder(null);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion1MouseExited(evt);
+                btnInicioMouseExited(evt);
             }
         });
-        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion1ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
         panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
@@ -299,20 +300,23 @@ public class InicioAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1MouseExited
+    }//GEN-LAST:event_btnInicioMouseExited
 
-    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+    }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnCerrarSesion6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion6MouseExited
 
     }//GEN-LAST:event_btnCerrarSesion6MouseExited
 
     private void btnCerrarSesion6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion6ActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesion6ActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
@@ -352,14 +356,10 @@ public class InicioAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPersonalAcademicoMouseExited
 
     private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        // Crear la ventana de AdministradorPersonalAcademico
         AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose(); 
     }//GEN-LAST:event_btnPersonalAcademicoActionPerformed
 
     private void btnTecnicoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoMouseExited
@@ -367,13 +367,10 @@ public class InicioAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoEquipoMouseExited
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de AdministradorTecnicoEquipos
         AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
-        // Cerrar la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
+        this.dispose(); 
     }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
 
     private void btnTecnicoPrestamoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoMouseExited
@@ -381,13 +378,10 @@ public class InicioAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoPrestamoMouseExited
 
     private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de AdministradorTecnicoPrestamos
         AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
-        // Cerrar la ventana actual
-        this.dispose(); // o this.setVisible(false); si prefieres solo ocultarla
+        this.dispose();
     }//GEN-LAST:event_btnTecnicoPrestamoActionPerformed
 
     /**
@@ -420,8 +414,8 @@ public class InicioAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JLabel Superior;
-    private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnCerrarSesion6;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnPersonalAcademico;
     private javax.swing.JButton btnTecnicoEquipo;

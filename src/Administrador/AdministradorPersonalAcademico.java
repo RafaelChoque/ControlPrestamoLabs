@@ -882,7 +882,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInicio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio2MouseExited
@@ -890,13 +893,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicio2MouseExited
 
     private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
-
-        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
+        InicioAdministrador inicio = new InicioAdministrador();
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
-
         this.dispose();
-
     }//GEN-LAST:event_btnInicio2ActionPerformed
 
     private void btnPersonalAcademicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoMouseExited
@@ -904,14 +904,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPersonalAcademicoMouseExited
 
     private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        // Crear la ventana de AdministradorPersonalAcademico
         AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose(); 
     }//GEN-LAST:event_btnPersonalAcademicoActionPerformed
 
     private void btnTecnicoPrestamoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoMouseExited
@@ -919,13 +915,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoPrestamoMouseExited
 
     private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de AdministradorTecnicoPrestamos
         AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null);
         admin.setVisible(true);
-        // Cerrar la ventana actual
-        this.dispose(); // o this.setVisible(false); si prefieres solo ocultarla
+        this.dispose();
     }//GEN-LAST:event_btnTecnicoPrestamoActionPerformed
 
     private void btnTecnicoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoMouseExited
@@ -933,13 +926,10 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoEquipoMouseExited
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de AdministradorTecnicoEquipos
         AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
-        admin.setLocationRelativeTo(null); // Centrar la ventana
+        admin.setLocationRelativeTo(null);
         admin.setVisible(true);
-        // Cerrar la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
+        this.dispose(); 
     }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
 
 
