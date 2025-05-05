@@ -5,6 +5,7 @@
 package Sanciones;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Reportes.InicioReportes;
@@ -12,6 +13,11 @@ import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
 import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
+import TecnicoDePrestamos.VerTecnicosPrestamos;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +26,8 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,14 +36,114 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SancionesParaDesignar extends javax.swing.JFrame {
 
-
+private int idPrestamoSeleccionado = -1;
+private int idTecnicoActual = -1;
 
     /**
      * Creates new form SancionesParaDesignar
      */
     public SancionesParaDesignar() {
         initComponents();
+        this.dispose();
         cargarTablaPrestamos();
+        cargarTablaSanciones(); 
+        //FondoBlanco.setFocusable(true);
+        //FondoBlanco.requestFocusInWindow();
+
+        panelOverlay.setVisible(false);
+        panelOverlay.setBackground(new Color(0, 0, 0, 0));
+
+        panelSidebar.setVisible(false);
+        panelSidebar.setLocation(-250, 0);
+
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
+        });
+        panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        });
+
+        panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int x = evt.getX();
+                int y = evt.getY();
+
+                int sidebarX = panelSidebar.getX();
+                int sidebarY = panelSidebar.getY();
+                int sidebarWidth = panelSidebar.getWidth();
+                int sidebarHeight = panelSidebar.getHeight();
+
+                boolean clicFueraSidebar = !(x >= sidebarX && x <= (sidebarX + sidebarWidth)
+                        && y >= sidebarY && y <= (sidebarY + sidebarHeight));
+
+                if (clicFueraSidebar) {
+                    cerrarSidebar(); // ejecuta la animación
+                }
+            }
+
+        });
+
+        getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(javax.swing.KeyStroke.getKeyStroke("ESCAPE"), "cerrarSidebar");
+
+        getRootPane().getActionMap().put("cerrarSidebar", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if (panelSidebar.isVisible()) {
+                    cerrarSidebar();
+                }
+            }
+        });
+
+        this.setLocationRelativeTo(null);
+    }
+    private boolean sidebarMostrado = false;
+    private Timer animacion;
+    private boolean sidebarListo = false;
+
+    private void mostrarSidebar() {
+        panelOverlay.setVisible(true);
+        sidebarMostrado = true;
+        panelSidebar.setLocation(-250, 0);
+
+        animacion = new Timer(5, new ActionListener() {
+            int x = panelSidebar.getX();
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (x < 0) {
+                    x += 10;
+                    panelSidebar.setLocation(x, 0);
+                } else {
+                    panelSidebar.setLocation(0, 0);
+                    animacion.stop();
+                }
+            }
+        });
+        animacion.start();
+    }
+
+    private void cerrarSidebar() {
+        new Thread(() -> {
+            int duracion = 150;
+            int pasos = 25;
+            int delay = duracion / pasos;
+
+            for (int i = pasos; i >= 0; i--) {
+                int x = -250 + (i * 10);
+                int alpha = (int) (i * (120.0 / pasos));
+
+                panelSidebar.setLocation(x, 0);
+                panelOverlay.setBackground(new Color(0, 0, 0, alpha));
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            panelSidebar.setVisible(false);
+            panelOverlay.setVisible(false);
+        }).start();
     }
 
     /**
@@ -61,7 +169,6 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         AsignacionSancion = new javax.swing.JLabel();
         NombreSancionadotxt = new javax.swing.JTextField();
@@ -74,9 +181,9 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         TipoBox = new javax.swing.JComboBox<>();
         Tipo = new javax.swing.JLabel();
         Guardar = new javax.swing.JButton();
-        HabilitarDeshabilitar = new javax.swing.JButton();
-        NombreTecnico = new javax.swing.JTextField();
+        Nombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        BuscarRu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblPrestamosAntiguos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -88,10 +195,13 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         Buscar = new javax.swing.JButton();
         RUtxt = new javax.swing.JTextField();
         BuscarPrestamo = new javax.swing.JButton();
+        btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
@@ -266,11 +376,6 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,23 +420,23 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         });
         jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
-        HabilitarDeshabilitar.setText("Habilitar/Deshabilitar Sancion");
-        HabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HabilitarDeshabilitarActionPerformed(evt);
+                NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
-
-        NombreTecnico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreTecnicoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(NombreTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 330, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 250, -1));
 
         jLabel1.setText("Nombre del Tecnico:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+
+        BuscarRu.setText("Buscar");
+        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarRuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 510, 320));
 
@@ -372,20 +477,20 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
 
         TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Descripcion", "Fecha", "Tipo", "Sancionado Por"
+                "ID", "Descripcion", "Fecha", "Tipo", "Docente", "Sancionado Por"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -402,8 +507,8 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         getContentPane().add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 160, -1));
 
         Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Formulario1.setText("Asignacion de Sancion");
-        getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 270, 30));
+        Formulario1.setText("Docentes Sancionados");
+        getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 270, 30));
 
         FechaPrestam.setText("Fecha del Prestamo");
         getContentPane().add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 20));
@@ -428,14 +533,72 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         });
         getContentPane().add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, -1, -1));
 
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
 
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarTablaSanciones() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Sanción");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Técnico");
+        modelo.addColumn("Sancionado");
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            String sql = "SELECT "
+                    + "s.id_sancion, "
+                    + "s.descripcion, "
+                    + "s.fecha, "
+                    + "s.tipo, "
+                    + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico, "
+                    + "CONCAT(pa.nombre, ' ', pa.apellido) AS sancionado "
+                    + "FROM sanciones s "
+                    + "JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
+                    + "JOIN prestamos p ON s.id_prestamo = p.id_prestamo "
+                    + "JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico";
+
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Object[] fila = new Object[6];
+                fila[0] = rs.getInt("id_sancion");
+                fila[1] = rs.getString("descripcion");
+                fila[2] = rs.getDate("fecha");
+                fila[3] = rs.getString("tipo");
+                fila[4] = rs.getString("tecnico");
+                fila[5] = rs.getString("sancionado");
+
+                modelo.addRow(fila);
+            }
+
+            TblSanciones.setModel(modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar sanciones: " + e.getMessage());
+        }
+    }
     public void cargarTablaPrestamos() {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -512,18 +675,49 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }
 
 
-    private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
-
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         String descripcion = Descripciontxt.getText().trim();
         Date fecha = Fechadate.getDate();
         String tipo = (String) TipoBox.getSelectedItem();
+        String nombreTecnico = Nombre.getText().trim();
 
-        if (descripcion.isEmpty() || fecha == null || tipo == null) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos");
+        if (descripcion.isEmpty() || fecha == null || tipo == null || idPrestamoSeleccionado == -1 || nombreTecnico.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos, seleccionar préstamo y técnico.");
             return;
+        }
+
+        try (Connection con = Conexion.obtenerConexion()) {
+            
+            PreparedStatement psBuscar = con.prepareStatement(
+                    "SELECT id_tecnico_prestamos FROM tecnico_prestamos WHERE CONCAT(nombre, ' ', apellido) = ?"
+            );
+            psBuscar.setString(1, nombreTecnico);
+            ResultSet rs = psBuscar.executeQuery();
+
+            if (rs.next()) {
+                int idTecnico = rs.getInt("id_tecnico_prestamos");
+
+               
+                PreparedStatement psInsert = con.prepareStatement(
+                        "INSERT INTO sanciones (id_prestamo, descripcion, fecha, tipo, sancionado_por) "
+                        + "VALUES (?, ?, ?, ?, ?)"
+                );
+                psInsert.setInt(1, idPrestamoSeleccionado);
+                psInsert.setString(2, descripcion);
+                psInsert.setDate(3, new java.sql.Date(fecha.getTime()));
+                psInsert.setString(4, tipo);
+                psInsert.setInt(5, idTecnico);
+
+                psInsert.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Sanción registrada correctamente.");
+
+                cargarTablaSanciones();  
+            } else {
+                JOptionPane.showMessageDialog(this, "Técnico no encontrado.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
         }
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -543,22 +737,25 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
         int filaSeleccionada = TblPrestamosAntiguos.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            // Suponiendo que el nombre del docente está en la columna 1
+            idPrestamoSeleccionado = (int) TblPrestamosAntiguos.getValueAt(filaSeleccionada, 0); // Columna 0 = id_prestamo
             String nombreDocente = TblPrestamosAntiguos.getValueAt(filaSeleccionada, 5).toString();
-            NombreSancionadotxt.setText(nombreDocente);
+            NombreSancionadotxt.setText(nombreDocente); // Mostrar nombre del sancionado (solo visual)
         }
     }//GEN-LAST:event_TblPrestamosAntiguosmouseClicked
 
-    private void NombreTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreTecnicoActionPerformed
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTecnicoActionPerformed
+    }//GEN-LAST:event_NombreActionPerformed
 
     private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
 
     }//GEN-LAST:event_btnCerrarSesion2MouseExited
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
@@ -581,14 +778,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaLaboratoriosMouseExited
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ListaLaboratorios listLab = new ListaLaboratorios();
-        listLab.setLocationRelativeTo(null); // Centrar la ventana
+        listLab.setLocationRelativeTo(null); 
         listLab.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnListaLaboratoriosActionPerformed
 
     private void btnListaPrestamosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaPrestamosMouseExited
@@ -596,14 +789,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ListaPrestamos listPrest = new ListaPrestamos();
-        listPrest.setLocationRelativeTo(null); // Centrar la ventana
+        listPrest.setLocationRelativeTo(null);
         listPrest.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSolicitudesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudesMouseExited
@@ -611,14 +800,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         SolicitudPendiente solicitud = new SolicitudPendiente();
-        solicitud.setLocationRelativeTo(null); // Centrar la ventana
+        solicitud.setLocationRelativeTo(null);
         solicitud.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -634,14 +819,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportesMouseExited
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         InicioReportes inicioReport = new InicioReportes();
-        inicioReport.setLocationRelativeTo(null); // Centrar la ventana
+        inicioReport.setLocationRelativeTo(null);
         inicioReport.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited
@@ -649,14 +830,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMaterialesMouseExited
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         Materiales materiales = new Materiales();
-        materiales.setLocationRelativeTo(null); // Centrar la ventana
+        materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnMaterialesActionPerformed
 
     private void btnComputadorasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComputadorasMouseExited
@@ -664,15 +841,49 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnComputadorasMouseExited
 
     private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         MaterialesHardware hardware = new MaterialesHardware();
-        hardware.setLocationRelativeTo(null); // Centrar la ventana
+        hardware.setLocationRelativeTo(null);
         hardware.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnComputadorasActionPerformed
+
+    private void BuscarRuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRuActionPerformed
+        VerTecnicosPrestamos ver = new VerTecnicosPrestamos(Nombre);
+        ver.setLocationRelativeTo(null);
+        ver.setVisible(true);
+    }//GEN-LAST:event_BuscarRuActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        panelOverlay.setVisible(true);
+
+        panelSidebar.setVisible(true);
+        panelSidebar.setLocation(-250, 0);
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
+
+        new Thread(() -> {
+            int duracion = 150;
+            int pasos = 25;
+            int delay = duracion / pasos;
+
+            for (int i = 0; i <= pasos; i++) {
+                int x = -250 + (i * 10);
+                int alpha = (int)(i * (120.0 / pasos));
+
+                panelSidebar.setLocation(x, 0);
+
+                Color overlayColor = new Color(0, 0, 0, alpha);
+                panelOverlay.setBackground(overlayColor);
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }//GEN-LAST:event_btnMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -700,7 +911,11 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SancionesParaDesignar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+            try {
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -713,6 +928,7 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     private javax.swing.JLabel AsignacionSancion;
     private javax.swing.JButton Buscar;
     private javax.swing.JButton BuscarPrestamo;
+    private javax.swing.JButton BuscarRu;
     private javax.swing.JLabel Descripcion;
     private javax.swing.JTextArea Descripciontxt;
     private javax.swing.JLabel Fecha;
@@ -722,11 +938,10 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel Formulario1;
     private javax.swing.JButton Guardar;
-    private javax.swing.JButton HabilitarDeshabilitar;
     private javax.swing.JLabel LogoSale2;
+    private javax.swing.JTextField Nombre;
     private javax.swing.JLabel NombreSancionado;
     private javax.swing.JTextField NombreSancionadotxt;
-    private javax.swing.JTextField NombreTecnico;
     private javax.swing.JLabel RU2;
     private javax.swing.JTextField RUtxt;
     private javax.swing.JLabel Superior;
@@ -740,6 +955,7 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
     private javax.swing.JButton btnMateriales;
+    private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
