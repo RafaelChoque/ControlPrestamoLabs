@@ -4,6 +4,7 @@
  */
 package Reportes;
 
+import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Sanciones.SancionesParaDesignar;
@@ -150,13 +151,15 @@ private boolean sidebarMostrado = false;
         btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         AsignacionSancion = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
+        ReportesMantenimiento = new javax.swing.JButton();
+        ReportesMantenimiento1 = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -334,14 +337,9 @@ private boolean sidebarMostrado = false;
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
         AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         AsignacionSancion.setText("Selección De reportes");
-        getContentPane().add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 230, -1));
+        getContentPane().add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 230, -1));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -356,6 +354,17 @@ private boolean sidebarMostrado = false;
         });
         getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
 
+        ReportesMantenimiento.setText("Reportes de Mantenimiento");
+        ReportesMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportesMantenimientoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ReportesMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
+
+        ReportesMantenimiento1.setText("Reportes de Prestamos");
+        getContentPane().add(ReportesMantenimiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
@@ -365,6 +374,11 @@ private boolean sidebarMostrado = false;
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -373,7 +387,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
@@ -521,6 +538,10 @@ private boolean sidebarMostrado = false;
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void ReportesMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesMantenimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReportesMantenimientoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -550,6 +571,8 @@ private boolean sidebarMostrado = false;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel LogoSale1;
+    private javax.swing.JButton ReportesMantenimiento;
+    private javax.swing.JButton ReportesMantenimiento1;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;

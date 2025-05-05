@@ -5,6 +5,7 @@
 package Reportes;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Sanciones.SancionesParaDesignar;
@@ -680,7 +681,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnCerrarSesion2MouseExited
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited

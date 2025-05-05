@@ -5,6 +5,7 @@
 package Reportes;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Sanciones.SancionesParaDesignar;
@@ -611,7 +612,10 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
