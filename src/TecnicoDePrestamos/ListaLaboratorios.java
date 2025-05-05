@@ -1,6 +1,10 @@
 package TecnicoDePrestamos;
 
 import ConexionLogin.Conexion;
+import Materiales.Materiales;
+import Materiales.MaterialesHardware;
+import Reportes.InicioReportes;
+import Sanciones.SancionesParaDesignar;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -835,6 +839,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos();
+        inicioP.setLocationRelativeTo(null); // Centrar la ventana
+        inicioP.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -851,6 +862,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        ListaPrestamos listPrest = new ListaPrestamos();
+        listPrest.setLocationRelativeTo(null); // Centrar la ventana
+        listPrest.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -859,6 +877,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        SancionesParaDesignar sancionesDesig = new SancionesParaDesignar();
+        sancionesDesig.setLocationRelativeTo(null); // Centrar la ventana
+        sancionesDesig.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnSancionesDesignarActionPerformed
 
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
@@ -867,6 +892,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        MaterialesHardware hardware = new MaterialesHardware();
+        hardware.setLocationRelativeTo(null); // Centrar la ventana
+        hardware.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
@@ -915,6 +947,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        SolicitudPendiente solicitud = new SolicitudPendiente();
+        solicitud.setLocationRelativeTo(null); // Centrar la ventana
+        solicitud.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnReportes1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportes1MouseExited
@@ -923,6 +962,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes1ActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        InicioReportes inicioReport = new InicioReportes();
+        inicioReport.setLocationRelativeTo(null); // Centrar la ventana
+        inicioReport.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnReportes1ActionPerformed
 
     private void btnReportes2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportes2MouseExited
@@ -931,6 +977,13 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     private void btnReportes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes2ActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        Materiales materiales = new Materiales();
+        materiales.setLocationRelativeTo(null); // Centrar la ventana
+        materiales.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnReportes2ActionPerformed
 
 
