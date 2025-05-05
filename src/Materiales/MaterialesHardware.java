@@ -5,6 +5,12 @@
 package Materiales;
 
 import ConexionLogin.Conexion;
+import Reportes.InicioReportes;
+import Sanciones.SancionesParaDesignar;
+import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
+import TecnicoDePrestamos.ListaLaboratorios;
+import TecnicoDePrestamos.ListaPrestamos;
+import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import java.awt.Color;
@@ -904,6 +910,13 @@ private void limpiar() {
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos();
+        inicioP.setLocationRelativeTo(null); // Centrar la ventana
+        inicioP.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -912,6 +925,13 @@ private void limpiar() {
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        ListaLaboratorios listLab = new ListaLaboratorios();
+        listLab.setLocationRelativeTo(null); // Centrar la ventana
+        listLab.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnListaLaboratoriosActionPerformed
 
     private void btnListaPrestamosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaPrestamosMouseExited
@@ -920,6 +940,13 @@ private void limpiar() {
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        ListaPrestamos listPrest = new ListaPrestamos();
+        listPrest.setLocationRelativeTo(null); // Centrar la ventana
+        listPrest.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSolicitudesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudesMouseExited
@@ -928,6 +955,13 @@ private void limpiar() {
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        SolicitudPendiente solicitud = new SolicitudPendiente();
+        solicitud.setLocationRelativeTo(null); // Centrar la ventana
+        solicitud.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -936,6 +970,13 @@ private void limpiar() {
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        SancionesParaDesignar sancionesDesig = new SancionesParaDesignar();
+        sancionesDesig.setLocationRelativeTo(null); // Centrar la ventana
+        sancionesDesig.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnSancionesDesignarActionPerformed
 
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
@@ -944,6 +985,13 @@ private void limpiar() {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        InicioReportes inicioReport = new InicioReportes();
+        inicioReport.setLocationRelativeTo(null); // Centrar la ventana
+        inicioReport.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited
@@ -952,6 +1000,13 @@ private void limpiar() {
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
         // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
+        Materiales materiales = new Materiales();
+        materiales.setLocationRelativeTo(null); // Centrar la ventana
+        materiales.setVisible(true);
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnMaterialesActionPerformed
 
     private void btnComputadorasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComputadorasMouseExited
