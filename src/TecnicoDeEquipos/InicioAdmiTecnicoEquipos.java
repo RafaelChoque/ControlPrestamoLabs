@@ -4,6 +4,7 @@
  */
 package TecnicoDeEquipos;
 
+import ConexionLogin.Login;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -284,7 +285,10 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
@@ -300,15 +304,10 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMantenimientoEquipoMouseExited
 
     private void btnMantenimientoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoEquipoActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ReparacionesCompus reparaciones = new ReparacionesCompus();
-        reparaciones.setLocationRelativeTo(null); // Centrar la ventana
+        reparaciones.setLocationRelativeTo(null);
         reparaciones.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose(); 
     }//GEN-LAST:event_btnMantenimientoEquipoActionPerformed
 
     /**

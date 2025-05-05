@@ -5,6 +5,7 @@
 package TecnicoDeEquipos;
 
 import ConexionLogin.Conexion;
+import ConexionLogin.Login;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -537,15 +538,10 @@ private void cargarTablaLista() {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         InicioAdmiTecnicoEquipos iniciotecnico = new InicioAdmiTecnicoEquipos();
-        iniciotecnico.setLocationRelativeTo(null); // Centrar la ventana
+        iniciotecnico.setLocationRelativeTo(null);
         iniciotecnico.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnMantenimientoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMantenimientoEquipoMouseExited
@@ -561,7 +557,10 @@ private void cargarTablaLista() {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
