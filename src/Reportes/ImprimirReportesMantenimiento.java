@@ -4,6 +4,7 @@
  */
 package Reportes;
 import ConexionLogin.Conexion;
+import ConexionLogin.SesionUsuario;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -48,7 +49,10 @@ public class ImprimirReportesMantenimiento extends javax.swing.JFrame implements
      */
     public ImprimirReportesMantenimiento(String ru, String estado, Date fechaDesde, Date fechaHasta) {
         initComponents();
-        
+        Nombretxt.setText(SesionUsuario.nombre + " " + SesionUsuario.apellido);
+        RUtxt.setText(SesionUsuario.username);
+        CItxt.setText(String.valueOf(SesionUsuario.ci));
+        telefonotxt.setText(SesionUsuario.telefono);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaDesdeStr = (fechaDesde != null) ? dateFormat.format(fechaDesde) : "Todos";
         String fechaHastaStr = (fechaHasta != null) ? dateFormat.format(fechaHasta) : "Todos";
@@ -81,25 +85,45 @@ public class ImprimirReportesMantenimiento extends javax.swing.JFrame implements
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        AsignacionSancion1 = new javax.swing.JLabel();
         Imprimir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReportes = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        Desdetxt = new javax.swing.JLabel();
-        Hastatxt = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        Estadotxt = new javax.swing.JLabel();
-        Usuariotxt = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        Nombretxt = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         Fechatxt = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        ReportesPrestamos = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        Nombretxt = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        CIlbl = new javax.swing.JLabel();
+        CItxt = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        RUtxt = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        telefonolbl = new javax.swing.JLabel();
+        telefonotxt = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        Hastatxt = new javax.swing.JLabel();
+        Desdetxt = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        Usuariotxt = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        Estadotxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -108,17 +132,13 @@ public class ImprimirReportesMantenimiento extends javax.swing.JFrame implements
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion1.setText("Reportes de Mantenimiento");
-        jPanel1.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
-
         Imprimir.setText("Imprimir");
         Imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+        jPanel1.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 690, -1, -1));
 
         tblReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,54 +174,155 @@ public class ImprimirReportesMantenimiento extends javax.swing.JFrame implements
         }
         jScrollPane1.setViewportView(tblReportes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 930, 460));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 930, 400));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Desde:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Sistema de Control y Prestamos de Laboratorios de Hardware, Electronica, Redes y Telecomunicaciones");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 7, -1, -1));
 
-        jLabel1.setText("Hasta:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 40, 20));
-        jPanel2.add(Desdetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 240, 20));
-        jPanel2.add(Hastatxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 240, 20));
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 920, 50));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 60));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 180, 60));
 
-        jLabel5.setText("Usuario:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        jLabel4.setText("Estado:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, 20));
-        jPanel4.add(Estadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 240, 20));
-        jPanel4.add(Usuariotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 240, 20));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 920, 50));
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setText("Nombre:");
-        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        jLabel10.setText("Fecha:");
-        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 40, 20));
-        jPanel5.add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 240, 20));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Fecha:");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 40, 20));
 
         Date fechaActual = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaFormateada = dateFormat.format(fechaActual);
         Fechatxt.setText(fechaFormateada);
-        jPanel5.add(Fechatxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 240, 20));
+        Fechatxt.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(Fechatxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 35, 180, 20));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 920, 50));
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 30));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 930, 60));
+
+        ReportesPrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ReportesPrestamos.setText("Reporte de Mantenimiento");
+        jPanel1.add(ReportesPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 73, -1, -1));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setText("DATOS DEL TRABAJADOR QUE PRESENTO EL REPORTE");
+        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 2, -1, -1));
+
+        jPanel7.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 20));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 25, 370, 20));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Nombre:");
+        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 25, -1, 20));
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CIlbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CIlbl.setText("Carnet de Identidad:");
+        jPanel11.add(CIlbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, -1));
+        jPanel11.add(CItxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 35, 320, 20));
+
+        jPanel5.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, -10, 480, 60));
+
+        jPanel7.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 50));
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setText("RU:");
+        jPanel10.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 47, -1, -1));
+        jPanel10.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 45, 380, 20));
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        telefonolbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        telefonolbl.setText("Numero de Telefono:");
+        jPanel12.add(telefonolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, -1, -1));
+        jPanel12.add(telefonotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 35, 320, 20));
+
+        jPanel10.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 480, 60));
+
+        jPanel7.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 930, 70));
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 930, 80));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setText("DETALLES");
+        jPanel14.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 2, -1, -1));
+
+        jPanel6.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 20));
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Hasta:");
+        jPanel16.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 20));
+        jPanel16.add(Hastatxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 240, 20));
+
+        jPanel15.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 480, 40));
+        jPanel15.add(Desdetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 240, 20));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Desde:");
+        jPanel15.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
+
+        jPanel6.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 50));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setText("Usuario:");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
+        jPanel6.add(Usuariotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 240, 20));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setText("Estado:");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, 20));
+        jPanel6.add(Estadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 240, 20));
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 930, 80));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 720));
 
@@ -357,25 +478,45 @@ public class ImprimirReportesMantenimiento extends javax.swing.JFrame implements
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AsignacionSancion1;
+    private javax.swing.JLabel CIlbl;
+    private javax.swing.JLabel CItxt;
     private javax.swing.JLabel Desdetxt;
     private javax.swing.JLabel Estadotxt;
     private javax.swing.JLabel Fechatxt;
     private javax.swing.JLabel Hastatxt;
     private javax.swing.JButton Imprimir;
     private javax.swing.JLabel Nombretxt;
+    private javax.swing.JLabel RUtxt;
+    private javax.swing.JLabel ReportesPrestamos;
     private javax.swing.JLabel Usuariotxt;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblReportes;
+    private javax.swing.JLabel telefonolbl;
+    private javax.swing.JLabel telefonotxt;
     // End of variables declaration//GEN-END:variables
 }
