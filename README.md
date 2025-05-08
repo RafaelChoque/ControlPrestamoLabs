@@ -57,8 +57,8 @@ El proyecto busca optimizar los procesos tradicionales de asignación y control 
 
 ## Proyecto Académico
 
-📍 *Universidad Salesiana de Bolivia*  
-📚 *Carrera de Ingeniería de Sistemas*  
+- *Universidad Salesiana de Bolivia*  
+- *Carrera de Ingeniería de Sistemas*  
 
 ---
 
