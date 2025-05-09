@@ -25,6 +25,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -41,6 +42,7 @@ public class ReportesMantenimiento extends javax.swing.JFrame {
      */
     public ReportesMantenimiento() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTablaTodo();
                 FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();

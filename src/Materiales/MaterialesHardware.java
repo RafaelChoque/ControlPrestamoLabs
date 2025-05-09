@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
@@ -47,6 +48,7 @@ public class MaterialesHardware extends javax.swing.JFrame {
 
     public MaterialesHardware() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Laboratorio.setEditable(false);
         cargarTabla();
         this.setLocationRelativeTo(null);

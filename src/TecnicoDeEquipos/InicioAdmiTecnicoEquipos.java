@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -23,7 +24,8 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
      */
     public InicioAdmiTecnicoEquipos() {
         initComponents();
-                FondoBlanco.setFocusable(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
         panelOverlay.setVisible(false);

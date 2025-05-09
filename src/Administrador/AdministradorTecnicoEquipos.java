@@ -25,6 +25,7 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.Timer;
@@ -42,6 +43,9 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     public AdministradorTecnicoEquipos() {
         initComponents();
         ID.setVisible(false);
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
@@ -54,7 +58,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         panelOverlay.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
         });
-        this.setLocationRelativeTo(null);
+        
         panelOverlay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int x = evt.getX();

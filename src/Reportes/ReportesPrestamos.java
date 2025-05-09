@@ -28,6 +28,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -45,6 +46,7 @@ public class ReportesPrestamos extends javax.swing.JFrame {
      */
     public ReportesPrestamos() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTablaTodo();
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();

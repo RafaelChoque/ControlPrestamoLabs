@@ -29,6 +29,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.Timer;
@@ -45,6 +46,7 @@ public class SolicitudPendiente extends javax.swing.JFrame {
      */
     public SolicitudPendiente() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();

@@ -16,6 +16,7 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -39,6 +40,7 @@ public class ListaPrestamos extends javax.swing.JFrame {
      */
     public ListaPrestamos() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 

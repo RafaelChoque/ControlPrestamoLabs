@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import javax.swing.JFrame;
 import javax.swing.RowFilter;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -44,6 +45,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
      */
     public AdministradorPersonalAcademico() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTabla();
         ID.setVisible(false);
         FondoBlanco.setFocusable(true);

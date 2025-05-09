@@ -24,6 +24,7 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +39,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
 
     public ListaLaboratorios() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
@@ -372,12 +374,12 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         panelSidebar.add(btnMaterialesLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -611,7 +613,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setMinimumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setPreferredSize(new java.awt.Dimension(1540, 863));
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 920));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 930));
 
         Superior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 80));

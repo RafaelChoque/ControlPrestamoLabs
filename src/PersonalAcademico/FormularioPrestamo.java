@@ -42,6 +42,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
      */
     public FormularioPrestamo(int idusuario) {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.idusuario = idusuario;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Nombre.setEditable(false);
@@ -169,16 +170,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSidebar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        btnSolicitudLab = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
-        Sanciones = new javax.swing.JButton();
-        btnCerrarSesion2 = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -200,7 +191,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         Laboratorio = new javax.swing.JTextField();
         DisponibilidadPrestamo = new javax.swing.JButton();
-        MaterialExtra = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         TipoHorario = new javax.swing.JComboBox<>();
@@ -215,7 +205,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaHistorial = new javax.swing.JTable();
         Actualizar = new javax.swing.JButton();
-        btndevolver = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         MotivoRechazo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -225,97 +214,20 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
+        panelSidebar = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        btnSolicitudLab = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        LogoSale1 = new javax.swing.JLabel();
+        Sanciones = new javax.swing.JButton();
+        btnCerrarSesion2 = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
-        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Panel de Control");
-        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
-
-        btnSolicitudLab.setBackground(new java.awt.Color(29, 41, 57));
-        btnSolicitudLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSolicitudLab.setForeground(new java.awt.Color(241, 241, 241));
-        btnSolicitudLab.setText("Solicitud de Laboratorios");
-        btnSolicitudLab.setBorder(null);
-        btnSolicitudLab.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSolicitudLabMouseExited(evt);
-            }
-        });
-        btnSolicitudLab.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSolicitudLabActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.setBorder(null);
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseExited(evt);
-            }
-        });
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
-
-        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
-
-        Sanciones.setBackground(new java.awt.Color(29, 41, 57));
-        Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Sanciones.setForeground(new java.awt.Color(255, 255, 255));
-        Sanciones.setText("Sanciones");
-        Sanciones.setBorder(null);
-        Sanciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SancionesActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, 40));
-
-        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion2.setText("INICIO");
-        btnCerrarSesion2.setBorder(null);
-        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion2MouseExited(evt);
-            }
-        });
-        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion2ActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
-
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -411,16 +323,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DisponibilidadPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 170, -1));
-
-        MaterialExtra.setBackground(new java.awt.Color(29, 41, 57));
-        MaterialExtra.setForeground(new java.awt.Color(255, 255, 255));
-        MaterialExtra.setText("Material Extra");
-        MaterialExtra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MaterialExtraActionPerformed(evt);
-            }
-        });
-        jPanel1.add(MaterialExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 170, -1));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 300, -1));
 
         jLabel8.setText("Horario:");
@@ -503,7 +405,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             tablaHistorial.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1420, 300));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1420, 330));
 
         Actualizar.setBackground(new java.awt.Color(29, 41, 57));
         Actualizar.setForeground(new java.awt.Color(255, 255, 255));
@@ -514,16 +416,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel4.add(Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 10, 110, -1));
-
-        btndevolver.setBackground(new java.awt.Color(51, 153, 0));
-        btndevolver.setForeground(new java.awt.Color(255, 255, 255));
-        btndevolver.setText("Devolver Laboratorio");
-        btndevolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btndevolverActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btndevolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 150, -1));
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 1440, 380));
 
@@ -597,6 +489,93 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+
+        panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Panel de Control");
+        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
+
+        btnSolicitudLab.setBackground(new java.awt.Color(29, 41, 57));
+        btnSolicitudLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSolicitudLab.setForeground(new java.awt.Color(241, 241, 241));
+        btnSolicitudLab.setText("Solicitud de Laboratorios");
+        btnSolicitudLab.setBorder(null);
+        btnSolicitudLab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSolicitudLabMouseExited(evt);
+            }
+        });
+        btnSolicitudLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitudLabActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+
+        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+
+        Sanciones.setBackground(new java.awt.Color(29, 41, 57));
+        Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Sanciones.setForeground(new java.awt.Color(255, 255, 255));
+        Sanciones.setText("Sanciones");
+        Sanciones.setBorder(null);
+        Sanciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SancionesActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, 40));
+
+        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion2.setText("INICIO");
+        btnCerrarSesion2.setBorder(null);
+        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion2MouseExited(evt);
+            }
+        });
+        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion2ActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -858,10 +837,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         sanciones.setVisible(true);
     }//GEN-LAST:event_SancionesActionPerformed
 
-    private void MaterialExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaterialExtraActionPerformed
-
-    }//GEN-LAST:event_MaterialExtraActionPerformed
-
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
 
@@ -927,36 +902,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
-
-    private void btndevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolverActionPerformed
- int filaSeleccionada = tablaHistorial.getSelectedRow();
-
-    if (filaSeleccionada != -1) {
-        // Suponiendo que el ID del laboratorio está en la primera columna (columna 0)
-        String idLaboratorio = tablaHistorial.getValueAt(filaSeleccionada, 0).toString();
-
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/controlprestamo", "root", "2005");
-
-            // Quitar la fecha del laboratorio (ponerla en NULL)
-            String sql = "UPDATE prestamos SET fecha = NULL WHERE id_lab = ?";
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, idLaboratorio);
-            pst.executeUpdate();
-
-            // Refrescar las tablas de la interfaz
-
-            JOptionPane.showMessageDialog(this, "Laboratorio devuelto correctamente.");
-            conn.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al devolver el laboratorio: " + ex.getMessage());
-        }
-
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione un laboratorio del historial para devolver.");
-    }
-    }//GEN-LAST:event_btndevolverActionPerformed
     public void cargarTabla(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -1062,7 +1007,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton Limpiar;
     private javax.swing.JLabel ListaPersonal;
     private javax.swing.JLabel LogoSale1;
-    private javax.swing.JButton MaterialExtra;
     private javax.swing.JTextField Motivo;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
@@ -1075,7 +1019,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrarSesion2;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSolicitudLab;
-    private javax.swing.JButton btndevolver;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

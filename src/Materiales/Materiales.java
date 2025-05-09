@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.Timer;
@@ -47,6 +48,7 @@ public class Materiales extends javax.swing.JFrame {
      */
     public Materiales() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Laboratorio.setEditable(false);
         cargarTablaTodo();
         this.setLocationRelativeTo(null);

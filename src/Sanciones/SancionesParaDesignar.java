@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -44,7 +45,7 @@ private int idTecnicoActual = -1;
      */
     public SancionesParaDesignar() {
         initComponents();
-        this.dispose();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTablaPrestamos();
         cargarTablaSanciones(); 
         FondoBlanco.setFocusable(true);
@@ -155,21 +156,6 @@ private int idTecnicoActual = -1;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSidebar = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btnCerrarSesion2 = new javax.swing.JButton();
-        btnInicio = new javax.swing.JButton();
-        LogoSale2 = new javax.swing.JLabel();
-        btnListaLaboratorios = new javax.swing.JButton();
-        btnListaPrestamos = new javax.swing.JButton();
-        btnSolicitudes = new javax.swing.JButton();
-        btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
-        btnMateriales = new javax.swing.JButton();
-        btnComputadoras = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         AsignacionSancion = new javax.swing.JLabel();
         NombreSancionadotxt = new javax.swing.JTextField();
@@ -200,10 +186,201 @@ private int idTecnicoActual = -1;
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
+        panelSidebar = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnCerrarSesion2 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        LogoSale2 = new javax.swing.JLabel();
+        btnListaLaboratorios = new javax.swing.JButton();
+        btnListaPrestamos = new javax.swing.JButton();
+        btnSolicitudes = new javax.swing.JButton();
+        btnSancionesDesignar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnMateriales = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion.setText("Asignacion de Sancion");
+        jPanel1.add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
+        jPanel1.add(NombreSancionadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 330, -1));
+
+        NombreSancionado.setText("Nombre del Sancionado:");
+        jPanel1.add(NombreSancionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        Descripcion.setText("Descripcion:");
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        Descripciontxt.setColumns(20);
+        Descripciontxt.setRows(5);
+        jScrollPane2.setViewportView(Descripciontxt);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 370, 100));
+
+        Fecha.setText("Fecha:");
+        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 20));
+        jPanel1.add(Fechadate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 370, -1));
+
+        TipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daño de Material", "Perdida de Material", "Incumplimiento de Horario", "Otro"}));
+        TipoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 370, -1));
+
+        Tipo.setText("Tipo:");
+        jPanel1.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
+
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 250, -1));
+
+        jLabel1.setText("Nombre del Tecnico:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+
+        BuscarRu.setText("Buscar");
+        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarRuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 510, 320));
+
+        TblPrestamosAntiguos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Prestamo", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Docente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TblPrestamosAntiguos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TblPrestamosAntiguosmouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TblPrestamosAntiguos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 940, 280));
+
+        TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Descripcion", "Fecha", "Tipo", "Docente", "Sancionado Por"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TblSanciones);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 1470, 380));
+        getContentPane().add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 160, -1));
+
+        Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Formulario1.setText("Docentes Sancionados");
+        getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 270, 30));
+
+        FechaPrestam.setText("Fecha del Prestamo");
+        getContentPane().add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 20));
+
+        RU2.setText("RU:");
+        getContentPane().add(RU2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, 20));
+
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 440, -1, -1));
+        getContentPane().add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 140, -1));
+
+        BuscarPrestamo.setText("Buscar Prestamo");
+        BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarPrestamoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, -1, -1));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -381,182 +558,6 @@ private int idTecnicoActual = -1;
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion.setText("Asignacion de Sancion");
-        jPanel1.add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
-        jPanel1.add(NombreSancionadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 330, -1));
-
-        NombreSancionado.setText("Nombre del Sancionado:");
-        jPanel1.add(NombreSancionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
-
-        Descripcion.setText("Descripcion:");
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
-        Descripciontxt.setColumns(20);
-        Descripciontxt.setRows(5);
-        jScrollPane2.setViewportView(Descripciontxt);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 370, 100));
-
-        Fecha.setText("Fecha:");
-        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 20));
-        jPanel1.add(Fechadate, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 370, -1));
-
-        TipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daño de Material", "Perdida de Material", "Incumplimiento de Horario", "Otro"}));
-        TipoBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TipoBoxActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 370, -1));
-
-        Tipo.setText("Tipo:");
-        jPanel1.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
-
-        Guardar.setText("Guardar");
-        Guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
-
-        Nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 250, -1));
-
-        jLabel1.setText("Nombre del Tecnico:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
-
-        BuscarRu.setText("Buscar");
-        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarRuActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 510, 320));
-
-        TblPrestamosAntiguos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID Prestamo", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Docente"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TblPrestamosAntiguos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TblPrestamosAntiguosmouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(TblPrestamosAntiguos);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 940, 280));
-
-        TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Descripcion", "Fecha", "Tipo", "Docente", "Sancionado Por"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(TblSanciones);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 1470, 380));
-        getContentPane().add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 160, -1));
-
-        Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Formulario1.setText("Docentes Sancionados");
-        getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 270, 30));
-
-        FechaPrestam.setText("Fecha del Prestamo");
-        getContentPane().add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 20));
-
-        RU2.setText("RU:");
-        getContentPane().add(RU2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, 20));
-
-        Buscar.setText("Buscar");
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 440, -1, -1));
-        getContentPane().add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 140, -1));
-
-        BuscarPrestamo.setText("Buscar Prestamo");
-        BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarPrestamoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, -1, -1));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

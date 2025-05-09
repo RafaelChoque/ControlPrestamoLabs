@@ -14,8 +14,12 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -151,6 +155,7 @@ private boolean sidebarMostrado = false;
         btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
         AsignacionSancion = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
@@ -159,7 +164,6 @@ private boolean sidebarMostrado = false;
         Superior = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -337,6 +341,11 @@ private boolean sidebarMostrado = false;
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
         AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         AsignacionSancion.setText("Selección De reportes");
         getContentPane().add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 230, -1));
@@ -378,11 +387,6 @@ private boolean sidebarMostrado = false;
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -463,7 +467,60 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnReportesMouseExited
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
+
+        JPopupMenu menuReportes = new JPopupMenu();
+
+        JMenuItem itemLaboratorios = new JMenuItem("Lista de Laboratorios");
+        JMenuItem itemPrestamos = new JMenuItem("Lista de Préstamos");
+
+        // Estilo
+        Font fuente = new Font("Segoe UI", Font.PLAIN, 14);
+        Color azulOscuro = new Color(36, 47, 65);       // Azul oscuro (fondo normal)
+        Color plomoHover = new Color(169, 169, 169);     // Plomo claro (hover)
+        Color textoBlanco = Color.WHITE;
+
+        JMenuItem[] items = {itemLaboratorios, itemPrestamos};
+
+        for (JMenuItem item : items) {
+            item.setFont(fuente);
+            item.setBackground(azulOscuro); // Fondo normal en azul oscuro
+            item.setForeground(textoBlanco);
+            item.setOpaque(true);
+            item.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Padding
+
+            item.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    item.setBackground(plomoHover); // Cambio a plomo claro en hover
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    item.setBackground(azulOscuro); // Regresa al azul oscuro
+                }
+            });
+        }
+
+        // Acciones
+        itemLaboratorios.addActionListener(e -> {
+            ListaLaboratorios listLab = new ListaLaboratorios();
+            listLab.setLocationRelativeTo(null);
+            listLab.setVisible(true);
+            this.dispose();
+        });
+
+        itemPrestamos.addActionListener(e -> {
+            ListaPrestamos listPrest = new ListaPrestamos();
+            listPrest.setLocationRelativeTo(null);
+            listPrest.setVisible(true);
+            this.dispose();
+        });
+
+        // Añadir al menú
+        menuReportes.add(itemLaboratorios);
+        menuReportes.add(itemPrestamos);
+        menuReportes.setBorder(BorderFactory.createLineBorder(new Color(70, 80, 90), 1));
+
+        // Mostrar el menú a la derecha del botón
+        menuReportes.show(btnReportes, btnReportes.getWidth(), 0);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited

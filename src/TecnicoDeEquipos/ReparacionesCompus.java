@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -33,6 +34,7 @@ public class ReparacionesCompus extends javax.swing.JFrame {
      */
     public ReparacionesCompus() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Nombre.setEditable(false);
         this.setLocationRelativeTo(null);
         cargarTablaLista();

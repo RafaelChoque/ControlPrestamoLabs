@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +38,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents(); /*WASAAAAAAAAAAAAA*/
-        
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         contrasena.setEchoChar('•');
         btnMostrarContraseña.setIcon(ojoOcultar);
         contrasena.addActionListener(e -> IniciaSesion.doClick());
