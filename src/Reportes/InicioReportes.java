@@ -17,10 +17,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -39,6 +45,7 @@ public class InicioReportes extends javax.swing.JFrame {
      */
     public InicioReportes() {
         initComponents();
+        iconoOriginal = lblFlecha.getIcon();
 panelSubReportes.setLocation(panelSubReportes.getX(), -70); // fuera de vista por arriba
 panelSubReportes.setVisible(false);
 
@@ -90,6 +97,8 @@ panelSubReportes.setVisible(false);
 
         this.setLocationRelativeTo(null);
     }
+    private boolean flechaAbajo = true; // empieza apuntando hacia abajo
+private Icon iconoOriginal;
 private void mostrarSubReportes() {
     panelSubReportes.setVisible(true);
     int yFinal = 120; // posición Y donde debe quedar el panel
@@ -121,7 +130,67 @@ private void ocultarSubReportes() {
         SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
     }).start();
 }
+private final Color colorDefault = new Color(29, 41, 57);
+private final Color colorPresionado = new Color(41, 59, 83);
+private void cambiarColorBotonAlPresionar(boolean estaPresionado) {
+    if (estaPresionado) {
+        btnReportes.setBackground(colorPresionado); // Color cuando se presiona
+    } else {
+        btnReportes.setBackground(colorDefault); // Restaurar el color por defecto
+    }
+}
 
+private Icon rotarIcono(Icon icono, double angulo) {
+    int w = icono.getIconWidth();
+    int h = icono.getIconHeight();
+
+    // Calcular la diagonal máxima
+    int size = (int) Math.ceil(Math.sqrt(w * w + h * h));
+
+    BufferedImage imagenOriginal = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2dOriginal = imagenOriginal.createGraphics();
+    icono.paintIcon(null, g2dOriginal, 0, 0);
+    g2dOriginal.dispose();
+
+    BufferedImage imagenRotada = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = imagenRotada.createGraphics();
+
+    // Suavizado y rotación centrada
+    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+    AffineTransform at = new AffineTransform();
+    at.translate(size / 2.0, size / 2.0); // mover al centro
+    at.rotate(-angulo);  // Usamos el signo negativo para rotar hacia la derecha
+    at.translate(-w / 2.0, -h / 2.0);     // mover imagen al centro
+
+    g2d.drawImage(imagenOriginal, at, null);
+    g2d.dispose();
+
+    return new ImageIcon(imagenRotada);
+}
+
+private void animarRotacionFlecha(boolean haciaArriba) {
+    final int pasos = 12;
+    final int delay = 10; // milisegundos entre pasos
+    final double anguloInicial = haciaArriba ? 0 : Math.PI;
+    final double anguloFinal = haciaArriba ? Math.PI : 0;
+    final double incremento = (anguloFinal - anguloInicial) / pasos;
+
+    Timer timer = new Timer(delay, null);
+    final int[] pasoActual = {0};
+
+    timer.addActionListener(e -> {
+        double angulo = anguloInicial + pasoActual[0] * incremento;
+        lblFlecha.setIcon(rotarIcono(iconoOriginal, angulo));
+        pasoActual[0]++;
+        if (pasoActual[0] > pasos) {
+            ((Timer) e.getSource()).stop();
+        }
+    });
+
+    timer.start();
+}
 private boolean subReportesMostrado = false;
 
 private boolean sidebarMostrado = false;
@@ -198,6 +267,7 @@ private boolean sidebarMostrado = false;
         btnSancionesDesignar = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
+        lblFlecha = new javax.swing.JLabel();
         btnReportes = new javax.swing.JButton();
         panelSubReportes = new javax.swing.JPanel();
         btnReporteLaboratorios = new javax.swing.JButton();
@@ -369,6 +439,9 @@ private boolean sidebarMostrado = false;
         });
         panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
+        lblFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
+        panelSidebar.add(lblFlecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
+
         btnReportes.setBackground(new java.awt.Color(29, 41, 57));
         btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnReportes.setForeground(new java.awt.Color(241, 241, 241));
@@ -404,7 +477,7 @@ private boolean sidebarMostrado = false;
                 btnReporteLaboratoriosActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
+        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
         btnReporteMantenimiento.setBackground(new java.awt.Color(16, 23, 32));
         btnReporteMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -421,9 +494,9 @@ private boolean sidebarMostrado = false;
                 btnReporteMantenimientoActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
+        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
 
-        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 229, 230));
+        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
@@ -555,12 +628,22 @@ private boolean sidebarMostrado = false;
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
 boolean estaVisible = panelSubReportes.isVisible();
 
-// Si el panel está visible, cerramos (movemos hacia arriba)
 if (estaVisible) {
-    int yInicio = panelSubReportes.getY(); // posición actual
-    int yFinal = yInicio - 80;             // o lo que quieras que se desplace hacia arriba
+    cambiarColorBotonAlPresionar(false);
+    int yInicio = panelSubReportes.getY();
+    int yFinal = yInicio - 80;
+
+    // 👉 Flecha gira primero
+    animarRotacionFlecha(false);
+    flechaAbajo = true;
 
     new Thread(() -> {
+        try {
+            Thread.sleep(50); // ⏱️ Delay pequeño para que la flecha empiece primero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         for (int y = yInicio; y >= yFinal; y -= 5) {
             final int posY = y;
             SwingUtilities.invokeLater(() -> {
@@ -572,17 +655,29 @@ if (estaVisible) {
                 ex.printStackTrace();
             }
         }
-        // Después de cerrar, ocultamos el panel
+
+        // Ocultar el panel al finalizar
         SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
     }).start();
+
 } else {
-    // Si el panel no está visible, lo abrimos (movemos hacia abajo)
-    int yInicio = panelSubReportes.getY(); // posición actual
-    int yFinal = yInicio + 80;             // o lo que quieras que se desplace hacia abajo
+    cambiarColorBotonAlPresionar(true);
+    int yInicio = panelSubReportes.getY();
+    int yFinal = yInicio + 80;
+
+    // 👉 Flecha gira primero
+    animarRotacionFlecha(true);
+    flechaAbajo = false;
 
     panelSubReportes.setVisible(true);
 
     new Thread(() -> {
+        try {
+            Thread.sleep(50); // ⏱️ Delay pequeño para que la flecha empiece primero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         for (int y = yInicio; y <= yFinal; y += 5) {
             final int posY = y;
             SwingUtilities.invokeLater(() -> {
@@ -733,6 +828,7 @@ if (estaVisible) {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
