@@ -14,12 +14,17 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -34,6 +39,9 @@ public class InicioReportes extends javax.swing.JFrame {
      */
     public InicioReportes() {
         initComponents();
+panelSubReportes.setLocation(panelSubReportes.getX(), -70); // fuera de vista por arriba
+panelSubReportes.setVisible(false);
+
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
@@ -79,8 +87,43 @@ public class InicioReportes extends javax.swing.JFrame {
         });
         
 
+
         this.setLocationRelativeTo(null);
     }
+private void mostrarSubReportes() {
+    panelSubReportes.setVisible(true);
+    int yFinal = 120; // posición Y donde debe quedar el panel
+    int yInicio = -70; // posición inicial fuera de vista
+    panelSubReportes.setLocation(panelSubReportes.getX(), yInicio);
+
+    new Thread(() -> {
+        for (int y = yInicio; y <= yFinal; y += 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+            });
+            try { Thread.sleep(5); } catch (InterruptedException e) {}
+        }
+    }).start();
+}
+private void ocultarSubReportes() {
+    int yInicio = panelSubReportes.getY();
+    int yFinal = -70;
+
+    new Thread(() -> {
+        for (int y = yInicio; y >= yFinal; y -= 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+            });
+            try { Thread.sleep(5); } catch (InterruptedException e) {}
+        }
+        SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
+    }).start();
+}
+
+private boolean subReportesMostrado = false;
+
 private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -107,7 +150,7 @@ private boolean sidebarMostrado = false;
     animacion.start();
 }
 
-    
+ 
     private void cerrarSidebar() {
     new Thread(() -> {
         int duracion = 150;
@@ -132,6 +175,7 @@ private boolean sidebarMostrado = false;
         panelOverlay.setVisible(false);
     }).start();
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,9 +196,12 @@ private boolean sidebarMostrado = false;
         btnListaPrestamos = new javax.swing.JButton();
         btnSolicitudes = new javax.swing.JButton();
         btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        panelSubReportes = new javax.swing.JPanel();
+        btnReporteLaboratorios = new javax.swing.JButton();
+        btnReporteMantenimiento = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         AsignacionSancion = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
@@ -288,23 +335,6 @@ private boolean sidebarMostrado = false;
         });
         panelSidebar.add(btnSancionesDesignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
-        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes.setText("Reportes");
-        btnReportes.setBorder(null);
-        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportesMouseExited(evt);
-            }
-        });
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
-
         btnMateriales.setBackground(new java.awt.Color(29, 41, 57));
         btnMateriales.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMateriales.setForeground(new java.awt.Color(241, 241, 241));
@@ -320,7 +350,7 @@ private boolean sidebarMostrado = false;
                 btnMaterialesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+        panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
         btnComputadoras.setBackground(new java.awt.Color(29, 41, 57));
         btnComputadoras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -337,7 +367,63 @@ private boolean sidebarMostrado = false;
                 btnComputadorasActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+        panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+
+        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes.setText("Reportes");
+        btnReportes.setBorder(null);
+        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportesMouseExited(evt);
+            }
+        });
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+
+        panelSubReportes.setBackground(new java.awt.Color(16, 23, 32));
+        panelSubReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnReporteLaboratorios.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteLaboratorios.setText("Laboratorios");
+        btnReporteLaboratorios.setBorder(null);
+        btnReporteLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteLaboratoriosMouseExited(evt);
+            }
+        });
+        btnReporteLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteLaboratoriosActionPerformed(evt);
+            }
+        });
+        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 229, 40));
+
+        btnReporteMantenimiento.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteMantenimiento.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteMantenimiento.setText("Mantenimiento");
+        btnReporteMantenimiento.setBorder(null);
+        btnReporteMantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteMantenimientoMouseExited(evt);
+            }
+        });
+        btnReporteMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMantenimientoActionPerformed(evt);
+            }
+        });
+        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 229, 40));
+
+        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 229, 230));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
@@ -467,60 +553,49 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnReportesMouseExited
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+boolean estaVisible = panelSubReportes.isVisible();
 
-        JPopupMenu menuReportes = new JPopupMenu();
+// Si el panel está visible, cerramos (movemos hacia arriba)
+if (estaVisible) {
+    int yInicio = panelSubReportes.getY(); // posición actual
+    int yFinal = yInicio - 80;             // o lo que quieras que se desplace hacia arriba
 
-        JMenuItem itemLaboratorios = new JMenuItem("Lista de Laboratorios");
-        JMenuItem itemPrestamos = new JMenuItem("Lista de Préstamos");
-
-        // Estilo
-        Font fuente = new Font("Segoe UI", Font.PLAIN, 14);
-        Color azulOscuro = new Color(36, 47, 65);       // Azul oscuro (fondo normal)
-        Color plomoHover = new Color(169, 169, 169);     // Plomo claro (hover)
-        Color textoBlanco = Color.WHITE;
-
-        JMenuItem[] items = {itemLaboratorios, itemPrestamos};
-
-        for (JMenuItem item : items) {
-            item.setFont(fuente);
-            item.setBackground(azulOscuro); // Fondo normal en azul oscuro
-            item.setForeground(textoBlanco);
-            item.setOpaque(true);
-            item.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Padding
-
-            item.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    item.setBackground(plomoHover); // Cambio a plomo claro en hover
-                }
-
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    item.setBackground(azulOscuro); // Regresa al azul oscuro
-                }
+    new Thread(() -> {
+        for (int y = yInicio; y >= yFinal; y -= 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
             });
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
+        // Después de cerrar, ocultamos el panel
+        SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
+    }).start();
+} else {
+    // Si el panel no está visible, lo abrimos (movemos hacia abajo)
+    int yInicio = panelSubReportes.getY(); // posición actual
+    int yFinal = yInicio + 80;             // o lo que quieras que se desplace hacia abajo
 
-        // Acciones
-        itemLaboratorios.addActionListener(e -> {
-            ListaLaboratorios listLab = new ListaLaboratorios();
-            listLab.setLocationRelativeTo(null);
-            listLab.setVisible(true);
-            this.dispose();
-        });
+    panelSubReportes.setVisible(true);
 
-        itemPrestamos.addActionListener(e -> {
-            ListaPrestamos listPrest = new ListaPrestamos();
-            listPrest.setLocationRelativeTo(null);
-            listPrest.setVisible(true);
-            this.dispose();
-        });
-
-        // Añadir al menú
-        menuReportes.add(itemLaboratorios);
-        menuReportes.add(itemPrestamos);
-        menuReportes.setBorder(BorderFactory.createLineBorder(new Color(70, 80, 90), 1));
-
-        // Mostrar el menú a la derecha del botón
-        menuReportes.show(btnReportes, btnReportes.getWidth(), 0);
+    new Thread(() -> {
+        for (int y = yInicio; y <= yFinal; y += 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+            });
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }).start();
+}
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited
@@ -595,6 +670,22 @@ private boolean sidebarMostrado = false;
         this.dispose();
     }//GEN-LAST:event_ReportesPrestamosActionPerformed
 
+    private void btnReporteLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
+
+    private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratoriosActionPerformed
+
+    private void btnReporteMantenimientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimientoMouseExited
+
+    private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -634,6 +725,8 @@ private boolean sidebarMostrado = false;
     private javax.swing.JButton btnListaPrestamos;
     private javax.swing.JButton btnMateriales;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnReporteLaboratorios;
+    private javax.swing.JButton btnReporteMantenimiento;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
@@ -642,6 +735,7 @@ private boolean sidebarMostrado = false;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }
