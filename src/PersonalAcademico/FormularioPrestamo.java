@@ -200,6 +200,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         HorarioPersonalizadoInicio = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         HorarioPersonalizadoFin = new javax.swing.JSpinner();
+        btnMaterialExtra = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         ListaPersonal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -217,12 +218,12 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         panelSidebar = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         btnSolicitudLab = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         Sanciones = new javax.swing.JButton();
-        btnCerrarSesion2 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -354,6 +355,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel2.setText("Hasta:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, 20));
         jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 110, -1));
+
+        btnMaterialExtra.setBackground(new java.awt.Color(29, 41, 57));
+        btnMaterialExtra.setForeground(new java.awt.Color(255, 255, 255));
+        btnMaterialExtra.setText("Material Extra");
+        jPanel1.add(btnMaterialExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 170, -1));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 610, 350));
 
@@ -501,11 +507,17 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
         btnSolicitudLab.setBackground(new java.awt.Color(29, 41, 57));
         btnSolicitudLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSolicitudLab.setForeground(new java.awt.Color(241, 241, 241));
         btnSolicitudLab.setText("Solicitud de Laboratorios");
         btnSolicitudLab.setBorder(null);
+        btnSolicitudLab.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSolicitudLab.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSolicitudLab.setIconTextGap(10);
         btnSolicitudLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSolicitudLabMouseExited(evt);
@@ -518,14 +530,14 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseExited(evt);
@@ -546,6 +558,9 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         Sanciones.setForeground(new java.awt.Color(255, 255, 255));
         Sanciones.setText("Sanciones");
         Sanciones.setBorder(null);
+        Sanciones.setHorizontalAlignment(SwingConstants.LEFT);
+        Sanciones.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        Sanciones.setIconTextGap(10);
         Sanciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SancionesActionPerformed(evt);
@@ -553,29 +568,32 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         panelSidebar.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, 40));
 
-        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion2.setText("INICIO");
-        btnCerrarSesion2.setBorder(null);
-        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("INICIO");
+        btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion2MouseExited(evt);
+                btnInicioMouseExited(evt);
             }
         });
-        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion2ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -832,7 +850,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_LaboratorioActionPerformed
 
     private void SancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SancionesActionPerformed
-        SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal();
+        SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal(idusuario);
         sanciones.setLocationRelativeTo(null);
         sanciones.setVisible(true);
     }//GEN-LAST:event_SancionesActionPerformed
@@ -892,16 +910,16 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarSesion2MouseExited
+    }//GEN-LAST:event_btnInicioMouseExited
 
-    private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         InicioPersonalAcademico inicio = new InicioPersonalAcademico(idusuario);
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
+    }//GEN-LAST:event_btnInicioActionPerformed
     public void cargarTabla(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -969,9 +987,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 });
             }
 
-            if (model2.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Aún no tienes préstamos registrados.");
-            }
+            
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -1016,7 +1032,8 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JTable TablaPrestamos2;
     private javax.swing.JComboBox<String> TipoHorario;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCerrarSesion2;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnMaterialExtra;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JButton guardar;
@@ -1027,7 +1044,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

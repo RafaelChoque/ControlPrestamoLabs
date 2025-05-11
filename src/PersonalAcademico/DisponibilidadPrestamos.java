@@ -146,35 +146,34 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un laboratorio para guardar.");
         }
     }//GEN-LAST:event_GuardarActionPerformed
-       private void cargarTablaCompleta() {
-        DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
-        modelo.setRowCount(0);
+private void cargarTablaCompleta() {
+    DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
+    modelo.setRowCount(0);
 
-        // Consulta para obtener todos los laboratorios y su disponibilidad
-        String query = "SELECT l.ID_lab, l.Nombre_lab, p.fecha, p.horario_inicio, p.horario_fin "
-                + "FROM laboratorios l "
-                + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab "
-                + "ORDER BY l.ID_lab, p.fecha";
+    // Consulta para obtener todos los laboratorios, independientemente de si están ocupados o no
+    String query = "SELECT l.ID_lab, l.Nombre_lab "
+            + "FROM laboratorios l "
+            + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab "
+            + "ORDER BY l.ID_lab";
 
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
-            ResultSet rs = ps.executeQuery();
+    try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
+        ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                // Mostrar los datos de cada laboratorio con su préstamo o 'Disponible'
-                Object[] fila = {
-                    rs.getInt("ID_lab"),
-                    rs.getString("Nombre_lab"),
-                    rs.getString("fecha") != null ? rs.getString("fecha") : "Disponible", // Si no hay fecha, muestra "Disponible"
-                    rs.getString("horario_inicio") != null ? rs.getString("horario_inicio") : "-", // Si no hay horario, muestra "-"
-                    rs.getString("horario_fin") != null ? rs.getString("horario_fin") : "-" // Lo mismo para el horario fin
-                };
-                modelo.addRow(fila);
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la disponibilidad completa: " + ex.getMessage());
+        while (rs.next()) {
+            
+            Object[] fila = {
+                rs.getInt("ID_lab"),
+                rs.getString("Nombre_lab"),
+                "Carga disponibilidad" // Mostrar "Carga disponibilidad" siempre
+            };
+            modelo.addRow(fila);
         }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error al cargar la disponibilidad completa: " + ex.getMessage());
     }
+}
+
     private void cargarDisponibilidad() {
         DefaultTableModel modelo = (DefaultTableModel) Reservas.getModel();
         modelo.setRowCount(0);

@@ -9,7 +9,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -145,14 +147,14 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     private void initComponents() {
 
         panelSidebar = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
-        btnFormulario1 = new javax.swing.JButton();
-        btnSancionRecibida1 = new javax.swing.JButton();
+        btnSolicitudLab = new javax.swing.JButton();
+        Sanciones = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
@@ -169,6 +171,9 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Panel de Control");
@@ -177,14 +182,14 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseExited(evt);
@@ -205,6 +210,9 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
         btnInicio.setText("INICIO");
         btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnInicioMouseExited(evt);
@@ -217,46 +225,52 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         });
         panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
-        btnFormulario1.setBackground(new java.awt.Color(29, 41, 57));
-        btnFormulario1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnFormulario1.setForeground(new java.awt.Color(241, 241, 241));
-        btnFormulario1.setText("Solicitud de Laboratorios");
-        btnFormulario1.setBorder(null);
-        btnFormulario1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSolicitudLab.setBackground(new java.awt.Color(29, 41, 57));
+        btnSolicitudLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSolicitudLab.setForeground(new java.awt.Color(241, 241, 241));
+        btnSolicitudLab.setText("Solicitud de Laboratorios");
+        btnSolicitudLab.setBorder(null);
+        btnSolicitudLab.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSolicitudLab.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSolicitudLab.setIconTextGap(10);
+        btnSolicitudLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnFormulario1MouseExited(evt);
+                btnSolicitudLabMouseExited(evt);
             }
         });
-        btnFormulario1.addActionListener(new java.awt.event.ActionListener() {
+        btnSolicitudLab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFormulario1ActionPerformed(evt);
+                btnSolicitudLabActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnFormulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+        panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
 
-        btnSancionRecibida1.setBackground(new java.awt.Color(29, 41, 57));
-        btnSancionRecibida1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSancionRecibida1.setForeground(new java.awt.Color(241, 241, 241));
-        btnSancionRecibida1.setText("Sanciones");
-        btnSancionRecibida1.setBorder(null);
-        btnSancionRecibida1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Sanciones.setBackground(new java.awt.Color(29, 41, 57));
+        Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Sanciones.setForeground(new java.awt.Color(241, 241, 241));
+        Sanciones.setText("Sanciones");
+        Sanciones.setBorder(null);
+        Sanciones.setHorizontalAlignment(SwingConstants.LEFT);
+        Sanciones.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        Sanciones.setIconTextGap(10);
+        Sanciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSancionRecibida1MouseExited(evt);
+                SancionesMouseExited(evt);
             }
         });
-        btnSancionRecibida1.addActionListener(new java.awt.event.ActionListener() {
+        Sanciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSancionRecibida1ActionPerformed(evt);
+                SancionesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnSancionRecibida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
+        panelSidebar.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -343,30 +357,30 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void btnFormulario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFormulario1MouseExited
+    private void btnSolicitudLabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudLabMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnFormulario1MouseExited
+    }//GEN-LAST:event_btnSolicitudLabMouseExited
 
-    private void btnFormulario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormulario1ActionPerformed
+    private void btnSolicitudLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudLabActionPerformed
        
         FormularioPrestamo formulario1=new FormularioPrestamo(idusuario);
         formulario1.setLocationRelativeTo(null);
         formulario1.setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_btnFormulario1ActionPerformed
+    }//GEN-LAST:event_btnSolicitudLabActionPerformed
 
-    private void btnSancionRecibida1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionRecibida1MouseExited
+    private void SancionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SancionesMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSancionRecibida1MouseExited
+    }//GEN-LAST:event_SancionesMouseExited
 
-    private void btnSancionRecibida1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionRecibida1ActionPerformed
+    private void SancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SancionesActionPerformed
         
     SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal(idusuario);
     sanciones.setLocationRelativeTo(null); 
     sanciones.setVisible(true); 
     this.dispose();
-    }//GEN-LAST:event_btnSancionRecibida1ActionPerformed
+    }//GEN-LAST:event_SancionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,15 +411,15 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
+    private javax.swing.JButton Sanciones;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnFormulario1;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JButton btnSancionRecibida1;
+    private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
