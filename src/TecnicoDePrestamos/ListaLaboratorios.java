@@ -24,8 +24,10 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -152,19 +154,20 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private void initComponents() {
 
         panelSidebar = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        lblFlecha = new javax.swing.JLabel();
         btnInicio = new javax.swing.JButton();
         btnListaLaboratorios = new javax.swing.JButton();
         btnListaPrestamos = new javax.swing.JButton();
         btnSancionesDesignar = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         btnSolicitudes = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
-        btnMaterialesLab = new javax.swing.JButton();
+        btnMateriales = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -207,6 +210,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Panel de Control");
@@ -215,11 +221,17 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
+        lblFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
+        panelSidebar.add(lblFlecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
+
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
         btnInicio.setText("INICIO");
         btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnInicioMouseExited(evt);
@@ -237,6 +249,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
         btnListaLaboratorios.setText("Lista de Laboratorios");
         btnListaLaboratorios.setBorder(null);
+        btnListaLaboratorios.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaLaboratorios.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaLaboratorios.setIconTextGap(10);
         btnListaLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnListaLaboratoriosMouseExited(evt);
@@ -254,6 +269,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
         btnListaPrestamos.setText("Lista de Prestamos");
         btnListaPrestamos.setBorder(null);
+        btnListaPrestamos.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaPrestamos.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaPrestamos.setIconTextGap(10);
         btnListaPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnListaPrestamosMouseExited(evt);
@@ -271,6 +289,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
         btnSancionesDesignar.setText("Sanciones para Designar");
         btnSancionesDesignar.setBorder(null);
+        btnSancionesDesignar.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSancionesDesignar.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSancionesDesignar.setIconTextGap(10);
         btnSancionesDesignar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSancionesDesignarMouseExited(evt);
@@ -288,6 +309,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnComputadoras.setForeground(new java.awt.Color(241, 241, 241));
         btnComputadoras.setText("Computadoras");
         btnComputadoras.setBorder(null);
+        btnComputadoras.setHorizontalAlignment(SwingConstants.LEFT);
+        btnComputadoras.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnComputadoras.setIconTextGap(10);
         btnComputadoras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnComputadorasMouseExited(evt);
@@ -300,14 +324,14 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseExited(evt);
@@ -328,6 +352,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnSolicitudes.setForeground(new java.awt.Color(241, 241, 241));
         btnSolicitudes.setText("Solicitudes");
         btnSolicitudes.setBorder(null);
+        btnSolicitudes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSolicitudes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSolicitudes.setIconTextGap(10);
         btnSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSolicitudesMouseExited(evt);
@@ -345,6 +372,9 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         btnReportes.setForeground(new java.awt.Color(241, 241, 241));
         btnReportes.setText("Reportes");
         btnReportes.setBorder(null);
+        btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnReportes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnReportes.setIconTextGap(10);
         btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnReportesMouseExited(evt);
@@ -357,22 +387,25 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         });
         panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
-        btnMaterialesLab.setBackground(new java.awt.Color(29, 41, 57));
-        btnMaterialesLab.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMaterialesLab.setForeground(new java.awt.Color(241, 241, 241));
-        btnMaterialesLab.setText("Materiales de Laboratorio");
-        btnMaterialesLab.setBorder(null);
-        btnMaterialesLab.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMateriales.setBackground(new java.awt.Color(29, 41, 57));
+        btnMateriales.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMateriales.setForeground(new java.awt.Color(241, 241, 241));
+        btnMateriales.setText("Materiales de Laboratorio");
+        btnMateriales.setBorder(null);
+        btnMateriales.setHorizontalAlignment(SwingConstants.LEFT);
+        btnMateriales.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnMateriales.setIconTextGap(10);
+        btnMateriales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMaterialesLabMouseExited(evt);
+                btnMaterialesMouseExited(evt);
             }
         });
-        btnMaterialesLab.addActionListener(new java.awt.event.ActionListener() {
+        btnMateriales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaterialesLabActionPerformed(evt);
+                btnMaterialesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnMaterialesLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+        panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
@@ -953,16 +986,16 @@ public class ListaLaboratorios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
 
-    private void btnMaterialesLabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesLabMouseExited
+    private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMaterialesLabMouseExited
+    }//GEN-LAST:event_btnMaterialesMouseExited
 
-    private void btnMaterialesLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesLabActionPerformed
+    private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
         Materiales materiales = new Materiales();
         materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnMaterialesLabActionPerformed
+    }//GEN-LAST:event_btnMaterialesActionPerformed
 
 
     
@@ -1016,7 +1049,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
-    private javax.swing.JButton btnMaterialesLab;
+    private javax.swing.JButton btnMateriales;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnReportes;
@@ -1039,6 +1072,7 @@ public class ListaLaboratorios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
