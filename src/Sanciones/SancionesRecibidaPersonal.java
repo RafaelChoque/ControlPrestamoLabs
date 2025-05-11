@@ -25,11 +25,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Rafael
  */
 public class SancionesRecibidaPersonal extends javax.swing.JFrame {
-
+    private int idusuario;
     /**
      * Creates new form SancionesPersonal
+     * @param idusuario
      */
     public SancionesRecibidaPersonal() {
+        this.idusuario = idusuario;
         initComponents();
         cargarTablaSanciones();
         FondoBlanco.setFocusable(true);
@@ -81,6 +83,10 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
+
+    public SancionesRecibidaPersonal(int idusuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private void mostrarSidebar() {
         panelOverlay.setVisible(true);
@@ -138,10 +144,10 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private void initComponents() {
 
         panelSidebar = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         btnSolicitudLab = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         Sanciones1 = new javax.swing.JButton();
@@ -162,6 +168,9 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -187,9 +196,6 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
             }
         });
         panelSidebar.add(btnSolicitudLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -380,7 +386,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesion2MouseExited
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
+        InicioPersonalAcademico inicio = new InicioPersonalAcademico(idusuario);
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
@@ -473,7 +479,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
