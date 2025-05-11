@@ -25,9 +25,11 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
@@ -159,13 +161,14 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         panelSidebar = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
-        btnInicio2 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         btnPersonalAcademico = new javax.swing.JButton();
         btnTecnicoPrestamo = new javax.swing.JButton();
         btnTecnicoEquipo = new javax.swing.JButton();
+        btnVicerrector = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -215,14 +218,17 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseExited(evt);
@@ -238,28 +244,34 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
         panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
 
-        btnInicio2.setBackground(new java.awt.Color(29, 41, 57));
-        btnInicio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInicio2.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio2.setText("INICIO");
-        btnInicio2.setBorder(null);
-        btnInicio2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInicio.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio.setText("INICIO");
+        btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnInicio2MouseExited(evt);
+                btnInicioMouseExited(evt);
             }
         });
-        btnInicio2.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicio2ActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnInicio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+        panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
         btnPersonalAcademico.setBackground(new java.awt.Color(29, 41, 57));
         btnPersonalAcademico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPersonalAcademico.setForeground(new java.awt.Color(241, 241, 241));
         btnPersonalAcademico.setText("Personal Academico");
         btnPersonalAcademico.setBorder(null);
+        btnPersonalAcademico.setHorizontalAlignment(SwingConstants.LEFT);
+        btnPersonalAcademico.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnPersonalAcademico.setIconTextGap(10);
         btnPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnPersonalAcademicoMouseExited(evt);
@@ -277,6 +289,9 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         btnTecnicoPrestamo.setForeground(new java.awt.Color(241, 241, 241));
         btnTecnicoPrestamo.setText("Tecnico Prestamos");
         btnTecnicoPrestamo.setBorder(null);
+        btnTecnicoPrestamo.setHorizontalAlignment(SwingConstants.LEFT);
+        btnTecnicoPrestamo.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnTecnicoPrestamo.setIconTextGap(10);
         btnTecnicoPrestamo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnTecnicoPrestamoMouseExited(evt);
@@ -294,6 +309,9 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         btnTecnicoEquipo.setForeground(new java.awt.Color(241, 241, 241));
         btnTecnicoEquipo.setText("Tecnico Equipo");
         btnTecnicoEquipo.setBorder(null);
+        btnTecnicoEquipo.setHorizontalAlignment(SwingConstants.LEFT);
+        btnTecnicoEquipo.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnTecnicoEquipo.setIconTextGap(10);
         btnTecnicoEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnTecnicoEquipoMouseExited(evt);
@@ -306,12 +324,32 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         });
         panelSidebar.add(btnTecnicoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        btnVicerrector.setBackground(new java.awt.Color(29, 41, 57));
+        btnVicerrector.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVicerrector.setForeground(new java.awt.Color(241, 241, 241));
+        btnVicerrector.setText("VicerrectoradoAcademico");
+        btnVicerrector.setBorder(null);
+        btnTecnicoPrestamo.setHorizontalAlignment(SwingConstants.LEFT);
+        btnTecnicoPrestamo.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnTecnicoPrestamo.setIconTextGap(10);
+        btnVicerrector.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVicerrectorMouseExited(evt);
+            }
+        });
+        btnVicerrector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVicerrectorActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnVicerrector, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -897,16 +935,16 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnInicio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio2MouseExited
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnInicio2MouseExited
+    }//GEN-LAST:event_btnInicioMouseExited
 
-    private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         InicioAdministrador inicio = new InicioAdministrador();
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnInicio2ActionPerformed
+    }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnPersonalAcademicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoMouseExited
         // TODO add your handling code here:
@@ -967,11 +1005,19 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoEquipoMouseExited
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
-        admin.setLocationRelativeTo(null); 
-        admin.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
+
+    private void btnVicerrectorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVicerrectorMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVicerrectorMouseExited
+
+    private void btnVicerrectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVicerrectorActionPerformed
+        AdministradorVicerrectoradoAcademico admin = new AdministradorVicerrectoradoAcademico();
+        admin.setLocationRelativeTo(null);
+        admin.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_btnVicerrectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1014,14 +1060,14 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JTable TablaTecnicoEquipo;
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnInicio2;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnPersonalAcademico;
     private javax.swing.JButton btnTecnicoEquipo;
     private javax.swing.JButton btnTecnicoPrestamo;
+    private javax.swing.JButton btnVicerrector;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -1031,6 +1077,7 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
