@@ -59,6 +59,7 @@ public class VerMaterialesParaLabs extends javax.swing.JFrame {
         Bloque = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         FondoBlanco = new javax.swing.JLabel();
+        FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,7 +94,7 @@ public class VerMaterialesParaLabs extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(VerLaboratorios);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 420));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, -1));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Laboratorios");
@@ -105,7 +106,7 @@ public class VerMaterialesParaLabs extends javax.swing.JFrame {
                 GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
 
         jLabel2.setText("BLOQUE");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 20));
@@ -126,7 +127,10 @@ public class VerMaterialesParaLabs extends javax.swing.JFrame {
         getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 540));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 550));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -240,6 +244,7 @@ private void cargarTabla() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Bloque;
     private javax.swing.JLabel FondoBlanco;
+    private javax.swing.JLabel FondoGris;
     private javax.swing.JButton Guardar;
     private javax.swing.JTable VerLaboratorios;
     private javax.swing.JButton btnBuscar;
