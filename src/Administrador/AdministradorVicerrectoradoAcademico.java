@@ -1,5 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Administrador;
+
 import PersonalAcademico.InicioPersonalAcademico;
+import PersonalAcademico.FormularioPrestamo;
 import ConexionLogin.Login;
 import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -24,24 +30,16 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
  *
- * @author tralalero tralala
+ * @author Rafael
  */
-public class AdministradorPersonalAcademico extends javax.swing.JFrame {
-
+public class AdministradorVicerrectoradoAcademico extends javax.swing.JFrame {
 
     /**
-     * Creates new form AdministradorPersonalAcademicTralaleloo
+     * Creates new form AdministradorVicerrectoradoAcademico
      */
-    public AdministradorPersonalAcademico() {
+    public AdministradorVicerrectoradoAcademico() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTabla();
@@ -169,7 +167,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaPersonalAcademico = new javax.swing.JTable();
+        TablaVicerrectorAcademico = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -311,7 +309,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ListaPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        ListaPersonal.setText("Lista de Personal Académico");
+        ListaPersonal.setText("Lista de Vicerrector Académico");
         jPanel2.add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 340, -1));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
@@ -368,12 +366,12 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 String query = jTextField1.getText().toLowerCase();
 
                 if (query.equals(placeholder.toLowerCase())) {
-                    TablaPersonalAcademico.setRowSorter(null);
+                    TablaVicerrectorAcademico.setRowSorter(null);
                     return;
                 }
 
-                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaPersonalAcademico.getModel());
-                TablaPersonalAcademico.setRowSorter(sorter);
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaVicerrectorAcademico.getModel());
+                TablaVicerrectorAcademico.setRowSorter(sorter);
 
                 if (query.trim().isEmpty()) {
                     sorter.setRowFilter(null);
@@ -389,7 +387,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 190, 40));
 
-        TablaPersonalAcademico.setModel(new javax.swing.table.DefaultTableModel(
+        TablaVicerrectorAcademico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -412,12 +410,12 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaPersonalAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
+        TablaVicerrectorAcademico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaPersonalAcademicoMouseClicked(evt);
+                TablaVicerrectorAcademicoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TablaPersonalAcademico);
+        jScrollPane1.setViewportView(TablaVicerrectorAcademico);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 870, 610));
 
@@ -516,7 +514,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 IDActionPerformed(evt);
             }
         });
-        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 10, -1));
+        jPanel1.add(ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 10, -1));
 
         HabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
         HabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
@@ -529,7 +527,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         jPanel1.add(HabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
 
         AgregarTecnico.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        AgregarTecnico.setText("Agregar Personal Académico");
+        AgregarTecnico.setText("Agregar Vicerrector Académico");
         jPanel1.add(AgregarTecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 100, 550, 250));
@@ -560,100 +558,184 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTabla(){
-        DefaultTableModel modeloTabla=(DefaultTableModel) TablaPersonalAcademico.getModel();
+private void cargarTabla() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) TablaVicerrectorAcademico.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
-        
-        int [] anchos= {10, 50, 100 ,100, 80, 90, 50};
-        for (int i=0; i<TablaPersonalAcademico.getColumnCount(); i++){
-            TablaPersonalAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+
+        int[] anchos = {10, 50, 100, 100, 80, 90, 50};
+        for (int i = 0; i < TablaVicerrectorAcademico.getColumnCount(); i++) {
+            TablaVicerrectorAcademico.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
         try {
-            Connection con=Conexion.obtenerConexion();
+            Connection con = Conexion.obtenerConexion();
             ps = con.prepareStatement(
-                    "SELECT p.id_personal_academico, p.RU, p.nombre, p.apellido, p.CI, p.telefono, u.activo "
-                    +"FROM personal_academico p "
-                    +"INNER JOIN usuarios u ON p.id_usuario = u.id_usuario"
+                    "SELECT v.id_vicerrectorado_academico, v.RU, v.nombre, v.apellido, v.CI, v.telefono, u.activo "
+                    + "FROM vicerrectorado_academico v "
+                    + "INNER JOIN usuarios u ON v.id_usuario = u.id_usuario"
             );
-            rs= ps.executeQuery();
-            rsmd=rs.getMetaData();
-            columnas=rsmd.getColumnCount();
-            
-            while (rs.next()){
-                Object[] fila=new Object[columnas];
-                for (int indice=0; indice<columnas-1; indice++){
-                    fila[indice]= rs.getObject(indice+1);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int indice = 0; indice < columnas - 1; indice++) {
+                    fila[indice] = rs.getObject(indice + 1);
                 }
                 //activo o inactivo
-                fila[columnas-1]=rs.getInt("activo")==1?"Activo":"Inactivo";
+                fila[columnas - 1] = rs.getInt("activo") == 1 ? "Activo" : "Inactivo";
                 modeloTabla.addRow(fila);
             }
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
         }
     }
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        Login cerrar = new Login();
+        cerrar.setLocationRelativeTo(null);
+        cerrar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnInicio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicio2MouseExited
+
+    private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
+        InicioAdministrador inicio = new InicioAdministrador();
+        inicio.setLocationRelativeTo(null);
+        inicio.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInicio2ActionPerformed
+
+    private void btnPersonalAcademicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPersonalAcademicoMouseExited
+
+    private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
+        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
+        admin.setLocationRelativeTo(null);
+        admin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPersonalAcademicoActionPerformed
+
+    private void btnTecnicoPrestamoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTecnicoPrestamoMouseExited
+
+    private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
+        AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
+        admin.setLocationRelativeTo(null);
+        admin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnTecnicoPrestamoActionPerformed
+
+    private void btnTecnicoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTecnicoEquipoMouseExited
+
+    private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
+        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
+        admin.setLocationRelativeTo(null);
+        admin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void TablaVicerrectorAcademicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaVicerrectorAcademicoMouseClicked
+        try {
+            int fila =TablaVicerrectorAcademico.getSelectedRow();
+            int id = Integer.parseInt(TablaVicerrectorAcademico.getValueAt(fila, 0).toString());
+            PreparedStatement ps;
+            ResultSet rs;
+            Connection con=Conexion.obtenerConexion();
+            ps= con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
+            ps.setInt(1,id);
+            rs=ps.executeQuery();
+
+            while (rs.next()) {
+                ID.setText(String.valueOf(id));
+                RU.setText(rs.getString("RU"));
+                Nombre.setText(rs.getString("nombre"));
+                Apellido.setText(rs.getString("apellido"));
+                CI.setText(rs.getString("CI"));
+                Telefono.setText(rs.getString("telefono"));
+            }
+        }   catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+
+    }//GEN-LAST:event_TablaVicerrectorAcademicoMouseClicked
+
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    String ruText=RU.getText();
-    String nombre=Nombre.getText();
-    String apellido=Apellido.getText();
-    String ciText=CI.getText();
-    String telefonoText=Telefono.getText();
-    if (ruText.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || ciText.isEmpty() || telefonoText.isEmpty()){
-        JOptionPane.showMessageDialog(null,"Por Favor rellene los campos");
-        return;
-    }
-    int ru=Integer.parseInt(ruText);
-    int ci=Integer.parseInt(ciText);
-    int telefono=Integer.parseInt(telefonoText);
-    // usuario y contra
-    String username=JOptionPane.showInputDialog("Ingrese el nombre de usuario");
-    String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña");
-    String rol="Personal Academico";
-    int idUsuario=0;
-    int activo = 1;
-    try {
-        Connection con=Conexion.obtenerConexion();
-        PreparedStatement psUsuario= con.prepareStatement("INSERT INTO usuarios(username, contrasena, rol, activo) VALUES(?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
-                psUsuario.setString(1, username);
-                psUsuario.setString(2, contrasena);
-                psUsuario.setString(3,rol);
-                psUsuario.setInt(4, activo);
-                psUsuario.executeUpdate();
-                
-                ResultSet rs=psUsuario.getGeneratedKeys();
-                if(rs.next()){
-                    idUsuario=rs.getInt(1);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Error al obtener el ID del usuario");
-                    return;
-                }
-                PreparedStatement psPersonalAcademico=con.prepareStatement("INSERT INTO personal_academico(id_usuario, RU, nombre, apellido, CI, telefono)VALUES(?,?,?,?,?,?)");
-                psPersonalAcademico.setInt(1, idUsuario);
-                psPersonalAcademico.setInt(2, ru);
-                psPersonalAcademico.setString(3, nombre);
-                psPersonalAcademico.setString(4, apellido);
-                psPersonalAcademico.setInt(5, ci);
-                psPersonalAcademico.setInt(6, telefono);
-                
-                psPersonalAcademico.executeUpdate();
-                JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
-                AdministradorPersonalAcademico interfaz=new AdministradorPersonalAcademico();
-                interfaz.setVisible(true);
-                
-                Limpiar();
-                cargarTabla();
-    }catch(SQLException ex){
-        System.out.print(ex.toString());
-    }
+        String ruText=RU.getText();
+        String nombre=Nombre.getText();
+        String apellido=Apellido.getText();
+        String ciText=CI.getText();
+        String telefonoText=Telefono.getText();
+        if (ruText.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || ciText.isEmpty() || telefonoText.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Por Favor rellene los campos");
+            return;
+        }
+        int ru=Integer.parseInt(ruText);
+        int ci=Integer.parseInt(ciText);
+        int telefono=Integer.parseInt(telefonoText);
+        // usuario y contra
+        String username=JOptionPane.showInputDialog("Ingrese el nombre de usuario");
+        String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña");
+        String rol="Vicerrectorado Academico";
+        int idUsuario=0;
+        int activo = 1;
+        try {
+            Connection con=Conexion.obtenerConexion();
+            PreparedStatement psUsuario= con.prepareStatement("INSERT INTO usuarios(username, contrasena, rol, activo) VALUES(?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+            psUsuario.setString(1, username);
+            psUsuario.setString(2, contrasena);
+            psUsuario.setString(3,rol);
+            psUsuario.setInt(4, activo);
+            psUsuario.executeUpdate();
+
+            ResultSet rs=psUsuario.getGeneratedKeys();
+            if(rs.next()){
+                idUsuario=rs.getInt(1);
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al obtener el ID del usuario");
+                return;
+            }
+            PreparedStatement psPersonalAcademico=con.prepareStatement("INSERT INTO vicerrectorado_academico(id_usuario, RU, nombre, apellido, CI, telefono)VALUES(?,?,?,?,?,?)");
+            psPersonalAcademico.setInt(1, idUsuario);
+            psPersonalAcademico.setInt(2, ru);
+            psPersonalAcademico.setString(3, nombre);
+            psPersonalAcademico.setString(4, apellido);
+            psPersonalAcademico.setInt(5, ci);
+            psPersonalAcademico.setInt(6, telefono);
+
+            psPersonalAcademico.executeUpdate();
+            JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
+            AdministradorPersonalAcademico interfaz=new AdministradorPersonalAcademico();
+            interfaz.setVisible(true);
+
+            Limpiar();
+            cargarTabla();
+        }catch(SQLException ex){
+            System.out.print(ex.toString());
+        }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         if (ID.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Seleccione a un personal antes de modificar");
+            JOptionPane.showMessageDialog(null, "Seleccione a un vicerrector antes de modificar");
             return;
         }
         int idPersonalAcademico=Integer.parseInt(ID.getText());
@@ -662,22 +744,22 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         String apellido=Apellido.getText();
         int ci=Integer.parseInt(CI.getText());
         int telefono=Integer.parseInt(Telefono.getText());
-        
+
         String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario: ");
         String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña: ");
         String rol="Personal Academico";
         int activo=1;
         try{
             Connection con=Conexion.obtenerConexion();
-            PreparedStatement psSelect=con.prepareStatement("SELECT id_usuario FROM personal_academico WHERE id_personal_academico=?");
+            PreparedStatement psSelect=con.prepareStatement("SELECT id_usuario FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
             psSelect.setInt(1, idPersonalAcademico);
             ResultSet rs=psSelect.executeQuery();
-            
+
             int idUsuario=0;
             if(rs.next()){
                 idUsuario=rs.getInt("id_usuario");
             }else{
-                JOptionPane.showMessageDialog(null, "Personal no encontrado.");
+                JOptionPane.showMessageDialog(null, "Vicerrector no encontrado.");
                 return;
             }
             PreparedStatement psUsuario=con.prepareStatement("UPDATE usuarios SET username=?, contrasena=?, rol=?, activo=? WHERE id_usuario=?");
@@ -687,7 +769,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
             psUsuario.setInt(4, activo);
             psUsuario.setInt(5, idUsuario);
             psUsuario.executeUpdate();
-            PreparedStatement psPersonalAcademico=con.prepareStatement("UPDATE personal_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_personal_academico= ?");
+            PreparedStatement psPersonalAcademico=con.prepareStatement("UPDATE vicerrectorado_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_vicerrectorado_academico= ?");
             psPersonalAcademico.setInt(1, ru);
             psPersonalAcademico.setString(2, nombre);
             psPersonalAcademico.setString(3, apellido);
@@ -701,25 +783,25 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
-        
+
     }//GEN-LAST:event_modificarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         if (ID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione un personal a eliminar");
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un vicerrector a eliminar");
             return;
-        }                
+        }
         int tecnicoPrestamoId = Integer.parseInt(ID.getText());
         try{
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM personal_academico WHERE id_personal_academico=?");
+            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
             psObtenerUsuario.setInt(1, tecnicoPrestamoId);
             ResultSet rs = psObtenerUsuario.executeQuery();
             if(rs.next()){
-                int usuarioId = rs.getInt("id_usuario");                
-                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM personal_academico WHERE id_personal_academico=?");
+                int usuarioId = rs.getInt("id_usuario");
+                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
                 psTecnico.setInt(1,tecnicoPrestamoId);
-                psTecnico.executeUpdate();                
+                psTecnico.executeUpdate();
                 PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
                 psUsuario.setInt(1,usuarioId);
                 psUsuario.executeUpdate();
@@ -727,23 +809,23 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
                 Limpiar();
                 cargarTabla();
             }else{
-                JOptionPane.showMessageDialog(null,"No se encontro al personal");
+                JOptionPane.showMessageDialog(null,"No se encontro al vicerrector");
             }
         }catch (SQLException ex){
             System.out.println(ex.toString());
         }
     }//GEN-LAST:event_eliminarActionPerformed
-
-    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_limpiarActionPerformed
-    private void Limpiar(){
+    private void Limpiar() {
         RU.setText("");
         Nombre.setText("");
         Apellido.setText("");
         CI.setText("");
         Telefono.setText("");
     }
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_limpiarActionPerformed
+
     private void TelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TelefonoActionPerformed
@@ -765,13 +847,13 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_IDActionPerformed
 
     private void HabilitarDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabilitarDeshabilitarActionPerformed
-                int fila = TablaPersonalAcademico.getSelectedRow();
+        int fila = TablaVicerrectorAcademico.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un Tecnico.");
             return;
         }
 
-        int tecnicoId = Integer.parseInt(TablaPersonalAcademico.getValueAt(fila, 0).toString());
+        int tecnicoId = Integer.parseInt(TablaVicerrectorAcademico.getValueAt(fila, 0).toString());
 
         try {
             Connection con = Conexion.obtenerConexion();
@@ -816,35 +898,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_HabilitarDeshabilitarActionPerformed
 
-    private void TablaPersonalAcademicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPersonalAcademicoMouseClicked
-       try {
-           int fila =TablaPersonalAcademico.getSelectedRow();
-           int id = Integer.parseInt(TablaPersonalAcademico.getValueAt(fila, 0).toString());
-           PreparedStatement ps;
-           ResultSet rs;
-           Connection con=Conexion.obtenerConexion();
-           ps= con.prepareStatement("SELECT RU, nombre, apellido, CI, telefono FROM personal_academico WHERE id_personal_academico=?");
-           ps.setInt(1,id);
-           rs=ps.executeQuery();
-           
-           while (rs.next()) {
-               ID.setText(String.valueOf(id));
-               RU.setText(rs.getString("RU"));
-               Nombre.setText(rs.getString("nombre"));
-               Apellido.setText(rs.getString("apellido"));
-               CI.setText(rs.getString("CI"));
-               Telefono.setText(rs.getString("telefono"));
-           }
-       }   catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, ex.toString());
-       }
-       
-    }//GEN-LAST:event_TablaPersonalAcademicoMouseClicked
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
 
@@ -855,13 +908,13 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         getContentPane().repaint();
 
         new Thread(() -> {
-            int duracion = 150; 
+            int duracion = 150;
             int pasos = 25;
             int delay = duracion / pasos;
 
             for (int i = 0; i <= pasos; i++) {
                 int x = -250 + (i * 10);
-                int alpha = (int)(i * (120.0 / pasos)); 
+                int alpha = (int)(i * (120.0 / pasos));
 
                 panelSidebar.setLocation(x, 0);
 
@@ -877,62 +930,6 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
-    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
-
-    }//GEN-LAST:event_btnCerrarSesionMouseExited
-
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        Login cerrar = new Login();
-        cerrar.setLocationRelativeTo(null);
-        cerrar.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
-
-    private void btnInicio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInicio2MouseExited
-
-    private void btnInicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio2ActionPerformed
-        InicioAdministrador inicio = new InicioAdministrador();
-        inicio.setLocationRelativeTo(null);
-        inicio.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnInicio2ActionPerformed
-
-    private void btnPersonalAcademicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPersonalAcademicoMouseExited
-
-    private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
-        admin.setLocationRelativeTo(null); 
-        admin.setVisible(true);
-        this.dispose(); 
-    }//GEN-LAST:event_btnPersonalAcademicoActionPerformed
-
-    private void btnTecnicoPrestamoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTecnicoPrestamoMouseExited
-
-    private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
-        AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
-        admin.setLocationRelativeTo(null);
-        admin.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnTecnicoPrestamoActionPerformed
-
-    private void btnTecnicoEquipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTecnicoEquipoMouseExited
-
-    private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
-        admin.setLocationRelativeTo(null);
-        admin.setVisible(true);
-        this.dispose(); 
-    }//GEN-LAST:event_btnTecnicoEquipoActionPerformed
-
-
     /**
      * @param args the command line arguments
      */
@@ -943,16 +940,32 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e){
-            e.printStackTrace();
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AdministradorVicerrectoradoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AdministradorVicerrectoradoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AdministradorVicerrectoradoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AdministradorVicerrectoradoAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministradorPersonalAcademico().setVisible(true);
+                new AdministradorVicerrectoradoAcademico().setVisible(true);
             }
         });
     }
@@ -970,7 +983,7 @@ public class AdministradorPersonalAcademico extends javax.swing.JFrame {
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField RU;
     private javax.swing.JLabel Superior;
-    private javax.swing.JTable TablaPersonalAcademico;
+    private javax.swing.JTable TablaVicerrectorAcademico;
     private javax.swing.JTextField Telefono;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio2;
