@@ -9,7 +9,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -132,9 +134,9 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     private void initComponents() {
 
         panelSidebar = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
@@ -153,6 +155,9 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Panel de Control");
@@ -161,14 +166,14 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
-
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseExited(evt);
@@ -186,6 +191,9 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
         btnInicio.setText("INICIO");
         btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnInicioMouseExited(evt);
@@ -206,6 +214,9 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         btnMantenimientoEquipo.setForeground(new java.awt.Color(241, 241, 241));
         btnMantenimientoEquipo.setText("Mantenimiento de Equipos");
         btnMantenimientoEquipo.setBorder(null);
+        btnMantenimientoEquipo.setHorizontalAlignment(SwingConstants.LEFT);
+        btnMantenimientoEquipo.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnMantenimientoEquipo.setIconTextGap(10);
         btnMantenimientoEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnMantenimientoEquipoMouseExited(evt);
@@ -218,12 +229,12 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         });
         panelSidebar.add(btnMantenimientoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
