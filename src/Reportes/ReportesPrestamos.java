@@ -28,8 +28,10 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -159,8 +161,9 @@ private boolean sidebarMostrado = false;
         panelSidebar = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btnCerrarSesion2 = new javax.swing.JButton();
+        lblFlecha = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         LogoSale2 = new javax.swing.JLabel();
         btnListaLaboratorios = new javax.swing.JButton();
@@ -212,31 +215,40 @@ private boolean sidebarMostrado = false;
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
         panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 820, -1, 40));
+        lblFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
+        panelSidebar.add(lblFlecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
 
-        btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
-        btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion2.setText("Cerrar Sesión");
-        btnCerrarSesion2.setBorder(null);
-        btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCerrarSesion2MouseExited(evt);
+                btnCerrarSesionMouseExited(evt);
             }
         });
-        btnCerrarSesion2.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesion2ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnCerrarSesion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+        panelSidebar.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
 
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
         btnInicio.setText("INICIO");
         btnInicio.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnInicioMouseExited(evt);
@@ -257,6 +269,9 @@ private boolean sidebarMostrado = false;
         btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
         btnListaLaboratorios.setText("Lista de Laboratorios");
         btnListaLaboratorios.setBorder(null);
+        btnListaLaboratorios.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaLaboratorios.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaLaboratorios.setIconTextGap(10);
         btnListaLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnListaLaboratoriosMouseExited(evt);
@@ -274,6 +289,9 @@ private boolean sidebarMostrado = false;
         btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
         btnListaPrestamos.setText("Lista de Prestamos");
         btnListaPrestamos.setBorder(null);
+        btnListaPrestamos.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaPrestamos.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaPrestamos.setIconTextGap(10);
         btnListaPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnListaPrestamosMouseExited(evt);
@@ -291,6 +309,9 @@ private boolean sidebarMostrado = false;
         btnSolicitudes.setForeground(new java.awt.Color(241, 241, 241));
         btnSolicitudes.setText("Solicitudes");
         btnSolicitudes.setBorder(null);
+        btnSolicitudes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSolicitudes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSolicitudes.setIconTextGap(10);
         btnSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSolicitudesMouseExited(evt);
@@ -308,6 +329,9 @@ private boolean sidebarMostrado = false;
         btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
         btnSancionesDesignar.setText("Sanciones para Designar");
         btnSancionesDesignar.setBorder(null);
+        btnSancionesDesignar.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSancionesDesignar.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSancionesDesignar.setIconTextGap(10);
         btnSancionesDesignar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSancionesDesignarMouseExited(evt);
@@ -325,6 +349,9 @@ private boolean sidebarMostrado = false;
         btnReportes.setForeground(new java.awt.Color(241, 241, 241));
         btnReportes.setText("Reportes");
         btnReportes.setBorder(null);
+        btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnReportes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnReportes.setIconTextGap(10);
         btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnReportesMouseExited(evt);
@@ -342,6 +369,9 @@ private boolean sidebarMostrado = false;
         btnMateriales.setForeground(new java.awt.Color(241, 241, 241));
         btnMateriales.setText("Materiales de Laboratorio");
         btnMateriales.setBorder(null);
+        btnMateriales.setHorizontalAlignment(SwingConstants.LEFT);
+        btnMateriales.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnMateriales.setIconTextGap(10);
         btnMateriales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnMaterialesMouseExited(evt);
@@ -359,6 +389,9 @@ private boolean sidebarMostrado = false;
         btnComputadoras.setForeground(new java.awt.Color(241, 241, 241));
         btnComputadoras.setText("Computadoras");
         btnComputadoras.setBorder(null);
+        btnComputadoras.setHorizontalAlignment(SwingConstants.LEFT);
+        btnComputadoras.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnComputadoras.setIconTextGap(10);
         btnComputadoras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnComputadorasMouseExited(evt);
@@ -678,16 +711,16 @@ private boolean sidebarMostrado = false;
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
-    private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
-    }//GEN-LAST:event_btnCerrarSesion2MouseExited
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
 
-    private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnCerrarSesion2ActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
@@ -859,7 +892,7 @@ private boolean sidebarMostrado = false;
     private javax.swing.JTextField RUtxt;
     private javax.swing.JComboBox<String> SeccionBox;
     private javax.swing.JLabel Superior;
-    private javax.swing.JButton btnCerrarSesion2;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnListaLaboratorios;
@@ -876,12 +909,13 @@ private boolean sidebarMostrado = false;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
