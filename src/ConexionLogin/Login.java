@@ -18,6 +18,7 @@ import PersonalAcademico.InicioPersonalAcademico;
 import TecnicoDeEquipos.InicioAdmiTecnicoEquipos;
 import TecnicoDeEquipos.ReparacionesCompus;
 import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
+import VicerrectoradoAcademico.FormularioAsignacionPrestamo;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -249,6 +250,10 @@ public class RoundedPanel extends JPanel {
                             this.dispose();
                         } else if (priv.equals("Administrador")) {
                             InicioAdministrador ventanaadmin = new InicioAdministrador();
+                            ventanaadmin.setVisible(true);
+                            this.dispose();
+                        }else if (priv.equals("Vicerrectorado Academico")) {
+                            FormularioAsignacionPrestamo ventanaadmin = new FormularioAsignacionPrestamo(idusuario);
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Personal Academico")) {
