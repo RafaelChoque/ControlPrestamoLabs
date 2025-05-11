@@ -11,9 +11,13 @@ package ConexionLogin;
  */
 import TecnicoDePrestamos.ListaPrestamos;
 import Administrador.AdministradorTecnicoPrestamo;
+import Administrador.InicioAdministrador;
 import PersonalAcademico.FormularioPrestamo;
 import ConexionLogin.Conexion;
+import PersonalAcademico.InicioPersonalAcademico;
+import TecnicoDeEquipos.InicioAdmiTecnicoEquipos;
 import TecnicoDeEquipos.ReparacionesCompus;
+import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -236,19 +240,19 @@ public class RoundedPanel extends JPanel {
                         SesionUsuario.telefono = telefono;
                         
                         if (priv.equals("Tecnico de Prestamos")) {
-                            ListaPrestamos ventanaTecnicoPrestamo = new ListaPrestamos();
+                            InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos();
                             ventanaTecnicoPrestamo.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
-                            ReparacionesCompus ventanaReparacionesCompus = new ReparacionesCompus();
+                            InicioAdmiTecnicoEquipos ventanaReparacionesCompus = new InicioAdmiTecnicoEquipos();
                             ventanaReparacionesCompus.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Administrador")) {
-                            AdministradorTecnicoPrestamo ventanaadmin = new AdministradorTecnicoPrestamo();
+                            InicioAdministrador ventanaadmin = new InicioAdministrador();
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Personal Academico")) {
-                            FormularioPrestamo ventanaAcademico = new FormularioPrestamo(idusuario);
+                            InicioPersonalAcademico ventanaAcademico = new InicioPersonalAcademico(idusuario);
                             ventanaAcademico.setVisible(true);
                             this.dispose();
                         }
