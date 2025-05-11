@@ -6,7 +6,8 @@ package Materiales;
 
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
-import Reportes.InicioReportes;
+import Reportes.ReportesMantenimiento;
+import Reportes.ReportesPrestamos;
 import Sanciones.SancionesParaDesignar;
 import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
@@ -14,20 +15,27 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
@@ -50,6 +58,9 @@ public class Materiales extends javax.swing.JFrame {
      */
     public Materiales() {
         initComponents();
+        iconoOriginal = lblFlecha.getIcon();
+panelSubReportes.setLocation(panelSubReportes.getX(), -70);
+panelSubReportes.setVisible(false);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Laboratorio.setEditable(false);
         cargarTablaTodo();
@@ -100,6 +111,99 @@ public class Materiales extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
     }
+            private boolean flechaAbajo = true; // empieza apuntando hacia abajo
+private Icon iconoOriginal;
+private void mostrarSubReportes() {
+    panelSubReportes.setVisible(true);
+    int yFinal = 120;
+    int yInicio = -70; 
+    panelSubReportes.setLocation(panelSubReportes.getX(), yInicio);
+
+    new Thread(() -> {
+        for (int y = yInicio; y <= yFinal; y += 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+            });
+            try { Thread.sleep(5); } catch (InterruptedException e) {}
+        }
+    }).start();
+}
+private void ocultarSubReportes() {
+    int yInicio = panelSubReportes.getY();
+    int yFinal = -70;
+
+    new Thread(() -> {
+        for (int y = yInicio; y >= yFinal; y -= 5) {
+            final int posY = y;
+            SwingUtilities.invokeLater(() -> {
+                panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+            });
+            try { Thread.sleep(5); } catch (InterruptedException e) {}
+        }
+        SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
+    }).start();
+}
+private final Color colorDefault = new Color(29, 41, 57);
+private final Color colorPresionado = new Color(41, 59, 83);
+private void cambiarColorBotonAlPresionar(boolean estaPresionado) {
+    if (estaPresionado) {
+        btnReportes.setBackground(colorPresionado); // color cuando se presiona
+    } else {
+        btnReportes.setBackground(colorDefault); // restaurar el color por defecto
+    }
+}
+
+private Icon rotarIcono(Icon icono, double angulo) {
+    int w = icono.getIconWidth();
+    int h = icono.getIconHeight();
+
+    int size = (int) Math.ceil(Math.sqrt(w * w + h * h));
+
+    BufferedImage imagenOriginal = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2dOriginal = imagenOriginal.createGraphics();
+    icono.paintIcon(null, g2dOriginal, 0, 0);
+    g2dOriginal.dispose();
+
+    BufferedImage imagenRotada = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = imagenRotada.createGraphics();
+
+    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+    AffineTransform at = new AffineTransform();
+    at.translate(size / 2.0, size / 2.0); // mover al centro
+    at.rotate(-angulo);  
+    at.translate(-w / 2.0, -h / 2.0);     // mover imagen al centro
+
+    g2d.drawImage(imagenOriginal, at, null);
+    g2d.dispose();
+
+    return new ImageIcon(imagenRotada);
+}
+
+private void animarRotacionFlecha(boolean haciaArriba) {
+    final int pasos = 12;
+    final int delay = 10; // milisegundos entre pasos
+    final double anguloInicial = haciaArriba ? 0 : Math.PI;
+    final double anguloFinal = haciaArriba ? Math.PI : 0;
+    final double incremento = (anguloFinal - anguloInicial) / pasos;
+
+    Timer timer = new Timer(delay, null);
+    final int[] pasoActual = {0};
+
+    timer.addActionListener(e -> {
+        double angulo = anguloInicial + pasoActual[0] * incremento;
+        lblFlecha.setIcon(rotarIcono(iconoOriginal, angulo));
+        pasoActual[0]++;
+        if (pasoActual[0] > pasos) {
+            ((Timer) e.getSource()).stop();
+        }
+    });
+
+    timer.start();
+}
+private boolean subReportesMostrado = false;
      private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -176,6 +280,9 @@ public class Materiales extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
         btnComputadoras = new javax.swing.JButton();
+        panelSubReportes = new javax.swing.JPanel();
+        btnReporteLaboratorios = new javax.swing.JButton();
+        btnReporteMantenimiento = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -261,7 +368,7 @@ public class Materiales extends javax.swing.JFrame {
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio.setText("INICIO");
+        btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
         btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
         btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -284,7 +391,7 @@ public class Materiales extends javax.swing.JFrame {
         btnListaLaboratorios.setBackground(new java.awt.Color(29, 41, 57));
         btnListaLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaLaboratorios.setText("Lista de Laboratorios");
+        btnListaLaboratorios.setText("Laboratorios");
         btnListaLaboratorios.setBorder(null);
         btnListaLaboratorios.setHorizontalAlignment(SwingConstants.LEFT);
         btnListaLaboratorios.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -304,7 +411,7 @@ public class Materiales extends javax.swing.JFrame {
         btnListaPrestamos.setBackground(new java.awt.Color(29, 41, 57));
         btnListaPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaPrestamos.setText("Lista de Prestamos");
+        btnListaPrestamos.setText("Prestamos");
         btnListaPrestamos.setBorder(null);
         btnListaPrestamos.setHorizontalAlignment(SwingConstants.LEFT);
         btnListaPrestamos.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -344,7 +451,7 @@ public class Materiales extends javax.swing.JFrame {
         btnSancionesDesignar.setBackground(new java.awt.Color(29, 41, 57));
         btnSancionesDesignar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
-        btnSancionesDesignar.setText("Sanciones para Designar");
+        btnSancionesDesignar.setText("Sanciones");
         btnSancionesDesignar.setBorder(null);
         btnSancionesDesignar.setHorizontalAlignment(SwingConstants.LEFT);
         btnSancionesDesignar.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -379,12 +486,12 @@ public class Materiales extends javax.swing.JFrame {
                 btnReportesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
+        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
 
         btnMateriales.setBackground(new java.awt.Color(29, 41, 57));
         btnMateriales.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMateriales.setForeground(new java.awt.Color(241, 241, 241));
-        btnMateriales.setText("Materiales de Laboratorio");
+        btnMateriales.setText("Materiales");
         btnMateriales.setBorder(null);
         btnMateriales.setHorizontalAlignment(SwingConstants.LEFT);
         btnMateriales.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -399,7 +506,7 @@ public class Materiales extends javax.swing.JFrame {
                 btnMaterialesActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+        panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
         btnComputadoras.setBackground(new java.awt.Color(29, 41, 57));
         btnComputadoras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -419,7 +526,46 @@ public class Materiales extends javax.swing.JFrame {
                 btnComputadorasActionPerformed(evt);
             }
         });
-        panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+        panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+
+        panelSubReportes.setBackground(new java.awt.Color(16, 23, 32));
+        panelSubReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnReporteLaboratorios.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteLaboratorios.setText("Prestamos");
+        btnReporteLaboratorios.setBorder(null);
+        btnReporteLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteLaboratoriosMouseExited(evt);
+            }
+        });
+        btnReporteLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteLaboratoriosActionPerformed(evt);
+            }
+        });
+        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+
+        btnReporteMantenimiento.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteMantenimiento.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteMantenimiento.setText("Mantenimiento");
+        btnReporteMantenimiento.setBorder(null);
+        btnReporteMantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteMantenimientoMouseExited(evt);
+            }
+        });
+        btnReporteMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMantenimientoActionPerformed(evt);
+            }
+        });
+        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+
+        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
@@ -1211,10 +1357,71 @@ String seleccion = (String) jComboBox1.getSelectedItem();
     }//GEN-LAST:event_btnReportesMouseExited
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        InicioReportes inicioReport = new InicioReportes();
-        inicioReport.setLocationRelativeTo(null);
-        inicioReport.setVisible(true);
-        this.dispose();
+boolean estaVisible = panelSubReportes.isVisible();
+
+        if (estaVisible) {
+            cambiarColorBotonAlPresionar(false);
+            int yInicio = panelSubReportes.getY();
+            int yFinal = yInicio - 80;
+
+            
+            animarRotacionFlecha(false);
+            flechaAbajo = true;
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(50); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                for (int y = yInicio; y >= yFinal; y -= 5) {
+                    final int posY = y;
+                    SwingUtilities.invokeLater(() -> {
+                        panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+                    });
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+               
+                SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
+            }).start();
+
+        } else {
+            cambiarColorBotonAlPresionar(true);
+            int yInicio = panelSubReportes.getY();
+            int yFinal = yInicio + 80;
+
+            
+            animarRotacionFlecha(true);
+            flechaAbajo = false;
+
+            panelSubReportes.setVisible(true);
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(50); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                for (int y = yInicio; y <= yFinal; y += 5) {
+                    final int posY = y;
+                    SwingUtilities.invokeLater(() -> {
+                        panelSubReportes.setLocation(panelSubReportes.getX(), posY);
+                    });
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }).start();
+        }
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnMaterialesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaterialesMouseExited
@@ -1235,6 +1442,28 @@ String seleccion = (String) jComboBox1.getSelectedItem();
         hardware.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnComputadorasActionPerformed
+
+    private void btnReporteLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
+
+    private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
+        ReportesPrestamos reportepres = new ReportesPrestamos();
+        reportepres.setLocationRelativeTo(null);
+        reportepres.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteLaboratoriosActionPerformed
+
+    private void btnReporteMantenimientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimientoMouseExited
+
+    private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
+        ReportesMantenimiento reporteman = new ReportesMantenimiento();
+        reporteman.setLocationRelativeTo(null);
+        reporteman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1288,6 +1517,8 @@ String seleccion = (String) jComboBox1.getSelectedItem();
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRedes;
+    private javax.swing.JButton btnReporteLaboratorios;
+    private javax.swing.JButton btnReporteMantenimiento;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
@@ -1314,6 +1545,7 @@ String seleccion = (String) jComboBox1.getSelectedItem();
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tblMateriales;
     private javax.swing.JTextField txtID;
