@@ -614,8 +614,8 @@ private int idTecnicoActual = -1;
                     + "CONCAT(pa.nombre, ' ', pa.apellido) AS sancionado "
                     + "FROM sanciones s "
                     + "JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
-                    + "JOIN prestamos p ON s.id_prestamo = p.id_prestamo "
-                    + "JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico";
+                    + "JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico";
+
 
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -725,7 +725,8 @@ private int idTecnicoActual = -1;
         }
 
         try (Connection con = Conexion.obtenerConexion()) {
-            
+
+            // Obtener ID del técnico por nombre completo
             PreparedStatement psBuscar = con.prepareStatement(
                     "SELECT id_tecnico_prestamos FROM tecnico_prestamos WHERE CONCAT(nombre, ' ', apellido) = ?"
             );
@@ -735,21 +736,37 @@ private int idTecnicoActual = -1;
             if (rs.next()) {
                 int idTecnico = rs.getInt("id_tecnico_prestamos");
 
-               
+                // Obtener ID del docente (personal académico) asociado al préstamo
+                int idPersonalAcademico = -1;
+                PreparedStatement psDocente = con.prepareStatement(
+                        "SELECT id_personal_academico FROM prestamos WHERE id_prestamo = ?"
+                );
+                psDocente.setInt(1, idPrestamoSeleccionado);
+                ResultSet rsDocente = psDocente.executeQuery();
+
+                if (rsDocente.next()) {
+                    idPersonalAcademico = rsDocente.getInt("id_personal_academico");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el docente asociado al préstamo.");
+                    return;
+                }
+
+                // Insertar sanción
                 PreparedStatement psInsert = con.prepareStatement(
-                        "INSERT INTO sanciones (id_prestamo, descripcion, fecha, tipo, sancionado_por) "
-                        + "VALUES (?, ?, ?, ?, ?)"
+                        "INSERT INTO sanciones (id_prestamo, id_personal_academico, descripcion, fecha, tipo, sancionado_por) "
+                        + "VALUES (?, ?, ?, ?, ?, ?)"
                 );
                 psInsert.setInt(1, idPrestamoSeleccionado);
-                psInsert.setString(2, descripcion);
-                psInsert.setDate(3, new java.sql.Date(fecha.getTime()));
-                psInsert.setString(4, tipo);
-                psInsert.setInt(5, idTecnico);
+                psInsert.setInt(2, idPersonalAcademico);
+                psInsert.setString(3, descripcion);
+                psInsert.setDate(4, new java.sql.Date(fecha.getTime()));
+                psInsert.setString(5, tipo);
+                psInsert.setInt(6, idTecnico);
 
                 psInsert.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Sanción registrada correctamente.");
+                cargarTablaSanciones();
 
-                cargarTablaSanciones();  
             } else {
                 JOptionPane.showMessageDialog(this, "Técnico no encontrado.");
             }

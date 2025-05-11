@@ -6,6 +6,7 @@ package Sanciones;
 
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import PersonalAcademico.FormularioPrestamo;
 import PersonalAcademico.InicioPersonalAcademico;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -30,10 +32,14 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
      * Creates new form SancionesPersonal
      * @param idusuario
      */
-    public SancionesRecibidaPersonal() {
+    public SancionesRecibidaPersonal(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
-        cargarTablaSanciones();
+        cargarTablaSanciones(idusuario);
+        cargarNombreApellido(idusuario);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Nombre.setEditable(false);
+        Apellido.setEditable(false);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
 
@@ -84,7 +90,8 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private Timer animacion;
     private boolean sidebarListo = false;
 
-    public SancionesRecibidaPersonal(int idusuario) {
+
+    private SancionesRecibidaPersonal() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -153,12 +160,22 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         Sanciones1 = new javax.swing.JButton();
         btnCerrarSesion2 = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        TblSanciones = new javax.swing.JTable();
-        Sanciones = new javax.swing.JLabel();
-        Sanciones2 = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        Sanciones2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        Nombre = new javax.swing.JTextField();
+        Apellido = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        Sanciones4 = new javax.swing.JLabel();
+        Sanciones5 = new javax.swing.JLabel();
+        Sanciones = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TblSanciones = new javax.swing.JTable();
+        Sanciones3 = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
 
@@ -253,6 +270,64 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Sanciones2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Sanciones2.setText("Sanciones del Usuario");
+        jPanel4.add(Sanciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel10.setText("Nombre:");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        jLabel7.setText("Apellido:");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
+        jPanel4.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 190, -1));
+
+        Apellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ApellidoActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 190, -1));
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 140));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Sanciones4.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Sanciones4.setText("Nota ");
+        jPanel5.add(Sanciones4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        Sanciones5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Sanciones5.setText("Si Sobrepasa la cantidad de 5 sanciones, ");
+        jPanel5.add(Sanciones5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, -1));
+
+        Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Sanciones.setText("se le deshabilitara la opción de solicitar un futuro Prestamo");
+        jPanel5.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 400, 140));
+
         TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -281,28 +356,13 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(TblSanciones);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 1470, 350));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 1460, 540));
 
-        Sanciones.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Sanciones.setText("Si Sobrepasa la cantidad de 5 sanciones, se le deshabilitara la opción de solicitar un futuro Prestamo");
-        getContentPane().add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        Sanciones3.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Sanciones3.setText("Cantidad de Sanciones Recibidas");
+        jPanel2.add(Sanciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        Sanciones2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Sanciones2.setText("Sanciones");
-        getContentPane().add(Sanciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1500, 760));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
@@ -315,53 +375,67 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTablaSanciones() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Sanción");
-        modelo.addColumn("Descripción");
-        modelo.addColumn("Fecha");
-        modelo.addColumn("Tipo");
-        modelo.addColumn("Técnico");
+    public void cargarNombreApellido(int idusuario) {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT nombre, apellido FROM personal_academico WHERE id_usuario = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Nombre.setText(rs.getString("nombre"));
+                Apellido.setText(rs.getString("apellido"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron datos del personal.");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    private void cargarTablaSanciones(int idusuario) {
+        DefaultTableModel modelo = (DefaultTableModel) TblSanciones.getModel();
+        modelo.setRowCount(0);
 
         try {
             Connection con = Conexion.obtenerConexion();
-            String sql = "SELECT "
-                    + "s.id_sancion, "
-                    + "s.descripcion, "
-                    + "s.fecha, "
-                    + "s.tipo, "
-                    + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico, "
-                    + "CONCAT(pa.nombre, ' ', pa.apellido) AS sancionado "
+            String sql = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+                    + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre_completo "
                     + "FROM sanciones s "
-                    + "JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
-                    + "JOIN prestamos p ON s.id_prestamo = p.id_prestamo "
-                    + "JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico";
-
-            PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-
+                    + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
+                    + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+                    + "WHERE pa.id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Object[] fila = new Object[6];
-                fila[0] = rs.getInt("id_sancion");
-                fila[1] = rs.getString("descripcion");
-                fila[2] = rs.getDate("fecha");
-                fila[3] = rs.getString("tipo");
-                fila[4] = rs.getString("tecnico");
-
+                Object[] fila = {
+                    rs.getInt("id_sancion"),
+                    rs.getString("descripcion"),
+                    rs.getDate("fecha"),
+                    rs.getString("tipo"),
+                    rs.getString("tecnico_nombre_completo") 
+                };
                 modelo.addRow(fila);
             }
 
-            TblSanciones.setModel(modelo);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar sanciones: " + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar sanciones: " + ex.getMessage());
         }
     }
+
     private void btnSolicitudLabMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudLabMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSolicitudLabMouseExited
 
     private void btnSolicitudLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudLabActionPerformed
-        // TODO add your handling code here:
+        FormularioPrestamo formulario1=new FormularioPrestamo(idusuario);
+        formulario1.setLocationRelativeTo(null);
+        formulario1.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSolicitudLabActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
@@ -376,9 +450,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void Sanciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sanciones1ActionPerformed
-        SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal();
-        sanciones.setLocationRelativeTo(null);
-        sanciones.setVisible(true);
+        
     }//GEN-LAST:event_Sanciones1ActionPerformed
 
     private void btnCerrarSesion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion2MouseExited
@@ -424,6 +496,10 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void ApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ApellidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -465,21 +541,31 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Apellido;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel LogoSale1;
+    private javax.swing.JTextField Nombre;
     private javax.swing.JLabel Sanciones;
     private javax.swing.JButton Sanciones1;
     private javax.swing.JLabel Sanciones2;
+    private javax.swing.JLabel Sanciones3;
+    private javax.swing.JLabel Sanciones4;
+    private javax.swing.JLabel Sanciones5;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TblSanciones;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCerrarSesion2;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSolicitudLab;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
