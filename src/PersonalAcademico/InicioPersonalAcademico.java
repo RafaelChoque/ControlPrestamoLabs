@@ -23,11 +23,14 @@ import javax.swing.UIManager;
  * @author Jose Sebastian
  */
 public class InicioPersonalAcademico extends javax.swing.JFrame {
+    private int idusuario;
 
     /**
      * Creates new form InicioPersonalAcademico
+     * @param idusuario
      */
-    public InicioPersonalAcademico() {
+    public InicioPersonalAcademico(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
@@ -80,6 +83,10 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
+
+    private InicioPersonalAcademico() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private void mostrarSidebar() {
     panelOverlay.setVisible(true);
@@ -341,14 +348,12 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFormulario1MouseExited
 
     private void btnFormulario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormulario1ActionPerformed
-        // TODO add your handling code here:
-        FormularioPrestamo formulario1=new FormularioPrestamo();
-        formulario1.setLocationRelativeTo(null); // Centrar la ventana
+       
+        FormularioPrestamo formulario1=new FormularioPrestamo(idusuario);
+        formulario1.setLocationRelativeTo(null);
         formulario1.setVisible(true);
-
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
+        
     }//GEN-LAST:event_btnFormulario1ActionPerformed
 
     private void btnSancionRecibida1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionRecibida1MouseExited
@@ -356,14 +361,11 @@ public class InicioPersonalAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSancionRecibida1MouseExited
 
     private void btnSancionRecibida1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionRecibida1ActionPerformed
-        // TODO add your handling code here:
-    // Crear la ventana de SancionesResividaPersonal
-    SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal();
-    sanciones.setLocationRelativeTo(null); // Centrar la ventana
-    sanciones.setVisible(true); // Mostrar la nueva ventana
-
-    // Cerrar la ventana actual
-    this.dispose(); // Cierra completamente la ventana actual
+        
+    SancionesRecibidaPersonal sanciones = new SancionesRecibidaPersonal(idusuario);
+    sanciones.setLocationRelativeTo(null); 
+    sanciones.setVisible(true); 
+    this.dispose();
     }//GEN-LAST:event_btnSancionRecibida1ActionPerformed
 
     /**

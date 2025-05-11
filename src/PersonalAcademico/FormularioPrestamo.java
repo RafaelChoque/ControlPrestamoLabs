@@ -897,7 +897,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesion2MouseExited
 
     private void btnCerrarSesion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion2ActionPerformed
-        InicioPersonalAcademico inicio = new InicioPersonalAcademico();
+        InicioPersonalAcademico inicio = new InicioPersonalAcademico(idusuario);
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
