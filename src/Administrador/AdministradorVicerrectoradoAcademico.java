@@ -4,8 +4,8 @@
  */
 package Administrador;
 
-import PersonalAcademico.InicioPersonalAcademico;
-import PersonalAcademico.FormularioPrestamo;
+
+
 import ConexionLogin.Login;
 import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -751,17 +751,17 @@ private void cargarTabla() {
                 JOptionPane.showMessageDialog(null, "Error al obtener el ID del usuario");
                 return;
             }
-            PreparedStatement psPersonalAcademico=con.prepareStatement("INSERT INTO vicerrectorado_academico(id_usuario, RU, nombre, apellido, CI, telefono)VALUES(?,?,?,?,?,?)");
-            psPersonalAcademico.setInt(1, idUsuario);
-            psPersonalAcademico.setInt(2, ru);
-            psPersonalAcademico.setString(3, nombre);
-            psPersonalAcademico.setString(4, apellido);
-            psPersonalAcademico.setInt(5, ci);
-            psPersonalAcademico.setInt(6, telefono);
+            PreparedStatement psVicerrectorAcademico=con.prepareStatement("INSERT INTO vicerrectorado_academico(id_usuario, RU, nombre, apellido, CI, telefono)VALUES(?,?,?,?,?,?)");
+            psVicerrectorAcademico.setInt(1, idUsuario);
+            psVicerrectorAcademico.setInt(2, ru);
+            psVicerrectorAcademico.setString(3, nombre);
+            psVicerrectorAcademico.setString(4, apellido);
+            psVicerrectorAcademico.setInt(5, ci);
+            psVicerrectorAcademico.setInt(6, telefono);
 
-            psPersonalAcademico.executeUpdate();
+            psVicerrectorAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
-            AdministradorPersonalAcademico interfaz=new AdministradorPersonalAcademico();
+            AdministradorVicerrectoradoAcademico interfaz=new AdministradorVicerrectoradoAcademico();
             interfaz.setVisible(true);
 
             Limpiar();
@@ -776,7 +776,7 @@ private void cargarTabla() {
             JOptionPane.showMessageDialog(null, "Seleccione a un vicerrector antes de modificar");
             return;
         }
-        int idPersonalAcademico=Integer.parseInt(ID.getText());
+        int idVicerrectorAcademico=Integer.parseInt(ID.getText());
         int ru=Integer.parseInt(RU.getText());
         String nombre=Nombre.getText();
         String apellido=Apellido.getText();
@@ -785,12 +785,12 @@ private void cargarTabla() {
 
         String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario: ");
         String contrasena=JOptionPane.showInputDialog("Ingrese la contraseña: ");
-        String rol="Personal Academico";
+        String rol="Vicerrectorado Academico";
         int activo=1;
         try{
             Connection con=Conexion.obtenerConexion();
             PreparedStatement psSelect=con.prepareStatement("SELECT id_usuario FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
-            psSelect.setInt(1, idPersonalAcademico);
+            psSelect.setInt(1, idVicerrectorAcademico);
             ResultSet rs=psSelect.executeQuery();
 
             int idUsuario=0;
@@ -807,14 +807,14 @@ private void cargarTabla() {
             psUsuario.setInt(4, activo);
             psUsuario.setInt(5, idUsuario);
             psUsuario.executeUpdate();
-            PreparedStatement psPersonalAcademico=con.prepareStatement("UPDATE vicerrectorado_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_vicerrectorado_academico= ?");
-            psPersonalAcademico.setInt(1, ru);
-            psPersonalAcademico.setString(2, nombre);
-            psPersonalAcademico.setString(3, apellido);
-            psPersonalAcademico.setInt(4, ci);
-            psPersonalAcademico.setInt(5, telefono);
-            psPersonalAcademico.setInt(6, idPersonalAcademico);
-            psPersonalAcademico.executeUpdate();
+            PreparedStatement psVicerrectorAcademico=con.prepareStatement("UPDATE vicerrectorado_academico SET RU=?, nombre=?, apellido=?, CI=?, telefono=? WHERE id_vicerrectorado_academico= ?");
+            psVicerrectorAcademico.setInt(1, ru);
+            psVicerrectorAcademico.setString(2, nombre);
+            psVicerrectorAcademico.setString(3, apellido);
+            psVicerrectorAcademico.setInt(4, ci);
+            psVicerrectorAcademico.setInt(5, telefono);
+            psVicerrectorAcademico.setInt(6, idVicerrectorAcademico);
+            psVicerrectorAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO MODIFICADO");
             Limpiar();
             cargarTabla();
@@ -902,7 +902,7 @@ private void cargarTabla() {
             ResultSet rsUsuario = psObtenerUsuario.executeQuery();
 
             if (!rsUsuario.next()) {
-                JOptionPane.showMessageDialog(null, "Error al encontrar el usuario asociado al técnico.");
+                JOptionPane.showMessageDialog(null, "Error al encontrar el usuario asociado al vicerrector.");
                 return;
             }
 
