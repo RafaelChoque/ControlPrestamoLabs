@@ -274,6 +274,7 @@ private boolean subReportesMostrado = false;
         panelSubReportes = new javax.swing.JPanel();
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
         perfil1 = new javax.swing.JLabel();
@@ -509,7 +510,7 @@ private boolean subReportesMostrado = false;
                 btnReporteLaboratoriosActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 40));
 
         btnReporteMantenimiento.setBackground(new java.awt.Color(16, 23, 32));
         btnReporteMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -526,9 +527,21 @@ private boolean subReportesMostrado = false;
                 btnReporteMantenimientoActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
 
-        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
+        jButton1.setBackground(new java.awt.Color(16, 23, 32));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Sanciones");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelSubReportes.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 230, 40));
+
+        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 230, 330));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
@@ -801,7 +814,7 @@ private boolean subReportesMostrado = false;
         } else {
             cambiarColorBotonAlPresionar(true);
             int yInicio = panelSubReportes.getY();
-            int yFinal = yInicio + 80;
+            int yFinal = yInicio + 120;
 
             
             animarRotacionFlecha(true);
@@ -896,6 +909,10 @@ private boolean subReportesMostrado = false;
         this.dispose();
     }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -938,6 +955,7 @@ private boolean subReportesMostrado = false;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
