@@ -669,7 +669,7 @@ private boolean subReportesMostrado = false;
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Descripcion", "Fecha", "Tipo", "Docente", "Sancionado Por"
+                "ID", "Descripcion", "Fecha", "Tipo", "Tecnico", "Sancionado"
             }
         ) {
             Class[] types = new Class [] {

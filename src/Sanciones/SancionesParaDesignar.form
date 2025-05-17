@@ -718,8 +718,8 @@
                 <Column editable="false" title="Descripcion" type="java.lang.String"/>
                 <Column editable="false" title="Fecha" type="java.lang.String"/>
                 <Column editable="false" title="Tipo" type="java.lang.String"/>
-                <Column editable="true" title="Docente" type="java.lang.Object"/>
-                <Column editable="false" title="Sancionado Por" type="java.lang.String"/>
+                <Column editable="true" title="Tecnico" type="java.lang.Object"/>
+                <Column editable="false" title="Sancionado" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
