@@ -15,6 +15,8 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -42,6 +44,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 
 /**
@@ -261,6 +271,32 @@ private boolean sidebarMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        FechaDesde = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        FechaHasta = new com.toedter.calendar.JDateChooser();
+        jPanel4 = new javax.swing.JPanel();
+        RUtxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        EstadoPrestamo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        SeccionBox = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPrestamos = new javax.swing.JTable();
+        AsignacionSancion1 = new javax.swing.JLabel();
+        Imprimir = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
+        btnGraficar = new javax.swing.JButton();
+        FondoBlanco = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
+        perfil = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
+        FondoGris = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -280,35 +316,155 @@ private boolean sidebarMostrado = false;
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        FechaDesde = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
-        FechaHasta = new com.toedter.calendar.JDateChooser();
-        jPanel4 = new javax.swing.JPanel();
-        RUtxt = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        EstadoPrestamo = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        SeccionBox = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblReportes = new javax.swing.JTable();
-        AsignacionSancion1 = new javax.swing.JLabel();
-        Imprimir = new javax.swing.JButton();
-        Limpiar = new javax.swing.JButton();
-        Buscar = new javax.swing.JButton();
-        FondoBlanco = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JButton();
-        perfil = new javax.swing.JLabel();
-        Superior = new javax.swing.JLabel();
-        FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Desde:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, -1, 20));
+        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 250, -1));
+
+        jLabel1.setText("Hasta:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
+        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        RUtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RUtxtActionPerformed(evt);
+            }
+        });
+        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
+
+        jLabel5.setText("Usuario:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        EstadoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Aprobado", "Rechazado", "Pendiente"}));
+        jPanel4.add(EstadoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 180, -1));
+
+        jLabel4.setText("Estado:");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 20));
+
+        jLabel3.setText("Sección:");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 50, 20));
+
+        SeccionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hardware", "Redes", "Telecomunicaciones", "Electronica"}));
+        jPanel4.add(SeccionBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 180, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 50));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblPrestamos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Docente", "Seccion", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblPrestamos);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
+
+        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion1.setText("Reportes de Prestamos");
+        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+
+        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
+        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
+
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+
+        Buscar.setBackground(new java.awt.Color(29, 41, 57));
+        Buscar.setForeground(new java.awt.Color(255, 255, 255));
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+
+        btnGraficar.setText("Graficar");
+        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, -1, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 1450, 740));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -549,149 +705,12 @@ private boolean sidebarMostrado = false;
 
         panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setText("Desde:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, -1, 20));
-        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 250, -1));
-
-        jLabel1.setText("Hasta:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
-        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        RUtxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RUtxtActionPerformed(evt);
-            }
-        });
-        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
-
-        jLabel5.setText("Usuario:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        EstadoPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Aprobado", "Rechazado", "Pendiente"}));
-        jPanel4.add(EstadoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 180, -1));
-
-        jLabel4.setText("Estado:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 20));
-
-        jLabel3.setText("Sección:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 50, 20));
-
-        SeccionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hardware", "Redes", "Telecomunicaciones", "Electronica"}));
-        jPanel4.add(SeccionBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 180, -1));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 50));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Docente", "Seccion", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Estado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblReportes);
-
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
-
-        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion1.setText("Reportes de Prestamos");
-        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, -1));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
-
-        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
-        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
-        Imprimir.setText("Imprimir");
-        Imprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImprimirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
-
-        Limpiar.setText("Limpiar");
-        Limpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LimpiarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
-
-        Buscar.setBackground(new java.awt.Color(29, 41, 57));
-        Buscar.setForeground(new java.awt.Color(255, 255, 255));
-        Buscar.setText("Buscar");
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 1450, 740));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -707,7 +726,7 @@ private boolean sidebarMostrado = false;
 
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) tblReportes.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblPrestamos.getModel();
             model.setRowCount(0);
 
             while (rs.next()) {
@@ -757,7 +776,7 @@ private boolean sidebarMostrado = false;
         parametros.add(seccion);
     }
 
-    // Filtrar por estado si se ha seleccionado una opción válida
+    // Filtrar por seccion si se ha seleccionado una opción válida
     if (!"Todos".equals(estado)) {
         query += " AND p.estado = ?";
         parametros.add(estado);
@@ -786,7 +805,7 @@ private boolean sidebarMostrado = false;
         }
 
         ResultSet rs = ps.executeQuery();
-        DefaultTableModel model = (DefaultTableModel) tblReportes.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblPrestamos.getModel();
         model.setRowCount(0);  // Limpiar la tabla antes de agregar los nuevos resultados
 
         // Recorrer los resultados y agregarlos a la tabla
@@ -1078,6 +1097,125 @@ private boolean sidebarMostrado = false;
         this.dispose();
     }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
 
+    private void btnGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarActionPerformed
+        // Opciones para el usuario
+        String[] opciones = {
+            "Préstamos por técnico (barras)",
+            "Préstamos por computadora (torta)",
+            "Préstamos por laboratorio (torta)",
+            "Préstamos por estado (barras)"
+        };
+
+        // Mostrar diálogo para elegir el tipo de gráfico
+        String seleccion = (String) JOptionPane.showInputDialog(
+                this,
+                "Seleccione el tipo de gráfico a mostrar:",
+                "Opciones de gráfico",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion == null) {
+            return; // Si cancela, no hace nada
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblPrestamos.getModel();
+
+        switch (seleccion) {
+            case "Préstamos por técnico (barras)":
+                Map<String, Integer> prestamosPorTecnico = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String tecnico = model.getValueAt(i, 0).toString(); // Ajusta el índice según tu tabla
+                    prestamosPorTecnico.put(tecnico, prestamosPorTecnico.getOrDefault(tecnico, 0) + 1);
+                }
+                DefaultCategoryDataset datasetTecnico = new DefaultCategoryDataset();
+                for (Map.Entry<String, Integer> entry : prestamosPorTecnico.entrySet()) {
+                    datasetTecnico.addValue(entry.getValue(), "Préstamos", entry.getKey());
+                }
+                JFreeChart barChartTecnico = ChartFactory.createBarChart(
+                        "Préstamos por Técnico",
+                        "Técnico",
+                        "Cantidad de Préstamos",
+                        datasetTecnico,
+                        PlotOrientation.VERTICAL,
+                        true, true, false);
+                mostrarGrafico(barChartTecnico, "Préstamos por Técnico");
+                break;
+
+            case "Préstamos por computadora (torta)":
+                Map<String, Integer> prestamosPorCompu = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String compu = model.getValueAt(i, 1).toString(); // Ajusta el índice según tu tabla
+                    prestamosPorCompu.put(compu, prestamosPorCompu.getOrDefault(compu, 0) + 1);
+                }
+                DefaultPieDataset datasetCompu = new DefaultPieDataset();
+                for (Map.Entry<String, Integer> entry : prestamosPorCompu.entrySet()) {
+                    datasetCompu.setValue(entry.getKey(), entry.getValue());
+                }
+                JFreeChart pieChartCompu = ChartFactory.createPieChart(
+                        "Préstamos por Computadora",
+                        datasetCompu,
+                        true, true, false);
+                mostrarGrafico(pieChartCompu, "Préstamos por Computadora");
+                break;
+
+            case "Préstamos por laboratorio (torta)":
+                Map<String, Integer> prestamosPorLab = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String lab = model.getValueAt(i, 2).toString(); // Ajusta el índice según tu tabla
+                    prestamosPorLab.put(lab, prestamosPorLab.getOrDefault(lab, 0) + 1);
+                }
+                DefaultPieDataset datasetLab = new DefaultPieDataset();
+                for (Map.Entry<String, Integer> entry : prestamosPorLab.entrySet()) {
+                    datasetLab.setValue(entry.getKey(), entry.getValue());
+                }
+                JFreeChart pieChartLab = ChartFactory.createPieChart(
+                        "Préstamos por Laboratorio",
+                        datasetLab,
+                        true, true, false);
+                mostrarGrafico(pieChartLab, "Préstamos por Laboratorio");
+                break;
+
+            case "Préstamos por estado (barras)":
+                Map<String, Integer> prestamosPorEstado = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String estado = model.getValueAt(i, 3).toString(); // Ajusta el índice según tu tabla
+                    prestamosPorEstado.put(estado, prestamosPorEstado.getOrDefault(estado, 0) + 1);
+                }
+                DefaultCategoryDataset datasetEstado = new DefaultCategoryDataset();
+                for (Map.Entry<String, Integer> entry : prestamosPorEstado.entrySet()) {
+                    datasetEstado.addValue(entry.getValue(), "Préstamos", entry.getKey());
+                }
+                JFreeChart barChartEstado = ChartFactory.createBarChart(
+                        "Préstamos por Estado",
+                        "Estado",
+                        "Cantidad de Préstamos",
+                        datasetEstado,
+                        PlotOrientation.VERTICAL,
+                        true, true, false);
+                mostrarGrafico(barChartEstado, "Préstamos por Estado");
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(this, "Opción no implementada");
+                break;
+        }
+
+    }//GEN-LAST:event_btnGraficarActionPerformed
+    private void mostrarGrafico(JFreeChart chart, String titulo) {
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+        chartPanel.setMouseWheelEnabled(true);
+
+        JFrame frame = new JFrame(titulo);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(chartPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+}
     /**
      * @param args the command line arguments
      */
@@ -1118,6 +1256,7 @@ private boolean sidebarMostrado = false;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
+    private javax.swing.JButton btnGraficar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
@@ -1146,6 +1285,6 @@ private boolean sidebarMostrado = false;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
-    private javax.swing.JTable tblReportes;
+    private javax.swing.JTable tblPrestamos;
     // End of variables declaration//GEN-END:variables
 }

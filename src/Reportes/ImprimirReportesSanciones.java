@@ -1,11 +1,8 @@
-package Reportes;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
-
+package Reportes;
 import ConexionLogin.Conexion;
 import ConexionLogin.SesionUsuario;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -40,17 +37,16 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Rafael
  */
-public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Printable {
+public class ImprimirReportesSanciones extends javax.swing.JFrame implements Printable {
 
     /**
-     * Creates new form ImprimirReportesPrestamos
+     * Creates new form ImprimirReportesSanciones
      */
-    public ImprimirReportesPrestamos(String ru, String seccion, String estado, Date fechaDesde, Date fechaHasta) {
+    public ImprimirReportesSanciones(String ru, String estado, Date fechaDesde, Date fechaHasta) {
         initComponents();
         Nombretxt.setText(SesionUsuario.nombre + " " + SesionUsuario.apellido);
         RUtxt.setText(SesionUsuario.username);
@@ -60,21 +56,18 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaDesdeStr = (fechaDesde != null) ? dateFormat.format(fechaDesde) : "Todos";
         String fechaHastaStr = (fechaHasta != null) ? dateFormat.format(fechaHasta) : "Todos";
-
-        cargarTablaFiltrada(ru, seccion, estado, fechaDesde, fechaHasta);
-
+        cargarTablaFiltrada(ru, estado, fechaDesde, fechaHasta);
+        
         this.setLocationRelativeTo(null);
-
+        
         Usuariotxt.setText(ru);
-        Secciontxt.setText(seccion);
         Estadotxt.setText(estado);
         Desdetxt.setText(fechaDesdeStr);
         Hastatxt.setText(fechaHastaStr);
-
+        
     }
 
-
-    private ImprimirReportesPrestamos() {
+    private ImprimirReportesSanciones() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -87,11 +80,9 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblReportes = new javax.swing.JTable();
+        tblSanciones = new javax.swing.JTable();
         Imprimir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -133,33 +124,28 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
         jLabel4 = new javax.swing.JLabel();
         Estadotxt = new javax.swing.JLabel();
 
-        jLabel1.setText("jLabel1");
-
-        jLabel12.setText("jLabel12");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Docente", "Seccion", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Estado"
+                "ID", "Descripcion", "Fecha", "Tipo", "Técnico", "Sancionado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -170,7 +156,7 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblReportes);
+        jScrollPane1.setViewportView(tblSanciones);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 930, 400));
 
@@ -279,7 +265,7 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 930, 80));
 
         ReportesPrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        ReportesPrestamos.setText("Reporte de Prestamos");
+        ReportesPrestamos.setText("Reporte de Sanciones");
         jPanel1.add(ReportesPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 73, -1, -1));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -341,20 +327,40 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 930, 80));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 720));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void cargarTablaFiltrada(String ru, String seccion, String estado, Date fechaDesde, Date fechaHasta) {
+    private void cargarTablaFiltrada(String ru, String tipo, Date fechaDesde, Date fechaHasta) {
         try {
             Connection con = Conexion.obtenerConexion();
 
-            String query = "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS docente, "
-                    + "l.Seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado "
-                    + "FROM prestamos p "
-                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
-                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
-                    + "WHERE 1=1";
+            String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+                + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
+                + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
+                + "FROM sanciones s "
+                + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+                + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
+                + "WHERE 1=1 ";
 
             List<Object> parametros = new ArrayList<>();
 
@@ -362,13 +368,9 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
                 query += " AND pa.RU = ?";
                 parametros.add(ru);
             }
-            if (seccion != null && !"Todos".equals(seccion)) {
-                query += " AND l.Seccion = ?";
-                parametros.add(seccion);
-            }
-            if (estado != null && !"Todos".equals(estado)) {
-                query += " AND p.estado = ?";
-                parametros.add(estado);
+            if (tipo != null && !"Todos".equals(tipo)) {
+                query += " AND s.tipo = ?";
+                parametros.add(tipo);
             }
 
             if (fechaDesde != null && fechaHasta != null) {
@@ -384,19 +386,18 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
             }
 
             ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) tblReportes.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
             model.setRowCount(0);
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                        rs.getInt("id_prestamo"),
-                        rs.getString("docente"),
-                        rs.getString("Seccion"),
-                        rs.getString("Nombre_Lab"),
+                        rs.getInt("id_sancion"),
+                        rs.getString("descripcion"),
+                        rs.getString("fecha"),
+                        rs.getString("tipo"),
                         rs.getDate("fecha"),
-                        rs.getString("horario_inicio"),
-                        rs.getString("horario_fin"),
-                        rs.getString("estado"),
+                        rs.getString("tecnico_nombre"),
+                        rs.getString("personal_nombre"),
                 });
             }
 
@@ -475,25 +476,24 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ImprimirReportesPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImprimirReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ImprimirReportesPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImprimirReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ImprimirReportesPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImprimirReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ImprimirReportesPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImprimirReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
         try {
-                UIManager.setLookAndFeel(new FlatLightLaf());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ImprimirReportesPrestamos().setVisible(true);
+                new ImprimirReportesSanciones().setVisible(true);
             }
         });
     }
@@ -511,10 +511,8 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
     private javax.swing.JLabel ReportesPrestamos;
     private javax.swing.JLabel Secciontxt;
     private javax.swing.JLabel Usuariotxt;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -541,7 +539,7 @@ public class ImprimirReportesPrestamos extends javax.swing.JFrame implements Pri
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblReportes;
+    private javax.swing.JTable tblSanciones;
     private javax.swing.JLabel telefonolbl;
     private javax.swing.JLabel telefonotxt;
     // End of variables declaration//GEN-END:variables

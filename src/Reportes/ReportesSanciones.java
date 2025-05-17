@@ -4,6 +4,7 @@
  */
 package Reportes;
 
+import ConexionLogin.Conexion;
 import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
@@ -14,7 +15,6 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -23,37 +23,56 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import javax.swing.JFrame;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
  * @author Rafael
  */
-public class InicioReportes extends javax.swing.JFrame {
+public class ReportesSanciones extends javax.swing.JFrame {
 
     /**
-     * Creates new form InicioReportes
+     * Creates new form ReportesSanciones
      */
-    public InicioReportes() {
+    public ReportesSanciones() {
         initComponents();
         iconoOriginal = lblFlecha.getIcon();
-panelSubReportes.setLocation(panelSubReportes.getX(), -70); // fuera de vista por arriba
-panelSubReportes.setVisible(false);
-
+        panelSubReportes.setLocation(panelSubReportes.getX(), -70);
+        panelSubReportes.setVisible(false);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        cargarTablaTodo();
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
-
-        panelOverlay.setVisible(false);
+panelOverlay.setVisible(false);
         panelOverlay.setBackground(new Color(0, 0, 0, 0));
 
         panelSidebar.setVisible(false);
@@ -95,15 +114,15 @@ panelSubReportes.setVisible(false);
         });
         
 
-
         this.setLocationRelativeTo(null);
+    
     }
-    private boolean flechaAbajo = true; // empieza apuntando hacia abajo
+        private boolean flechaAbajo = true; // empieza apuntando hacia abajo
 private Icon iconoOriginal;
 private void mostrarSubReportes() {
     panelSubReportes.setVisible(true);
-    int yFinal = 120; // posición Y donde debe quedar el panel
-    int yInicio = -70; // posición inicial fuera de vista
+    int yFinal = 120;
+    int yInicio = -70; 
     panelSubReportes.setLocation(panelSubReportes.getX(), yInicio);
 
     new Thread(() -> {
@@ -135,9 +154,9 @@ private final Color colorDefault = new Color(29, 41, 57);
 private final Color colorPresionado = new Color(41, 59, 83);
 private void cambiarColorBotonAlPresionar(boolean estaPresionado) {
     if (estaPresionado) {
-        btnReportes.setBackground(colorPresionado); // Color cuando se presiona
+        btnReportes.setBackground(colorPresionado); // color cuando se presiona
     } else {
-        btnReportes.setBackground(colorDefault); // Restaurar el color por defecto
+        btnReportes.setBackground(colorDefault); // restaurar el color por defecto
     }
 }
 
@@ -145,7 +164,6 @@ private Icon rotarIcono(Icon icono, double angulo) {
     int w = icono.getIconWidth();
     int h = icono.getIconHeight();
 
-    // Calcular la diagonal máxima
     int size = (int) Math.ceil(Math.sqrt(w * w + h * h));
 
     BufferedImage imagenOriginal = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -156,13 +174,12 @@ private Icon rotarIcono(Icon icono, double angulo) {
     BufferedImage imagenRotada = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g2d = imagenRotada.createGraphics();
 
-    // Suavizado y rotación centrada
     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     AffineTransform at = new AffineTransform();
     at.translate(size / 2.0, size / 2.0); // mover al centro
-    at.rotate(-angulo);  // Usamos el signo negativo para rotar hacia la derecha
+    at.rotate(-angulo);  
     at.translate(-w / 2.0, -h / 2.0);     // mover imagen al centro
 
     g2d.drawImage(imagenOriginal, at, null);
@@ -193,7 +210,6 @@ private void animarRotacionFlecha(boolean haciaArriba) {
     timer.start();
 }
 private boolean subReportesMostrado = false;
-
 private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -220,7 +236,7 @@ private boolean sidebarMostrado = false;
     animacion.start();
 }
 
- 
+    
     private void cerrarSidebar() {
     new Thread(() -> {
         int duracion = 150;
@@ -255,49 +271,203 @@ private boolean sidebarMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        FechaDesde = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        FechaHasta = new com.toedter.calendar.JDateChooser();
+        jPanel4 = new javax.swing.JPanel();
+        RUtxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        EstadoSancion = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSanciones = new javax.swing.JTable();
+        AsignacionSancion1 = new javax.swing.JLabel();
+        Imprimir = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
+        btnGraficar = new javax.swing.JButton();
+        FondoBlanco = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
+        Superior = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
+        FondoGris = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
+        LogoSale2 = new javax.swing.JLabel();
         btnListaLaboratorios = new javax.swing.JButton();
         btnListaPrestamos = new javax.swing.JButton();
         btnSolicitudes = new javax.swing.JButton();
         btnSancionesDesignar = new javax.swing.JButton();
-        btnMateriales = new javax.swing.JButton();
-        btnComputadoras = new javax.swing.JButton();
         lblFlecha = new javax.swing.JLabel();
         btnReportes = new javax.swing.JButton();
+        btnMateriales = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
         panelSubReportes = new javax.swing.JPanel();
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        AsignacionSancion = new javax.swing.JLabel();
-        perfil = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JButton();
-        Superior = new javax.swing.JLabel();
-        FondoBlanco = new javax.swing.JLabel();
-        FondoGris = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Desde:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 20));
+        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 250, -1));
+
+        jLabel1.setText("Hasta:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
+        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        RUtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RUtxtActionPerformed(evt);
+            }
+        });
+        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
+
+        jLabel5.setText("Usuario:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        EstadoSancion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Daño de Material", "Pérdida de material", "Incumplimiento de horario", "Otro"}));
+        jPanel4.add(EstadoSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 180, -1));
+
+        jLabel4.setText("Estado:");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, 20));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblSanciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Descripcion", "Fecha", "Tipo", "Tecnico", "Sancionado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblSanciones);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
+
+        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion1.setText("Reportes de Sanciones");
+        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+
+        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
+        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
+
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+
+        Buscar.setBackground(new java.awt.Color(29, 41, 57));
+        Buscar.setForeground(new java.awt.Color(255, 255, 255));
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+
+        btnGraficar.setText("Graficar");
+        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, -1, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 1450, 740));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Panel de Control");
-        panelSidebar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Panel de Control");
+        panelSidebar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
-        panelSidebar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
-        panelSidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -322,7 +492,7 @@ private boolean sidebarMostrado = false;
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio.setText("INICIO");
+        btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
         btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
         btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -339,13 +509,13 @@ private boolean sidebarMostrado = false;
         });
         panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
-        LogoSale1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
-        panelSidebar.add(LogoSale1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+        LogoSale2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        panelSidebar.add(LogoSale2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
 
         btnListaLaboratorios.setBackground(new java.awt.Color(29, 41, 57));
         btnListaLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnListaLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaLaboratorios.setText("Lista de Laboratorios");
+        btnListaLaboratorios.setText("Laboratorios");
         btnListaLaboratorios.setBorder(null);
         btnListaLaboratorios.setHorizontalAlignment(SwingConstants.LEFT);
         btnListaLaboratorios.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -365,7 +535,7 @@ private boolean sidebarMostrado = false;
         btnListaPrestamos.setBackground(new java.awt.Color(29, 41, 57));
         btnListaPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnListaPrestamos.setForeground(new java.awt.Color(241, 241, 241));
-        btnListaPrestamos.setText("Lista de Prestamos");
+        btnListaPrestamos.setText("Prestamos");
         btnListaPrestamos.setBorder(null);
         btnListaPrestamos.setHorizontalAlignment(SwingConstants.LEFT);
         btnListaPrestamos.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -405,7 +575,7 @@ private boolean sidebarMostrado = false;
         btnSancionesDesignar.setBackground(new java.awt.Color(29, 41, 57));
         btnSancionesDesignar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSancionesDesignar.setForeground(new java.awt.Color(241, 241, 241));
-        btnSancionesDesignar.setText("Sanciones para Designar");
+        btnSancionesDesignar.setText("Sanciones");
         btnSancionesDesignar.setBorder(null);
         btnSancionesDesignar.setHorizontalAlignment(SwingConstants.LEFT);
         btnSancionesDesignar.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -422,10 +592,33 @@ private boolean sidebarMostrado = false;
         });
         panelSidebar.add(btnSancionesDesignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
+        lblFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
+        panelSidebar.add(lblFlecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
+
+        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes.setText("Reportes");
+        btnReportes.setBorder(null);
+        btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnReportes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnReportes.setIconTextGap(10);
+        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportesMouseExited(evt);
+            }
+        });
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+
         btnMateriales.setBackground(new java.awt.Color(29, 41, 57));
         btnMateriales.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnMateriales.setForeground(new java.awt.Color(241, 241, 241));
-        btnMateriales.setText("Materiales de Laboratorio");
+        btnMateriales.setText("Materiales");
         btnMateriales.setBorder(null);
         btnMateriales.setHorizontalAlignment(SwingConstants.LEFT);
         btnMateriales.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -462,36 +655,13 @@ private boolean sidebarMostrado = false;
         });
         panelSidebar.add(btnComputadoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
 
-        lblFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
-        panelSidebar.add(lblFlecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
-
-        btnReportes.setBackground(new java.awt.Color(29, 41, 57));
-        btnReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReportes.setForeground(new java.awt.Color(241, 241, 241));
-        btnReportes.setText("Reportes");
-        btnReportes.setBorder(null);
-        btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
-        btnReportes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
-        btnReportes.setIconTextGap(10);
-        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReportesMouseExited(evt);
-            }
-        });
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
-            }
-        });
-        panelSidebar.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
-
         panelSubReportes.setBackground(new java.awt.Color(16, 23, 32));
         panelSubReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnReporteLaboratorios.setBackground(new java.awt.Color(16, 23, 32));
         btnReporteLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnReporteLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
-        btnReporteLaboratorios.setText("Laboratorios");
+        btnReporteLaboratorios.setText("Prestamos");
         btnReporteLaboratorios.setBorder(null);
         btnReporteLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -524,42 +694,228 @@ private boolean sidebarMostrado = false;
 
         panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
 
-        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
+        getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
-        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion.setText("Selección De reportes");
-        getContentPane().add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 230, -1));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 0, 740));
-
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void cargarTablaTodo() {
+        try {
+            Connection con = Conexion.obtenerConexion();
 
+            String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+                + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
+                + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
+                + "FROM sanciones s "
+                + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+                + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos ";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idSancion = rs.getInt("id_sancion");
+                String descripcion = rs.getString("descripcion");
+                Date fecha = rs.getDate("fecha");
+                String tipo = rs.getString("tipo");
+                String tecnico = rs.getString("tecnico_nombre");
+                String personal = rs.getString("personal_nombre");
+                
+
+                model.addRow(new Object[]{
+                    idSancion, descripcion, fecha, tipo, tecnico, personal
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+    private void RUtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RUtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RUtxtActionPerformed
+
+    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+        String ru = RUtxt.getText().trim();
+        String estado = EstadoSancion.getSelectedItem().toString();
+        Date fechaDesde = FechaDesde.getDate();
+        Date fechaHasta = FechaHasta.getDate();
+
+        ImprimirReportesMantenimiento reportesMant = new ImprimirReportesMantenimiento(ru, estado, fechaDesde, fechaHasta);
+        reportesMant.setLocationRelativeTo(null); // Centrar la ventana
+        reportesMant.setVisible(true);
+    }//GEN-LAST:event_ImprimirActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        EstadoSancion.setSelectedIndex(0);
+        RUtxt.setText("");
+        FechaDesde.setDate(null);
+        FechaHasta.setDate(null);
+        cargarTablaTodo();
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        String tipo = EstadoSancion.getSelectedItem().toString();
+        String ru = RUtxt.getText().trim();
+
+        Date fechaInicio = FechaDesde.getDate();
+        Date fechaFin = FechaHasta.getDate();
+
+        String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+                + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
+                + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
+                + "FROM sanciones s "
+                + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+                + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
+                + "WHERE 1=1 ";
+        List<Object> parametros = new ArrayList<>();
+
+        if (!"Todos".equals(tipo)) {
+            query += " AND s.tipo = ?";
+            parametros.add(tipo);
+        }
+
+        if (!ru.isEmpty()) {
+            query += " AND pa.RU = ?";
+            parametros.add(ru);
+        }
+        if (fechaInicio != null && fechaFin != null) {
+            query += " AND s.fecha BETWEEN ? AND ?";
+            parametros.add(new java.sql.Date(fechaInicio.getTime()));
+            parametros.add(new java.sql.Date(fechaFin.getTime()));
+        }
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setObject(i + 1, parametros.get(i));
+            }
+
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idMantenimiento = rs.getInt("id_sancion");
+                String descripcion = rs.getString("descripcion");
+                Date fecha = rs.getDate("fecha");
+                String tiposancion = rs.getString("tipo");
+                String tecnico = rs.getString("tecnico_nombre");
+                String sancionado = rs.getString("personal_nombre");
+
+                model.addRow(new Object[]{
+                    idMantenimiento, descripcion, fecha, tiposancion, tecnico, sancionado
+                });
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar las sanciones.");
+        }
+    }//GEN-LAST:event_BuscarActionPerformed
+
+    private void btnGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarActionPerformed
+        String[] opciones = {
+            "Sanciones por tipo (barras)",
+            "Sanciones por técnico (torta)",
+            "Sanciones por sancionado (torta)"
+        };
+
+        String seleccion = (String) JOptionPane.showInputDialog(
+                this,
+                "Seleccione el tipo de gráfico a mostrar:",
+                "Opciones de gráfico",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion == null) {
+            return; // Cancelado
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+
+        switch (seleccion) {
+            case "Sanciones por tipo (barras)":
+                Map<String, Integer> sancionesPorTipo = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String tipo = model.getValueAt(i, 3).toString();
+                    sancionesPorTipo.put(tipo, sancionesPorTipo.getOrDefault(tipo, 0) + 1);
+                }
+                DefaultCategoryDataset datasetTipo = new DefaultCategoryDataset();
+                for (Map.Entry<String, Integer> entry : sancionesPorTipo.entrySet()) {
+                    datasetTipo.addValue(entry.getValue(), "Sanciones", entry.getKey());
+                }
+                JFreeChart barChartTipo = ChartFactory.createBarChart(
+                        "Sanciones por Tipo",
+                        "Tipo de Sanción",
+                        "Cantidad",
+                        datasetTipo,
+                        PlotOrientation.VERTICAL,
+                        true, true, false);
+                mostrarGrafico(barChartTipo, "Sanciones por Tipo");
+                break;
+
+            case "Sanciones por técnico (torta)":
+                Map<String, Integer> sancionesPorTecnico = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String tecnico = model.getValueAt(i, 4).toString();
+                    sancionesPorTecnico.put(tecnico, sancionesPorTecnico.getOrDefault(tecnico, 0) + 1);
+                }
+                DefaultPieDataset datasetTecnico = new DefaultPieDataset();
+                for (Map.Entry<String, Integer> entry : sancionesPorTecnico.entrySet()) {
+                    datasetTecnico.setValue(entry.getKey(), entry.getValue());
+                }
+                JFreeChart pieChartTecnico = ChartFactory.createPieChart(
+                        "Sanciones por Técnico",
+                        datasetTecnico,
+                        true, true, false);
+                mostrarGrafico(pieChartTecnico, "Sanciones por Técnico");
+                break;
+
+            case "Sanciones por sancionado (torta)":
+                Map<String, Integer> sancionesPorSancionado = new HashMap<>();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String sancionado = model.getValueAt(i, 5).toString();
+                    sancionesPorSancionado.put(sancionado, sancionesPorSancionado.getOrDefault(sancionado, 0) + 1);
+                }
+                DefaultPieDataset datasetSancionado = new DefaultPieDataset();
+                for (Map.Entry<String, Integer> entry : sancionesPorSancionado.entrySet()) {
+                    datasetSancionado.setValue(entry.getKey(), entry.getValue());
+                }
+                JFreeChart pieChartSancionado = ChartFactory.createPieChart(
+                        "Sanciones por Sancionado",
+                        datasetSancionado,
+                        true, true, false);
+                mostrarGrafico(pieChartSancionado, "Sanciones por Sancionado");
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(this, "Opción no implementada");
+                break;
+        }
+    }//GEN-LAST:event_btnGraficarActionPerformed
+    private void mostrarGrafico(JFreeChart chart, String titulo) {
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+        chartPanel.setMouseWheelEnabled(true);
+
+        JFrame frame = new JFrame(titulo);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(chartPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
     }//GEN-LAST:event_btnCerrarSesionMouseExited
@@ -576,10 +932,14 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos();
-        inicioP.setLocationRelativeTo(null);
+        inicioP.setLocationRelativeTo(null); // Centrar la ventana
         inicioP.setVisible(true);
-        this.dispose();
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -587,11 +947,14 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnListaLaboratoriosMouseExited
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
-        
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         ListaLaboratorios listLab = new ListaLaboratorios();
-        listLab.setLocationRelativeTo(null);
+        listLab.setLocationRelativeTo(null); // Centrar la ventana
         listLab.setVisible(true);
-        this.dispose();
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnListaLaboratoriosActionPerformed
 
     private void btnListaPrestamosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaPrestamosMouseExited
@@ -599,11 +962,14 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
-        
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         ListaPrestamos listPrest = new ListaPrestamos();
-        listPrest.setLocationRelativeTo(null);
+        listPrest.setLocationRelativeTo(null); // Centrar la ventana
         listPrest.setVisible(true);
-        this.dispose();
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSolicitudesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudesMouseExited
@@ -611,11 +977,14 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         SolicitudPendiente solicitud = new SolicitudPendiente();
-        solicitud.setLocationRelativeTo(null);
+        solicitud.setLocationRelativeTo(null); // Centrar la ventana
         solicitud.setVisible(true);
-        
-        this.dispose();
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -623,6 +992,8 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnSancionesDesignarMouseExited
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         SancionesParaDesignar sancionesDesig = new SancionesParaDesignar();
         sancionesDesig.setLocationRelativeTo(null); // Centrar la ventana
         sancionesDesig.setVisible(true);
@@ -643,13 +1014,12 @@ private boolean sidebarMostrado = false;
             int yInicio = panelSubReportes.getY();
             int yFinal = yInicio - 80;
 
-            
             animarRotacionFlecha(false);
             flechaAbajo = true;
 
             new Thread(() -> {
                 try {
-                    Thread.sleep(50); 
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -666,7 +1036,6 @@ private boolean sidebarMostrado = false;
                     }
                 }
 
-               
                 SwingUtilities.invokeLater(() -> panelSubReportes.setVisible(false));
             }).start();
 
@@ -675,7 +1044,6 @@ private boolean sidebarMostrado = false;
             int yInicio = panelSubReportes.getY();
             int yFinal = yInicio + 80;
 
-            
             animarRotacionFlecha(true);
             flechaAbajo = false;
 
@@ -683,7 +1051,7 @@ private boolean sidebarMostrado = false;
 
             new Thread(() -> {
                 try {
-                    Thread.sleep(50); 
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -708,13 +1076,14 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnMaterialesMouseExited
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
-        
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         Materiales materiales = new Materiales();
-        materiales.setLocationRelativeTo(null); 
+        materiales.setLocationRelativeTo(null); // Centrar la ventana
         materiales.setVisible(true);
-        
-        this.dispose();
-        
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnMaterialesActionPerformed
 
     private void btnComputadorasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComputadorasMouseExited
@@ -722,12 +1091,37 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnComputadorasMouseExited
 
     private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
-        
+        // TODO add your handling code here:
+        // Crear la ventana de FormularioPrestamo
         MaterialesHardware hardware = new MaterialesHardware();
-        hardware.setLocationRelativeTo(null);
+        hardware.setLocationRelativeTo(null); // Centrar la ventana
         hardware.setVisible(true);
-        this.dispose();
+        // Cerrar o esconder la ventana actual
+        this.dispose(); // Cierra completamente la ventana actual
+        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
     }//GEN-LAST:event_btnComputadorasActionPerformed
+
+    private void btnReporteLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
+
+    private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
+        ReportesPrestamos reportepres = new ReportesPrestamos();
+        reportepres.setLocationRelativeTo(null);
+        reportepres.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteLaboratoriosActionPerformed
+
+    private void btnReporteMantenimientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimientoMouseExited
+
+    private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
+        ReportesMantenimiento reporteman = new ReportesMantenimiento();
+        reporteman.setLocationRelativeTo(null);
+        reporteman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
@@ -761,28 +1155,6 @@ private boolean sidebarMostrado = false;
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
-    private void btnReporteLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
-
-    private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
-        ReportesPrestamos reportepres = new ReportesPrestamos();
-        reportepres.setLocationRelativeTo(null);
-        reportepres.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnReporteLaboratoriosActionPerformed
-
-    private void btnReporteMantenimientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReporteMantenimientoMouseExited
-
-    private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
-        ReportesMantenimiento reporteman = new ReportesMantenimiento();
-        reporteman.setLocationRelativeTo(null);
-        reporteman.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -793,28 +1165,51 @@ private boolean sidebarMostrado = false;
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e){
-            e.printStackTrace();
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ReportesSanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InicioReportes().setVisible(true);
+                new ReportesSanciones().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel AsignacionSancion;
+    private javax.swing.JLabel AsignacionSancion1;
+    private javax.swing.JButton Buscar;
+    private javax.swing.JComboBox<String> EstadoSancion;
+    private com.toedter.calendar.JDateChooser FechaDesde;
+    private com.toedter.calendar.JDateChooser FechaHasta;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
-    private javax.swing.JLabel LogoSale1;
+    private javax.swing.JButton Imprimir;
+    private javax.swing.JButton Limpiar;
+    private javax.swing.JLabel LogoSale2;
+    private javax.swing.JTextField RUtxt;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
+    private javax.swing.JButton btnGraficar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
@@ -825,13 +1220,23 @@ private boolean sidebarMostrado = false;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTable tblSanciones;
     // End of variables declaration//GEN-END:variables
 }
