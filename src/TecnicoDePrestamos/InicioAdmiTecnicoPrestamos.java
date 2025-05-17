@@ -242,6 +242,15 @@ private boolean subReportesMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnMenu = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        InicioPersonal = new javax.swing.JLabel();
+        FondoBlanco1 = new javax.swing.JLabel();
+        dato = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
+        Superior = new javax.swing.JLabel();
+        FondoGris = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -261,15 +270,48 @@ private boolean subReportesMostrado = false;
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        btnMenu = new javax.swing.JButton();
-        perfil = new javax.swing.JLabel();
-        Superior = new javax.swing.JLabel();
-        FondoGris = new javax.swing.JLabel();
-        FondoBlanco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        InicioPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        InicioPersonal.setText("Inicio");
+        jPanel2.add(InicioPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, -1));
+
+        FondoBlanco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 10, 10));
+
+        dato.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        dato.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
+        jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -517,28 +559,6 @@ private boolean subReportesMostrado = false;
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -780,7 +800,9 @@ private boolean subReportesMostrado = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoBlanco;
+    private javax.swing.JLabel FondoBlanco1;
     private javax.swing.JLabel FondoGris;
+    private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
@@ -795,9 +817,11 @@ private boolean subReportesMostrado = false;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
+    private javax.swing.JLabel dato;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
