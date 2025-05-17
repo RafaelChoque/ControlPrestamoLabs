@@ -904,7 +904,7 @@ private boolean subReportesMostrado = false;
         FondoGris1.setMaximumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setMinimumSize(new java.awt.Dimension(1540, 863));
         FondoGris1.setPreferredSize(new java.awt.Dimension(1540, 863));
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 920));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -60, 1680, 930));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1407,7 +1407,7 @@ boolean estaVisible = panelSubReportes.isVisible();
         } else {
             cambiarColorBotonAlPresionar(true);
             int yInicio = panelSubReportes.getY();
-            int yFinal = yInicio + 120;
+            int yFinal = yInicio + 120;//a
 
             
             animarRotacionFlecha(true);
