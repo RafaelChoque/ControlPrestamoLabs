@@ -271,9 +271,10 @@ private boolean subReportesMostrado = false;
         btnSolicitudes = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
         btnMateriales = new javax.swing.JButton();
-        panelSubReportes = new javax.swing.JPanel();
-        btnReporteLaboratorios = new javax.swing.JButton();
-        btnReporteMantenimiento = new javax.swing.JButton();
+        panelSubReportes1 = new javax.swing.JPanel();
+        btnReporteLaboratorios1 = new javax.swing.JButton();
+        btnReporteMantenimiento1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -511,44 +512,56 @@ private boolean subReportesMostrado = false;
         });
         panelSidebar.add(btnMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
 
-        panelSubReportes.setBackground(new java.awt.Color(16, 23, 32));
-        panelSubReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelSubReportes1.setBackground(new java.awt.Color(16, 23, 32));
+        panelSubReportes1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnReporteLaboratorios.setBackground(new java.awt.Color(16, 23, 32));
-        btnReporteLaboratorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReporteLaboratorios.setForeground(new java.awt.Color(241, 241, 241));
-        btnReporteLaboratorios.setText("Prestamos");
-        btnReporteLaboratorios.setBorder(null);
-        btnReporteLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporteLaboratorios1.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteLaboratorios1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteLaboratorios1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteLaboratorios1.setText("Prestamos");
+        btnReporteLaboratorios1.setBorder(null);
+        btnReporteLaboratorios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReporteLaboratoriosMouseExited(evt);
+                btnReporteLaboratorios1MouseExited(evt);
             }
         });
-        btnReporteLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteLaboratorios1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteLaboratoriosActionPerformed(evt);
+                btnReporteLaboratorios1ActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+        panelSubReportes1.add(btnReporteLaboratorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 40));
 
-        btnReporteMantenimiento.setBackground(new java.awt.Color(16, 23, 32));
-        btnReporteMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnReporteMantenimiento.setForeground(new java.awt.Color(241, 241, 241));
-        btnReporteMantenimiento.setText("Mantenimiento");
-        btnReporteMantenimiento.setBorder(null);
-        btnReporteMantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporteMantenimiento1.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteMantenimiento1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteMantenimiento1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteMantenimiento1.setText("Mantenimiento");
+        btnReporteMantenimiento1.setBorder(null);
+        btnReporteMantenimiento1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnReporteMantenimientoMouseExited(evt);
+                btnReporteMantenimiento1MouseExited(evt);
             }
         });
-        btnReporteMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteMantenimiento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteMantenimientoActionPerformed(evt);
+                btnReporteMantenimiento1ActionPerformed(evt);
             }
         });
-        panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+        panelSubReportes1.add(btnReporteMantenimiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
 
-        panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 229, 290));
+        jButton2.setBackground(new java.awt.Color(16, 23, 32));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Sanciones");
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        panelSubReportes1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 230, 40));
+
+        panelSidebar.add(panelSubReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 230, 330));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
@@ -1149,7 +1162,7 @@ private boolean subReportesMostrado = false;
         } else {
             cambiarColorBotonAlPresionar(true);
             int yInicio = panelSubReportes.getY();
-            int yFinal = yInicio + 80;
+            int yFinal = yInicio + 120;
 
             
             animarRotacionFlecha(true);
@@ -1195,7 +1208,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
 
     private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
-ReportesPrestamos reportepres = new ReportesPrestamos();
+        ReportesPrestamos reportepres = new ReportesPrestamos();
         reportepres.setLocationRelativeTo(null);
         reportepres.setVisible(true);
         this.dispose();
@@ -1211,6 +1224,36 @@ ReportesPrestamos reportepres = new ReportesPrestamos();
         reporteman.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnReporteLaboratorios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratorios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratorios1MouseExited
+
+    private void btnReporteLaboratorios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratorios1ActionPerformed
+        ReportesPrestamos reportepres = new ReportesPrestamos();
+        reportepres.setLocationRelativeTo(null);
+        reportepres.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteLaboratorios1ActionPerformed
+
+    private void btnReporteMantenimiento1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimiento1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimiento1MouseExited
+
+    private void btnReporteMantenimiento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimiento1ActionPerformed
+        ReportesMantenimiento reporteman = new ReportesMantenimiento();
+        reporteman.setLocationRelativeTo(null);
+        reporteman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteMantenimiento1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     
@@ -1268,11 +1311,15 @@ ReportesPrestamos reportepres = new ReportesPrestamos();
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnReporteLaboratorios;
+    private javax.swing.JButton btnReporteLaboratorios1;
     private javax.swing.JButton btnReporteMantenimiento;
+    private javax.swing.JButton btnReporteMantenimiento1;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
     private javax.swing.JComboBox<String> cbSeccion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1292,6 +1339,7 @@ ReportesPrestamos reportepres = new ReportesPrestamos();
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
+    private javax.swing.JPanel panelSubReportes1;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tblLaboratorios;
     private javax.swing.JTextField txtBloque;
