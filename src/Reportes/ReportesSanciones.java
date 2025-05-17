@@ -271,6 +271,26 @@ private boolean sidebarMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSidebar1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnCerrarSesion1 = new javax.swing.JButton();
+        btnInicio1 = new javax.swing.JButton();
+        LogoSale3 = new javax.swing.JLabel();
+        btnListaLaboratorios1 = new javax.swing.JButton();
+        btnListaPrestamos1 = new javax.swing.JButton();
+        btnSolicitudes1 = new javax.swing.JButton();
+        btnSancionesDesignar1 = new javax.swing.JButton();
+        lblFlecha1 = new javax.swing.JLabel();
+        btnReportes1 = new javax.swing.JButton();
+        btnMateriales1 = new javax.swing.JButton();
+        btnComputadoras1 = new javax.swing.JButton();
+        panelSubReportes1 = new javax.swing.JPanel();
+        btnReporteLaboratorios1 = new javax.swing.JButton();
+        btnReporteMantenimiento1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        panelOverlay1 = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -318,6 +338,264 @@ private boolean sidebarMostrado = false;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelSidebar1.setBackground(new java.awt.Color(29, 41, 57));
+        panelSidebar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel15.setText("Panel de Control");
+        panelSidebar1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoBar.png"))); // NOI18N
+        panelSidebar1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 30));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrarsesion.png"))); // NOI18N
+        panelSidebar1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 820, 20, 40));
+
+        btnCerrarSesion1.setBackground(new java.awt.Color(29, 41, 57));
+        btnCerrarSesion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion1.setForeground(new java.awt.Color(241, 241, 241));
+        btnCerrarSesion1.setText("Cerrar Sesión");
+        btnCerrarSesion1.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCerrarSesion.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnCerrarSesion.setIconTextGap(10);
+        btnCerrarSesion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesion1MouseExited(evt);
+            }
+        });
+        btnCerrarSesion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesion1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnCerrarSesion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 820, 229, 40));
+
+        btnInicio1.setBackground(new java.awt.Color(29, 41, 57));
+        btnInicio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInicio1.setForeground(new java.awt.Color(241, 241, 241));
+        btnInicio1.setText("Inicio");
+        btnInicio1.setBorder(null);
+        btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
+        btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnInicio.setIconTextGap(10);
+        btnInicio1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInicio1MouseExited(evt);
+            }
+        });
+        btnInicio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicio1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnInicio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
+
+        LogoSale3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoUSB.png"))); // NOI18N
+        panelSidebar1.add(LogoSale3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 160, 60));
+
+        btnListaLaboratorios1.setBackground(new java.awt.Color(29, 41, 57));
+        btnListaLaboratorios1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaLaboratorios1.setForeground(new java.awt.Color(241, 241, 241));
+        btnListaLaboratorios1.setText("Laboratorios");
+        btnListaLaboratorios1.setBorder(null);
+        btnListaLaboratorios.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaLaboratorios.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaLaboratorios.setIconTextGap(10);
+        btnListaLaboratorios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnListaLaboratorios1MouseExited(evt);
+            }
+        });
+        btnListaLaboratorios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaLaboratorios1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnListaLaboratorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 229, 40));
+
+        btnListaPrestamos1.setBackground(new java.awt.Color(29, 41, 57));
+        btnListaPrestamos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnListaPrestamos1.setForeground(new java.awt.Color(241, 241, 241));
+        btnListaPrestamos1.setText("Prestamos");
+        btnListaPrestamos1.setBorder(null);
+        btnListaPrestamos.setHorizontalAlignment(SwingConstants.LEFT);
+        btnListaPrestamos.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnListaPrestamos.setIconTextGap(10);
+        btnListaPrestamos1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnListaPrestamos1MouseExited(evt);
+            }
+        });
+        btnListaPrestamos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaPrestamos1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnListaPrestamos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 229, 40));
+
+        btnSolicitudes1.setBackground(new java.awt.Color(29, 41, 57));
+        btnSolicitudes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSolicitudes1.setForeground(new java.awt.Color(241, 241, 241));
+        btnSolicitudes1.setText("Solicitudes");
+        btnSolicitudes1.setBorder(null);
+        btnSolicitudes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSolicitudes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSolicitudes.setIconTextGap(10);
+        btnSolicitudes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSolicitudes1MouseExited(evt);
+            }
+        });
+        btnSolicitudes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitudes1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnSolicitudes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 229, 40));
+
+        btnSancionesDesignar1.setBackground(new java.awt.Color(29, 41, 57));
+        btnSancionesDesignar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSancionesDesignar1.setForeground(new java.awt.Color(241, 241, 241));
+        btnSancionesDesignar1.setText("Sanciones");
+        btnSancionesDesignar1.setBorder(null);
+        btnSancionesDesignar.setHorizontalAlignment(SwingConstants.LEFT);
+        btnSancionesDesignar.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnSancionesDesignar.setIconTextGap(10);
+        btnSancionesDesignar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSancionesDesignar1MouseExited(evt);
+            }
+        });
+        btnSancionesDesignar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSancionesDesignar1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnSancionesDesignar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
+
+        lblFlecha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MostrarMasBoton.png"))); // NOI18N
+        panelSidebar1.add(lblFlecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 382, 20, 20));
+
+        btnReportes1.setBackground(new java.awt.Color(29, 41, 57));
+        btnReportes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReportes1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReportes1.setText("Reportes");
+        btnReportes1.setBorder(null);
+        btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnReportes.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnReportes.setIconTextGap(10);
+        btnReportes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReportes1MouseExited(evt);
+            }
+        });
+        btnReportes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportes1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 229, 40));
+
+        btnMateriales1.setBackground(new java.awt.Color(29, 41, 57));
+        btnMateriales1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMateriales1.setForeground(new java.awt.Color(241, 241, 241));
+        btnMateriales1.setText("Materiales");
+        btnMateriales1.setBorder(null);
+        btnMateriales.setHorizontalAlignment(SwingConstants.LEFT);
+        btnMateriales.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnMateriales.setIconTextGap(10);
+        btnMateriales1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMateriales1MouseExited(evt);
+            }
+        });
+        btnMateriales1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMateriales1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnMateriales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
+
+        btnComputadoras1.setBackground(new java.awt.Color(29, 41, 57));
+        btnComputadoras1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnComputadoras1.setForeground(new java.awt.Color(241, 241, 241));
+        btnComputadoras1.setText("Computadoras");
+        btnComputadoras1.setBorder(null);
+        btnComputadoras.setHorizontalAlignment(SwingConstants.LEFT);
+        btnComputadoras.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnComputadoras.setIconTextGap(10);
+        btnComputadoras1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnComputadoras1MouseExited(evt);
+            }
+        });
+        btnComputadoras1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComputadoras1ActionPerformed(evt);
+            }
+        });
+        panelSidebar1.add(btnComputadoras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 229, 40));
+
+        panelSubReportes1.setBackground(new java.awt.Color(16, 23, 32));
+        panelSubReportes1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnReporteLaboratorios1.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteLaboratorios1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteLaboratorios1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteLaboratorios1.setText("Prestamos");
+        btnReporteLaboratorios1.setBorder(null);
+        btnReporteLaboratorios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteLaboratorios1MouseExited(evt);
+            }
+        });
+        btnReporteLaboratorios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteLaboratorios1ActionPerformed(evt);
+            }
+        });
+        panelSubReportes1.add(btnReporteLaboratorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 40));
+
+        btnReporteMantenimiento1.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteMantenimiento1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteMantenimiento1.setForeground(new java.awt.Color(241, 241, 241));
+        btnReporteMantenimiento1.setText("Mantenimiento");
+        btnReporteMantenimiento1.setBorder(null);
+        btnReporteMantenimiento1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReporteMantenimiento1MouseExited(evt);
+            }
+        });
+        btnReporteMantenimiento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMantenimiento1ActionPerformed(evt);
+            }
+        });
+        panelSubReportes1.add(btnReporteMantenimiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
+
+        jButton1.setBackground(new java.awt.Color(16, 23, 32));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Sanciones");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelSubReportes1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 230, 40));
+
+        panelSidebar1.add(panelSubReportes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 230, 330));
+
+        getContentPane().add(panelSidebar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
+
+        panelOverlay1.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay1.setOpaque(true);
+        panelOverlay1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1155,6 +1433,104 @@ private boolean sidebarMostrado = false;
         }).start();
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void btnCerrarSesion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesion1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion1MouseExited
+
+    private void btnCerrarSesion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesion1ActionPerformed
+
+    private void btnInicio1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicio1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicio1MouseExited
+
+    private void btnInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicio1ActionPerformed
+
+    private void btnListaLaboratorios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratorios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaLaboratorios1MouseExited
+
+    private void btnListaLaboratorios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratorios1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaLaboratorios1ActionPerformed
+
+    private void btnListaPrestamos1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaPrestamos1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaPrestamos1MouseExited
+
+    private void btnListaPrestamos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListaPrestamos1ActionPerformed
+
+    private void btnSolicitudes1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudes1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitudes1MouseExited
+
+    private void btnSolicitudes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitudes1ActionPerformed
+
+    private void btnSancionesDesignar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignar1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSancionesDesignar1MouseExited
+
+    private void btnSancionesDesignar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSancionesDesignar1ActionPerformed
+
+    private void btnReportes1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportes1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReportes1MouseExited
+
+    private void btnReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReportes1ActionPerformed
+
+    private void btnMateriales1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMateriales1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMateriales1MouseExited
+
+    private void btnMateriales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriales1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMateriales1ActionPerformed
+
+    private void btnComputadoras1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComputadoras1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComputadoras1MouseExited
+
+    private void btnComputadoras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadoras1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComputadoras1ActionPerformed
+
+    private void btnReporteLaboratorios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratorios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteLaboratorios1MouseExited
+
+    private void btnReporteLaboratorios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratorios1ActionPerformed
+        ReportesPrestamos reportepres = new ReportesPrestamos();
+        reportepres.setLocationRelativeTo(null);
+        reportepres.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteLaboratorios1ActionPerformed
+
+    private void btnReporteMantenimiento1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMantenimiento1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteMantenimiento1MouseExited
+
+    private void btnReporteMantenimiento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimiento1ActionPerformed
+        ReportesMantenimiento reporteman = new ReportesMantenimiento();
+        reporteman.setLocationRelativeTo(null);
+        reporteman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteMantenimiento1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1205,24 +1581,40 @@ private boolean sidebarMostrado = false;
     private javax.swing.JButton Imprimir;
     private javax.swing.JButton Limpiar;
     private javax.swing.JLabel LogoSale2;
+    private javax.swing.JLabel LogoSale3;
     private javax.swing.JTextField RUtxt;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnCerrarSesion1;
     private javax.swing.JButton btnComputadoras;
+    private javax.swing.JButton btnComputadoras1;
     private javax.swing.JButton btnGraficar;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnInicio1;
     private javax.swing.JButton btnListaLaboratorios;
+    private javax.swing.JButton btnListaLaboratorios1;
     private javax.swing.JButton btnListaPrestamos;
+    private javax.swing.JButton btnListaPrestamos1;
     private javax.swing.JButton btnMateriales;
+    private javax.swing.JButton btnMateriales1;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnReporteLaboratorios;
+    private javax.swing.JButton btnReporteLaboratorios1;
     private javax.swing.JButton btnReporteMantenimiento;
+    private javax.swing.JButton btnReporteMantenimiento1;
     private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnReportes1;
     private javax.swing.JButton btnSancionesDesignar;
+    private javax.swing.JButton btnSancionesDesignar1;
     private javax.swing.JButton btnSolicitudes;
+    private javax.swing.JButton btnSolicitudes1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1233,9 +1625,13 @@ private boolean sidebarMostrado = false;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFlecha;
+    private javax.swing.JLabel lblFlecha1;
     private javax.swing.JLayeredPane panelOverlay;
+    private javax.swing.JLayeredPane panelOverlay1;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JPanel panelSidebar1;
     private javax.swing.JPanel panelSubReportes;
+    private javax.swing.JPanel panelSubReportes1;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tblSanciones;
     // End of variables declaration//GEN-END:variables
