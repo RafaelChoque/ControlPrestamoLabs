@@ -188,33 +188,61 @@ private void cargarTablaCompleta() {
 
         String fechaSQL = new SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada);
 
-        String query = "SELECT l.ID_lab, l.Nombre_lab, p.fecha, p.horario_inicio, p.horario_fin "
-                + "FROM laboratorios l "
-                + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab AND p.fecha = ? "
-                + "WHERE l.Bloque = ?";
+        String queryLaboratorios = "SELECT ID_lab, Nombre_lab FROM laboratorios WHERE Bloque = ?";
 
-        try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
+        try (Connection con = Conexion.obtenerConexion(); PreparedStatement psLabs = con.prepareStatement(queryLaboratorios)) {
 
-            ps.setString(1, fechaSQL);
-            ps.setString(2, bloqueTexto);
+            psLabs.setString(1, bloqueTexto);
+            ResultSet rsLabs = psLabs.executeQuery();
 
-            ResultSet rs = ps.executeQuery();
+            while (rsLabs.next()) {
+                int idLab = rsLabs.getInt("ID_lab");
+                String nombreLab = rsLabs.getString("Nombre_lab");
 
-            while (rs.next()) {
-                Object[] fila = {
-                    rs.getInt("ID_lab"),
-                    rs.getString("Nombre_lab"),
-                    rs.getString("fecha") != null ? rs.getString("fecha") : "Disponible",
-                    rs.getString("horario_inicio") != null ? rs.getString("horario_inicio") : "-",
-                    rs.getString("horario_fin") != null ? rs.getString("horario_fin") : "-"
-                };
-                modelo.addRow(fila);
+                String queryReservas = "SELECT fecha, horario_inicio, horario_fin FROM prestamos WHERE ID_lab = ? AND fecha = ?";
+                try (PreparedStatement psRes = con.prepareStatement(queryReservas)) {
+                    psRes.setInt(1, idLab);
+                    psRes.setString(2, fechaSQL);
+                    ResultSet rsRes = psRes.executeQuery();
+
+                    boolean tieneReserva = false;
+
+                    while (rsRes.next()) {
+                        tieneReserva = true;
+                        modelo.addRow(new Object[]{
+                            idLab,
+                            nombreLab,
+                            rsRes.getString("fecha"),
+                            rsRes.getString("horario_inicio"),
+                            rsRes.getString("horario_fin")
+                        });
+                    }
+
+                    if (tieneReserva) {
+                        modelo.addRow(new Object[]{
+                            idLab,
+                            nombreLab,
+                            "Disponible",
+                            "-",
+                            "-"
+                        });
+                    } else {
+                        modelo.addRow(new Object[]{
+                            idLab,
+                            nombreLab,
+                            "Disponible",
+                            "-",
+                            "-"
+                        });
+                    }
+                }
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + ex.getMessage());
         }
     }
+
 
     
     public static void main(String args[]) {
