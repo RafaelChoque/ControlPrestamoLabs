@@ -2,6 +2,8 @@ package PersonalAcademico;
 
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import Materiales.MaterialExtraDocente;
+
 import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -42,6 +44,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
      */
     public FormularioPrestamo(int idusuario) {
         initComponents();
+        cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.idusuario = idusuario;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -180,12 +183,12 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         Sanciones = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
+        Nombretxt = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         Nombre = new javax.swing.JTextField();
         Motivo = new javax.swing.JTextField();
         Fecha = new com.toedter.calendar.JDateChooser();
@@ -201,7 +204,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         Laboratorio = new javax.swing.JTextField();
         DisponibilidadPrestamo = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         TipoHorario = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -210,7 +212,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         HorarioPersonalizadoInicio = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         HorarioPersonalizadoFin = new javax.swing.JSpinner();
-        btnMaterialExtra = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         ListaPersonal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -329,6 +330,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -346,9 +352,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         jLabel7.setText("Apellido:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, 20));
-
-        jLabel1.setText("Cantidad:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 190, -1));
         jPanel1.add(Motivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 480, -1));
         jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 480, -1));
@@ -423,10 +426,9 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DisponibilidadPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 170, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 300, -1));
 
         jLabel8.setText("Horario:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 20));
 
         TipoHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fijo", "Personalizado"}));
         TipoHorario.addActionListener(new java.awt.event.ActionListener() {
@@ -434,10 +436,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 TipoHorarioActionPerformed(evt);
             }
         });
-        jPanel1.add(TipoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 300, -1));
+        jPanel1.add(TipoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 300, -1));
 
         jLabel3.setText("Fijo:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 20));
 
         HorarioFijo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:30 - 9:00", "9:15 - 10:45", "11:00 - 12:30" }));
         HorarioFijo.addActionListener(new java.awt.event.ActionListener() {
@@ -445,25 +447,15 @@ public class FormularioPrestamo extends javax.swing.JFrame {
                 HorarioFijoActionPerformed(evt);
             }
         });
-        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 110, -1));
+        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 110, -1));
 
         jLabel13.setText("Personalizado:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, 20));
-        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 110, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 20));
+        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 110, -1));
 
         jLabel2.setText("Hasta:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, 20));
-        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 110, -1));
-
-        btnMaterialExtra.setBackground(new java.awt.Color(29, 41, 57));
-        btnMaterialExtra.setForeground(new java.awt.Color(255, 255, 255));
-        btnMaterialExtra.setText("Material Extra");
-        btnMaterialExtra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaterialExtraActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnMaterialExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 170, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, 20));
+        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 110, -1));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 610, 350));
 
@@ -602,6 +594,24 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarNombreCompleto() {
+    try {
+        Connection con = Conexion.obtenerConexion();
+        String sql = "SELECT nombre, apellido FROM personal_academico WHERE id_usuario = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, this.idusuario);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
+            Nombretxt.setText(nombreCompleto);
+        } else {
+            Nombretxt.setText("Nombre no encontrado");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        Nombretxt.setText("Error al cargar nombre");
+    }
+}
     public void cargarNombreApellido(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -624,6 +634,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     }
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+
         String motivo = Motivo.getText();
         Date fechaGeneral = Fecha.getDate();
         String laboratorioText = Laboratorio.getText();
@@ -697,9 +708,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             if (rs.next()) {
                 int idLaboratorio = rs.getInt("ID_lab");
 
+                // Cambiar aquí para que retorne la llave generada
                 PreparedStatement ps = con.prepareStatement(
                         "INSERT INTO prestamos (ID_lab, id_personal_academico, motivo, fecha, horario_inicio, horario_fin, estado, tipo_horario) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        Statement.RETURN_GENERATED_KEYS
                 );
                 ps.setInt(1, idLaboratorio);
                 ps.setInt(2, idPersonalAcademico);
@@ -712,10 +725,34 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Préstamo guardado exitosamente");
-                    limpiarFormulario();
-                    cargarTabla(idusuario);
-                    cargarTabla2();
+                    // Obtener el ID generado
+                    ResultSet generatedKeys = ps.getGeneratedKeys();
+                    int idPrestamo = -1;
+                    if (generatedKeys.next()) {
+                        idPrestamo = generatedKeys.getInt(1);
+                    }
+
+                    // Preguntar si desea materiales extra
+                    int opcion = JOptionPane.showConfirmDialog(
+                            this, // o null si no estás dentro de un JFrame
+                            "¿Desea agregar materiales extra?",
+                            "Materiales Extra",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        
+                        MaterialExtraDocente materialesExtra = new MaterialExtraDocente(idPrestamo);
+                        materialesExtra.setVisible(true);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Préstamo guardado exitosamente");
+                        limpiarFormulario();
+                        cargarTabla(idusuario);
+                        cargarTabla2();
+                    }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al guardar el préstamo");
                 }
@@ -925,10 +962,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
-
-    private void btnMaterialExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialExtraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMaterialExtraActionPerformed
     public void cargarTabla(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -1035,6 +1068,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField Motivo;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JLabel Nombretxt;
     private javax.swing.JButton Sanciones;
     private javax.swing.JComboBox<String> Seccion;
     private javax.swing.JLabel Superior;
@@ -1042,11 +1076,9 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> TipoHorario;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JButton btnMaterialExtra;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JButton guardar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1067,7 +1099,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
