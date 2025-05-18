@@ -4,17 +4,42 @@
  */
 package Materiales;
 
+
+import ConexionLogin.Conexion;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.*;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rafael
  */
 public class MaterialExtraDocente extends javax.swing.JFrame {
+    private String categoriaSeleccionada = "";
+    private int idPrestamo;
 
     /**
-     * Creates new form MaterialExtraDocente
+     * Creates new form SancionesPersonal
+     * @param idPrestamo
      */
-    public MaterialExtraDocente() {
+    public MaterialExtraDocente(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
         initComponents();
+        cargarTablaTodo();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private MaterialExtraDocente() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -26,27 +51,100 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        Categoria = new javax.swing.JLabel();
+        btnRedes = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
+        btnTelecomunicaciones = new javax.swing.JButton();
+        btnElectronica = new javax.swing.JButton();
+        MostrarTodo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        Seccion = new javax.swing.JComboBox<>();
+        Cantidad = new javax.swing.JSpinner();
         Material = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMateriales = new javax.swing.JTable();
-        Seccion = new javax.swing.JComboBox<>();
         FondoBlanco = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(914, 605));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Categoria.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Categoria.setText("Categoria");
+        jPanel3.add(Categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        btnRedes.setBackground(new java.awt.Color(29, 41, 57));
+        btnRedes.setForeground(new java.awt.Color(255, 255, 255));
+        btnRedes.setText("Redes");
+        btnRedes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnRedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, -1));
+
+        Limpiar.setBackground(new java.awt.Color(255, 0, 0));
+        Limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        Limpiar.setText("Limpiar");
+        Limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+
+        btnTelecomunicaciones.setBackground(new java.awt.Color(29, 41, 57));
+        btnTelecomunicaciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnTelecomunicaciones.setText("Telecomunicaciones");
+        btnTelecomunicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTelecomunicaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTelecomunicacionesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnTelecomunicaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 140, -1));
+
+        btnElectronica.setBackground(new java.awt.Color(29, 41, 57));
+        btnElectronica.setForeground(new java.awt.Color(255, 255, 255));
+        btnElectronica.setText("Electronica");
+        btnElectronica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnElectronica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElectronicaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnElectronica, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+
+        MostrarTodo.setBackground(new java.awt.Color(29, 41, 57));
+        MostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        MostrarTodo.setText("Mostrar Todo");
+        MostrarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarTodoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(MostrarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 570, 10, 200));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Materiales Extras");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 190, 30));
 
-        jLabel2.setText("Bloque");
+        jLabel2.setText("Seccion:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, 20));
 
         jLabel3.setText("Cantidad:");
@@ -64,8 +162,21 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, -1, -1));
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, -1, -1));
-        getContentPane().add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 120, -1));
+
+        Seccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Electronica", "Redes", "Telecomunicaciones" }));
+        Seccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeccionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 190, -1));
+        getContentPane().add(Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 120, -1));
 
         Material.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,14 +190,14 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Tipo de Equipo", "Numero de Serie", "Categoria"
+                "ID", "Codigo", "Tipo de Equipo", "Numero de Serie"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -105,29 +216,170 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblMateriales);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 840, 440));
-
-        Seccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 210, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 840, 460));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 880, 550));
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 880, 570));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 610));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarTablaPorCategoria() {
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+        modelo.setRowCount(0);
+        if (categoriaSeleccionada == null || categoriaSeleccionada.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
+            return;
+        }
+        try (Connection con = Conexion.obtenerConexion()) {
+            
+            PreparedStatement ps = con.prepareStatement("SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.Codigo_lab, m.unidades, l.seccion "
+                    + "FROM materiales m "
+                    + "JOIN laboratorios l ON m.ID_lab = l.ID_lab "
+                    + "WHERE l.seccion = ?");
+            ps.setString(1, categoriaSeleccionada);  
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Object[] fila = {
+                        rs.getInt("id_material"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo_equipo"),
+                        rs.getString("numero_serie"),
+                    };
+                    modelo.addRow(fila);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    private void cargarTablaTodo() {
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+        modelo.setRowCount(0);
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.Codigo_lab, m.unidades, l.seccion "
+                    + "FROM materiales m "
+                    + "JOIN laboratorios l ON m.ID_lab = l.ID_lab");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Object[] fila = {
+                        rs.getInt("id_material"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo_equipo"),
+                        rs.getString("numero_serie"),
+                };
+                modelo.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
 
     private void tblMaterialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMaterialesMouseClicked
-        
+        int fila = tblMateriales.getSelectedRow();
+        if (fila != -1) {
+            String nombreMaterial = tblMateriales.getValueAt(fila, 1).toString(); // Columna 1: nombre
+            Material.setText(nombreMaterial);
+        }
     }//GEN-LAST:event_tblMaterialesMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        String nombreMaterial = Material.getText().trim();
+        int cantidadSolicitada = (Integer) Cantidad.getValue();
+
+        if (nombreMaterial.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del material.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (cantidadSolicitada <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try (Connection con = Conexion.obtenerConexion()) {
+            String consulta = "SELECT id_material FROM materiales WHERE nombre = ?";
+            try (PreparedStatement psSelect = con.prepareStatement(consulta)) {
+                psSelect.setString(1, nombreMaterial);
+                try (ResultSet rs = psSelect.executeQuery()) {
+                    if (rs.next()) {
+                        int idMaterial = rs.getInt("id_material");
+                        String insertarPrestamo = "INSERT INTO materiales_solicitados (id_prestamo, id_material, cantidad) VALUES (?, ?, ?)";
+                        try (PreparedStatement psInsert = con.prepareStatement(insertarPrestamo)) {
+                            psInsert.setInt(1, idPrestamo); 
+                            psInsert.setInt(2, idMaterial);
+                            psInsert.setInt(3, cantidadSolicitada);
+                            psInsert.executeUpdate();
+                        }
+
+                        JOptionPane.showMessageDialog(this, "Material solicitado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        limpiarFormulario();
+                        if (categoriaSeleccionada == null || categoriaSeleccionada.equals("Mostrar Todo") || categoriaSeleccionada.isEmpty()) {
+                            cargarTablaTodo();
+                        } else {
+                            cargarTablaPorCategoria();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El material no existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al guardar el material: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void MaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaterialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MaterialActionPerformed
 
+    private void btnRedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedesActionPerformed
+        categoriaSeleccionada = "Redes";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnRedesActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void btnTelecomunicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelecomunicacionesActionPerformed
+        categoriaSeleccionada = "Telecomunicaciones";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnTelecomunicacionesActionPerformed
+
+    private void btnElectronicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElectronicaActionPerformed
+        categoriaSeleccionada = "Electronica";
+        cargarTablaPorCategoria();
+    }//GEN-LAST:event_btnElectronicaActionPerformed
+
+    private void MostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodoActionPerformed
+        cargarTablaTodo();
+    }//GEN-LAST:event_MostrarTodoActionPerformed
+
+    private void SeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeccionActionPerformed
+        String seleccion = (String) Seccion.getSelectedItem();
+
+        if (seleccion.equals("Mostrar Todo")) {
+            cargarTablaTodo(); // Carga todos los datos
+        } else {
+            categoriaSeleccionada = seleccion;
+            cargarTablaPorCategoria(); // Llama usando la categoría seleccionada
+        }
+    }//GEN-LAST:event_SeccionActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarFormulario();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+    private void limpiarFormulario() {
+        Material.setText("");
+        Cantidad.setValue(1); // o 0 si quieres permitir 0, pero mejor 1 para cantidad
+        Seccion.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */
@@ -154,7 +406,11 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MaterialExtraDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -164,17 +420,25 @@ public class MaterialExtraDocente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner Cantidad;
+    private javax.swing.JLabel Categoria;
     private javax.swing.JLabel FondoBlanco;
+    private javax.swing.JLabel FondoGris1;
+    private javax.swing.JButton Limpiar;
     private javax.swing.JTextField Material;
+    private javax.swing.JButton MostrarTodo;
     private javax.swing.JComboBox<String> Seccion;
+    private javax.swing.JButton btnElectronica;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnRedes;
+    private javax.swing.JButton btnTelecomunicaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable tblMateriales;
     // End of variables declaration//GEN-END:variables
 }
