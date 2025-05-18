@@ -250,7 +250,7 @@ public class RoundedPanel extends JPanel {
                             ventanaReparacionesCompus.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Administrador")) {
-                            InicioAdministrador ventanaadmin = new InicioAdministrador(idusuario);
+                            InicioAdministrador ventanaadmin = new InicioAdministrador();
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         }else if (priv.equals("Vicerrectorado Academico")) {
