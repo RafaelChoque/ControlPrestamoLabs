@@ -19,6 +19,7 @@ import TecnicoDeEquipos.InicioAdmiTecnicoEquipos;
 import TecnicoDeEquipos.ReparacionesCompus;
 import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 import VicerrectoradoAcademico.FormularioAsignacionPrestamo;
+import VicerrectoradoAcademico.InicioVicerrectorAcademico;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -241,19 +242,19 @@ public class RoundedPanel extends JPanel {
                         SesionUsuario.telefono = telefono;
                         
                         if (priv.equals("Tecnico de Prestamos")) {
-                            InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos();
+                            InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos(idusuario);
                             ventanaTecnicoPrestamo.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Tecnico de Mantenimientos")) {
-                            InicioAdmiTecnicoEquipos ventanaReparacionesCompus = new InicioAdmiTecnicoEquipos();
+                            InicioAdmiTecnicoEquipos ventanaReparacionesCompus = new InicioAdmiTecnicoEquipos(idusuario);
                             ventanaReparacionesCompus.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Administrador")) {
-                            InicioAdministrador ventanaadmin = new InicioAdministrador();
+                            InicioAdministrador ventanaadmin = new InicioAdministrador(idusuario);
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         }else if (priv.equals("Vicerrectorado Academico")) {
-                            FormularioAsignacionPrestamo ventanaadmin = new FormularioAsignacionPrestamo(idusuario);
+                            InicioVicerrectorAcademico ventanaadmin = new InicioVicerrectorAcademico(idusuario);
                             ventanaadmin.setVisible(true);
                             this.dispose();
                         } else if (priv.equals("Personal Academico")) {
