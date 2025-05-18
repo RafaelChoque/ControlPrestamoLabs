@@ -38,14 +38,12 @@ import javax.swing.table.TableRowSorter;
  */
 public class AdministradorVicerrectoradoAcademico extends javax.swing.JFrame {
 
-    private int idusuario;
 
     /**
      * Creates new form InicioPersonalAcademico
-     * @param idusuario
+     * 
      */
-    public AdministradorVicerrectoradoAcademico(int idusuario) {
-        this.idusuario = idusuario;
+    public AdministradorVicerrectoradoAcademico() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         cargarTabla();
@@ -100,9 +98,7 @@ public class AdministradorVicerrectoradoAcademico extends javax.swing.JFrame {
     private Timer animacion;
     private boolean sidebarListo = false;
 
-    private AdministradorVicerrectoradoAcademico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 
     private void mostrarSidebar() {
     panelOverlay.setVisible(true);
@@ -656,7 +652,7 @@ private void cargarTabla() {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        InicioAdministrador inicio = new InicioAdministrador(idusuario);
+        InicioAdministrador inicio = new InicioAdministrador();
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
@@ -667,7 +663,7 @@ private void cargarTabla() {
     }//GEN-LAST:event_btnPersonalAcademicoMouseExited
 
     private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico(idusuario);
+        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
         admin.setLocationRelativeTo(null);
         admin.setVisible(true);
         this.dispose();
@@ -678,7 +674,7 @@ private void cargarTabla() {
     }//GEN-LAST:event_btnTecnicoPrestamoMouseExited
 
     private void btnTecnicoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoPrestamoActionPerformed
-        AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo(idusuario);
+        AdministradorTecnicoPrestamo admin = new AdministradorTecnicoPrestamo();
         admin.setLocationRelativeTo(null);
         admin.setVisible(true);
         this.dispose();
@@ -689,7 +685,7 @@ private void cargarTabla() {
     }//GEN-LAST:event_btnTecnicoEquipoMouseExited
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos(idusuario);
+        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
         admin.setLocationRelativeTo(null);
         admin.setVisible(true);
         this.dispose();
@@ -769,7 +765,7 @@ private void cargarTabla() {
 
             psVicerrectorAcademico.executeUpdate();
             JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
-            AdministradorVicerrectoradoAcademico interfaz=new AdministradorVicerrectoradoAcademico(idusuario);
+            AdministradorVicerrectoradoAcademico interfaz=new AdministradorVicerrectoradoAcademico();
             interfaz.setVisible(true);
 
             Limpiar();

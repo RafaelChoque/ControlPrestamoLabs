@@ -32,14 +32,12 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
 
-    private int idusuario;
 
     /**
      * Creates new form InicioPersonalAcademico
-     * @param idusuario
+     * 
      */
-    public AdministradorTecnicoPrestamo(int idusuario) {
-        this.idusuario = idusuario;
+    public AdministradorTecnicoPrestamo() {
         initComponents();
         ID.setVisible(false);
         this.setLocationRelativeTo(null);
@@ -93,9 +91,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     private Timer animacion;
     private boolean sidebarListo = false;
 
-    private AdministradorTecnicoPrestamo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
     
         private void mostrarSidebar() {
     panelOverlay.setVisible(true);
@@ -935,7 +931,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        InicioAdministrador inicio = new InicioAdministrador(idusuario);
+        InicioAdministrador inicio = new InicioAdministrador();
         inicio.setLocationRelativeTo(null);
         inicio.setVisible(true);
         this.dispose();
@@ -946,7 +942,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPersonalAcademicoMouseExited
 
     private void btnPersonalAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalAcademicoActionPerformed
-        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico(idusuario);
+        AdministradorPersonalAcademico admin = new AdministradorPersonalAcademico();
         admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
         this.dispose(); 
@@ -957,7 +953,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicoEquipoMouseExited
 
     private void btnTecnicoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicoEquipoActionPerformed
-        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos(idusuario);
+        AdministradorTecnicoEquipos admin = new AdministradorTecnicoEquipos();
         admin.setLocationRelativeTo(null); 
         admin.setVisible(true);
         this.dispose();
@@ -1000,7 +996,7 @@ public class AdministradorTecnicoPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVicerrectorMouseExited
 
     private void btnVicerrectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVicerrectorActionPerformed
-        AdministradorVicerrectoradoAcademico admin = new AdministradorVicerrectoradoAcademico(idusuario);
+        AdministradorVicerrectoradoAcademico admin = new AdministradorVicerrectoradoAcademico();
         admin.setLocationRelativeTo(null);
         admin.setVisible(true);
         this.dispose(); 
