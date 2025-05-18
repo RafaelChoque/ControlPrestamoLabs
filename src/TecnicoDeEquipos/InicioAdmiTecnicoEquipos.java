@@ -4,11 +4,16 @@
  */
 package TecnicoDeEquipos;
 
+import ConexionLogin.Conexion;
 import ConexionLogin.Login;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
@@ -20,12 +25,16 @@ import javax.swing.UIManager;
  * @author Rafael
  */
 public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
-
+    private int idusuario;
     /**
-     * Creates new form InicioAdmiTecnicoEquipos
+     * * Creates new form InicioPersonalAcademico
+     * @param idusuario
      */
-    public InicioAdmiTecnicoEquipos() {
+    public InicioAdmiTecnicoEquipos(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
+        cargarNombreCompleto();
+        cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
@@ -76,6 +85,10 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
+
+    private InicioAdmiTecnicoEquipos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private void mostrarSidebar() {
     panelOverlay.setVisible(true);
@@ -137,14 +150,24 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         InicioPersonal = new javax.swing.JLabel();
         FondoBlanco1 = new javax.swing.JLabel();
         dato = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        Nombretxt1 = new javax.swing.JLabel();
+        InicioPersonal2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Mensajestxt = new javax.swing.JTextArea();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -159,6 +182,8 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         LogoSale1 = new javax.swing.JLabel();
         btnMantenimientoEquipo = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
+        Nombretxt = new javax.swing.JLabel();
+        Nombretxt2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -178,44 +203,84 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         dato.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
         jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LaboratorioImagenProy (1).jpg"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("ProyectoLosJackson@gmail.com");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, 30));
+        jLabel4.setText("Jose     67106924");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 150, 20));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Rafael 75298318");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, 20));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Erlan   69938519");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 140, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Contactanos");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/telefono.png"))); // NOI18N
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 50));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 680, 480, 70));
-
-        jPanel5.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Zona Achachicala, Av. Chacaltaya Nro. 1258");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, 30));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, 480, 70));
 
         jPanel6.setBackground(new java.awt.Color(51, 51, 51));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ProyectoLosJackson@gmail.com");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, 30));
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("ProyectoLosJackson@gmail.com");
+        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/email.png"))); // NOI18N
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 50, 50));
 
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, 480, 70));
 
-        jLabel5.setText("aqui cualquier texto (no se me ocurre nada)");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, 370, 50));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Bienvenido");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 100, 30));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Revisa reportes de fallas, asignaciones de reparaciones completadas y actualiza el estado");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1000, -1));
+
+        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Zona Achachicala, Av. Chacaltaya Nro. 1258");
+        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, 30));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ubicacion (1).png"))); // NOI18N
+        jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 30, 50));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, 480, 70));
+
+        Nombretxt1.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel2.add(Nombretxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 370, 30));
+
+        InicioPersonal2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        InicioPersonal2.setText("Notificaciones");
+        jPanel2.add(InicioPersonal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 160, -1));
+
+        Mensajestxt.setColumns(20);
+        Mensajestxt.setRows(5);
+        jScrollPane1.setViewportView(Mensajestxt);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 1440, 120));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
@@ -325,9 +390,37 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+
+        Nombretxt2.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void cargarNombreCompleto() {
+    try {
+        Connection con = Conexion.obtenerConexion();
+        String sql = "SELECT nombre, apellido FROM tecnico_equipos WHERE id_usuario = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, this.idusuario);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
+            Nombretxt.setText(nombreCompleto);
+            Nombretxt1.setText(nombreCompleto);
+        } else {
+            Nombretxt.setText("Nombre no encontrado");
+            Nombretxt1.setText("Nombre no encontrado");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        Nombretxt.setText("Error al cargar nombre");
+    }
+}
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
 
@@ -384,7 +477,7 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMantenimientoEquipoMouseExited
 
     private void btnMantenimientoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoEquipoActionPerformed
-        ReparacionesCompus reparaciones = new ReparacionesCompus();
+        ReparacionesCompus reparaciones = new ReparacionesCompus(idusuario);
         reparaciones.setLocationRelativeTo(null);
         reparaciones.setVisible(true);
         this.dispose(); 
@@ -419,7 +512,12 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JLabel FondoBlanco1;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel InicioPersonal;
+    private javax.swing.JLabel InicioPersonal2;
     private javax.swing.JLabel LogoSale1;
+    private javax.swing.JTextArea Mensajestxt;
+    private javax.swing.JLabel Nombretxt;
+    private javax.swing.JLabel Nombretxt1;
+    private javax.swing.JLabel Nombretxt2;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio;
@@ -427,17 +525,24 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu;
     private javax.swing.JLabel dato;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;

@@ -10,6 +10,7 @@ import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Reportes.ReportesMantenimiento;
 import Reportes.ReportesPrestamos;
+import Reportes.ReportesSanciones;
 import TecnicoDePrestamos.InicioAdmiTecnicoPrestamos;
 import TecnicoDePrestamos.ListaLaboratorios;
 import TecnicoDePrestamos.ListaPrestamos;
@@ -50,11 +51,16 @@ public class SancionesParaDesignar extends javax.swing.JFrame {
 private int idPrestamoSeleccionado = -1;
 private int idTecnicoActual = -1;
 
+    private int idusuario;
+
     /**
-     * Creates new form SancionesParaDesignar
+     * Creates new form InicioPersonalAcademico
+     * @param idusuario
      */
-    public SancionesParaDesignar() {
+    public SancionesParaDesignar(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
+        cargarNombreCompleto();
         iconoOriginal = lblFlecha.getIcon();
 panelSubReportes.setLocation(panelSubReportes.getX(), -70);
 panelSubReportes.setVisible(false);
@@ -111,6 +117,10 @@ panelSubReportes.setVisible(false);
     }
             private boolean flechaAbajo = true; // empieza apuntando hacia abajo
 private Icon iconoOriginal;
+
+    private SancionesParaDesignar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 private void mostrarSubReportes() {
     panelSubReportes.setVisible(true);
     int yFinal = 120;
@@ -280,8 +290,9 @@ private boolean subReportesMostrado = false;
         panelSubReportes = new javax.swing.JPanel();
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnReporteSanciones = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
+        Nombretxt = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         AsignacionSancion = new javax.swing.JLabel();
         NombreSancionadotxt = new javax.swing.JTextField();
@@ -554,17 +565,17 @@ private boolean subReportesMostrado = false;
         });
         panelSubReportes.add(btnReporteMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
 
-        jButton1.setBackground(new java.awt.Color(16, 23, 32));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Sanciones");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteSanciones.setBackground(new java.awt.Color(16, 23, 32));
+        btnReporteSanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnReporteSanciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporteSanciones.setText("Sanciones");
+        btnReporteSanciones.setBorder(null);
+        btnReporteSanciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnReporteSancionesActionPerformed(evt);
             }
         });
-        panelSubReportes.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 230, 40));
+        panelSubReportes.add(btnReporteSanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 230, 40));
 
         panelSidebar.add(panelSubReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 230, 330));
 
@@ -574,6 +585,11 @@ private boolean subReportesMostrado = false;
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -753,6 +769,24 @@ private boolean subReportesMostrado = false;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        private void cargarNombreCompleto() {
+    try {
+        Connection con = Conexion.obtenerConexion();
+        String sql = "SELECT nombre, apellido FROM tecnico_prestamos WHERE id_usuario = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, this.idusuario);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
+            Nombretxt.setText(nombreCompleto);
+        } else {
+            Nombretxt.setText("Nombre no encontrado");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        Nombretxt.setText("Error al cargar nombre");
+    }
+}
     private void cargarTablaSanciones() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Sanción");
@@ -979,7 +1013,7 @@ private boolean subReportesMostrado = false;
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
         // Crear la ventana de FormularioPrestamo
-        InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos();
+        InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos(idusuario);
         inicioP.setLocationRelativeTo(null); // Centrar la ventana
         inicioP.setVisible(true);
         // Cerrar o esconder la ventana actual
@@ -992,7 +1026,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnListaLaboratoriosMouseExited
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
-        ListaLaboratorios listLab = new ListaLaboratorios();
+        ListaLaboratorios listLab = new ListaLaboratorios(idusuario);
         listLab.setLocationRelativeTo(null); 
         listLab.setVisible(true);
         this.dispose();
@@ -1003,7 +1037,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
-        ListaPrestamos listPrest = new ListaPrestamos();
+        ListaPrestamos listPrest = new ListaPrestamos(idusuario);
         listPrest.setLocationRelativeTo(null);
         listPrest.setVisible(true);
         this.dispose();
@@ -1014,7 +1048,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-        SolicitudPendiente solicitud = new SolicitudPendiente();
+        SolicitudPendiente solicitud = new SolicitudPendiente(idusuario);
         solicitud.setLocationRelativeTo(null);
         solicitud.setVisible(true);
         this.dispose();
@@ -1105,7 +1139,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnMaterialesMouseExited
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
-        Materiales materiales = new Materiales();
+        Materiales materiales = new Materiales(idusuario);
         materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
         this.dispose();
@@ -1116,7 +1150,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnComputadorasMouseExited
 
     private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
-        MaterialesHardware hardware = new MaterialesHardware();
+        MaterialesHardware hardware = new MaterialesHardware(idusuario);
         hardware.setLocationRelativeTo(null);
         hardware.setVisible(true);
         this.dispose();
@@ -1165,7 +1199,7 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
 
     private void btnReporteLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosActionPerformed
-        ReportesPrestamos reportepres = new ReportesPrestamos();
+        ReportesPrestamos reportepres = new ReportesPrestamos(idusuario);
         reportepres.setLocationRelativeTo(null);
         reportepres.setVisible(true);
         this.dispose();
@@ -1176,15 +1210,18 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnReporteMantenimientoMouseExited
 
     private void btnReporteMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMantenimientoActionPerformed
-        ReportesMantenimiento reporteman = new ReportesMantenimiento();
+        ReportesMantenimiento reporteman = new ReportesMantenimiento(idusuario);
         reporteman.setLocationRelativeTo(null);
         reporteman.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReporteMantenimientoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnReporteSancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteSancionesActionPerformed
+        ReportesSanciones reportesan = new ReportesSanciones(idusuario);
+        reportesan.setLocationRelativeTo(null);
+        reportesan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReporteSancionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1244,6 +1281,7 @@ private boolean subReportesMostrado = false;
     private javax.swing.JTextField Nombre;
     private javax.swing.JLabel NombreSancionado;
     private javax.swing.JTextField NombreSancionadotxt;
+    private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel RU2;
     private javax.swing.JTextField RUtxt;
     private javax.swing.JLabel Superior;
@@ -1260,10 +1298,10 @@ private boolean subReportesMostrado = false;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnReporteLaboratorios;
     private javax.swing.JButton btnReporteMantenimiento;
+    private javax.swing.JButton btnReporteSanciones;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

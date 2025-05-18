@@ -30,12 +30,16 @@ import javax.swing.table.DefaultTableModel;
 public class ReparacionesCompus extends javax.swing.JFrame {
 
 
+    private int idusuario;
+
     /**
-     * Creates new form ReparacionesCompus
-     
+     * Creates new form InicioPersonalAcademico
+     * @param idusuario
      */
-    public ReparacionesCompus() {
+    public ReparacionesCompus(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
+        cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Nombre.setEditable(false);
         this.setLocationRelativeTo(null);
@@ -91,6 +95,10 @@ public class ReparacionesCompus extends javax.swing.JFrame {
 private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
+
+    private ReparacionesCompus() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private void mostrarSidebar() {
     panelOverlay.setVisible(true);
@@ -153,6 +161,7 @@ private boolean sidebarMostrado = false;
         btnCerrarSesion = new javax.swing.JButton();
         LogoSale1 = new javax.swing.JLabel();
         panelOverlay = new javax.swing.JLayeredPane();
+        Nombretxt = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -263,6 +272,11 @@ private boolean sidebarMostrado = false;
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -392,7 +406,25 @@ private boolean sidebarMostrado = false;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarTablaLista() {
+    private void cargarNombreCompleto() {
+    try {
+        Connection con = Conexion.obtenerConexion();
+        String sql = "SELECT nombre, apellido FROM tecnico_equipos WHERE id_usuario = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, this.idusuario);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
+            Nombretxt.setText(nombreCompleto);
+        } else {
+            Nombretxt.setText("Nombre no encontrado");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        Nombretxt.setText("Error al cargar nombre");
+    }
+}
+    private void cargarTablaLista() {
         DefaultTableModel modelo = (DefaultTableModel) tblListaComputadoras.getModel();
         modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
 
@@ -552,7 +584,7 @@ private void cargarTablaLista() {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        InicioAdmiTecnicoEquipos iniciotecnico = new InicioAdmiTecnicoEquipos();
+        InicioAdmiTecnicoEquipos iniciotecnico = new InicioAdmiTecnicoEquipos(idusuario);
         iniciotecnico.setLocationRelativeTo(null);
         iniciotecnico.setVisible(true);
         this.dispose();
@@ -643,6 +675,7 @@ private void cargarTablaLista() {
     private javax.swing.JLabel ListaCompus1;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio;
