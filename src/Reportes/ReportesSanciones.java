@@ -302,6 +302,14 @@ private boolean sidebarMostrado = false;
         panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSanciones = new javax.swing.JTable();
+        AsignacionSancion1 = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
+        Imprimir = new javax.swing.JButton();
+        btnGraficar = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         FechaDesde = new com.toedter.calendar.JDateChooser();
@@ -312,16 +320,11 @@ private boolean sidebarMostrado = false;
         jLabel5 = new javax.swing.JLabel();
         EstadoSancion = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblSanciones = new javax.swing.JTable();
-        AsignacionSancion1 = new javax.swing.JLabel();
-        Imprimir = new javax.swing.JButton();
         Limpiar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
-        btnGraficar = new javax.swing.JButton();
-        FondoBlanco = new javax.swing.JLabel();
+        AsignacionSancion2 = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
+        perfil1 = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
@@ -589,48 +592,12 @@ private boolean sidebarMostrado = false;
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setText("Desde:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 20));
-        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 250, -1));
-
-        jLabel1.setText("Hasta:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
-        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        RUtxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RUtxtActionPerformed(evt);
-            }
-        });
-        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
-
-        jLabel5.setText("Usuario:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        EstadoSancion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Daño de Material", "Pérdida de material", "Incumplimiento de horario", "Otro"}));
-        jPanel4.add(EstadoSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 180, -1));
-
-        jLabel4.setText("Estado:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, 20));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -667,7 +634,8 @@ private boolean sidebarMostrado = false;
         AsignacionSancion1.setText("Reportes de Sanciones");
         jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel3.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 680, 1450, 320));
 
         Imprimir.setBackground(new java.awt.Color(51, 153, 0));
         Imprimir.setForeground(new java.awt.Color(255, 255, 255));
@@ -677,7 +645,57 @@ private boolean sidebarMostrado = false;
                 ImprimirActionPerformed(evt);
             }
         });
-        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
+        jPanel3.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 10, -1, -1));
+
+        btnGraficar.setText("Graficar");
+        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1382, 10, -1, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Desde:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 20));
+        jPanel1.add(FechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 250, -1));
+
+        jLabel1.setText("Hasta:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, 20));
+        jPanel1.add(FechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 250, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        RUtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RUtxtActionPerformed(evt);
+            }
+        });
+        jPanel4.add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 180, -1));
+
+        jLabel5.setText("Usuario:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        EstadoSancion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Daño de Material", "Pérdida de material", "Incumplimiento de horario", "Otro"}));
+        jPanel4.add(EstadoSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 180, -1));
+
+        jLabel4.setText("Estado:");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, 20));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
+
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1460, -1));
 
         Limpiar.setText("Limpiar");
         Limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -685,7 +703,7 @@ private boolean sidebarMostrado = false;
                 LimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+        jPanel5.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 4, -1, -1));
 
         Buscar.setBackground(new java.awt.Color(29, 41, 57));
         Buscar.setForeground(new java.awt.Color(255, 255, 255));
@@ -695,18 +713,13 @@ private boolean sidebarMostrado = false;
                 BuscarActionPerformed(evt);
             }
         });
-        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+        jPanel5.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 4, -1, -1));
 
-        btnGraficar.setText("Graficar");
-        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGraficarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, -1, -1));
+        AsignacionSancion2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion2.setText("Filtros");
+        jPanel5.add(AsignacionSancion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 300, -1));
 
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 1450, 740));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 80));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
@@ -720,6 +733,9 @@ private boolean sidebarMostrado = false;
         });
         getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
 
+        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
@@ -727,7 +743,7 @@ private boolean sidebarMostrado = false;
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -783,10 +799,6 @@ private boolean sidebarMostrado = false;
             System.out.println(ex.toString());
         }
     }
-    private void RUtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RUtxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RUtxtActionPerformed
-
     private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
         String ru = RUtxt.getText().trim();
         String estado = EstadoSancion.getSelectedItem().toString();
@@ -797,75 +809,6 @@ private boolean sidebarMostrado = false;
         reportesMant.setLocationRelativeTo(null); // Centrar la ventana
         reportesMant.setVisible(true);
     }//GEN-LAST:event_ImprimirActionPerformed
-
-    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
-        EstadoSancion.setSelectedIndex(0);
-        RUtxt.setText("");
-        FechaDesde.setDate(null);
-        FechaHasta.setDate(null);
-        cargarTablaTodo();
-    }//GEN-LAST:event_LimpiarActionPerformed
-
-    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-        String tipo = EstadoSancion.getSelectedItem().toString();
-        String ru = RUtxt.getText().trim();
-
-        Date fechaInicio = FechaDesde.getDate();
-        Date fechaFin = FechaHasta.getDate();
-
-        String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
-                + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
-                + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
-                + "FROM sanciones s "
-                + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
-                + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
-                + "WHERE 1=1 ";
-        List<Object> parametros = new ArrayList<>();
-
-        if (!"Todos".equals(tipo)) {
-            query += " AND s.tipo = ?";
-            parametros.add(tipo);
-        }
-
-        if (!ru.isEmpty()) {
-            query += " AND pa.RU = ?";
-            parametros.add(ru);
-        }
-        if (fechaInicio != null && fechaFin != null) {
-            query += " AND s.fecha BETWEEN ? AND ?";
-            parametros.add(new java.sql.Date(fechaInicio.getTime()));
-            parametros.add(new java.sql.Date(fechaFin.getTime()));
-        }
-        try {
-            Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(query);
-
-            for (int i = 0; i < parametros.size(); i++) {
-                ps.setObject(i + 1, parametros.get(i));
-            }
-
-            ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
-            model.setRowCount(0);
-
-            while (rs.next()) {
-                int idMantenimiento = rs.getInt("id_sancion");
-                String descripcion = rs.getString("descripcion");
-                Date fecha = rs.getDate("fecha");
-                String tiposancion = rs.getString("tipo");
-                String tecnico = rs.getString("tecnico_nombre");
-                String sancionado = rs.getString("personal_nombre");
-
-                model.addRow(new Object[]{
-                    idMantenimiento, descripcion, fecha, tiposancion, tecnico, sancionado
-                });
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al buscar las sanciones.");
-        }
-    }//GEN-LAST:event_BuscarActionPerformed
 
     private void btnGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarActionPerformed
         String[] opciones = {
@@ -1208,6 +1151,79 @@ private boolean sidebarMostrado = false;
         this.dispose();
     }//GEN-LAST:event_btnReporteSancionesActionPerformed
 
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        String tipo = EstadoSancion.getSelectedItem().toString();
+        String ru = RUtxt.getText().trim();
+
+        Date fechaInicio = FechaDesde.getDate();
+        Date fechaFin = FechaHasta.getDate();
+
+        String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+        + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
+        + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
+        + "FROM sanciones s "
+        + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+        + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos "
+        + "WHERE 1=1 ";
+        List<Object> parametros = new ArrayList<>();
+
+        if (!"Todos".equals(tipo)) {
+            query += " AND s.tipo = ?";
+            parametros.add(tipo);
+        }
+
+        if (!ru.isEmpty()) {
+            query += " AND pa.RU = ?";
+            parametros.add(ru);
+        }
+        if (fechaInicio != null && fechaFin != null) {
+            query += " AND s.fecha BETWEEN ? AND ?";
+            parametros.add(new java.sql.Date(fechaInicio.getTime()));
+            parametros.add(new java.sql.Date(fechaFin.getTime()));
+        }
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setObject(i + 1, parametros.get(i));
+            }
+
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idMantenimiento = rs.getInt("id_sancion");
+                String descripcion = rs.getString("descripcion");
+                Date fecha = rs.getDate("fecha");
+                String tiposancion = rs.getString("tipo");
+                String tecnico = rs.getString("tecnico_nombre");
+                String sancionado = rs.getString("personal_nombre");
+
+                model.addRow(new Object[]{
+                    idMantenimiento, descripcion, fecha, tiposancion, tecnico, sancionado
+                });
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar las sanciones.");
+        }
+    }//GEN-LAST:event_BuscarActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        EstadoSancion.setSelectedIndex(0);
+        RUtxt.setText("");
+        FechaDesde.setDate(null);
+        FechaHasta.setDate(null);
+        cargarTablaTodo();
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private void RUtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RUtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RUtxtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1249,6 +1265,7 @@ private boolean sidebarMostrado = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AsignacionSancion1;
+    private javax.swing.JLabel AsignacionSancion2;
     private javax.swing.JButton Buscar;
     private javax.swing.JComboBox<String> EstadoSancion;
     private com.toedter.calendar.JDateChooser FechaDesde;
@@ -1286,12 +1303,14 @@ private boolean sidebarMostrado = false;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
+    private javax.swing.JLabel perfil1;
     private javax.swing.JTable tblSanciones;
     // End of variables declaration//GEN-END:variables
 }
