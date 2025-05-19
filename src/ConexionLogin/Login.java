@@ -207,10 +207,11 @@ public class RoundedPanel extends JPanel {
         }
         
         String query = "SELECT u.id_usuario, u.username, u.contrasena, u.rol, u.activo, "
-             + "p.nombre, p.apellido, p.ci, p.telefono "
+             + "p.id_tecnico_prestamos, p.nombre, p.apellido, p.ci, p.telefono "
              + "FROM usuarios u "
              + "LEFT JOIN tecnico_prestamos p ON u.id_usuario = p.id_usuario "
              + "WHERE u.username = ? AND u.contrasena = ?";
+
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(query);
@@ -234,12 +235,16 @@ public class RoundedPanel extends JPanel {
                         String username = rs.getString("username");
                         int ci = rs.getInt("ci");
                         String telefono = rs.getString("telefono");
-  
-                        SesionUsuario.nombre = nombre; // Guardamos el nombre completo
+                          int idtecnico = rs.getInt("id_tecnico_prestamos");
+                          if (rs.wasNull()) {
+                              idtecnico = -1;
+                          }
+                        SesionUsuario.nombre = nombre; 
                         SesionUsuario.apellido = apellido;
                         SesionUsuario.username = username;
                         SesionUsuario.ci = ci;
                         SesionUsuario.telefono = telefono;
+                        SesionUsuario.idtecnico = idtecnico;
                         
                         if (priv.equals("Tecnico de Prestamos")) {
                             InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos(idusuario);
