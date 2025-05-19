@@ -296,9 +296,6 @@ private boolean subReportesMostrado = false;
         panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Categoria = new javax.swing.JLabel();
@@ -307,6 +304,15 @@ private boolean subReportesMostrado = false;
         btnTelecomunicaciones = new javax.swing.JButton();
         btnElectronica = new javax.swing.JButton();
         MostrarTodo = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblMateriales = new javax.swing.JTable();
+        FondoBlanco = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -326,10 +332,6 @@ private boolean subReportesMostrado = false;
         TipoEquipo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         Unidades = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblMateriales = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        FondoBlanco = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
@@ -598,80 +600,12 @@ private boolean subReportesMostrado = false;
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("Buscar ID");
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 90, 20));
-        String placeholder = "Buscar ID";
-        jTextField1.setText(placeholder);
-        jTextField1.setForeground(Color.GRAY);
-        jTextField1.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (jTextField1.getText().equals(placeholder)) {
-                    jTextField1.setText("");
-                    jTextField1.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (jTextField1.getText().isEmpty()) {
-                    jTextField1.setText(placeholder);
-                    jTextField1.setForeground(Color.GRAY);
-                }
-            }
-        });
-        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTable();
-            }
-            private void filterTable() {
-                String query = jTextField1.getText().toLowerCase();
-                if (query.equals(placeholder.toLowerCase())) {
-                    tblMateriales.setRowSorter(null);
-                    return;
-                }
-                TableRowSorter<TableModel> sorter = new TableRowSorter<>(tblMateriales.getModel());
-                tblMateriales.setRowSorter(sorter);
-                if (query.trim().isEmpty()) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)
-                }
-            }
-        });
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, 20));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 50, 190, 40));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Materiales");
@@ -741,118 +675,6 @@ private boolean subReportesMostrado = false;
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 570, 10, 200));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        jLabel8.setText("Datos");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
-
-        jLabel4.setText("Codigo:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
-
-        btnGuardar.setBackground(new java.awt.Color(29, 41, 57));
-        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("Agregar");
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
-
-        btnModificar.setBackground(new java.awt.Color(29, 41, 57));
-        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificar.setText("Modificar");
-        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
-
-        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, -1, -1));
-
-        btnLimpiar.setBackground(new java.awt.Color(29, 41, 57));
-        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, -1, -1));
-
-        btnHabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
-        btnHabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
-        btnHabilitarDeshabilitar.setText("Habilitar/Deshabilitar");
-        btnHabilitarDeshabilitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHabilitarDeshabilitarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
-        jPanel1.add(Codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 370, -1));
-
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 10, -1));
-
-        jLabel6.setText("Laboratorio");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
-
-        btnVerLaboratorios.setText("Ver Laboratorios");
-        btnVerLaboratorios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerLaboratoriosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnVerLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
-
-        Laboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LaboratorioActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 240, -1));
-
-        jLabel3.setText("Numero de Serie");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
-        jPanel1.add(NumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 370, -1));
-
-        jLabel7.setText("Tipo de Equipo");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
-        TipoEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TipoEquipoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TipoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 370, -1));
-
-        jLabel9.setText("Unidades");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        jPanel1.add(Unidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 370, -1));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 100, 510, 240));
-
         tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -884,7 +706,14 @@ private boolean subReportesMostrado = false;
         });
         jScrollPane2.setViewportView(tblMateriales);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 910, 650));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 930, 660));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 0, 400));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todo", "Electronica", "Redes", "Telecomunicaciones" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -892,10 +721,195 @@ private boolean subReportesMostrado = false;
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 190, 40));
+        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 5, 190, 40));
 
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
+        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText("Buscar ID");
+        jTextField1.setToolTipText("");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 15, 90, 20));
+        String placeholder = "Buscar ID";
+        jTextField1.setText(placeholder);
+        jTextField1.setForeground(Color.GRAY);
+        jTextField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (jTextField1.getText().equals(placeholder)) {
+                    jTextField1.setText("");
+                    jTextField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText(placeholder);
+                    jTextField1.setForeground(Color.GRAY);
+                }
+            }
+        });
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+            private void filterTable() {
+                String query = jTextField1.getText().toLowerCase();
+                if (query.equals(placeholder.toLowerCase())) {
+                    tblMateriales.setRowSorter(null);
+                    return;
+                }
+                TableRowSorter<TableModel> sorter = new TableRowSorter<>(tblMateriales.getModel());
+                tblMateriales.setRowSorter(sorter);
+                if (query.trim().isEmpty()) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter(query, 0)); // Filtra por columna 0 (ID)
+                }
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 190, 40));
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 930, 710));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        jLabel8.setText("Datos");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 30));
+
+        jLabel4.setText("Codigo:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 20));
+
+        btnGuardar.setBackground(new java.awt.Color(29, 41, 57));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Agregar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        btnModificar.setBackground(new java.awt.Color(29, 41, 57));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        btnLimpiar.setBackground(new java.awt.Color(29, 41, 57));
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
+
+        btnHabilitarDeshabilitar.setBackground(new java.awt.Color(29, 41, 57));
+        btnHabilitarDeshabilitar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHabilitarDeshabilitar.setText("Habilitar/Deshabilitar");
+        btnHabilitarDeshabilitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHabilitarDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHabilitarDeshabilitarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnHabilitarDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+        jPanel1.add(Codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 370, -1));
+
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, -48, 20, 40));
+
+        jLabel6.setText("Laboratorio");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
+
+        btnVerLaboratorios.setText("Ver Laboratorios");
+        btnVerLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerLaboratoriosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVerLaboratorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
+
+        Laboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaboratorioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 240, -1));
+
+        jLabel3.setText("Numero de Serie");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
+        jPanel1.add(NumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 370, -1));
+
+        jLabel7.setText("Tipo de Equipo");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        TipoEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoEquipoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TipoEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 370, -1));
+
+        jLabel9.setText("Unidades");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        jPanel1.add(Unidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 370, -1));
+
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 520, 710));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, 540, 710));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
@@ -989,9 +1003,12 @@ private void cargarNombreCompleto() {
         modelo.setRowCount(0);
         try {
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement ps = con.prepareStatement("SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.Codigo_lab, m.unidades, l.seccion "
-                    + "FROM materiales m "
-                    + "JOIN laboratorios l ON m.ID_lab = l.ID_lab");
+            PreparedStatement ps = con.prepareStatement(
+    "SELECT m.id_material, m.nombre, m.tipo_equipo, m.numero_serie, m.estado, l.Codigo_lab, m.unidades, l.seccion " +
+    "FROM materiales m " +
+    "JOIN laboratorios l ON m.ID_lab = l.ID_lab " +
+    "WHERE l.Seccion <> 'Hardware'"
+);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Object[] fila = {
@@ -1191,8 +1208,9 @@ private void cargarNombreCompleto() {
                 // Ejecutar la actualización
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
-                cargarTablaTodo();  // Refrescar la tabla
+                
                 limpiar();  // Limpiar los campos
+                cargarTablaTodo();  // Refrescar la tabla
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el laboratorio especificado.");
@@ -1243,6 +1261,7 @@ private void cargarNombreCompleto() {
 
                 JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
                 limpiar();
+                cargarTablaTodo(); 
             } else {
                 JOptionPane.showMessageDialog(null, "Código de laboratorio no encontrado.");
             }
@@ -1594,6 +1613,8 @@ boolean estaVisible = panelSubReportes.isVisible();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblFlecha;
