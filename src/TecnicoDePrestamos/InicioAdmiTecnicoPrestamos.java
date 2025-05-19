@@ -290,7 +290,6 @@ private boolean subReportesMostrado = false;
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        Nombretxt1 = new javax.swing.JLabel();
         InicioPersonal1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Mensajestxt = new javax.swing.JTextArea();
@@ -626,10 +625,6 @@ private boolean subReportesMostrado = false;
 
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 700, 480, 70));
 
-        Nombretxt1.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel2.add(Nombretxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 370, 30));
-
         InicioPersonal1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         InicioPersonal1.setText("Anuncios");
         jPanel2.add(InicioPersonal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 160, -1));
@@ -718,10 +713,8 @@ private boolean subReportesMostrado = false;
         if (rs.next()) {
             String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
             Nombretxt.setText(nombreCompleto);
-            Nombretxt1.setText(nombreCompleto);
         } else {
             Nombretxt.setText("Nombre no encontrado");
-            Nombretxt1.setText("Nombre no encontrado");
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -998,7 +991,6 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextArea Mensajestxt;
     private javax.swing.JLabel Nombretxt;
-    private javax.swing.JLabel Nombretxt1;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;

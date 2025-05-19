@@ -921,14 +921,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         InicioAdmiTecnicoPrestamos inicioP = new InicioAdmiTecnicoPrestamos(idusuario);
-        inicioP.setLocationRelativeTo(null); // Centrar la ventana
+        inicioP.setLocationRelativeTo(null);
         inicioP.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -936,14 +932,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnListaLaboratoriosMouseExited
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ListaLaboratorios listLab = new ListaLaboratorios(idusuario);
-        listLab.setLocationRelativeTo(null); // Centrar la ventana
+        listLab.setLocationRelativeTo(null);
         listLab.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnListaLaboratoriosActionPerformed
 
     private void btnListaPrestamosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaPrestamosMouseExited
@@ -951,14 +943,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         ListaPrestamos listPrest = new ListaPrestamos(idusuario);
-        listPrest.setLocationRelativeTo(null); // Centrar la ventana
+        listPrest.setLocationRelativeTo(null);
         listPrest.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose(); 
     }//GEN-LAST:event_btnListaPrestamosActionPerformed
 
     private void btnSolicitudesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSolicitudesMouseExited
@@ -966,14 +954,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         SolicitudPendiente solicitud = new SolicitudPendiente(idusuario);
-        solicitud.setLocationRelativeTo(null); // Centrar la ventana
+        solicitud.setLocationRelativeTo(null);
         solicitud.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose(); 
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnSancionesDesignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSancionesDesignarMouseExited
@@ -981,14 +965,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnSancionesDesignarMouseExited
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
-        // TODO add your handling code here:
-        // Crear la ventana de FormularioPrestamo
         SancionesParaDesignar sancionesDesig = new SancionesParaDesignar(idusuario);
-        sancionesDesig.setLocationRelativeTo(null); // Centrar la ventana
+        sancionesDesig.setLocationRelativeTo(null);
         sancionesDesig.setVisible(true);
-        // Cerrar o esconder la ventana actual
-        this.dispose(); // Cierra completamente la ventana actual
-        // o this.setVisible(false); // Solo la oculta, según lo que prefieras
+        this.dispose();
     }//GEN-LAST:event_btnSancionesDesignarActionPerformed
 
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited

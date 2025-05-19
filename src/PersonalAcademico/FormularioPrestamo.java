@@ -46,6 +46,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         this.idusuario = idusuario;
         initComponents();
         cargarNombreCompleto();
+        verificarUltimoEstado(idusuario);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Nombre.setEditable(false);
@@ -594,6 +595,35 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void mostrarNotificacion(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Estado de Solicitud", JOptionPane.INFORMATION_MESSAGE);
+}
+
+private void verificarUltimoEstado(int idusuario) {
+    try {
+        Connection con = Conexion.obtenerConexion();
+        String sql = "SELECT estado FROM prestamos " +
+                     "WHERE id_personal_academico = ? AND estado IN ('Aprobado', 'Rechazado') " +
+                     "ORDER BY id_prestamo DESC LIMIT 1";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, obtenerIdPersonalAcademico());
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            String estado = rs.getString("estado");
+            if (estado.equalsIgnoreCase("Aprobado")) {
+                mostrarNotificacion("¡Tu última solicitud fue APROBADA!");
+            } else if (estado.equalsIgnoreCase("Rechazado")) {
+                mostrarNotificacion("Tu última solicitud fue RECHAZADA.");
+            }
+        }
+        rs.close();
+        ps.close();
+        con.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al verificar estado de solicitud: " + e.getMessage());
+    }
+}
     private void cargarNombreCompleto() {
     try {
         Connection con = Conexion.obtenerConexion();
@@ -869,7 +899,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
             HorarioPersonalizadoInicio.setVisible(true);
             HorarioPersonalizadoFin.setVisible(true);
         } else {
-            // En caso sea una opción vacía o "Seleccionar...", ocultar todo
             HorarioFijo.setVisible(false);
             HorarioPersonalizadoInicio.setVisible(false);
             HorarioPersonalizadoFin.setVisible(false);
