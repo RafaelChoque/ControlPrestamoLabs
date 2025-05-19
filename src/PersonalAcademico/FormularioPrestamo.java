@@ -43,10 +43,10 @@ public class FormularioPrestamo extends javax.swing.JFrame {
      * @param idusuario
      */
     public FormularioPrestamo(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
         cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.idusuario = idusuario;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Nombre.setEditable(false);
         Apellido.setEditable(false);
@@ -182,7 +182,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         LogoSale1 = new javax.swing.JLabel();
         Sanciones = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -226,6 +225,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -324,11 +324,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
         Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -591,6 +586,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
