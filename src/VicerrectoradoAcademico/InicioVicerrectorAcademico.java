@@ -145,6 +145,7 @@ public class InicioVicerrectorAcademico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Nombretxt = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -169,6 +170,7 @@ public class InicioVicerrectorAcademico extends javax.swing.JFrame {
         InicioPersonal2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Mensajestxt = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -179,12 +181,15 @@ public class InicioVicerrectorAcademico extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         btnAsignacionSemestre = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        Nombretxt = new javax.swing.JLabel();
-        Nombretxt2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -291,6 +296,10 @@ public class InicioVicerrectorAcademico extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 1440, 120));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("Aquí puedes asignar prestamos de manera semestral");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 720, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
@@ -379,15 +388,6 @@ public class InicioVicerrectorAcademico extends javax.swing.JFrame {
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
-
-        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
-
-        Nombretxt2.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -517,7 +517,6 @@ private void cargarNombreCompleto() {
     private javax.swing.JTextArea Mensajestxt;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Nombretxt1;
-    private javax.swing.JLabel Nombretxt2;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnAsignacionSemestre;
     private javax.swing.JButton btnCerrarSesion;
@@ -537,6 +536,7 @@ private void cargarNombreCompleto() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

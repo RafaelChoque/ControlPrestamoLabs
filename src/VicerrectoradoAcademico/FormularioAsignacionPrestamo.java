@@ -40,10 +40,10 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
      * @param idusuario
      */
     public FormularioAsignacionPrestamo(int idusuario) {
+        this.idusuario = idusuario;
         initComponents();
         cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.idusuario = idusuario;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Nombre.setEditable(false);
         cargarTabla(idusuario);
