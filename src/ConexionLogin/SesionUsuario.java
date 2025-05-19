@@ -12,20 +12,22 @@ package ConexionLogin;
  */
 public class SesionUsuario {
     public static int idUsuario;
+    public static int idtecnico; 
     public static String username;
     public static String rol;
-    public static String nombre;  // Para almacenar el nombre
-    public static String apellido;  // Para almacenar el apellido
+    public static String nombre; 
+    public static String apellido; 
     public static int ci;
     public static String telefono;
-    // Método para establecer los datos
-    public static void setDatos(int id, String username, String rol, String nombre, String apellido) {
-        SesionUsuario.idUsuario = id;
+
+    public static void setDatos(int idUsuario, int idtecnico, String username, String rol, String nombre, String apellido, int ci, String telefono) {
+        SesionUsuario.idUsuario = idUsuario;
+        SesionUsuario.idtecnico = idtecnico;
         SesionUsuario.username = username;
         SesionUsuario.rol = rol;
         SesionUsuario.nombre = nombre;
-        SesionUsuario.apellido = apellido;  // Asignar apellido
-
+        SesionUsuario.apellido = apellido;
+        SesionUsuario.ci = ci;
+        SesionUsuario.telefono = telefono;
     }
 }
-
