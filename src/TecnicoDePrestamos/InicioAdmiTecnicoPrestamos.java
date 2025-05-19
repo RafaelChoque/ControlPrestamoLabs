@@ -1,6 +1,7 @@
 package TecnicoDePrestamos;
 
 import ConexionLogin.Conexion;
+
 import ConexionLogin.Login;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
@@ -257,6 +258,7 @@ private boolean subReportesMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Nombretxt = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         InicioPersonal = new javax.swing.JLabel();
@@ -305,12 +307,15 @@ private boolean subReportesMostrado = false;
         btnReporteMantenimiento = new javax.swing.JButton();
         btnReporteSanciones = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        Nombretxt = new javax.swing.JLabel();
-        Nombretxt2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -695,18 +700,12 @@ private boolean subReportesMostrado = false;
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
-        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
-
-        Nombretxt2.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void cargarNombreCompleto() {
+    public void actualizarMensaje() {
+        Mensajestxt.setText(mensajeCompartido);
+    }
+    private void cargarNombreCompleto() {
     try {
         Connection con = Conexion.obtenerConexion();
         String sql = "SELECT nombre, apellido FROM tecnico_prestamos WHERE id_usuario = ?";
@@ -731,7 +730,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnListaLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosMouseExited
@@ -739,6 +738,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnListaLaboratoriosMouseExited
 
     private void btnListaLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaLaboratoriosActionPerformed
+
         ListaLaboratorios listLab = new ListaLaboratorios(idusuario);
         listLab.setLocationRelativeTo(null);
         listLab.setVisible(true);
@@ -750,6 +750,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnListaPrestamosMouseExited
 
     private void btnListaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaPrestamosActionPerformed
+
         ListaPrestamos listPrest = new ListaPrestamos(idusuario);
         listPrest.setLocationRelativeTo(null);
         listPrest.setVisible(true);
@@ -761,6 +762,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnSancionesDesignarMouseExited
 
     private void btnSancionesDesignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSancionesDesignarActionPerformed
+
         SancionesParaDesignar sancionesDesig = new SancionesParaDesignar(idusuario);
         sancionesDesig.setLocationRelativeTo(null);
         sancionesDesig.setVisible(true);
@@ -855,6 +857,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnSolicitudesMouseExited
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
+
         SolicitudPendiente solicitud = new SolicitudPendiente(idusuario);
         solicitud.setLocationRelativeTo(null);
         solicitud.setVisible(true);
@@ -898,6 +901,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnMaterialesMouseExited
 
     private void btnMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialesActionPerformed
+
         Materiales materiales = new Materiales(idusuario);
         materiales.setLocationRelativeTo(null);
         materiales.setVisible(true);
@@ -909,6 +913,7 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnComputadorasMouseExited
 
     private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
+
         MaterialesHardware hardware = new MaterialesHardware(idusuario);
         hardware.setLocationRelativeTo(null);
         hardware.setVisible(true);
@@ -946,6 +951,7 @@ private void cargarNombreCompleto() {
 
     private void AsignarMensajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignarMensajesActionPerformed
         mensajeCompartido = Mensajestxt.getText();  
+        Mensajestxt.setText(mensajeCompartido);  
         JOptionPane.showMessageDialog(this, "Mensaje asignado correctamente.");
     }//GEN-LAST:event_AsignarMensajesActionPerformed
 
@@ -985,7 +991,6 @@ private void cargarNombreCompleto() {
     private javax.swing.JTextArea Mensajestxt;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Nombretxt1;
-    private javax.swing.JLabel Nombretxt2;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
