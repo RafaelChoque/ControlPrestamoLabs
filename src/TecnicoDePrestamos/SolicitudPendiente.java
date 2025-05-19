@@ -11,6 +11,7 @@ package TecnicoDePrestamos;
  */
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import PersonalAcademico.DisponibilidadPrestamos;
@@ -293,27 +294,23 @@ private boolean subReportesMostrado = false;
         panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        MotivoRechazo = new javax.swing.JTextArea();
-        motivoRechazo = new javax.swing.JLabel();
-        lblErrorMotivo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaSolicitudes = new javax.swing.JTable();
-        btnVolver = new javax.swing.JButton();
-        VerHorarios = new javax.swing.JButton();
-        AprobarSolicitud = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        lblErrorMotivo = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        MotivoRechazo = new javax.swing.JTextArea();
+        motivoRechazo = new javax.swing.JLabel();
+        AprobarSolicitud = new javax.swing.JButton();
         RechazarSolicitud = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        Tecnico = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        Nombre = new javax.swing.JTextField();
-        BuscarRu = new javax.swing.JButton();
+        VerHorarios = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
+        perfil1 = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
@@ -581,31 +578,12 @@ private boolean subReportesMostrado = false;
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        MotivoRechazo.setColumns(20);
-        MotivoRechazo.setRows(5);
-        jScrollPane2.setViewportView(MotivoRechazo);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 350, 190));
-
-        motivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        motivoRechazo.setText("Motivo del Rechazo");
-        jPanel1.add(motivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        lblErrorMotivo.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(lblErrorMotivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 235, 300, 20));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 280, 370, 260));
 
         TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -632,44 +610,11 @@ private boolean subReportesMostrado = false;
         });
         jScrollPane1.setViewportView(TablaSolicitudes);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 1070, 640));
-
-        btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(29, 41, 57));
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VolverBoton.png"))); // NOI18N
-        btnVolver.setText("  Volver");
-        btnVolver.setBorder(null);
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
-
-        VerHorarios.setBackground(new java.awt.Color(29, 41, 57));
-        VerHorarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        VerHorarios.setForeground(new java.awt.Color(255, 255, 255));
-        VerHorarios.setText("Ver Horarios");
-        VerHorarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerHorariosActionPerformed(evt);
-            }
-        });
-        jPanel2.add(VerHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 20, 210, 50));
-
-        AprobarSolicitud.setBackground(new java.awt.Color(51, 153, 0));
-        AprobarSolicitud.setForeground(new java.awt.Color(255, 255, 255));
-        AprobarSolicitud.setText("Aprobar");
-        AprobarSolicitud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AprobarSolicitudActionPerformed(evt);
-            }
-        });
-        jPanel2.add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 550, 180, 40));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1110, 660));
 
         jLabel1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         jLabel1.setText("Solicitudes Pendientes");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jTextField1.setBackground(new java.awt.Color(233, 236, 239));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -681,7 +626,7 @@ private boolean subReportesMostrado = false;
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 90, 20));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 65, 90, 20));
         String placeholder = "Buscar ID";
         jTextField1.setText(placeholder);
         jTextField1.setForeground(Color.GRAY);
@@ -734,10 +679,42 @@ private boolean subReportesMostrado = false;
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 65, -1, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_1.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 190, 40));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 55, 190, 40));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 1110, 710));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblErrorMotivo.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel5.add(lblErrorMotivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 155, 300, 20));
+
+        MotivoRechazo.setColumns(20);
+        MotivoRechazo.setRows(5);
+        jScrollPane2.setViewportView(MotivoRechazo);
+
+        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 40, 300, 110));
+
+        motivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        motivoRechazo.setText("Motivo del Rechazo");
+        jPanel5.add(motivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 10, -1, -1));
+
+        AprobarSolicitud.setBackground(new java.awt.Color(51, 153, 0));
+        AprobarSolicitud.setForeground(new java.awt.Color(255, 255, 255));
+        AprobarSolicitud.setText("Aprobar");
+        AprobarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AprobarSolicitudActionPerformed(evt);
+            }
+        });
+        jPanel5.add(AprobarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 180, 150, 30));
 
         RechazarSolicitud.setBackground(new java.awt.Color(255, 0, 0));
         RechazarSolicitud.setForeground(new java.awt.Color(255, 255, 255));
@@ -747,35 +724,20 @@ private boolean subReportesMostrado = false;
                 RechazarSolicitudActionPerformed(evt);
             }
         });
-        jPanel2.add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 550, 170, 40));
+        jPanel5.add(RechazarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 180, 150, 30));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 1440, 710));
 
-        Tecnico.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Tecnico.setText("Tecnico");
-        jPanel3.add(Tecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jLabel13.setText("Nombre:");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
-
-        Nombre.addActionListener(new java.awt.event.ActionListener() {
+        VerHorarios.setBackground(new java.awt.Color(29, 41, 57));
+        VerHorarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        VerHorarios.setForeground(new java.awt.Color(255, 255, 255));
+        VerHorarios.setText("Ver Horarios");
+        VerHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreActionPerformed(evt);
+                VerHorariosActionPerformed(evt);
             }
         });
-        jPanel3.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 280, -1));
-
-        BuscarRu.setText("Buscar");
-        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarRuActionPerformed(evt);
-            }
-        });
-        jPanel3.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 120, 370, 140));
+        jPanel2.add(VerHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 10, 210, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
@@ -789,11 +751,14 @@ private boolean subReportesMostrado = false;
         });
         getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
 
+        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
         Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -80, 1570, 940));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -80, 1570, 950));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 610, 180));
@@ -857,7 +822,6 @@ private boolean subReportesMostrado = false;
     }
 
     private void AprobarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprobarSolicitudActionPerformed
-        String nombreCompleto = Nombre.getText().trim();
         int fila = TablaSolicitudes.getSelectedRow();
 
         if (fila == -1) {
@@ -870,13 +834,13 @@ private boolean subReportesMostrado = false;
             int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
 
             // Buscar el id_tecnico_prestamos basado en el nombre completo
-            int idTecnico = obtenerIdTecnico(nombreCompleto);
+            int idTecnico = SesionUsuario.idtecnico;
 
             // Si no se encontró el técnico, mostrar un mensaje
-            if (idTecnico == -1) {
-                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
-                return;
-            }
+                if (idTecnico <= 0) {
+        JOptionPane.showMessageDialog(null, "No se ha identificado correctamente al técnico logueado.");
+        return;
+    }
 
             // Actualizar el estado de la solicitud y asignar el id_tecnico_prestamos
             Connection con = Conexion.obtenerConexion();
@@ -887,6 +851,8 @@ private boolean subReportesMostrado = false;
 
             JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
             cargarTabla(); // Recargar la tabla
+            lblErrorMotivo.setText("");  // Limpiar error
+            lblErrorMotivo.setIcon(null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al aprobar la solicitud: " + ex.getMessage());
         }
@@ -910,7 +876,6 @@ private boolean subReportesMostrado = false;
         return idTecnico;
     }
     private void RechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechazarSolicitudActionPerformed
-        String nombreCompleto = Nombre.getText().trim();
         int fila = TablaSolicitudes.getSelectedRow();
 
         if (fila == -1) {
@@ -921,7 +886,6 @@ private boolean subReportesMostrado = false;
         String motivo = MotivoRechazo.getText().trim();
 
         if (motivo.isEmpty()) {
-            // Aquí se muestra el mensaje de error similar al ejemplo que diste
             lblErrorMotivo.setText("Debe ingresar un motivo para rechazar la solicitud.");
             lblErrorMotivo.setIcon(new ImageIcon(getClass().getResource("/imagenes/Exclamacion3.png")));
             return;
@@ -931,12 +895,10 @@ private boolean subReportesMostrado = false;
             // Obtener el id de la solicitud seleccionada
             int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
 
-            // Buscar el id_tecnico_prestamos basado en el nombre completo
-            int idTecnico = obtenerIdTecnico(nombreCompleto);
+            int idTecnico = SesionUsuario.idtecnico;
 
-            // Si no se encontró el técnico, mostrar un mensaje
-            if (idTecnico == -1) {
-                JOptionPane.showMessageDialog(null, "Técnico no encontrado.");
+            if (idTecnico <= 0) {
+                JOptionPane.showMessageDialog(null, "No se ha identificado correctamente al técnico logueado.");
                 return;
             }
 
@@ -958,6 +920,7 @@ private boolean subReportesMostrado = false;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
         }
+
     }//GEN-LAST:event_RechazarSolicitudActionPerformed
 
     
@@ -967,12 +930,6 @@ private boolean subReportesMostrado = false;
         ver.setLocationRelativeTo(null);
         ver.setVisible(true);
     }//GEN-LAST:event_VerHorariosActionPerformed
-
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        ListaPrestamos listaprestamo = new ListaPrestamos(idusuario);
-        listaprestamo.setLocationRelativeTo(null);
-        listaprestamo.setVisible(true);
-    }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
@@ -1168,16 +1125,6 @@ private boolean subReportesMostrado = false;
         this.dispose();
     }//GEN-LAST:event_btnComputadorasActionPerformed
 
-    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreActionPerformed
-
-    private void BuscarRuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarRuActionPerformed
-        VerTecnicosPrestamos ver = new VerTecnicosPrestamos(Nombre);
-        ver.setLocationRelativeTo(null);
-        ver.setVisible(true);
-    }//GEN-LAST:event_BuscarRuActionPerformed
-
     private void btnReporteLaboratoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteLaboratoriosMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReporteLaboratoriosMouseExited
@@ -1234,17 +1181,14 @@ private boolean subReportesMostrado = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AprobarSolicitud;
-    private javax.swing.JButton BuscarRu;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextArea MotivoRechazo;
-    private javax.swing.JTextField Nombre;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JButton RechazarSolicitud;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TablaSolicitudes;
-    private javax.swing.JLabel Tecnico;
     private javax.swing.JButton VerHorarios;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
@@ -1259,17 +1203,15 @@ private boolean subReportesMostrado = false;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
@@ -1279,5 +1221,6 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
+    private javax.swing.JLabel perfil1;
     // End of variables declaration//GEN-END:variables
 }
