@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +36,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     public SancionesRecibidaPersonal(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        cargarNombreCompleto();
         cargarTablaSanciones(idusuario);
         cargarNombreApellido(idusuario);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -159,7 +161,8 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         LogoSale1 = new javax.swing.JLabel();
         Sanciones1 = new javax.swing.JButton();
         btnCerrarSesion2 = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
+        Nombretxt = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -178,6 +181,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         Sanciones3 = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -265,10 +269,13 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -323,7 +330,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         jPanel5.add(Sanciones5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, -1));
 
         Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Sanciones.setText("se le deshabilitara la opción de solicitar un futuro Prestamo");
+        Sanciones.setText("Tendra una sancion economica por daños");
         jPanel5.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 400, 140));
@@ -373,8 +380,31 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void cargarNombreCompleto() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+            String sql = "SELECT nombre, apellido FROM personal_academico WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, this.idusuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellido");
+                Nombretxt.setText(nombreCompleto);
+            } else {
+                Nombretxt.setText("Nombre no encontrado");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Nombretxt.setText("Error al cargar nombre");
+        }
+    }
     public void cargarNombreApellido(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -546,6 +576,7 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private javax.swing.JLabel FondoGris1;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Sanciones;
     private javax.swing.JButton Sanciones1;
     private javax.swing.JLabel Sanciones2;
@@ -569,5 +600,6 @@ public class SancionesRecibidaPersonal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }

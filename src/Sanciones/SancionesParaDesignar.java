@@ -291,7 +291,6 @@ private boolean subReportesMostrado = false;
         btnReporteLaboratorios = new javax.swing.JButton();
         btnReporteMantenimiento = new javax.swing.JButton();
         btnReporteSanciones = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         AsignacionSancion = new javax.swing.JLabel();
@@ -314,15 +313,14 @@ private boolean subReportesMostrado = false;
         TblSanciones = new javax.swing.JTable();
         FechaPrestamo = new com.toedter.calendar.JDateChooser();
         Formulario1 = new javax.swing.JLabel();
+        perfil = new javax.swing.JLabel();
         FechaPrestam = new javax.swing.JLabel();
-        RU2 = new javax.swing.JLabel();
-        Buscar = new javax.swing.JButton();
-        RUtxt = new javax.swing.JTextField();
         BuscarPrestamo = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
+        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -581,11 +579,6 @@ private boolean subReportesMostrado = false;
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
-
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
         Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -725,20 +718,11 @@ private boolean subReportesMostrado = false;
         Formulario1.setText("Docentes Sancionados");
         getContentPane().add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 270, 30));
 
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
         FechaPrestam.setText("Fecha del Prestamo");
         getContentPane().add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 20));
-
-        RU2.setText("RU:");
-        getContentPane().add(RU2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, 20));
-
-        Buscar.setText("Buscar");
-        Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 440, -1, -1));
-        getContentPane().add(RUtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 140, -1));
 
         BuscarPrestamo.setText("Buscar Prestamo");
         BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
@@ -766,6 +750,11 @@ private boolean subReportesMostrado = false;
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -972,10 +961,6 @@ private boolean subReportesMostrado = false;
     private void TipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TipoBoxActionPerformed
-
-    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BuscarActionPerformed
 
     private void BuscarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPrestamoActionPerformed
         cargarDisponibilidad();
@@ -1264,7 +1249,6 @@ private boolean subReportesMostrado = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AsignacionSancion;
-    private javax.swing.JButton Buscar;
     private javax.swing.JButton BuscarPrestamo;
     private javax.swing.JButton BuscarRu;
     private javax.swing.JLabel Descripcion;
@@ -1282,8 +1266,6 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLabel NombreSancionado;
     private javax.swing.JTextField NombreSancionadotxt;
     private javax.swing.JLabel Nombretxt;
-    private javax.swing.JLabel RU2;
-    private javax.swing.JTextField RUtxt;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TblPrestamosAntiguos;
     private javax.swing.JTable TblSanciones;
@@ -1314,5 +1296,6 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
+    private javax.swing.JLabel perfil;
     // End of variables declaration//GEN-END:variables
 }
