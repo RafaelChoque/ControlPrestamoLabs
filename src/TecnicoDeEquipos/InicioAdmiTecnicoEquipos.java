@@ -146,6 +146,7 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Nombretxt = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         InicioPersonal = new javax.swing.JLabel();
         FondoBlanco1 = new javax.swing.JLabel();
@@ -182,12 +183,15 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         LogoSale1 = new javax.swing.JLabel();
         btnMantenimientoEquipo = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        Nombretxt = new javax.swing.JLabel();
-        Nombretxt2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -251,7 +255,7 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 100, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel8.setText("Revisa reportes de fallas, asignaciones de reparaciones completadas y actualiza el estado");
+        jLabel8.setText("Aqui puedes revisar reportes de fallas, asignaciones de reparaciones completadas y actualiza el estado");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1000, -1));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
@@ -390,15 +394,6 @@ public class InicioAdmiTecnicoEquipos extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
-        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
-
-        Nombretxt2.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void cargarNombreCompleto() {
@@ -517,7 +512,6 @@ private void cargarNombreCompleto() {
     private javax.swing.JTextArea Mensajestxt;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Nombretxt1;
-    private javax.swing.JLabel Nombretxt2;
     private javax.swing.JLabel Superior;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio;
