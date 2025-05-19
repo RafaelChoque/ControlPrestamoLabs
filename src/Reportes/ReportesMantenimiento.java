@@ -301,6 +301,13 @@ private void animarRotacionFlecha(boolean haciaArriba) {
         btnReporteSanciones = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMantenimiento = new javax.swing.JTable();
+        Imprimir = new javax.swing.JButton();
+        btnGraficar = new javax.swing.JButton();
+        AsignacionSancion2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         FechaDesde = new com.toedter.calendar.JDateChooser();
@@ -311,14 +318,9 @@ private void animarRotacionFlecha(boolean haciaArriba) {
         jLabel5 = new javax.swing.JLabel();
         EstadoCompu = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMantenimiento = new javax.swing.JTable();
-        AsignacionSancion1 = new javax.swing.JLabel();
-        Imprimir = new javax.swing.JButton();
-        Limpiar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
-        btnGraficar = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
+        AsignacionSancion1 = new javax.swing.JLabel();
         Nombretxt = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
@@ -591,6 +593,65 @@ private void animarRotacionFlecha(boolean haciaArriba) {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblMantenimiento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Codigo", "Laboratorio", "Estado", "Fecha", "Descripcion", "Realizado Por"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblMantenimiento);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
+
+        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
+        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 10, -1, -1));
+
+        btnGraficar.setText("Graficar");
+        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1382, 10, -1, -1));
+
+        AsignacionSancion2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion2.setText("Reportes de Mantenimiento");
+        jPanel3.add(AsignacionSancion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -625,62 +686,7 @@ private void animarRotacionFlecha(boolean haciaArriba) {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 50));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tblMantenimiento.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Codigo", "Laboratorio", "Estado", "Fecha", "Descripcion", "Realizado Por"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblMantenimiento);
-
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1440, 610));
-
-        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion1.setText("Reportes de Mantenimiento");
-        jPanel3.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1460, 660));
-
-        Imprimir.setBackground(new java.awt.Color(51, 153, 0));
-        Imprimir.setForeground(new java.awt.Color(255, 255, 255));
-        Imprimir.setText("Imprimir");
-        Imprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImprimirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 70, -1, -1));
-
-        Limpiar.setText("Limpiar");
-        Limpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LimpiarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1460, -1));
 
         Buscar.setBackground(new java.awt.Color(29, 41, 57));
         Buscar.setForeground(new java.awt.Color(255, 255, 255));
@@ -690,22 +696,28 @@ private void animarRotacionFlecha(boolean haciaArriba) {
                 BuscarActionPerformed(evt);
             }
         });
-        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+        jPanel5.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 4, -1, -1));
 
-        btnGraficar.setText("Graficar");
-        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGraficarActionPerformed(evt);
+                LimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGraficar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, -1, -1));
+        jPanel5.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 4, -1, -1));
+
+        AsignacionSancion1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion1.setText("Filtros");
+        jPanel5.add(AsignacionSancion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 300, -1));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1460, 80));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -724,7 +736,7 @@ private void animarRotacionFlecha(boolean haciaArriba) {
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
@@ -1233,6 +1245,7 @@ boolean estaVisible = panelSubReportes.isVisible();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AsignacionSancion1;
+    private javax.swing.JLabel AsignacionSancion2;
     private javax.swing.JButton Buscar;
     private javax.swing.JComboBox<String> EstadoCompu;
     private com.toedter.calendar.JDateChooser FechaDesde;
@@ -1270,6 +1283,7 @@ boolean estaVisible = panelSubReportes.isVisible();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
