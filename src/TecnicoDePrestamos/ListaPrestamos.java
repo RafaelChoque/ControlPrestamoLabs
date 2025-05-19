@@ -559,9 +559,9 @@ private boolean subReportesMostrado = false;
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         btnMenu.setBackground(new java.awt.Color(178, 191, 207));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
@@ -583,24 +583,28 @@ private boolean subReportesMostrado = false;
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        ListadePrestamos.setText("Historial de Solicitudes");
-        jPanel1.add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        ListadePrestamos.setText("Prestamos");
+        jPanel1.add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        BuscarSolicitudes.setBackground(new java.awt.Color(29, 41, 57));
+        BuscarSolicitudes.setForeground(new java.awt.Color(255, 255, 255));
         BuscarSolicitudes.setText("Buscar Solicitudes");
         BuscarSolicitudes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuscarSolicitudesActionPerformed(evt);
             }
         });
-        jPanel1.add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel1.add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
+        ActualizarTabla.setBackground(new java.awt.Color(29, 41, 57));
+        ActualizarTabla.setForeground(new java.awt.Color(255, 255, 255));
         ActualizarTabla.setText("Actualizar Tabla");
         ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ActualizarTablaActionPerformed(evt);
             }
         });
-        jPanel1.add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
+        jPanel1.add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
