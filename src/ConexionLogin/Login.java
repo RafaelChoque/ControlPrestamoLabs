@@ -200,7 +200,7 @@ public class RoundedPanel extends JPanel {
             lblErrorContrasena.setIcon(iconoAdvertencia);
             lblErrorContrasena.setText("Porfavor introduzca una contraseña.");
             camposValidos = false;
-        }
+        }//commit por si acaso
 
         if (!camposValidos) {
             return;
