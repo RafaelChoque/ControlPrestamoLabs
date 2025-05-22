@@ -867,43 +867,59 @@ if (fila == -1) {
 }
 
 try {
-    // Obtener el id de la solicitud seleccionada
     int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
-
     int idTecnico = SesionUsuario.idtecnico;
-
     if (idTecnico <= 0) {
         JOptionPane.showMessageDialog(null, "No se ha identificado correctamente al técnico logueado.");
         return;
     }
-
-    // Actualizar estado y técnico
     Connection con = Conexion.obtenerConexion();
     PreparedStatement ps = con.prepareStatement("UPDATE prestamos SET estado = 'Aprobado', id_tecnico_prestamos = ? WHERE id_prestamo = ?");
     ps.setInt(1, idTecnico);
     ps.setInt(2, idSolicitud);
     ps.executeUpdate();
-
-    // Mostrar mensaje inmediato
     JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
-
-    // Recargar tabla y limpiar errores
     cargarTabla();
     lblErrorMotivo.setText("");
     lblErrorMotivo.setIcon(null);
-
-    // Enviar correo en segundo plano (nuevo hilo)
     new Thread(() -> {
         try {
-            String correo = obtenerCorreoUsuarioPorSolicitud(idSolicitud);
-            String nombre = obtenerNombreUsuarioPorSolicitud(idSolicitud);
+            Connection conCorreo = Conexion.obtenerConexion();
+            PreparedStatement psDetalles = con.prepareStatement(
+            "SELECT pa.email, pa.nombre, pa.apellido, l.Nombre_lab, p.motivo, p.fecha, " +
+            "p.horario_inicio, p.horario_fin " +
+            "FROM prestamos p " +
+            "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab " +
+            "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico " +
+            "WHERE p.id_prestamo = ?"
+        );
+        psDetalles.setInt(1, idSolicitud);
+        ResultSet rs = psDetalles.executeQuery();
+
+        if (rs.next()) {
+            String correo = rs.getString("email");
+            String nombre = rs.getString("nombre") + " " + rs.getString("apellido");
+            String laboratorio = rs.getString("Nombre_lab");
+            String motivo = rs.getString("motivo");
+            Date fecha = rs.getDate("fecha");
+            Time inicio = rs.getTime("horario_inicio");
+            Time fin = rs.getTime("horario_fin");
+
             String asunto = "Solicitud de préstamo aprobada";
-            String mensaje = "Hola " + nombre + ",\n\nTu solicitud de préstamo ha sido APROBADA.\n\nSaludos,\nSistema de Préstamos";
+            String mensaje = "Hola " + nombre + ",\n\n" +
+                             "Tu solicitud de préstamo ha sido APROBADA con los siguientes detalles:\n" +
+                             "Laboratorio: " + laboratorio + "\n" +
+                             "Motivo: " + motivo + "\n" +
+                             "Fecha: " + fecha + "\n" +
+                             "Horario: " + inicio + " - " + fin + "\n\n" +
+                             "Saludos,\nSistema de Control y Préstamos de Laboratorios de Hardware, Redes, Electronica y Telecomunicaciones.\nLosJackson.";
+
             EmailSender.enviarCorreo(correo, asunto, mensaje);
-        } catch (Exception e) {
-            e.printStackTrace(); // Puedes registrar el error si quieres
         }
-    }).start();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}).start();
 
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(null, "Error al aprobar la solicitud: " + ex.getMessage());
@@ -970,6 +986,45 @@ try {
             cargarTabla();  // Recargar la tabla
             lblErrorMotivo.setText("");  // Limpiar error
             lblErrorMotivo.setIcon(null);
+            new Thread(() -> {
+                try (Connection conCorreo = Conexion.obtenerConexion()) {
+                    PreparedStatement psDetalles = conCorreo.prepareStatement(
+                            "SELECT pa.email, pa.nombre, pa.apellido, l.Nombre_lab, p.motivo, p.fecha, "
+                            + "p.horario_inicio, p.horario_fin "
+                            + "FROM prestamos p "
+                            + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                            + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico "
+                            + "WHERE p.id_prestamo = ?"
+                    );
+                    psDetalles.setInt(1, idSolicitud);
+                    ResultSet rs = psDetalles.executeQuery();
+
+                    if (rs.next()) {
+                        String correo = rs.getString("email");
+                        String nombre = rs.getString("nombre") + " " + rs.getString("apellido");
+                        String laboratorio = rs.getString("Nombre_lab");
+                        String motivoOriginal = rs.getString("motivo");
+                        Date fecha = rs.getDate("fecha");
+                        Time inicio = rs.getTime("horario_inicio");
+                        Time fin = rs.getTime("horario_fin");
+
+                        String asunto = "Solicitud de préstamo rechazada";
+                        String mensaje = "Hola " + nombre + ",\n\n"
+                                + "Tu solicitud de préstamo ha sido RECHAZADA.\n\n"
+                                + "Detalles de la solicitud:\n"
+                                + "Laboratorio: " + laboratorio + "\n"
+                                + "Motivo de solicitud: " + motivoOriginal + "\n"
+                                + "Fecha: " + fecha + "\n"
+                                + "Horario: " + inicio + " - " + fin + "\n\n"
+                                + "Motivo del rechazo: " + motivo + "\n\n"
+                                + "Saludos,\nSistema de Control y Préstamos de Laboratorios de Hardware, Redes, Electrónica y Telecomunicaciones.\nLosJackson.";
+
+                        EmailSender.enviarCorreo(correo, asunto, mensaje);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al rechazar la solicitud: " + ex.getMessage());
         }
