@@ -4,7 +4,6 @@ package ConexionLogin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Rafael
@@ -38,20 +37,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import org.mindrot.jbcrypt.BCrypt;
+
 public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
     public Login() {
-        initComponents(); /*WASAAAAAAAAAAAAA*/
+        initComponents();
+        /*WASAAAAAAAAAAAAA*/
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         contrasena.setEchoChar('•');
         btnMostrarContraseña.setIcon(ojoOcultar);
         contrasena.addActionListener(e -> IniciaSesion.doClick());
-       sesion.addActionListener(e -> IniciaSesion.doClick());
+        sesion.addActionListener(e -> IniciaSesion.doClick());
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,130 +158,133 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public class RoundedPanel extends JPanel {
-    private int arcWidth = 30;  
-    private int arcHeight = 30;     
 
-    public RoundedPanel() {
-        setOpaque(false);
-    }
+        private int arcWidth = 30;
+        private int arcHeight = 30;
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setColor(getBackground());
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
-        g2.dispose();
-        super.paintComponent(g);
+        public RoundedPanel() {
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(getBackground());
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+            g2.dispose();
+            super.paintComponent(g);
+        }
     }
-}
     private void IniciaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciaSesionActionPerformed
         String user = sesion.getText();
         @SuppressWarnings("deprecation")
         String pass = contrasena.getText();
-        
+
         lblErrorUsuario.setText("");
         lblErrorContrasena.setText("");
-        lblErrorUsuario.setText("");
         lblErrorUsuario.setIcon(null);
-        lblErrorContrasena.setText("");
         lblErrorContrasena.setIcon(null);
-        
-        
+
         boolean camposValidos = true;
         if (user.isEmpty()) {
             ImageIcon iconoAdvertencia = new ImageIcon(getClass().getResource("/imagenes/Exclamacion3.png"));
             lblErrorUsuario.setIcon(iconoAdvertencia);
-            lblErrorUsuario.setText("Porfavor introduzca un usuario.");
-
+            lblErrorUsuario.setText("Por favor introduzca un usuario.");
             camposValidos = false;
         }
         if (pass.isEmpty()) {
             ImageIcon iconoAdvertencia = new ImageIcon(getClass().getResource("/imagenes/Exclamacion3.png"));
             lblErrorContrasena.setIcon(iconoAdvertencia);
-            lblErrorContrasena.setText("Porfavor introduzca una contraseña.");
+            lblErrorContrasena.setText("Por favor introduzca una contraseña.");
             camposValidos = false;
-        }//commit por si acaso
+        }
 
         if (!camposValidos) {
             return;
         }
-        
+
         String query = "SELECT u.id_usuario, u.username, u.contrasena, u.rol, u.activo, "
-             + "p.id_tecnico_prestamos, p.nombre, p.apellido, p.ci, p.telefono "
-             + "FROM usuarios u "
-             + "LEFT JOIN tecnico_prestamos p ON u.id_usuario = p.id_usuario "
-             + "WHERE u.username = ?";
+                + "p.id_tecnico_prestamos, p.nombre, p.apellido, p.ci, p.telefono "
+                + "FROM usuarios u "
+                + "LEFT JOIN tecnico_prestamos p ON u.id_usuario = p.id_usuario "
+                + "WHERE u.username = ?";
 
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(query);
-
             ps.setString(1, user);
-
             ResultSet rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 String u = rs.getString("username");
                 String p = rs.getString("contrasena");
                 String priv = rs.getString("rol");
                 int idusuario = rs.getInt("id_usuario");
-                boolean activo = rs.getBoolean("activo"); 
+                boolean activo = rs.getBoolean("activo");
 
-                if (activo) { 
-                    if (BCrypt.checkpw(pass, p)) {
-                        String nombre = rs.getString("nombre");
-                        String apellido = rs.getString("apellido");
-                        String username = rs.getString("username");
-                        int ci = rs.getInt("ci");
-                        String telefono = rs.getString("telefono");
-                          int idtecnico = rs.getInt("id_tecnico_prestamos");
-                          if (rs.wasNull()) {
-                              idtecnico = -1;
-                          }
-                        SesionUsuario.nombre = nombre; 
-                        SesionUsuario.apellido = apellido;
-                        SesionUsuario.username = username;
-                        SesionUsuario.ci = ci;
-                        SesionUsuario.telefono = telefono;
-                        SesionUsuario.idtecnico = idtecnico;
-                        
-                        if (priv.equals("Tecnico de Prestamos")) {
-                            InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos(idusuario);
-                            ventanaTecnicoPrestamo.setVisible(true);
-                            this.dispose();
-                        } else if (priv.equals("Tecnico de Mantenimientos")) {
-                            InicioAdmiTecnicoEquipos ventanaReparacionesCompus = new InicioAdmiTecnicoEquipos(idusuario);
-                            ventanaReparacionesCompus.setVisible(true);
-                            this.dispose();
-                        } else if (priv.equals("Administrador")) {
+                if (activo) {
+                    // Validar según el tipo de usuario
+                    if (priv.equals("Administrador")) {
+                        // Admin: comparar texto plano
+                        if (pass.equals(p)) {
                             InicioAdministrador ventanaadmin = new InicioAdministrador();
                             ventanaadmin.setVisible(true);
                             this.dispose();
-                        }else if (priv.equals("Vicerrectorado Academico")) {
-                            InicioVicerrectorAcademico ventanaadmin = new InicioVicerrectorAcademico(idusuario);
-                            ventanaadmin.setVisible(true);
-                            this.dispose();
-                        } else if (priv.equals("Personal Academico")) {
-                            InicioPersonalAcademico ventanaAcademico = new InicioPersonalAcademico(idusuario);
-                            ventanaAcademico.setVisible(true);
-                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "LA CONTRASEÑA NO ES CORRECTA");
                         }
                     } else {
-                        
-                        JOptionPane.showMessageDialog(null, "LA CONTRASEÑA NO ES CORRECTA");
+                        // Otros roles: validar con BCrypt
+                        if (BCrypt.checkpw(pass, p)) {
+                            String nombre = rs.getString("nombre");
+                            String apellido = rs.getString("apellido");
+                            String username = rs.getString("username");
+                            int ci = rs.getInt("ci");
+                            String telefono = rs.getString("telefono");
+                            int idtecnico = rs.getInt("id_tecnico_prestamos");
+                            if (rs.wasNull()) {
+                                idtecnico = -1;
+                            }
+
+                            SesionUsuario.nombre = nombre;
+                            SesionUsuario.apellido = apellido;
+                            SesionUsuario.username = username;
+                            SesionUsuario.ci = ci;
+                            SesionUsuario.telefono = telefono;
+                            SesionUsuario.idtecnico = idtecnico;
+
+                            if (priv.equals("Tecnico de Prestamos")) {
+                                InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos(idusuario);
+                                ventanaTecnicoPrestamo.setVisible(true);
+                                this.dispose();
+                            } else if (priv.equals("Tecnico de Mantenimientos")) {
+                                InicioAdmiTecnicoEquipos ventanaReparacionesCompus = new InicioAdmiTecnicoEquipos(idusuario);
+                                ventanaReparacionesCompus.setVisible(true);
+                                this.dispose();
+                            } else if (priv.equals("Vicerrectorado Academico")) {
+                                InicioVicerrectorAcademico ventanaadmin = new InicioVicerrectorAcademico(idusuario);
+                                ventanaadmin.setVisible(true);
+                                this.dispose();
+                            } else if (priv.equals("Personal Academico")) {
+                                InicioPersonalAcademico ventanaAcademico = new InicioPersonalAcademico(idusuario);
+                                ventanaAcademico.setVisible(true);
+                                this.dispose();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "LA CONTRASEÑA NO ES CORRECTA");
+                        }
                     }
                 } else {
-                   
                     JOptionPane.showMessageDialog(null, "SU USUARIO ESTÁ INACTIVO. CONTACTE AL ADMINISTRADOR.");
                 }
             } else {
-                
                 JOptionPane.showMessageDialog(null, "EL USUARIO NO EXISTE");
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
+
     }//GEN-LAST:event_IniciaSesionActionPerformed
 
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
@@ -292,16 +295,16 @@ public class RoundedPanel extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_contrasenaActionPerformed
 
-        ImageIcon ojoMostrar = new ImageIcon(getClass().getResource("/Imagenes/Ojo1.png"));
-        ImageIcon ojoOcultar = new ImageIcon(getClass().getResource("/Imagenes/Ojo2.png"));
+    ImageIcon ojoMostrar = new ImageIcon(getClass().getResource("/Imagenes/Ojo1.png"));
+    ImageIcon ojoOcultar = new ImageIcon(getClass().getResource("/Imagenes/Ojo2.png"));
     private void btnMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarContraseñaActionPerformed
 
         if (contrasena.getEchoChar() == '•') {
-            contrasena.setEchoChar((char) 0);  
+            contrasena.setEchoChar((char) 0);
             btnMostrarContraseña.setIcon(ojoMostrar);
         } else {
-            contrasena.setEchoChar('•'); 
-             btnMostrarContraseña.setIcon(ojoOcultar);
+            contrasena.setEchoChar('•');
+            btnMostrarContraseña.setIcon(ojoOcultar);
         }
     }//GEN-LAST:event_btnMostrarContraseñaActionPerformed
 
@@ -316,7 +319,7 @@ public class RoundedPanel extends JPanel {
          */
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //</editor-fold>
@@ -346,5 +349,3 @@ public class RoundedPanel extends JPanel {
     private javax.swing.JTextField sesion;
     // End of variables declaration//GEN-END:variables
 }
-
-
