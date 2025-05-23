@@ -10,8 +10,8 @@ public class EmailSender {
         System.setProperty("https.protocols", "TLSv1.2");
         System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 
-        final String remitente = "proyectolosjacksonrej@gmail.com"; // Tu correo
-        final String password = "qgjz uluf seaj mrko"; // Contraseña de aplicación (no la real)
+        final String remitente = "proyectolosjacksonrej@gmail.com"; 
+        final String password = "qgjz uluf seaj mrko"; 
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
