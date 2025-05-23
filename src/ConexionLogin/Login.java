@@ -37,6 +37,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import org.mindrot.jbcrypt.BCrypt;
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -210,14 +211,13 @@ public class RoundedPanel extends JPanel {
              + "p.id_tecnico_prestamos, p.nombre, p.apellido, p.ci, p.telefono "
              + "FROM usuarios u "
              + "LEFT JOIN tecnico_prestamos p ON u.id_usuario = p.id_usuario "
-             + "WHERE u.username = ? AND u.contrasena = ?";
+             + "WHERE u.username = ?";
 
         try {
             Connection con = Conexion.obtenerConexion();
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, user);
-            ps.setString(2, pass);
 
             ResultSet rs = ps.executeQuery();
             
@@ -229,7 +229,7 @@ public class RoundedPanel extends JPanel {
                 boolean activo = rs.getBoolean("activo"); 
 
                 if (activo) { 
-                    if (pass.equals(p)) {
+                    if (BCrypt.checkpw(pass, p)) {
                         String nombre = rs.getString("nombre");
                         String apellido = rs.getString("apellido");
                         String username = rs.getString("username");
@@ -282,7 +282,6 @@ public class RoundedPanel extends JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
-       
     }//GEN-LAST:event_IniciaSesionActionPerformed
 
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
