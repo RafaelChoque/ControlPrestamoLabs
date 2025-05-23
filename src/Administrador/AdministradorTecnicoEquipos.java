@@ -633,7 +633,8 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
             ps = con.prepareStatement(
                     "SELECT t.id_tecnico_equipos, t.RU, t.nombre, t.apellido, t.CI, t.telefono, u.activo "
                     + "FROM tecnico_equipos t "
-                    + "INNER JOIN usuarios u ON t.id_usuario = u.id_usuario"
+                    + "INNER JOIN usuarios u ON t.id_usuario = u.id_usuario "
+                    + "WHERE t.estado = 1 "
             );
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
@@ -775,32 +776,58 @@ public class AdministradorTecnicoEquipos extends javax.swing.JFrame {
             return;
         }
 
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Está seguro de que desea eliminar este registro?\nEsta acción deshabilitará al usuario del sistema.",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return; 
+        }
+
         int tecnicoEquiposId = Integer.parseInt(ID.getText());
 
-        try{
+        try {
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-            psObtenerUsuario.setInt(1, tecnicoEquiposId);
-            ResultSet rs = psObtenerUsuario.executeQuery();
 
-            if(rs.next()){
-                int usuarioId = rs.getInt("id_usuario");
+            PreparedStatement psVerificar = con.prepareStatement(
+                    "SELECT estado, id_usuario FROM tecnico_equipos WHERE id_tecnico_equipos = ?"
+            );
+            psVerificar.setInt(1, tecnicoEquiposId);
+            ResultSet rs = psVerificar.executeQuery();
 
-                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM tecnico_equipos WHERE id_tecnico_equipos=?");
-                psTecnico.setInt(1,tecnicoEquiposId);
-                psTecnico.executeUpdate();
+            if (rs.next()) {
+                int estado = rs.getInt("estado");
+                int idUsuario = rs.getInt("id_usuario");
 
-                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
-                psUsuario.setInt(1,usuarioId);
-                psUsuario.executeUpdate();
+                if (estado == 0) {
+                    JOptionPane.showMessageDialog(null, "El usuario ya fue eliminado anteriormente");
+                    return;
+                }
 
-                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
+                PreparedStatement psActualizarEstado = con.prepareStatement(
+                        "UPDATE tecnico_equipos SET estado = 0 WHERE id_tecnico_equipos = ?"
+                );
+                psActualizarEstado.setInt(1, tecnicoEquiposId);
+                psActualizarEstado.executeUpdate();
+
+                PreparedStatement psActualizarUsuario = con.prepareStatement(
+                        "UPDATE usuarios SET activo = 0 WHERE id_usuario = ?"
+                );
+                psActualizarUsuario.setInt(1, idUsuario);
+                psActualizarUsuario.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Registro marcado como eliminado e inhabilitado para el sistema");
                 Limpiar();
-            }else{
-                JOptionPane.showMessageDialog(null,"No se encontro al técnico");
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró al técnico de equipos");
             }
-        }catch (SQLException ex){
-            System.out.println(ex.toString());
+        } catch (SQLException ex) {
+            System.out.println("Error en eliminación lógica: " + ex.toString());
         }
     }//GEN-LAST:event_eliminarActionPerformed
 

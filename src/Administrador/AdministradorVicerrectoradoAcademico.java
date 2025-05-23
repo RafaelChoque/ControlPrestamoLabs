@@ -617,7 +617,8 @@ private void cargarTabla() {
             ps = con.prepareStatement(
                     "SELECT v.id_vicerrectorado_academico, v.RU, v.nombre, v.apellido, v.CI, v.telefono, u.activo "
                     + "FROM vicerrectorado_academico v "
-                    + "INNER JOIN usuarios u ON v.id_usuario = u.id_usuario"
+                    + "INNER JOIN usuarios u ON v.id_usuario = u.id_usuario "
+                    + "WHERE v.estado = 1 "
             );
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
@@ -833,28 +834,59 @@ private void cargarTabla() {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un vicerrector a eliminar");
             return;
         }
-        int tecnicoPrestamoId = Integer.parseInt(ID.getText());
-        try{
+
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Está seguro de que desea eliminar este registro?\nEsta acción deshabilitará al usuario del sistema.",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        int vicerrectoradoId = Integer.parseInt(ID.getText());
+
+        try {
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement psObtenerUsuario = con.prepareStatement("SELECT id_usuario FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
-            psObtenerUsuario.setInt(1, tecnicoPrestamoId);
-            ResultSet rs = psObtenerUsuario.executeQuery();
-            if(rs.next()){
-                int usuarioId = rs.getInt("id_usuario");
-                PreparedStatement psTecnico = con.prepareStatement("DELETE FROM vicerrectorado_academico WHERE id_vicerrectorado_academico=?");
-                psTecnico.setInt(1,tecnicoPrestamoId);
-                psTecnico.executeUpdate();
-                PreparedStatement psUsuario = con.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
-                psUsuario.setInt(1,usuarioId);
-                psUsuario.executeUpdate();
-                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
+
+            PreparedStatement psVerificar = con.prepareStatement(
+                    "SELECT estado, id_usuario FROM vicerrectorado_academico WHERE id_vicerrectorado_academico = ?"
+            );
+            psVerificar.setInt(1, vicerrectoradoId);
+            ResultSet rs = psVerificar.executeQuery();
+
+            if (rs.next()) {
+                int estado = rs.getInt("estado");
+                int idUsuario = rs.getInt("id_usuario");
+
+                if (estado == 0) {
+                    JOptionPane.showMessageDialog(null, "El usuario ya fue eliminado anteriormente");
+                    return;
+                }
+
+                PreparedStatement psActualizarEstado = con.prepareStatement(
+                        "UPDATE vicerrectorado_academico SET estado = 0 WHERE id_vicerrectorado_academico = ?"
+                );
+                psActualizarEstado.setInt(1, vicerrectoradoId);
+                psActualizarEstado.executeUpdate();
+
+                PreparedStatement psActualizarUsuario = con.prepareStatement(
+                        "UPDATE usuarios SET activo = 0 WHERE id_usuario = ?"
+                );
+                psActualizarUsuario.setInt(1, idUsuario);
+                psActualizarUsuario.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Registro marcado como eliminado e inhabilitado para el sistema");
                 Limpiar();
                 cargarTabla();
-            }else{
-                JOptionPane.showMessageDialog(null,"No se encontro al vicerrector");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró al vicerrector");
             }
-        }catch (SQLException ex){
-            System.out.println(ex.toString());
+        } catch (SQLException ex) {
+            System.out.println("Error en eliminación lógica: " + ex.toString());
         }
     }//GEN-LAST:event_eliminarActionPerformed
     private void Limpiar() {
