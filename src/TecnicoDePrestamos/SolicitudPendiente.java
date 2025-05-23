@@ -961,7 +961,7 @@ try {
         }
 
         try {
-            // Obtener el id de la solicitud seleccionada
+            // Obtener el id de la solicitud seleccionada umm guys?
             int idSolicitud = Integer.parseInt(TablaSolicitudes.getValueAt(fila, 0).toString());
 
             int idTecnico = SesionUsuario.idtecnico;
