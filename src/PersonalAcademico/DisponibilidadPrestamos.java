@@ -154,7 +154,8 @@ private void cargarTablaCompleta() {
     String query = "SELECT l.ID_lab, l.Nombre_lab "
             + "FROM laboratorios l "
             + "LEFT JOIN prestamos p ON l.ID_lab = p.ID_lab "
-            + "ORDER BY l.ID_lab";
+            + "WHERE l.estadolab = 1 "
+            + "ORDER BY l.ID_lab ";
 
     try (Connection con = Conexion.obtenerConexion(); PreparedStatement ps = con.prepareStatement(query)) {
         ResultSet rs = ps.executeQuery();
@@ -188,7 +189,7 @@ private void cargarTablaCompleta() {
 
         String fechaSQL = new SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada);
 
-        String queryLaboratorios = "SELECT ID_lab, Nombre_lab FROM laboratorios WHERE Bloque = ?";
+        String queryLaboratorios = "SELECT ID_lab, Nombre_lab FROM laboratorios WHERE Bloque = ? AND estadolab = 1 ";
 
         try (Connection con = Conexion.obtenerConexion(); PreparedStatement psLabs = con.prepareStatement(queryLaboratorios)) {
 

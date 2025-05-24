@@ -150,10 +150,10 @@ private void cargarTabla() {
 
         if (bloqueBuscado.isEmpty()) {
             // Si no escribió nada, mostrar todos
-            sql = "SELECT ID_lab, Codigo_lab, Nombre_lab, Bloque, Seccion FROM laboratorios";
+            sql = "SELECT ID_lab, Codigo_lab, Nombre_lab, Bloque, Seccion FROM laboratorios WHERE estadolab = 1 ";
         } else {
             // Si escribió un bloque, buscar solo ese bloque
-            sql = "SELECT ID_lab, Codigo_lab, Nombre_lab, Bloque, Seccion FROM laboratorios WHERE Bloque = ?";
+            sql = "SELECT ID_lab, Codigo_lab, Nombre_lab, Bloque, Seccion FROM laboratorios WHERE Bloque = ? AND estadolab = 1 ";
         }
 
         PreparedStatement pst = con.prepareStatement(sql);

@@ -930,7 +930,8 @@ private void cargarNombreCompleto() {
             PreparedStatement ps = con.prepareStatement(
                     "SELECT mh.id_material_hardware, mh.nombre, mh.tipo_equipo, mh.numero_serie, mh.estado,l.seccion ,l.Codigo_lab "
                     + "FROM materiales_hardware mh "
-                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab");
+                    + "JOIN laboratorios l ON mh.ID_lab = l.ID_lab "
+                    + "WHERE mh.estado_material_hardware = 1 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Object[] fila = {
@@ -1088,13 +1089,16 @@ private void cargarNombreCompleto() {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try (Connection con = Conexion.obtenerConexion()) {
-                PreparedStatement ps = con.prepareStatement("DELETE FROM materiales_hardware WHERE id_material_hardware=?");
+
+                PreparedStatement ps = con.prepareStatement("UPDATE materiales_hardware SET estado_material_hardware = 0 WHERE id_material_hardware = ?");
                 ps.setInt(1, Integer.parseInt(id));
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
+
                 limpiar();
                 cargarTabla();
+
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
             }

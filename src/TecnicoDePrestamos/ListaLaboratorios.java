@@ -906,7 +906,7 @@ private boolean subReportesMostrado = false;
         
         try{
             Connection con = Conexion.obtenerConexion();
-            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, bloque, seccion, estado FROM laboratorios");
+            ps = con.prepareStatement("SELECT id_lab, codigo_lab, nombre_lab, bloque, seccion, estado FROM laboratorios WHERE estadolab = 1 ");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -921,9 +921,6 @@ private boolean subReportesMostrado = false;
             JOptionPane.showMessageDialog(null, e.toString());
         }
     }    
-
-    
-    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
         
@@ -1019,11 +1016,13 @@ private boolean subReportesMostrado = false;
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int id  = Integer.parseInt(txtID.getText());
-        
-        try{
+        int id = Integer.parseInt(txtID.getText());
+
+        try {
             Connection con = Conexion.obtenerConexion();
-            PreparedStatement psBuscar = con.prepareStatement("SELECT codigo_lab, nombre_lab, bloque, seccion FROM laboratorios WHERE id_lab = ?");
+            PreparedStatement psBuscar = con.prepareStatement(
+                    "SELECT codigo_lab, nombre_lab, bloque, seccion FROM laboratorios WHERE id_lab = ?"
+            );
             psBuscar.setInt(1, id);
             ResultSet rs = psBuscar.executeQuery();
 
@@ -1033,31 +1032,35 @@ private boolean subReportesMostrado = false;
                 laboratorio = rs.getString("nombre_lab");
                 bloque = rs.getString("bloque");
                 seccion = rs.getString("seccion");
-                
             } else {
                 JOptionPane.showMessageDialog(null, "Laboratorio no encontrado.");
                 return;
             }
-            PreparedStatement ps = con.prepareStatement("DELETE FROM laboratorios WHERE id_lab = ?");
+
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE laboratorios SET estadolab = 0 WHERE id_lab = ?"
+            );
             ps.setInt(1, id);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, ("Registro Eliminado"));
-            
-                /*int idTecnico = SesionUsuario.idUsuario;
-                String rolTecnico = SesionUsuario.rol;
-                String usuarioTecnico = SesionUsuario.username;
-                String accion = "Laboratorio Eliminado";
-                String detalleLog = "Usuario: '" + usuarioTecnico + "' Rol: '" + rolTecnico +
-                        "' eliminó el laboratorio: código '" + codigoLab +
-                        "', nombre '" + laboratorio + "', bloque '" + bloque +
-                        "', sección '" + seccion + "'.";
 
-                LogManager.registrarLog(idTecnico, rolTecnico, accion, detalleLog);*/
-    
+            JOptionPane.showMessageDialog(null, "Laboratorio eliminado lógicamente.");
+
+            /* Descomenta si usas el sistema de logs
+        int idTecnico = SesionUsuario.idUsuario;
+        String rolTecnico = SesionUsuario.rol;
+        String usuarioTecnico = SesionUsuario.username;
+        String accion = "Laboratorio Eliminado (lógico)";
+        String detalleLog = "Usuario: '" + usuarioTecnico + "' Rol: '" + rolTecnico +
+                "' eliminó (lógicamente) el laboratorio: código '" + codigoLab +
+                "', nombre '" + laboratorio + "', bloque '" + bloque +
+                "', sección '" + seccion + "'.";
+
+        LogManager.registrarLog(idTecnico, rolTecnico, accion, detalleLog);
+             */
             limpiar();
             cargarTabla();
-            
-        } catch (SQLException e){
+
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
