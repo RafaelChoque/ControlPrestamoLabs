@@ -6,7 +6,6 @@ import javax.mail.internet.*;
 
 public class EmailSender {
     public static void enviarCorreo(String destinatario, String asunto, String mensajeTexto) {
-        // ⚠️ Establecer las propiedades TLS justo al inicio
         System.setProperty("https.protocols", "TLSv1.2");
         System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 
@@ -19,7 +18,6 @@ public class EmailSender {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
-        // 🔐 Reafirmamos el protocolo TLS para compatibilidad
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -38,7 +36,7 @@ public class EmailSender {
             Transport.send(mensaje);
             System.out.println("Correo enviado a: " + destinatario);
         } catch (MessagingException e) {
-            e.printStackTrace(); // 👈 Aquí te muestra el error si hay problemas
+            e.printStackTrace(); 
         }
     }
 }
