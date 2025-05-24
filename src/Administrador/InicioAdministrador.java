@@ -6,6 +6,7 @@ package Administrador;
 
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -152,6 +153,7 @@ public class InicioAdministrador extends javax.swing.JFrame {
         btnTecnicoEquipo = new javax.swing.JButton();
         btnTecnicoPrestamo = new javax.swing.JButton();
         btnVicerrector = new javax.swing.JButton();
+        btnAuditoria = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
@@ -317,6 +319,26 @@ public class InicioAdministrador extends javax.swing.JFrame {
         });
         panelSidebar.add(btnVicerrector, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 229, 40));
 
+        btnAuditoria.setBackground(new java.awt.Color(29, 41, 57));
+        btnAuditoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAuditoria.setForeground(new java.awt.Color(241, 241, 241));
+        btnAuditoria.setText("Auditoria");
+        btnAuditoria.setBorder(null);
+        btnAuditoria.setHorizontalAlignment(SwingConstants.LEFT);
+        btnAuditoria.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
+        btnAuditoria.setIconTextGap(10);
+        btnAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAuditoriaMouseExited(evt);
+            }
+        });
+        btnAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuditoriaActionPerformed(evt);
+            }
+        });
+        panelSidebar.add(btnAuditoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 229, 40));
+
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
 
         panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
@@ -440,6 +462,11 @@ public class InicioAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+
+int idUsuario = SesionUsuario.idUsuario;
+        String rol = SesionUsuario.rol;
+        String usuario = SesionUsuario.username;
+        LogManager.registrarLog(idUsuario, rol, "Cerrar Sesión", "Usuario '" + usuario + "' Rol: '" + rol + "' cerró sesión correctamente.");
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
@@ -522,6 +549,17 @@ public class InicioAdministrador extends javax.swing.JFrame {
         this.dispose(); 
     }//GEN-LAST:event_btnVicerrectorActionPerformed
 
+    private void btnAuditoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAuditoriaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAuditoriaMouseExited
+
+    private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
+        Auditoria admin = new Auditoria();
+        admin.setLocationRelativeTo(null);
+        admin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAuditoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -552,6 +590,7 @@ public class InicioAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JLabel Superior;
+    private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
