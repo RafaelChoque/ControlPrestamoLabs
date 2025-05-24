@@ -4,8 +4,11 @@
  */
 package Reportes;
 
+import Administrador.LogManager;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
+import static ConexionLogin.SesionUsuario.username;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
 import Sanciones.SancionesParaDesignar;
@@ -15,6 +18,7 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -39,11 +43,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -69,6 +76,7 @@ public class ReportesPrestamos extends javax.swing.JFrame {
     public ReportesPrestamos(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        aplicarColorFilasAlternadas(tblPrestamos);
         cargarNombreCompleto();
         iconoOriginal = lblFlecha.getIcon();
 panelSubReportes.setLocation(panelSubReportes.getX(), -70);
@@ -123,6 +131,35 @@ panelSubReportes.setVisible(false);
         this.setLocationRelativeTo(null);
     
     }
+    private void aplicarColorFilasAlternadas(JTable tabla) {
+    TableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                setBackground(table.getSelectionBackground());
+                setForeground(table.getSelectionForeground());
+            } else {
+                if (row % 2 == 0) {
+                    setBackground(Color.WHITE);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(new Color(240, 240, 240));
+                    setForeground(Color.BLACK);
+                }
+            }
+
+            return this;
+        }
+    };
+
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+}
         private boolean flechaAbajo = true; // empieza apuntando hacia abajo
 private Icon iconoOriginal;
 
@@ -938,6 +975,10 @@ private boolean sidebarMostrado = false;
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int idUsuario = SesionUsuario.idUsuario;
+        String rol = SesionUsuario.rol;
+        String usuario = SesionUsuario.username;
+        LogManager.registrarLog(idusuario, rol, "Cerrar Sesión", "Usuario '" + username + "' Rol: '" + rol + "' cerró sesión correctamente.");
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
