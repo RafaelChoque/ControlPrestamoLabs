@@ -4,8 +4,11 @@
  */
 package Materiales;
 
+import Administrador.LogManager;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
+import static ConexionLogin.SesionUsuario.username;
 import Reportes.ReportesMantenimiento;
 import Reportes.ReportesPrestamos;
 import Reportes.ReportesSanciones;
@@ -16,6 +19,7 @@ import TecnicoDePrestamos.ListaPrestamos;
 import TecnicoDePrestamos.SolicitudPendiente;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -34,6 +38,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -41,7 +46,9 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -62,6 +69,7 @@ public class Materiales extends javax.swing.JFrame {
     public Materiales(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        aplicarColorFilasAlternadas(tblMateriales);
         cargarNombreCompleto();
         iconoOriginal = lblFlecha.getIcon();
         panelSubReportes.setLocation(panelSubReportes.getX(), -70);
@@ -116,6 +124,35 @@ public class Materiales extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
     }
+    private void aplicarColorFilasAlternadas(JTable tabla) {
+    TableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                setBackground(table.getSelectionBackground());
+                setForeground(table.getSelectionForeground());
+            } else {
+                if (row % 2 == 0) {
+                    setBackground(Color.WHITE);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(new Color(240, 240, 240));
+                    setForeground(Color.BLACK);
+                }
+            }
+
+            return this;
+        }
+    };
+
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+}
             private boolean flechaAbajo = true; // empieza apuntando hacia abajo
 private Icon iconoOriginal;
 
@@ -1081,7 +1118,7 @@ private void cargarNombreCompleto() {
 
         try (Connection con = Conexion.obtenerConexion()) {
             // Obtener el estado actual del material
-            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado FROM materiales WHERE id_material = ?");
+            PreparedStatement psObtenerEstado = con.prepareStatement("SELECT estado, nombre, tipo_equipo, numero_serie, unidades FROM materiales WHERE id_material = ?");
             psObtenerEstado.setInt(1, materialId);
 
             try (ResultSet rsEstado = psObtenerEstado.executeQuery()) {
@@ -1089,8 +1126,14 @@ private void cargarNombreCompleto() {
                     JOptionPane.showMessageDialog(null, "Error al encontrar el material.");
                     return;
                 }
+        
 
-                String estadoActual = rsEstado.getString("estado");
+        String estadoActual = rsEstado.getString("estado");
+        String nombreText = rsEstado.getString("nombre");
+        String tipoEquipoText = rsEstado.getString("tipo_equipo");
+        String NumSerieText = rsEstado.getString("numero_serie");
+        int unidadesText = rsEstado.getInt("unidades");
+
                 System.out.println("Estado actual del material: " + estadoActual);
 
                 // Cambiar el estado según el estado actual
@@ -1114,9 +1157,21 @@ private void cargarNombreCompleto() {
                 psActualizarEstado.executeUpdate();
 
                 String mensaje = "Material ahora está en estado de " + nuevoEstado.toLowerCase() + ".";
+                
                 JOptionPane.showMessageDialog(null, mensaje);
 
-                cargarTablaPorCategoria();
+                 int idTecnico = SesionUsuario.idUsuario;
+        String rolTecnico = SesionUsuario.rol;
+        String usuarioTecnico = SesionUsuario.username;
+        String accion = "Cambio de Estado de Material";
+        String detalleLog = "Usuario: '" + usuarioTecnico + "' Rol: '" + rolTecnico +
+                            "' cambió el estado del material: nombre '" + nombreText +
+                            "', tipo '" + tipoEquipoText + "', número de serie '" + NumSerieText +
+                            "', unidades " + unidadesText + ", de estado '" + estadoActual +
+                            "' a '" + nuevoEstado + "'.";
+
+        LogManager.registrarLog(idTecnico, rolTecnico, accion, detalleLog);
+                cargarTablaTodo();
                 
             }
 
@@ -1139,6 +1194,11 @@ private void cargarNombreCompleto() {
 
         // Obtenemos el ID directamente de la tabla
         int idMaterial = Integer.parseInt(tblMateriales.getValueAt(fila, 0).toString());
+        String codigoText = tblMateriales.getValueAt(fila, 1).toString();  // nombre
+        String tipoEquipoText = tblMateriales.getValueAt(fila, 2).toString();
+        String NumSerieText = tblMateriales.getValueAt(fila, 3).toString();
+        String laboratorioText = tblMateriales.getValueAt(fila, 4).toString();
+        String unidadesText = tblMateriales.getValueAt(fila, 5).toString();
 
         int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este material?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
@@ -1150,6 +1210,16 @@ private void cargarNombreCompleto() {
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Material eliminado correctamente.");
+                int idTecnico = SesionUsuario.idUsuario;
+                String rolTecnico = SesionUsuario.rol;
+                String usuarioTecnico = SesionUsuario.username;
+                String accion = "Material Eliminado";
+                String detalleLog = "Usuario: '" + usuarioTecnico + "' Rol: '" + rolTecnico + "' eliminó el material: nombre '" + codigoText +
+                    "', tipo '" + tipoEquipoText + "', número de serie '" + NumSerieText +
+                    "', unidades " + unidadesText + ", laboratorio '" + laboratorioText + "'.";
+
+                LogManager.registrarLog(idTecnico, rolTecnico, accion, detalleLog);
+               
                 cargarTablaTodo();
                 limpiar();
             } catch (SQLException e) {
@@ -1209,6 +1279,17 @@ private void cargarNombreCompleto() {
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Material actualizado correctamente.");
                 
+                int idUsuario = SesionUsuario.idUsuario;
+                String rolUsuario = SesionUsuario.rol;
+                String usuario = SesionUsuario.username;
+                String accion = "Material Modificado";
+                String detalle = "Usuario: '" + usuario + "' Rol: '" + rolUsuario +
+                                 "' actualizó el material: nombre '" + nombre +
+                                 "', tipo '" + tipo + "', número de serie '" + serie +
+                                 "', unidades " + unidades + "." + "', laboratorio '" + laboratorio;
+               
+                LogManager.registrarLog(idUsuario, rolUsuario, accion, detalle);
+                
                 limpiar();  // Limpiar los campos
                 cargarTablaTodo();  // Refrescar la tabla
 
@@ -1254,12 +1335,21 @@ private void cargarNombreCompleto() {
                 ps.setString(2, tipoEquipoText);
                 ps.setString(3, NumSerieText);
                 ps.setString(4, "Disponible");
-                ps.setInt(5, idLab); // Usamos el idLab aquí
+                ps.setInt(5, idLab);
                 ps.setInt(6, Integer.parseInt(unidadesText));
 
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Material registrado correctamente.");
+                int idTecnico = SesionUsuario.idUsuario;
+                String rolTecnico = SesionUsuario.rol;
+                String usuarioTecnico = SesionUsuario.username;
+                String accion = "Material Registrado";
+                String detalleLog = "Usuario: '" + usuarioTecnico + "' Rol: '" + rolTecnico + "' agregó un nuevo material: nombre '" + codigoText +
+                    "', tipo '" + tipoEquipoText + "', número de serie '" + NumSerieText +
+                    "', unidades " + unidadesText + ", laboratorio '" + laboratorioText + "'.";
+
+                LogManager.registrarLog(idTecnico, rolTecnico, accion, detalleLog);
                 limpiar();
                 cargarTablaTodo(); 
             } else {
@@ -1354,6 +1444,10 @@ private void cargarNombreCompleto() {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int idUsuario = SesionUsuario.idUsuario;
+        String rol = SesionUsuario.rol;
+        String usuario = SesionUsuario.username;
+        LogManager.registrarLog(idusuario, rol, "Cerrar Sesión", "Usuario '" + username + "' Rol: '" + rol + "' cerró sesión correctamente.");
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
