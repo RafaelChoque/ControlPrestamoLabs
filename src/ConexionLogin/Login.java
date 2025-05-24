@@ -11,6 +11,7 @@ package ConexionLogin;
 import TecnicoDePrestamos.ListaPrestamos;
 import Administrador.AdministradorTecnicoPrestamo;
 import Administrador.InicioAdministrador;
+import Administrador.LogManager;
 import PersonalAcademico.FormularioPrestamo;
 import ConexionLogin.Conexion;
 import PersonalAcademico.InicioPersonalAcademico;
@@ -224,18 +225,25 @@ public class RoundedPanel extends JPanel {
                 boolean activo = rs.getBoolean("activo");
 
                 if (activo) {
-                    // Validar según el tipo de usuario
+
                     if (priv.equals("Administrador")) {
-                        // Admin: comparar texto plano
-                        if (pass.equals(p)) {
-                            InicioAdministrador ventanaadmin = new InicioAdministrador();
-                            ventanaadmin.setVisible(true);
-                            this.dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "LA CONTRASEÑA NO ES CORRECTA");
-                        }
+                    if (pass.equals(p)) {
+
+                        SesionUsuario.idUsuario = idusuario;
+                        SesionUsuario.username = u;
+                        SesionUsuario.rol = priv;
+                        SesionUsuario.idtecnico = -1;
+
+                        String detalleLog = "Usuario: '" + u + "' Rol: '" + priv + "' inició sesión correctamente.";
+                        LogManager.registrarLog(idusuario, priv, "Iniciar Sesión", detalleLog);
+
+                        InicioAdministrador ventanaadmin = new InicioAdministrador();
+                        ventanaadmin.setVisible(true);
+                        this.dispose();
                     } else {
-                        // Otros roles: validar con BCrypt
+                        JOptionPane.showMessageDialog(null, "LA CONTRASEÑA NO ES CORRECTA");
+                    }
+                } else {
                         if (BCrypt.checkpw(pass, p)) {
                             String nombre = rs.getString("nombre");
                             String apellido = rs.getString("apellido");
@@ -253,7 +261,11 @@ public class RoundedPanel extends JPanel {
                             SesionUsuario.ci = ci;
                             SesionUsuario.telefono = telefono;
                             SesionUsuario.idtecnico = idtecnico;
-
+                            SesionUsuario.rol = priv;
+                            SesionUsuario.idUsuario = idusuario;
+                            
+                            String detalleLog = "Usuario: '" + user + "' Rol: '" + priv + "' inició sesión correctamente.";
+                            LogManager.registrarLog(idusuario, priv, "Iniciar Sesión", detalleLog);
                             if (priv.equals("Tecnico de Prestamos")) {
                                 InicioAdmiTecnicoPrestamos ventanaTecnicoPrestamo = new InicioAdmiTecnicoPrestamos(idusuario);
                                 ventanaTecnicoPrestamo.setVisible(true);
@@ -284,7 +296,6 @@ public class RoundedPanel extends JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
-
     }//GEN-LAST:event_IniciaSesionActionPerformed
 
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
