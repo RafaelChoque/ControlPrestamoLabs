@@ -1,12 +1,16 @@
 package PersonalAcademico;
 
+import Administrador.LogManager;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
+import static ConexionLogin.SesionUsuario.username;
 import Materiales.MaterialExtraDocente;
 
 import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 
 /*
@@ -45,6 +50,8 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     public FormularioPrestamo(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        aplicarColorFilasAlternadas(tablaHistorial);
+        aplicarColorFilasAlternadas(TablaPrestamos2 );
         cargarNombreCompleto();
         verificarUltimoEstado(idusuario);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -114,7 +121,35 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         });
         this.setLocationRelativeTo(null);
     }
+private void aplicarColorFilasAlternadas(JTable tabla) {
+    TableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
 
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                setBackground(table.getSelectionBackground());
+                setForeground(table.getSelectionForeground());
+            } else {
+                if (row % 2 == 0) {
+                    setBackground(Color.WHITE);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(new Color(240, 240, 240));
+                    setForeground(Color.BLACK);
+                }
+            }
+
+            return this;
+        }
+    };
+
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+}
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -183,6 +218,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         LogoSale1 = new javax.swing.JLabel();
         Sanciones = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
         Nombretxt = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -226,7 +262,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -325,6 +360,11 @@ public class FormularioPrestamo extends javax.swing.JFrame {
         panelSidebar.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 229, 40));
 
         getContentPane().add(panelSidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 870));
+
+        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
+        panelOverlay.setOpaque(true);
+        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
         Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -587,11 +627,6 @@ public class FormularioPrestamo extends javax.swing.JFrame {
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
-
-        panelOverlay.setBackground(new java.awt.Color(0, 0, 0));
-        panelOverlay.setOpaque(true);
-        panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -975,6 +1010,10 @@ private void verificarUltimoEstado(int idusuario) {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int idUsuario = SesionUsuario.idUsuario; 
+        String rol = SesionUsuario.rol;
+        String usuario = SesionUsuario.username;
+        LogManager.registrarLog(idusuario, rol, "Cerrar Sesión", "Usuario '" + username + "' Rol: '" + rol + "' cerró sesión correctamente.");
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
