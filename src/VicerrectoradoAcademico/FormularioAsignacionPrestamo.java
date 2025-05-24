@@ -4,14 +4,18 @@
  */
 package VicerrectoradoAcademico;
 
+import Administrador.LogManager;
 import VicerrectoradoAcademico.VerRUdePersonalAcademico;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
+import ConexionLogin.SesionUsuario;
+import static ConexionLogin.SesionUsuario.username;
 import PersonalAcademico.DisponibilidadPrestamos;
 import PersonalAcademico.FormularioPrestamo;
 import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -28,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -42,6 +47,8 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     public FormularioAsignacionPrestamo(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        aplicarColorFilasAlternadas(TablaAsignacion2);
+        aplicarColorFilasAlternadas(TablaAsignacion);
         cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -94,6 +101,35 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         });
         this.setLocationRelativeTo(null);
     }
+    private void aplicarColorFilasAlternadas(JTable tabla) {
+    TableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                setBackground(table.getSelectionBackground());
+                setForeground(table.getSelectionForeground());
+            } else {
+                if (row % 2 == 0) {
+                    setBackground(Color.WHITE);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(new Color(240, 240, 240));
+                    setForeground(Color.BLACK);
+                }
+            }
+
+            return this;
+        }
+    };
+
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+}
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -862,6 +898,10 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int idUsuario = SesionUsuario.idUsuario;
+        String rol = SesionUsuario.rol;
+        String usuario = SesionUsuario.username;
+        LogManager.registrarLog(idusuario, rol, "Cerrar Sesión", "Usuario '" + username + "' Rol: '" + rol + "' cerró sesión correctamente.");
         Login cerrar = new Login();
         cerrar.setLocationRelativeTo(null);
         cerrar.setVisible(true);
