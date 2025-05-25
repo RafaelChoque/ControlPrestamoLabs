@@ -301,6 +301,18 @@ private boolean subReportesMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Nombretxt = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JButton();
+        perfil1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        ListadePrestamos = new javax.swing.JLabel();
+        BuscarSolicitudes = new javax.swing.JButton();
+        ActualizarTabla = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaSolicitudes = new javax.swing.JTable();
+        Superior = new javax.swing.JLabel();
+        FondoGris1 = new javax.swing.JLabel();
+        FondoBlanco = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -321,22 +333,93 @@ private boolean subReportesMostrado = false;
         btnReporteMantenimiento = new javax.swing.JButton();
         btnReporteSanciones = new javax.swing.JButton();
         panelOverlay = new javax.swing.JLayeredPane();
-        Nombretxt = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JButton();
-        perfil1 = new javax.swing.JLabel();
-        Superior = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        ListadePrestamos = new javax.swing.JLabel();
-        BuscarSolicitudes = new javax.swing.JButton();
-        ActualizarTabla = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaSolicitudes = new javax.swing.JTable();
-        FondoGris1 = new javax.swing.JLabel();
-        FondoBlanco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        ListadePrestamos.setText("Prestamos");
+        jPanel1.add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        BuscarSolicitudes.setBackground(new java.awt.Color(29, 41, 57));
+        BuscarSolicitudes.setForeground(new java.awt.Color(255, 255, 255));
+        BuscarSolicitudes.setText("Buscar Solicitudes");
+        BuscarSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarSolicitudesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        ActualizarTabla.setBackground(new java.awt.Color(29, 41, 57));
+        ActualizarTabla.setForeground(new java.awt.Color(255, 255, 255));
+        ActualizarTabla.setText("Actualizar Tabla");
+        ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarTablaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
+
+        TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Laboratorio", "Docente", "Motivo", "Bloque", "Sección", "Fecha", "Horario Inicio", "Horario Fin", "Estado", "Motivo del rechazo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TablaSolicitudes);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1450, 650));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1500, 760));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -595,89 +678,6 @@ private boolean subReportesMostrado = false;
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
-
-        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        perfil1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ListadePrestamos.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        ListadePrestamos.setText("Prestamos");
-        jPanel1.add(ListadePrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        BuscarSolicitudes.setBackground(new java.awt.Color(29, 41, 57));
-        BuscarSolicitudes.setForeground(new java.awt.Color(255, 255, 255));
-        BuscarSolicitudes.setText("Buscar Solicitudes");
-        BuscarSolicitudes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarSolicitudesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BuscarSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        ActualizarTabla.setBackground(new java.awt.Color(29, 41, 57));
-        ActualizarTabla.setForeground(new java.awt.Color(255, 255, 255));
-        ActualizarTabla.setText("Actualizar Tabla");
-        ActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ActualizarTablaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ActualizarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
-
-        TablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Laboratorio", "Docente", "Motivo", "Bloque", "Sección", "Fecha", "Horario Inicio", "Horario Fin", "Estado", "Motivo del rechazo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(TablaSolicitudes);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1450, 650));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1500, 760));
-
-        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
