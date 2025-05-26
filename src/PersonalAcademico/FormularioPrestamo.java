@@ -7,6 +7,7 @@ import ConexionLogin.SesionUsuario;
 import static ConexionLogin.SesionUsuario.idUsuario;
 import static ConexionLogin.SesionUsuario.username;
 import Materiales.MaterialExtraDocente;
+import OpenAI.OpenAIClient;
 import OpenAi.OpenAIClient;
 
 import Sanciones.SancionesRecibidaPersonal;
