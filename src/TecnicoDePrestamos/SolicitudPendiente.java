@@ -941,7 +941,7 @@ try {
 
         String detalleLog = "Solicitud " + idSolicitud + " aprobada: " + laboratorio + 
                             ", " + motivo + ", " + fecha + ", " + inicio + "-" + fin;
-        LogManager.registrarLog(idTecnico, rolTecnico, "APROBACIÓN", detalleLog);
+        LogManager.registrarLog(idTecnico, rolTecnico, "Solicitud Aprobada", detalleLog);
     }
 
     JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
@@ -1067,7 +1067,7 @@ try {
         String detalleLog = "Solicitud " + idSolicitud + " rechazada: " + laboratorio +
                             ", " + motivoOriginal + ", " + fecha + ", " + inicio + "-" + fin +
                             ", Motivo: " + motivo;
-        LogManager.registrarLog(idTecnico, rolTecnico, "RECHAZO", detalleLog);
+        LogManager.registrarLog(idTecnico, rolTecnico, "Solicitud Rechazada", detalleLog);
     }
 
     JOptionPane.showMessageDialog(null, "Solicitud rechazada correctamente.");
