@@ -11,6 +11,12 @@ import Materiales.MaterialesHardware;
 import Reportes.ReportesMantenimiento;
 import Reportes.ReportesPrestamos;
 import Reportes.ReportesSanciones;
+import Reportes.VentanaGraficosMantenimientoInternal;
+import Reportes.VentanaGraficosMultiplesMantenimiento;
+import Reportes.VentanaGraficosMultiplesPrestamos;
+import Reportes.VentanaGraficosMultiplesSanciones;
+import Reportes.VentanaGraficosPrestamosInternal;
+import Reportes.VentanaGraficosSancionesInternal;
 import Sanciones.SancionesParaDesignar;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -24,15 +30,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -54,11 +71,44 @@ public class InicioAdmiTecnicoPrestamos extends javax.swing.JFrame {
         this.idusuario = idusuario;
         initComponents();
         cargarNombreCompleto();
+        cargarTablaTodoSanciones();
+        cargarTablaTodoMantenimiento();
+        cargarTablaTodoPrestamos();
+        cargarGraficoMantenimiento();
+        cargarGraficoPrestamos();
+        cargarGraficoSanciones();
+
         iconoOriginal = lblFlecha.getIcon();
-panelSubReportes.setLocation(panelSubReportes.getX(), -70);
-panelSubReportes.setVisible(false);
+        panelSubReportes.setLocation(panelSubReportes.getX(), -70);
+        panelSubReportes.setVisible(false);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
+        
+        //mantenimiento
+        tblMantenimiento.setVisible(false);
+        tblMantenimiento.setEnabled(false);
+        tblMantenimiento.setFocusable(false);
+        tblMantenimiento.setRequestFocusEnabled(false);
+        jScrollPane2.setVisible(false);
+        jScrollPane2.setEnabled(false);
+        jScrollPane2.setFocusable(false);
+        //prestamos
+        tblPrestamos.setVisible(false);
+        tblPrestamos.setEnabled(false);
+        tblPrestamos.setFocusable(false);
+        tblPrestamos.setRequestFocusEnabled(false);
+        jScrollPane3.setVisible(false);
+        jScrollPane3.setEnabled(false);
+        jScrollPane3.setFocusable(false);
+        //sanciones
+        tblSanciones.setVisible(false);
+        tblSanciones.setEnabled(false);
+        tblSanciones.setFocusable(false);
+        tblSanciones.setRequestFocusEnabled(false);
+        jScrollPane4.setVisible(false);
+        jScrollPane4.setEnabled(false);
+        jScrollPane4.setFocusable(false);
+        
         FondoBlanco.requestFocusInWindow();
 
         panelOverlay.setVisible(false);
@@ -284,9 +334,22 @@ private boolean subReportesMostrado = false;
         jLabel1 = new javax.swing.JLabel();
         AsignarMensajes = new javax.swing.JButton();
         AsignarMensajes1 = new javax.swing.JButton();
+        InternalMantenimiento = new javax.swing.JDesktopPane();
+        InternalSanciones = new javax.swing.JDesktopPane();
+        InternalPrestamos = new javax.swing.JDesktopPane();
+        dato1 = new javax.swing.JLabel();
+        dato2 = new javax.swing.JLabel();
+        dato3 = new javax.swing.JLabel();
+        btnAccesoGraficosGenerales = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblSanciones = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblMantenimiento = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblPrestamos = new javax.swing.JTable();
         FondoBlanco = new javax.swing.JLabel();
         panelSidebar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -333,14 +396,14 @@ private boolean subReportesMostrado = false;
 
         InicioPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         InicioPersonal.setText("Inicio");
-        jPanel2.add(InicioPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, -1));
+        jPanel2.add(InicioPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
 
         FondoBlanco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 10, 10));
+        jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 10, 10));
 
         dato.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
-        dato.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
-        jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        dato.setText("Gráfico de Sanciones");
+        jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 160, 170, -1));
 
         jPanel5.setBackground(new java.awt.Color(51, 51, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -372,13 +435,13 @@ private boolean subReportesMostrado = false;
 
         InicioPersonal1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         InicioPersonal1.setText("Anuncios");
-        jPanel2.add(InicioPersonal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 160, -1));
+        jPanel2.add(InicioPersonal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, -1));
 
         Mensajestxt.setColumns(20);
         Mensajestxt.setRows(5);
         jScrollPane1.setViewportView(Mensajestxt);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1440, 120));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1440, 70));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -417,7 +480,7 @@ private boolean subReportesMostrado = false;
                 AsignarMensajesActionPerformed(evt);
             }
         });
-        jPanel2.add(AsignarMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 80, -1));
+        jPanel2.add(AsignarMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 80, -1));
 
         AsignarMensajes1.setBackground(new java.awt.Color(29, 41, 57));
         AsignarMensajes1.setForeground(new java.awt.Color(255, 255, 255));
@@ -427,9 +490,34 @@ private boolean subReportesMostrado = false;
                 AsignarMensajes1ActionPerformed(evt);
             }
         });
-        jPanel2.add(AsignarMensajes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 80, -1));
+        jPanel2.add(AsignarMensajes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 80, -1));
+        jPanel2.add(InternalMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 480, 510));
+        jPanel2.add(InternalSanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 180, 490, 510));
+        jPanel2.add(InternalPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 480, 510));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+        dato1.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        dato1.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
+        jPanel2.add(dato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
+
+        dato2.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        dato2.setText("Gráfico de Mantenimientos");
+        jPanel2.add(dato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 210, -1));
+
+        dato3.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
+        dato3.setText("Gráfico de Prestamos");
+        jPanel2.add(dato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 170, -1));
+
+        btnAccesoGraficosGenerales.setBackground(new java.awt.Color(0, 0, 0));
+        btnAccesoGraficosGenerales.setForeground(new java.awt.Color(255, 255, 255));
+        btnAccesoGraficosGenerales.setText("Acceso a Gráficos Generales");
+        btnAccesoGraficosGenerales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccesoGraficosGeneralesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAccesoGraficosGenerales, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 180, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1490, 770));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -439,6 +527,90 @@ private boolean subReportesMostrado = false;
 
         FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
         getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        tblSanciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Descripcion", "Fecha", "Tipo", "Tecnico", "Sancionado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tblSanciones);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 10, 30));
+
+        tblMantenimiento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Codigo", "Laboratorio", "Estado", "Fecha", "Descripcion", "Realizado Por"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblMantenimiento);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 10, 30));
+
+        tblPrestamos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Docente", "Seccion", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblPrestamos);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 10, 30));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
@@ -703,9 +875,8 @@ private boolean subReportesMostrado = false;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void actualizarMensaje() {
-        Mensajestxt.setText(mensajeCompartido);
-    }
+
+    
     private void cargarNombreCompleto() {
     try {
         Connection con = Conexion.obtenerConexion();
@@ -724,6 +895,112 @@ private boolean subReportesMostrado = false;
         Nombretxt.setText("Error al cargar nombre");
     }
 }
+    
+        public void cargarTablaTodoSanciones() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT s.id_sancion, s.descripcion, s.fecha, s.tipo, "
+                + "CONCAT(tp.nombre, ' ', tp.apellido) AS tecnico_nombre, "
+                + "CONCAT(pa.nombre, ' ', pa.apellido) AS personal_nombre "
+                + "FROM sanciones s "
+                + "INNER JOIN personal_academico pa ON s.id_personal_academico = pa.id_personal_academico "
+                + "INNER JOIN tecnico_prestamos tp ON s.sancionado_por = tp.id_tecnico_prestamos ";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idSancion = rs.getInt("id_sancion");
+                String descripcion = rs.getString("descripcion");
+                Date fecha = rs.getDate("fecha");
+                String tipo = rs.getString("tipo");
+                String tecnico = rs.getString("tecnico_nombre");
+                String personal = rs.getString("personal_nombre");
+                
+
+                model.addRow(new Object[]{
+                    idSancion, descripcion, fecha, tipo, tecnico, personal
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+            public void cargarTablaTodoMantenimiento() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT m.id_mantenimiento, mh.nombre AS material_nombre, l.Codigo_lab, "
+                    + "mh.estado, m.fecha, m.descripcion, CONCAT(te.nombre, ' ', te.apellido) AS tecnico_nombre "
+                    + "FROM mantenimiento m "
+                    + "INNER JOIN materiales_hardware mh ON m.id_material_hardware = mh.id_material_hardware "
+                    + "INNER JOIN laboratorios l ON mh.ID_lab = l.ID_lab "
+                    + "INNER JOIN tecnico_equipos te ON m.id_tecnico_equipos = te.id_tecnico_equipos ";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblMantenimiento.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idMantenimiento = rs.getInt("id_mantenimiento");
+                String material = rs.getString("material_nombre");
+                String codigolab = rs.getString("Codigo_lab");
+                String estado = rs.getString("estado");
+                Date fecha = rs.getDate("fecha");
+                String descripcion = rs.getString("descripcion");
+                String tecnico = rs.getString("tecnico_nombre");
+                
+
+                model.addRow(new Object[]{
+                    idMantenimiento, material, codigolab, estado, fecha, descripcion, tecnico
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+                public void cargarTablaTodoPrestamos() {
+        try {
+            Connection con = Conexion.obtenerConexion();
+
+            String query = "SELECT p.id_prestamo, l.Nombre_lab, CONCAT(pa.nombre, ' ', pa.apellido) AS docente, "
+                    + "l.Seccion, p.fecha, p.horario_inicio, p.horario_fin, p.estado "
+                    + "FROM prestamos p "
+                    + "INNER JOIN laboratorios l ON p.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON p.id_personal_academico = pa.id_personal_academico";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) tblPrestamos.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int idPrestamo = rs.getInt("id_prestamo");
+                String docente = rs.getString("docente");
+                String seccion = rs.getString("Seccion");
+                String nombreLab = rs.getString("Nombre_lab");
+                Date fecha = rs.getDate("fecha");
+                Time horaInicio = rs.getTime("horario_inicio");
+                Time horaFin = rs.getTime("horario_fin");
+                String estado = rs.getString("estado");
+                
+
+                model.addRow(new Object[]{
+                    idPrestamo, docente, seccion, nombreLab, fecha, horaInicio, horaFin, estado
+                });
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        
+    }
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInicioMouseExited
@@ -962,6 +1239,99 @@ private boolean subReportesMostrado = false;
         // TODO add your handling code here:
     }//GEN-LAST:event_AsignarMensajes1ActionPerformed
 
+    private void btnAccesoGraficosGeneralesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccesoGraficosGeneralesActionPerformed
+        String[] opciones = {
+            "Gráficos de Préstamos",
+            "Gráficos de Mantenimiento",
+            "Gráficos de Sanciones", // solo si tienes esta ventana
+            "Mostrar todos los gráficos"
+        };
+
+        String seleccion = (String) JOptionPane.showInputDialog(
+                this,
+                "Seleccione el tipo de gráfico a mostrar:",
+                "Opciones de gráficos",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion == null) {
+            return; // Usuario canceló
+        }
+
+        DefaultTableModel model1 = (DefaultTableModel) tblPrestamos.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) tblMantenimiento.getModel();
+        DefaultTableModel model3 = (DefaultTableModel) tblSanciones.getModel();
+
+        switch (seleccion) {
+            case "Gráficos de Préstamos":
+                new VentanaGraficosMultiplesPrestamos(model1).setVisible(true);
+                break;
+
+            case "Gráficos de Mantenimiento":
+                new VentanaGraficosMultiplesMantenimiento(model2).setVisible(true);
+                break;
+
+            case "Gráficos de Sanciones":
+                new VentanaGraficosMultiplesSanciones(model3).setVisible(true);
+                break;
+
+            case "Mostrar todos los gráficos":
+                new VentanaGraficosMultiplesPrestamos(model1).setVisible(true);
+                new VentanaGraficosMultiplesMantenimiento(model2).setVisible(true);
+                new VentanaGraficosMultiplesSanciones(model3).setVisible(true);
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(this, "Opción no implementada");
+                break;
+        }
+    }//GEN-LAST:event_btnAccesoGraficosGeneralesActionPerformed
+    private void cargarGraficoMantenimiento() {
+        DefaultTableModel model = (DefaultTableModel) tblMantenimiento.getModel();
+
+        VentanaGraficosMantenimientoInternal internalMantenimiento = new VentanaGraficosMantenimientoInternal(model);
+
+        InternalMantenimiento.removeAll();
+        InternalMantenimiento.add(internalMantenimiento); // SIN constraints
+        internalMantenimiento.setBounds(0, 0, 480, 510);
+        internalMantenimiento.setVisible(true);
+
+        InternalMantenimiento.revalidate();
+        InternalMantenimiento.repaint();
+    }
+
+    private void cargarGraficoPrestamos() {
+        DefaultTableModel model = (DefaultTableModel) tblPrestamos.getModel();
+
+        VentanaGraficosPrestamosInternal internalPrestamos = new VentanaGraficosPrestamosInternal(model);
+
+        InternalPrestamos.removeAll();
+        InternalPrestamos.add(internalPrestamos); // SIN constraints
+        internalPrestamos.setBounds(0, 0, 480, 510);
+        internalPrestamos.setVisible(true);
+
+        InternalPrestamos.revalidate();
+        InternalPrestamos.repaint();
+    }
+
+    private void cargarGraficoSanciones() {
+        DefaultTableModel model = (DefaultTableModel) tblSanciones.getModel();
+
+        VentanaGraficosSancionesInternal internalSanciones = new VentanaGraficosSancionesInternal(model);
+
+        InternalSanciones.removeAll();
+        InternalSanciones.add(internalSanciones); // SIN constraints
+        internalSanciones.setBounds(0, 0, 480, 510);
+        internalSanciones.setVisible(true);
+
+        InternalSanciones.revalidate();
+        InternalSanciones.repaint();
+    }
+
+
     /**
      * @param args the command line arguments
      */
@@ -995,10 +1365,14 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel InicioPersonal1;
+    private javax.swing.JDesktopPane InternalMantenimiento;
+    private javax.swing.JDesktopPane InternalPrestamos;
+    private javax.swing.JDesktopPane InternalSanciones;
     private javax.swing.JLabel LogoSale1;
     private javax.swing.JTextArea Mensajestxt;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JLabel Superior;
+    private javax.swing.JButton btnAccesoGraficosGenerales;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
     private javax.swing.JButton btnInicio;
@@ -1013,6 +1387,9 @@ private boolean subReportesMostrado = false;
     private javax.swing.JButton btnSancionesDesignar;
     private javax.swing.JButton btnSolicitudes;
     private javax.swing.JLabel dato;
+    private javax.swing.JLabel dato1;
+    private javax.swing.JLabel dato2;
+    private javax.swing.JLabel dato3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1030,10 +1407,16 @@ private boolean subReportesMostrado = false;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblFlecha;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTable tblMantenimiento;
+    private javax.swing.JTable tblPrestamos;
+    private javax.swing.JTable tblSanciones;
     // End of variables declaration//GEN-END:variables
 }
