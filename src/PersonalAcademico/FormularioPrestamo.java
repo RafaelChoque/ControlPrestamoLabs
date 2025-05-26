@@ -4,8 +4,10 @@ import Administrador.LogManager;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
 import ConexionLogin.SesionUsuario;
+import static ConexionLogin.SesionUsuario.idUsuario;
 import static ConexionLogin.SesionUsuario.username;
 import Materiales.MaterialExtraDocente;
+import OpenAi.OpenAIClient;
 
 import Sanciones.SancionesRecibidaPersonal;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -50,6 +52,7 @@ public class FormularioPrestamo extends javax.swing.JFrame {
     public FormularioPrestamo(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        cargarHistorial();
         aplicarColorFilasAlternadas(tablaHistorial);
         aplicarColorFilasAlternadas(TablaPrestamos2 );
         cargarNombreCompleto();
@@ -203,11 +206,80 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
             panelOverlay.setVisible(false);
         }).start();
     }
+private void enviarMensaje() {
+    String mensaje = txtMensaje.getText().trim();
+    if (!mensaje.isEmpty()) {
+        // Mostrar mensaje del usuario en el chat
+        txtAreaChat.append("Tú: " + mensaje + "\n");
+        txtMensaje.setText("");
+
+        // Guardar mensaje del usuario en la base de datos
+        guardarMensajeBD(mensaje, "usuario");
+
+        // Llamar a OpenAI para obtener la respuesta
+        new Thread(() -> {
+            String respuesta = OpenAIClient.enviarMensaje(mensaje);
+
+            // Mostrar y guardar respuesta en el hilo principal
+            SwingUtilities.invokeLater(() -> {
+                txtAreaChat.append("Asistente: " + respuesta + "\n");
+                guardarMensajeBD(respuesta, "asistente");
+            });
+        }).start();
+    }
+}
+private void guardarMensajeBD(String mensaje, String rol) {
+    String sql = "INSERT INTO chat_historial (id_usuario, rol, mensaje) VALUES (?, ?, ?)";
+
+    try (Connection conn = Conexion.obtenerConexion();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, idUsuario);  // asegúrate de que idUsuario esté definido
+        stmt.setString(2, rol);
+        stmt.setString(3, mensaje);
+        stmt.executeUpdate();
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "❌ Error al guardar mensaje:\n" + ex.getMessage());
+    }
+}
+private void cargarHistorial() {
+    String sql = "SELECT rol, mensaje FROM chat_historial WHERE id_usuario = ? ORDER BY id_chat ASC";
+
+    try (Connection conn = Conexion.obtenerConexion();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, idUsuario);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String rol = rs.getString("rol");
+            String mensaje = rs.getString("mensaje");
+
+            if (rol.equals("usuario")) {
+                txtAreaChat.append("Tú: " + mensaje + "\n");
+            } else {
+                txtAreaChat.append("Asistente: " + mensaje + "\n");
+            }
+        }
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "❌ Error al cargar historial:\n" + ex.getMessage());
+    }
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel5 = new javax.swing.JPanel();
+        txtMensaje = new javax.swing.JTextField();
+        btnEnviar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtAreaChat = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         Nombretxt = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -266,6 +338,46 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtMensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensajeKeyPressed(evt);
+            }
+        });
+        jPanel5.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 220, 30));
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+        btnEnviar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEnviarKeyPressed(evt);
+            }
+        });
+        jPanel5.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, 30));
+
+        txtAreaChat.setColumns(20);
+        txtAreaChat.setRows(5);
+        jScrollPane3.setViewportView(txtAreaChat);
+
+        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 300, 320));
+
+        jButton1.setBackground(new java.awt.Color(0, 204, 255));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 33));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 840, 340, 410));
+
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
         Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -322,7 +434,7 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
 
         Formulario.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Formulario.setText("Formulario de Solicitud");
-        jPanel1.add(Formulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(Formulario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, -1));
 
         jLabel9.setText("Bloque:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
@@ -463,7 +575,7 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
 
         MotivoRechazo.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         MotivoRechazo.setText("Descripción");
-        jPanel2.add(MotivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel2.add(MotivoRechazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 180, -1));
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -526,7 +638,7 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
         getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
 
         FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -850,7 +962,60 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
         }
         return id;
     }
+    
+private boolean miniChatVisible = false;
+private volatile boolean animacionEnCurso = false;
 
+private final int posYVisible = 460;
+private final int posYOculto = 835;
+private final int paso = 7;
+private final int delay = 5; // ms
+
+private void toggleMiniChat() {
+    if (animacionEnCurso) return;
+    animacionEnCurso = true;
+
+    final int posXActual = jPanel5.getX();
+    final int posYActual = jPanel5.getY();
+
+    if (!miniChatVisible) {
+        // Mostrar: mover hacia arriba hasta posYVisible
+        jPanel5.setVisible(true);
+        new Thread(() -> {
+            int y = posYActual;
+            while (y > posYVisible) {
+                y -= paso;
+                if (y < posYVisible) y = posYVisible;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> jPanel5.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = true;
+            animacionEnCurso = false;
+        }).start();
+
+    } else {
+        // Ocultar: mover hacia abajo hasta posYOculto
+        new Thread(() -> {
+            int y = posYActual;
+            while (y < posYOculto) {
+                y += paso;
+                if (y > posYOculto) y = posYOculto;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> jPanel5.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = false;
+            // Si quieres ocultar el panel al terminar, descomenta la siguiente línea:
+            // SwingUtilities.invokeLater(() -> jPanel5.setVisible(false));
+            animacionEnCurso = false;
+        }).start();
+    }
+}
     private void BloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BloqueActionPerformed
@@ -1001,6 +1166,24 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void txtMensajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensajeKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            enviarMensaje();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMensajeKeyPressed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        enviarMensaje();
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnEnviarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEnviarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnviarKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+toggleMiniChat();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void cargarTabla(int idusuario) {
         try {
             Connection con = Conexion.obtenerConexion();
@@ -1114,10 +1297,12 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
     private javax.swing.JTable TablaPrestamos2;
     private javax.swing.JComboBox<String> TipoHorario;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSolicitudLab;
     private javax.swing.JButton guardar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1136,11 +1321,15 @@ private void aplicarColorFilasAlternadas(JTable tabla) {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tablaHistorial;
+    private javax.swing.JTextArea txtAreaChat;
+    private javax.swing.JTextField txtMensaje;
     // End of variables declaration//GEN-END:variables
 }
