@@ -58,7 +58,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtBuscarUsuario">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ef" green="ec" red="e9" type="rgb"/>
@@ -73,10 +73,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarUsuarioActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String placeholder = &quot;Buscar RU&quot;;&#xa;&#xa;jTextField1.setText(placeholder);&#xa;jTextField1.setForeground(Color.GRAY);&#xa;&#xa;jTextField1.addFocusListener(new FocusAdapter() {&#xa;    @Override&#xa;    public void focusGained(FocusEvent e) {&#xa;        if (jTextField1.getText().equals(placeholder)) {&#xa;            jTextField1.setText(&quot;&quot;);&#xa;            jTextField1.setForeground(Color.BLACK);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent e) {&#xa;        if (jTextField1.getText().isEmpty()) {&#xa;            jTextField1.setText(placeholder);&#xa;            jTextField1.setForeground(Color.GRAY);&#xa;        }&#xa;    }&#xa;});&#xa;&#xa;jTextField1.getDocument().addDocumentListener(new DocumentListener() {&#xa;    @Override&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    @Override&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        filterTable();&#xa;    }&#xa;&#xa;    private void filterTable() {&#xa;        String query = jTextField1.getText().toLowerCase();&#xa;&#xa;        if (query.equals(placeholder.toLowerCase())) {&#xa;            tablaLogs.setRowSorter(null);&#xa;            return;&#xa;        }&#xa;&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tablaLogs.getModel());&#xa;        tablaLogs.setRowSorter(sorter);&#xa;&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null);&#xa;        } else {&#xa;            sorter.setRowFilter(RowFilter.regexFilter(&quot;(?i)&quot; + query, 1, 3));&#xa;        }&#xa;    }&#xa;});"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String placeholder = &quot;Buscar RU&quot;;&#xa;&#xa;txtBuscarUsuario.setText(placeholder);&#xa;txtBuscarUsuario.setForeground(Color.GRAY);&#xa;&#xa;txtBuscarUsuario.addFocusListener(new FocusAdapter() {&#xa;    @Override&#xa;    public void focusGained(FocusEvent e) {&#xa;        if (txtBuscarUsuario.getText().equals(placeholder)) {&#xa;            txtBuscarUsuario.setText(&quot;&quot;);&#xa;            txtBuscarUsuario.setForeground(Color.BLACK);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent e) {&#xa;        if (txtBuscarUsuario.getText().isEmpty()) {&#xa;            txtBuscarUsuario.setText(placeholder);&#xa;            txtBuscarUsuario.setForeground(Color.GRAY);&#xa;        }&#xa;    }&#xa;});&#xa;&#xa;txtBuscarUsuario.getDocument().addDocumentListener(new DocumentListener() {&#xa;@Override&#xa;public void insertUpdate(DocumentEvent e) {&#xa;    aplicarFiltros();&#xa;}&#xa;@Override&#xa;public void removeUpdate(DocumentEvent e) {&#xa;    aplicarFiltros();&#xa;}&#xa;@Override&#xa;public void changedUpdate(DocumentEvent e) {&#xa;    aplicarFiltros();&#xa;}&#xa;&#xa;    private void filterTable() {&#xa;        String query = txtBuscarUsuario.getText().toLowerCase();&#xa;&#xa;        if (query.equals(placeholder.toLowerCase())) {&#xa;            tablaLogs.setRowSorter(null);&#xa;            return;&#xa;        }&#xa;&#xa;        TableRowSorter&lt;TableModel&gt; sorter = new TableRowSorter&lt;&gt;(tablaLogs.getModel());&#xa;        tablaLogs.setRowSorter(sorter);&#xa;&#xa;        if (query.trim().isEmpty()) {&#xa;            sorter.setRowFilter(null);&#xa;        } else {&#xa;            sorter.setRowFilter(RowFilter.regexFilter(&quot;(?i)&quot; + query, 1, 3));&#xa;        }&#xa;    }&#xa;});"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -204,6 +204,43 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="1360" y="70" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbAccion">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="18">
+                <StringItem index="0" value="Todos"/>
+                <StringItem index="1" value="Iniciar Sesi&#xf3;n"/>
+                <StringItem index="2" value="Cerrar Sesi&#xf3;n"/>
+                <StringItem index="3" value="Material Registrado"/>
+                <StringItem index="4" value="Cambio de Estado de Material"/>
+                <StringItem index="5" value="Material Modificado"/>
+                <StringItem index="6" value="Material Eliminado"/>
+                <StringItem index="7" value="Laboratorio Registrado"/>
+                <StringItem index="8" value="Laboratorio Modificado"/>
+                <StringItem index="9" value="Cambio de estado de laboratorio"/>
+                <StringItem index="10" value="Laboratorio Eliminado"/>
+                <StringItem index="11" value="Solicitud Aprobada"/>
+                <StringItem index="12" value="Solicitud Rechazada"/>
+                <StringItem index="13" value="Registro Nuevo"/>
+                <StringItem index="14" value="Habilitar"/>
+                <StringItem index="15" value="Deshabilitar"/>
+                <StringItem index="16" value="Registro Modificado"/>
+                <StringItem index="17" value="Registro Eliminado"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbAccionActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="240" y="50" width="190" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

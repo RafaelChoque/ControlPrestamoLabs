@@ -21,10 +21,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.RowFilter;
@@ -259,8 +263,31 @@ String sql = """
     }
 }
 }
+private void aplicarFiltros() {
+    String texto = txtBuscarUsuario.getText().toLowerCase().trim();
+    String accionSeleccionada = cbAccion.getSelectedItem().toString();
+    TableRowSorter<TableModel> sorter = new TableRowSorter<>(tablaLogs.getModel());
+    tablaLogs.setRowSorter(sorter);
 
-    
+    List<RowFilter<Object, Object>> filtros = new ArrayList<>();
+
+    // Filtro de texto por RU o Usuario (columnas 1 y 3)
+    if (!texto.isEmpty() && !texto.equalsIgnoreCase("buscar ru")) {
+        filtros.add(RowFilter.regexFilter("(?i)" + Pattern.quote(texto), 1, 3));
+    }
+
+    // Filtro por Tipo exacto (ahora en columna 3)
+    if (!accionSeleccionada.equals("Todos")) {
+        filtros.add(RowFilter.regexFilter("^" + Pattern.quote(accionSeleccionada) + "$", 3));
+    }
+
+    if (filtros.isEmpty()) {
+        sorter.setRowFilter(null);
+    } else {
+        sorter.setRowFilter(RowFilter.andFilter(filtros));
+    }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,13 +299,14 @@ String sql = """
 
         jPanel2 = new javax.swing.JPanel();
         ListaPersonal = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscarUsuario = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLogs = new javax.swing.JTable();
         FondoBlanco = new javax.swing.JLabel();
         cargardatos = new javax.swing.JButton();
+        cbAccion = new javax.swing.JComboBox<>();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -313,58 +341,56 @@ String sql = """
         ListaPersonal.setText("Logs");
         jPanel2.add(ListaPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 340, -1));
 
-        jTextField1.setBackground(new java.awt.Color(233, 236, 239));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("Buscar");
-        jTextField1.setToolTipText("");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscarUsuario.setBackground(new java.awt.Color(233, 236, 239));
+        txtBuscarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtBuscarUsuario.setText("Buscar");
+        txtBuscarUsuario.setToolTipText("");
+        txtBuscarUsuario.setBorder(null);
+        txtBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtBuscarUsuarioActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 90, 20));
+        jPanel2.add(txtBuscarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 90, 20));
         String placeholder = "Buscar RU";
 
-        jTextField1.setText(placeholder);
-        jTextField1.setForeground(Color.GRAY);
+        txtBuscarUsuario.setText(placeholder);
+        txtBuscarUsuario.setForeground(Color.GRAY);
 
-        jTextField1.addFocusListener(new FocusAdapter() {
+        txtBuscarUsuario.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (jTextField1.getText().equals(placeholder)) {
-                    jTextField1.setText("");
-                    jTextField1.setForeground(Color.BLACK);
+                if (txtBuscarUsuario.getText().equals(placeholder)) {
+                    txtBuscarUsuario.setText("");
+                    txtBuscarUsuario.setForeground(Color.BLACK);
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (jTextField1.getText().isEmpty()) {
-                    jTextField1.setText(placeholder);
-                    jTextField1.setForeground(Color.GRAY);
+                if (txtBuscarUsuario.getText().isEmpty()) {
+                    txtBuscarUsuario.setText(placeholder);
+                    txtBuscarUsuario.setForeground(Color.GRAY);
                 }
             }
         });
 
-        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+        txtBuscarUsuario.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterTable();
+                aplicarFiltros();
             }
-
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterTable();
+                aplicarFiltros();
             }
-
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterTable();
+                aplicarFiltros();
             }
 
             private void filterTable() {
-                String query = jTextField1.getText().toLowerCase();
+                String query = txtBuscarUsuario.getText().toLowerCase();
 
                 if (query.equals(placeholder.toLowerCase())) {
                     tablaLogs.setRowSorter(null);
@@ -441,6 +467,14 @@ String sql = """
             }
         });
         jPanel2.add(cargardatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 70, -1, -1));
+
+        cbAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Iniciar Sesión", "Cerrar Sesión", "Material Registrado", "Cambio de Estado de Material", "Material Modificado", "Material Eliminado", "Laboratorio Registrado", "Laboratorio Modificado", "Cambio de estado de laboratorio", "Laboratorio Eliminado", "Solicitud Aprobada", "Solicitud Rechazada", "Registro Nuevo", "Habilitar", "Deshabilitar", "Registro Modificado", "Registro Eliminado" }));
+        cbAccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAccionActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cbAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 190, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1490, 760));
 
@@ -630,9 +664,9 @@ String sql = """
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBuscarUsuarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         panelOverlay.setVisible(true);
@@ -793,6 +827,10 @@ tablaLogs.getColumnModel().getColumn(5).setPreferredWidth(150);
 
     }//GEN-LAST:event_tablaLogsMouseClicked
 
+    private void cbAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAccionActionPerformed
+aplicarFiltros();     // TODO add your handling code here:
+    }//GEN-LAST:event_cbAccionActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -833,6 +871,7 @@ tablaLogs.getColumnModel().getColumn(5).setPreferredWidth(150);
     private javax.swing.JButton btnTecnicoPrestamo;
     private javax.swing.JButton btnVicerrector;
     private javax.swing.JButton cargardatos;
+    private javax.swing.JComboBox<String> cbAccion;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -840,10 +879,10 @@ tablaLogs.getColumnModel().getColumn(5).setPreferredWidth(150);
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
     private javax.swing.JTable tablaLogs;
+    private javax.swing.JTextField txtBuscarUsuario;
     // End of variables declaration//GEN-END:variables
 }
