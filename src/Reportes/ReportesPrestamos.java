@@ -1180,7 +1180,8 @@ private boolean sidebarMostrado = false;
             "Préstamos por docente (barras)",
             "Préstamos por laboratorio (torta)",
             "Préstamos por seccion (torta)",
-            "Préstamos por estado (barras)"
+            "Préstamos por estado (barras)",
+            "Mostrar todos los gráficos"
         };
 
         // Mostrar diálogo para elegir el tipo de gráfico
@@ -1274,7 +1275,10 @@ private boolean sidebarMostrado = false;
                         true, true, false);
                 mostrarGrafico(barChartEstado, "Préstamos por Estado");
                 break;
-
+            case "Mostrar todos los gráficos":
+                VentanaGraficosMultiplesPrestamos ventana = new VentanaGraficosMultiplesPrestamos(model);
+                ventana.setVisible(true);
+                break;
             default:
                 JOptionPane.showMessageDialog(this, "Opción no implementada");
                 break;

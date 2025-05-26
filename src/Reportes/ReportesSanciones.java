@@ -851,7 +851,8 @@ private boolean sidebarMostrado = false;
         String[] opciones = {
             "Sanciones por tipo (barras)",
             "Sanciones por técnico (torta)",
-            "Sanciones por sancionado (torta)"
+            "Sanciones por sancionado (torta)",
+            "Mostrar todos los gráficos"
         };
 
         String seleccion = (String) JOptionPane.showInputDialog(
@@ -924,7 +925,11 @@ private boolean sidebarMostrado = false;
                         true, true, false);
                 mostrarGrafico(pieChartSancionado, "Sanciones por Sancionado");
                 break;
-
+            
+            case "Mostrar todos los gráficos":
+                VentanaGraficosMultiplesSanciones ventana = new VentanaGraficosMultiplesSanciones(model);
+                ventana.setVisible(true);
+                break;
             default:
                 JOptionPane.showMessageDialog(this, "Opción no implementada");
                 break;

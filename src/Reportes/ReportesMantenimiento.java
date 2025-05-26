@@ -1127,7 +1127,8 @@ boolean estaVisible = panelSubReportes.isVisible();
             "Mantenimientos por técnico (barras)",
             "Mantenimientos por computadora (torta)",
             "Mantenimientos por laboratorio (torta)",
-            "Mantenimientos por estado (torta)"
+            "Mantenimientos por estado (torta)",
+            "Mostrar todos los gráficos"
         };
 
         String seleccion = (String) JOptionPane.showInputDialog(
@@ -1143,6 +1144,7 @@ boolean estaVisible = panelSubReportes.isVisible();
         if (seleccion == null) {
             return; // Cancelado
         }
+
         DefaultTableModel model = (DefaultTableModel) tblMantenimiento.getModel();
 
         switch (seleccion) {
@@ -1194,7 +1196,7 @@ boolean estaVisible = panelSubReportes.isVisible();
                 mostrarGrafico(chartLaboratorio, "Mantenimientos por Laboratorio");
                 break;
 
-            case "Mantenimientos por estado (torta)": // <-- corregido
+            case "Mantenimientos por estado (torta)":
                 Map<String, Integer> mantenimientoPorEstado = new HashMap<>();
                 for (int i = 0; i < model.getRowCount(); i++) {
                     String estado = model.getValueAt(i, 3).toString();
@@ -1210,10 +1212,16 @@ boolean estaVisible = panelSubReportes.isVisible();
                 mostrarGrafico(chartEstado, "Mantenimientos por Estado");
                 break;
 
+            case "Mostrar todos los gráficos":
+                VentanaGraficosMultiplesMantenimiento ventana = new VentanaGraficosMultiplesMantenimiento(model);
+                ventana.setVisible(true);
+                break;
+
             default:
                 JOptionPane.showMessageDialog(this, "Opción no implementada");
                 break;
         }
+
     }//GEN-LAST:event_btnGraficarActionPerformed
 
     private void RUtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RUtxtActionPerformed
