@@ -47,14 +47,14 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     public FormularioAsignacionPrestamo(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        cargarTabla(idusuario);
+        cargarTabla2();
         aplicarColorFilasAlternadas(TablaAsignacion2);
         aplicarColorFilasAlternadas(TablaAsignacion);
         cargarNombreCompleto();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        Nombre.setEditable(false);
-        cargarTabla(idusuario);
-        cargarTabla2();
+        NombreVicerrector.setEditable(false);
         cargarNombreApellido(idusuario);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
@@ -196,7 +196,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        NombreDocente = new javax.swing.JTextField();
+        Nombre = new javax.swing.JTextField();
         Formulario = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -217,7 +217,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         guardar = new javax.swing.JButton();
         Limpiar = new javax.swing.JButton();
         DisponibilidadPrestamo1 = new javax.swing.JButton();
-        Nombre = new javax.swing.JTextField();
+        NombreVicerrector = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Carrera = new javax.swing.JComboBox<>();
@@ -267,12 +267,12 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         jLabel4.setText("Fecha Fin:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, 20));
 
-        NombreDocente.addActionListener(new java.awt.event.ActionListener() {
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreDocenteActionPerformed(evt);
+                NombreActionPerformed(evt);
             }
         });
-        jPanel1.add(NombreDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 250, -1));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 250, -1));
 
         Formulario.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Formulario.setText("Formulario de Asignacion");
@@ -329,7 +329,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
 
         ElegirDocente.setBackground(new java.awt.Color(29, 41, 57));
         ElegirDocente.setForeground(new java.awt.Color(255, 255, 255));
-        ElegirDocente.setText("Elegir Docente");
+        ElegirDocente.setText("Buscar Docente");
         ElegirDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElegirDocenteActionPerformed(evt);
@@ -372,7 +372,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(DisponibilidadPrestamo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 170, -1));
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 430, -1));
+        jPanel1.add(NombreVicerrector, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 430, -1));
 
         jLabel1.setText("Vicerrector:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 70, 20));
@@ -608,7 +608,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
 
         if (rs.next()) {
             String nombreCompleto = rs.getString("nombre_completo");
-            Nombre.setText(nombreCompleto);
+            NombreVicerrector.setText(nombreCompleto);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontraron datos del personal.");
         }
@@ -653,13 +653,13 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     }//GEN-LAST:event_BloqueActionPerformed
 
     private void ElegirDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElegirDocenteActionPerformed
-        VerRUdePersonalAcademico RUpersonal = new VerRUdePersonalAcademico();
+        VerRUdePersonalAcademico RUpersonal = new VerRUdePersonalAcademico(Nombre);
         RUpersonal.setLocationRelativeTo(null);
         RUpersonal.setVisible(true);
     }//GEN-LAST:event_ElegirDocenteActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    String nombrevice = Nombre.getText();
+    String nombredocente = Nombre.getText();
     String carreratxt = Carrera.getSelectedItem().toString();
     String laboratorioText = Laboratorio.getText();
     String semestre = Semestre.getSelectedItem().toString();
@@ -699,52 +699,62 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     java.sql.Time sqlHoraInicio = java.sql.Time.valueOf(horaInicio + ":00");
     java.sql.Time sqlHoraFin = java.sql.Time.valueOf(horaFin + ":00");
 
-    int idPersonalAcademico = 2;
-    int idVicerrectorado = obtenerIdVicerrectorAcademico();
-
-    if (idVicerrectorado == -1) {
-        JOptionPane.showMessageDialog(null, "No se pudo obtener el ID del vicerrector académico.");
-        return;
-    }
-
     try {
         Connection con = Conexion.obtenerConexion();
 
+        // Obtener ID del laboratorio
+// Obtener ID del laboratorio directamente con nombre
+        int idLaboratorio = -1;
         PreparedStatement psBuscarLab = con.prepareStatement(
                 "SELECT ID_lab FROM laboratorios WHERE Nombre_lab = ?"
         );
+
         psBuscarLab.setString(1, laboratorioText);
-        ResultSet rs = psBuscarLab.executeQuery();
-
-        if (rs.next()) {
-            int idLaboratorio = rs.getInt("ID_lab");
-
-            PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO asignaciones (ID_lab, id_personal_academico, carrera, materia, hora_inicio, hora_fin, fecha_inicio, fecha_fin, semestre, id_vicerrectorado_academico) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-            );
-            ps.setInt(1, idLaboratorio);
-            ps.setInt(2, idPersonalAcademico);
-            ps.setString(3, carreratxt);
-            ps.setString(4, materiatxt);
-            ps.setTime(5, sqlHoraInicio);
-            ps.setTime(6, sqlHoraFin);
-            ps.setDate(7, sqlFechaInicio);
-            ps.setDate(8, sqlFechaFin);
-            ps.setString(9, semestre);
-            ps.setInt(10, idVicerrectorado);
-
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Asignación guardada exitosamente.");
-                limpiarFormulario();
-                // cargarTablaAsignaciones();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al guardar la asignación.");
-            }
-
+        ResultSet rsLab = psBuscarLab.executeQuery();
+        if (rsLab.next()) {
+            idLaboratorio = rsLab.getInt("ID_lab");
         } else {
             JOptionPane.showMessageDialog(null, "Laboratorio no encontrado.");
+            return;
+        }
+
+        // Obtener ID del personal académico (docente)
+        int idPersonalAcademico = -1;
+        PreparedStatement psBuscarDocente = con.prepareStatement(
+                "SELECT id_personal_academico FROM personal_academico WHERE CONCAT(nombre, ' ', apellido) = ?"
+        );
+        psBuscarDocente.setString(1, nombredocente);
+        ResultSet rs = psBuscarDocente.executeQuery();
+        if (rs.next()) {
+            idPersonalAcademico = rs.getInt("id_personal_academico");
+        } else {
+            JOptionPane.showMessageDialog(null, "Personal académico no encontrado con ese nombre.");
+            return;
+        }
+
+        // Insertar en la tabla asignaciones
+        PreparedStatement psInsert = con.prepareStatement(
+                "INSERT INTO asignaciones (ID_lab, id_personal_academico, carrera, materia, hora_inicio, hora_fin, fecha_inicio, fecha_fin, semestre, id_vicerrectorado_academico) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        psInsert.setInt(1, idLaboratorio);
+        psInsert.setInt(2, idPersonalAcademico);
+        psInsert.setString(3, carreratxt);
+        psInsert.setString(4, materiatxt);
+        psInsert.setTime(5, sqlHoraInicio);
+        psInsert.setTime(6, sqlHoraFin);
+        psInsert.setDate(7, sqlFechaInicio);
+        psInsert.setDate(8, sqlFechaFin);
+        psInsert.setString(9, semestre);
+        psInsert.setInt(10, obtenerIdVicerrectorAcademico());
+
+        int rowsAffected = psInsert.executeUpdate();
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Asignación guardada exitosamente.");
+            cargarTabla(idusuario);
+            limpiarFormulario();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar la asignación.");
         }
 
     } catch (SQLException e) {
@@ -752,7 +762,6 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_guardarActionPerformed
     private void limpiarFormulario(){
-        NombreDocente.setText("");
         Nombre.setText("");
         Carrera.setSelectedIndex(0);
         Materia.setText("");
@@ -800,59 +809,78 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         }
         return id;
     }
-    public void cargarTabla(int idusuario) {
-    try {
-        Connection con = Conexion.obtenerConexion();
-
-        String query = "SELECT a.id_asignacion, l.Nombre_lab, " +
-                       "CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, " +
-                       "a.materia, a.carrera, a.fecha_inicio, a.fecha_fin, " +
-                       "a.hora_inicio, a.hora_fin " +
-                       "FROM asignaciones a " +
-                       "INNER JOIN laboratorios l ON a.ID_lab = l.ID_lab " +
-                       "INNER JOIN personal_academico pa ON a.id_personal_academico = pa.id_personal_academico " +
-                       "WHERE pa.id_usuario = ?";
-
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, idusuario);
-        ResultSet rs = ps.executeQuery();
-
-        DefaultTableModel model = (DefaultTableModel) TablaAsignacion.getModel();
-        model.setRowCount(0);
-
-        while (rs.next()) {
-            int idAsignacion = rs.getInt("id_asignacion");
-            String nombreLab = rs.getString("Nombre_lab");
-            String nombreCompleto = rs.getString("nombre_completo");
-            Date fechaInicio = rs.getDate("fecha_inicio");
-            Date fechaFin = rs.getDate("fecha_fin");
-            Time horaInicio = rs.getTime("hora_inicio");
-            Time horaFin = rs.getTime("hora_fin");
-            String materia = rs.getString("materia");
-            String carrera = rs.getString("carrera");
-
-            model.addRow(new Object[]{
-                idAsignacion, nombreLab, nombreCompleto, fechaInicio, fechaFin, horaInicio, horaFin,
-                materia, carrera
-            });
+    private int obtenerIdPersonalAcademico() {
+        int id = -1;
+        try {
+            Connection con = Conexion.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement("SELECT id_personal_academico FROM personal_academico WHERE id_usuario = ?");
+            ps.setInt(1, idusuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_personal_academico");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID del personal académico: " + e.getMessage());
         }
-
-    } catch (SQLException ex) {
-        System.out.println(ex.toString());
+        return id;
     }
-}
+    public void cargarTabla(int idusuario) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{
+            "ID", "Laboratorio", "Docente", "Materia", "Carrera",
+            "Fecha Inicio", "Fecha Fin", "Hora Inicio", "Hora Fin"
+        });
+
+        try {
+            Connection con = Conexion.obtenerConexion();
+            String query = "SELECT a.id_asignacion, l.Nombre_lab, "
+                    + "CONCAT(pa.nombre, ' ', pa.apellido) AS nombre_completo, "
+                    + "a.materia, a.carrera, a.fecha_inicio, a.fecha_fin, "
+                    + "a.hora_inicio, a.hora_fin "
+                    + "FROM asignaciones a "
+                    + "INNER JOIN laboratorios l ON a.ID_lab = l.ID_lab "
+                    + "INNER JOIN personal_academico pa ON a.id_personal_academico = pa.id_personal_academico "
+                    + "INNER JOIN vicerrectorado_academico va ON a.id_vicerrectorado_academico = va.id_vicerrectorado_academico "
+                    + "INNER JOIN usuarios u ON va.id_usuario = u.id_usuario "
+                    + "WHERE u.id_usuario = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, idusuario); // Asegúrate de que 'idusuario' esté disponible en la clase
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("id_asignacion"),
+                    rs.getString("Nombre_lab"),
+                    rs.getString("nombre_completo"),
+                    rs.getString("materia"),
+                    rs.getString("carrera"),
+                    rs.getDate("fecha_inicio"),
+                    rs.getDate("fecha_fin"),
+                    rs.getTime("hora_inicio"),
+                    rs.getTime("hora_fin")
+                });
+            }
+
+            TablaAsignacion.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar asignaciones: " + e.getMessage());
+        }
+    }
 
 
 
-    public void cargarTabla2() {
+
+public void cargarTabla2() {
     try {
         Connection con = Conexion.obtenerConexion();
 
-        String query = "SELECT a.id_asignacion, l.bloque, l.seccion, a.semestre " +
+        String query = "SELECT a.id_asignacion, l.Bloque, l.Seccion, a.semestre " +
                        "FROM asignaciones a " +
                        "INNER JOIN laboratorios l ON a.ID_lab = l.ID_lab " +
-                       "INNER JOIN personal_academico pa ON a.id_personal_academico = pa.id_personal_academico " +
-                       "WHERE pa.id_usuario = ?";
+                       "INNER JOIN vicerrectorado_academico va ON a.id_vicerrectorado_academico = va.id_vicerrectorado_academico " +
+                       "INNER JOIN usuarios u ON va.id_usuario = u.id_usuario " +
+                       "WHERE u.id_usuario = ?";
 
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, idusuario);
@@ -862,22 +890,18 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         model2.setRowCount(0);
 
         while (rs.next()) {
-            int idAsignacion = rs.getInt("id_asignacion");
-            String bloque = rs.getString("bloque");
-            String seccion = rs.getString("seccion");
-            String semestre = rs.getString("semestre");
-
             model2.addRow(new Object[]{
-                idAsignacion, bloque, seccion, semestre
+                rs.getInt("id_asignacion"),
+                rs.getString("Bloque"),
+                rs.getString("Seccion"),
+                rs.getString("semestre")
             });
         }
-
-        
-
     } catch (SQLException ex) {
-        System.out.println(ex.toString());
+        System.out.println("Error cargarTabla2: " + ex.getMessage());
     }
 }
+
 
     private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
         limpiarFormulario();
@@ -889,9 +913,9 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
         disponibilidadpres.setVisible(true);
     }//GEN-LAST:event_DisponibilidadPrestamo1ActionPerformed
 
-    private void NombreDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreDocenteActionPerformed
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreDocenteActionPerformed
+    }//GEN-LAST:event_NombreActionPerformed
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
 
@@ -1018,7 +1042,7 @@ public class FormularioAsignacionPrestamo extends javax.swing.JFrame {
     private javax.swing.JTextField Materia;
     private javax.swing.JLabel MotivoRechazo;
     private javax.swing.JTextField Nombre;
-    private javax.swing.JTextField NombreDocente;
+    private javax.swing.JTextField NombreVicerrector;
     private javax.swing.JLabel Nombretxt;
     private javax.swing.JComboBox<String> Seccion;
     private javax.swing.JComboBox<String> Semestre;
