@@ -354,7 +354,7 @@ private void toggleMiniChat() {
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio.setText("INICIO");
+        btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
         btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
         btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
