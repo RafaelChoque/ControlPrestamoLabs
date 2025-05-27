@@ -411,7 +411,7 @@ private void toggleMiniChat() {
         btnCerrarSesion2.setBackground(new java.awt.Color(29, 41, 57));
         btnCerrarSesion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion2.setForeground(new java.awt.Color(241, 241, 241));
-        btnCerrarSesion2.setText("INICIO");
+        btnCerrarSesion2.setText("Inicio");
         btnCerrarSesion2.setBorder(null);
         btnCerrarSesion2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
