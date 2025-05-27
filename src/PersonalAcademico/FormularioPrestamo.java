@@ -497,7 +497,7 @@ private void enviarMensaje() {
 
         TextoChat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         TextoChat.setForeground(new java.awt.Color(255, 255, 255));
-        TextoChat.setText("Chat AI - Solicitud de Prestamo");
+        TextoChat.setText("Chat AI");
         MiniChat.add(TextoChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 280, -1));
 
         BotonChat.setBackground(new java.awt.Color(29, 41, 57));
