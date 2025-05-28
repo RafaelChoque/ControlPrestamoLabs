@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class LogManager {
     
     public static void registrarLog(int idUsuario, String rol, String tipo, String accion) {
-        Connection con = Conexion.obtenerConexion(); // Usamos tu clase directamente
+        Connection con = Conexion.obtenerConexion();
 
         if (con == null) {
             System.out.println("No se pudo registrar log porque la conexión falló.");

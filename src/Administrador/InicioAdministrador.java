@@ -7,6 +7,7 @@ package Administrador;
 import ConexionLogin.Conexion;
 import ConexionLogin.Login;
 import ConexionLogin.SesionUsuario;
+import OpenAi.OpenAIClient;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -18,8 +19,13 @@ import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -34,6 +40,18 @@ public class InicioAdministrador extends javax.swing.JFrame {
      */
     public InicioAdministrador() {
         initComponents();
+        agregarMensajeEstilizado("¡Hola! Soy tu asistente. Puedes preguntarme cualquier cosa sobre cómo solicitar un laboratorio. Estoy aquí para ayudarte.", "asistente");
+        OpenAIClient.setSystemMessage(
+       "Eres un asistente amigable, claro y experto en el sistema de control y préstamos de laboratorios. " +
+"Estás ayudando al administrador dentro de la interfaz de Inicio o Menú principal del sistema. " +
+"Desde aquí, puede acceder a las diferentes secciones para gestionar a los usuarios y revisar las actividades realizadas en el sistema. " +
+"Puede administrar al personal académico, técnicos de mantenimiento de equipos, técnicos encargados de préstamos y usuarios del Vicerrectorado Académico. " +
+"También puede acceder a la interfaz de Auditoría, donde puede revisar las acciones realizadas por todos los usuarios del sistema. " +
+"Si desea gestionar usuarios, recuerde que podrá registrarlos, modificarlos, habilitarlos, deshabilitarlos o eliminarlos según el tipo de usuario correspondiente. " +
+"Responde de forma concisa y directa, y solo entra en detalle si el usuario lo solicita. " +
+"Si pregunta por una interfaz en particular, explícale cómo funciona de manera clara. " +
+"Tu tono debe ser siempre cordial, útil y humano. Si el usuario agradece o se despide, responde con frases como: '¡Con gusto! Si necesitas algo más, estaré aquí 😊'. " +
+"Si se confunde o necesita más ayuda, bríndale ejemplos simples y orientación sin extenderte demasiado, a menos que él lo pida.");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         FondoBlanco.setFocusable(true);
         FondoBlanco.requestFocusInWindow();
@@ -80,6 +98,101 @@ public class InicioAdministrador extends javax.swing.JFrame {
         });
         this.setLocationRelativeTo(null);
     }
+    private void agregarMensajeEstilizado(String mensaje, String rol) {
+    StyledDocument doc = txtPaneChat.getStyledDocument();
+    Style estiloPrefijo = txtPaneChat.addStyle("estiloPrefijo_" + rol, null);
+    StyleConstants.setFontSize(estiloPrefijo, 14);
+    StyleConstants.setFontFamily(estiloPrefijo, "Segoe UI");
+    StyleConstants.setBold(estiloPrefijo, true);
+    if (rol.equals("usuario")) {
+        StyleConstants.setForeground(estiloPrefijo, new Color(33, 150, 243));
+        StyleConstants.setAlignment(estiloPrefijo, StyleConstants.ALIGN_RIGHT);
+    } else {
+        StyleConstants.setForeground(estiloPrefijo, new Color(76, 175, 80));
+        StyleConstants.setAlignment(estiloPrefijo, StyleConstants.ALIGN_LEFT);
+    }
+    StyleConstants.setSpaceBelow(estiloPrefijo, 8);
+    Style estiloMensaje = txtPaneChat.addStyle("estiloMensaje_" + rol, null);
+    StyleConstants.setFontSize(estiloMensaje, 14);
+    StyleConstants.setFontFamily(estiloMensaje, "Segoe UI");
+    StyleConstants.setForeground(estiloMensaje, Color.BLACK);
+    StyleConstants.setAlignment(estiloMensaje, rol.equals("usuario") ? StyleConstants.ALIGN_RIGHT : StyleConstants.ALIGN_LEFT);
+
+    try {
+        int longitud = doc.getLength();
+        String prefijo = (rol.equals("usuario") ? "Tú: " : "Asistente: ");
+        doc.insertString(longitud, prefijo, estiloPrefijo);
+        doc.insertString(doc.getLength(), mensaje + "\n", estiloMensaje);
+        doc.setParagraphAttributes(longitud, mensaje.length() + prefijo.length() + 1, estiloPrefijo, false);
+        SwingUtilities.invokeLater(() -> txtPaneChat.setCaretPosition(txtPaneChat.getDocument().getLength()));
+    } catch (BadLocationException e) {
+        e.printStackTrace();
+    }
+}
+private void enviarMensaje() {
+    String mensaje = txtMensaje.getText().trim();
+    if (!mensaje.isEmpty()) {
+        agregarMensajeEstilizado(mensaje, "usuario");
+        txtMensaje.setText("");
+
+        new Thread(() -> {
+            String respuesta = OpenAIClient.enviarMensaje(mensaje);
+
+            SwingUtilities.invokeLater(() -> {
+                agregarMensajeEstilizado(respuesta, "asistente"); 
+            });
+        }).start();
+    }
+}
+private boolean miniChatVisible = false;
+private volatile boolean animacionEnCurso = false;
+
+private final int posYVisible = 460;
+private final int posYOculto = 835;
+private final int paso = 7;
+private final int delay = 5; // ms
+
+private void toggleMiniChat() {
+    if (animacionEnCurso) return;
+    animacionEnCurso = true;
+
+    final int posXActual = MiniChat.getX();
+    final int posYActual = MiniChat.getY();
+
+    if (!miniChatVisible) {
+        MiniChat.setVisible(true);
+        new Thread(() -> {
+            int y = posYActual;
+            while (y > posYVisible) {
+                y -= paso;
+                if (y < posYVisible) y = posYVisible;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> MiniChat.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = true;
+            animacionEnCurso = false;
+        }).start();
+
+    } else {
+        new Thread(() -> {
+            int y = posYActual;
+            while (y < posYOculto) {
+                y += paso;
+                if (y > posYOculto) y = posYOculto;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> MiniChat.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = false;
+            animacionEnCurso = false;
+        }).start();
+    }
+}
     private boolean sidebarMostrado = false;
     private Timer animacion;
     private boolean sidebarListo = false;
@@ -142,6 +255,27 @@ public class InicioAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSidebar = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        LogoSale1 = new javax.swing.JLabel();
+        btnPersonalAcademico = new javax.swing.JButton();
+        btnTecnicoEquipo = new javax.swing.JButton();
+        btnTecnicoPrestamo = new javax.swing.JButton();
+        btnVicerrector = new javax.swing.JButton();
+        btnAuditoria = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
+        MiniChat = new javax.swing.JPanel();
+        txtMensaje = new javax.swing.JTextField();
+        ScrollChat = new javax.swing.JScrollPane();
+        txtPaneChat = new javax.swing.JTextPane();
+        TextoChat = new javax.swing.JLabel();
+        BotonChat = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
+        ChatPersonalizacion = new javax.swing.JPanel();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -164,123 +298,10 @@ public class InicioAdministrador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris = new javax.swing.JLabel();
-        panelSidebar = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        btnInicio = new javax.swing.JButton();
-        btnCerrarSesion = new javax.swing.JButton();
-        LogoSale1 = new javax.swing.JLabel();
-        btnPersonalAcademico = new javax.swing.JButton();
-        btnTecnicoEquipo = new javax.swing.JButton();
-        btnTecnicoPrestamo = new javax.swing.JButton();
-        btnVicerrector = new javax.swing.JButton();
-        btnAuditoria = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        InicioPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        InicioPersonal.setText("Inicio");
-        jPanel2.add(InicioPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, -1));
-
-        dato.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        dato.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
-        jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 10, 20));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Bienvenido Administrador");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 220, 30));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel8.setText("Aqui puedes gestionar nuevos personales y tecnicos");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 430, -1));
-
-        jPanel5.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Zona Achachicala, Av. Chacaltaya Nro. 1258");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, 30));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ubicacion (1).png"))); // NOI18N
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 30, 50));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, 480, 70));
-
-        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ProyectoLosJackson@gmail.com");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, 30));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/email.png"))); // NOI18N
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 50, 50));
-
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, 480, 70));
-
-        jPanel4.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Jose     67106924");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 150, 20));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Rafael 75298318");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, 20));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Erlan   69938519");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 140, 30));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Contactanos");
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 30));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/telefono.png"))); // NOI18N
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 50));
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 680, 480, 70));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 780));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -299,7 +320,7 @@ public class InicioAdministrador extends javax.swing.JFrame {
         btnInicio.setBackground(new java.awt.Color(29, 41, 57));
         btnInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(241, 241, 241));
-        btnInicio.setText("INICIO");
+        btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
         btnInicio.setHorizontalAlignment(SwingConstants.LEFT);
         btnInicio.setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 0));
@@ -446,6 +467,183 @@ public class InicioAdministrador extends javax.swing.JFrame {
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
 
+        MiniChat.setBackground(new java.awt.Color(255, 255, 255));
+        MiniChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        MiniChat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtMensaje.setText("Escribe un mensaje...");
+        txtMensaje.setForeground(Color.GRAY);
+        txtMensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensajeKeyPressed(evt);
+            }
+        });
+        MiniChat.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 340, 30));
+        txtMensaje.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtMensaje.getText().equals("Escribe un mensaje...")) {
+                    txtMensaje.setText("");
+                    txtMensaje.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtMensaje.getText().isEmpty()) {
+                    txtMensaje.setForeground(Color.GRAY);
+                    txtMensaje.setText("Escribe un mensaje...");
+                }
+            }
+        });
+
+        txtMensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensajeKeyPressed(evt);
+            }
+        });
+
+        MiniChat.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 330, 30));
+
+        txtPaneChat.setEditable(false);
+        txtPaneChat.setBackground(new java.awt.Color(255, 255, 255));
+        ScrollChat.setViewportView(txtPaneChat);
+
+        MiniChat.add(ScrollChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 420, 320));
+
+        TextoChat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TextoChat.setForeground(new java.awt.Color(255, 255, 255));
+        TextoChat.setText("Chat AI");
+        MiniChat.add(TextoChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 280, -1));
+
+        BotonChat.setBackground(new java.awt.Color(29, 41, 57));
+        BotonChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        BotonChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonChatActionPerformed(evt);
+            }
+        });
+        MiniChat.add(BotonChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 33));
+
+        btnEnviar.setBackground(new java.awt.Color(29, 41, 57));
+        btnEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonEnviar.png"))); // NOI18N
+        btnEnviar.setBorder(null);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+        btnEnviar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEnviarKeyPressed(evt);
+            }
+        });
+        MiniChat.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 80, 30));
+
+        ChatPersonalizacion.setBackground(new java.awt.Color(29, 41, 57));
+        MiniChat.add(ChatPersonalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 368, 424, 34));
+
+        getContentPane().add(MiniChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 840, 450, 420));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        InicioPersonal.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        InicioPersonal.setText("Inicio");
+        jPanel2.add(InicioPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, -1));
+
+        dato.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
+        dato.setText("Sistema de Control y Prestamo de Laboratorios de Hardware, Redes, Telecomunicaciones y Electronica");
+        jPanel2.add(dato, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 10, 20));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Bienvenido Administrador");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 220, 30));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Aqui puedes gestionar nuevos personales y tecnicos");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 430, -1));
+
+        jPanel5.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Zona Achachicala, Av. Chacaltaya Nro. 1258");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, 30));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ubicacion (1).png"))); // NOI18N
+        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 30, 50));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, 480, 70));
+
+        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("ProyectoLosJackson@gmail.com");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/email.png"))); // NOI18N
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 50, 50));
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, 480, 70));
+
+        jPanel4.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Jose     67106924");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 150, 20));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Rafael 75298318");
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, 20));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Erlan   69938519");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 140, 30));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Contactanos");
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/telefono.png"))); // NOI18N
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 50));
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 680, 480, 70));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 870));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -560,6 +758,24 @@ int idUsuario = SesionUsuario.idUsuario;
         this.dispose();
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
+    private void txtMensajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensajeKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            enviarMensaje();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMensajeKeyPressed
+
+    private void BotonChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonChatActionPerformed
+        toggleMiniChat();        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonChatActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        enviarMensaje();
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnEnviarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEnviarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnviarKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -585,13 +801,19 @@ int idUsuario = SesionUsuario.idUsuario;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonChat;
+    private javax.swing.JPanel ChatPersonalizacion;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel InicioPersonal;
     private javax.swing.JLabel LogoSale1;
+    private javax.swing.JPanel MiniChat;
+    private javax.swing.JScrollPane ScrollChat;
     private javax.swing.JLabel Superior;
+    private javax.swing.JLabel TextoChat;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnPersonalAcademico;
@@ -620,5 +842,7 @@ int idUsuario = SesionUsuario.idUsuario;
     private javax.swing.JLayeredPane panelOverlay;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTextField txtMensaje;
+    private javax.swing.JTextPane txtPaneChat;
     // End of variables declaration//GEN-END:variables
 }
