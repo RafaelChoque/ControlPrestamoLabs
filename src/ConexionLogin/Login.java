@@ -153,7 +153,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("Sistema de Control y Prestamo de Laboratorios de Electronica, Hardware, Redes y Telecomunicaciones - LosJackson");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 840, 620, -1));
 
-        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoLogin.png"))); // NOI18N
+        FondoUniversidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoUSBFinal.png"))); // NOI18N
         getContentPane().add(FondoUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
