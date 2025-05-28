@@ -325,18 +325,18 @@ private void toggleMiniChat() {
         btnMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        Sanciones2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Nombre = new javax.swing.JTextField();
         Apellido = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        Sanciones4 = new javax.swing.JLabel();
         Sanciones5 = new javax.swing.JLabel();
         Sanciones = new javax.swing.JLabel();
+        Sanciones4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TblSanciones = new javax.swing.JTable();
         Sanciones3 = new javax.swing.JLabel();
+        Sanciones2 = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
@@ -512,7 +512,7 @@ private void toggleMiniChat() {
         Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
         Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 10, 240, 30));
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
 
         perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
         getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
@@ -534,43 +534,40 @@ private void toggleMiniChat() {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Sanciones2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Sanciones2.setText("Sanciones del Usuario");
-        jPanel4.add(Sanciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
         jLabel10.setText("Nombre:");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
 
-        jLabel7.setText("Apellido:");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
-        jPanel4.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 190, -1));
+        jLabel7.setText("Apellidos:");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, 20));
+        jPanel4.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 190, -1));
 
         Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApellidoActionPerformed(evt);
             }
         });
-        jPanel4.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 190, -1));
+        jPanel4.add(Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 190, -1));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 140));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 610, 40));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(194, 194, 194)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Sanciones4.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Sanciones4.setText("Nota ");
-        jPanel5.add(Sanciones4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
         Sanciones5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Sanciones5.setText("Si Sobrepasa la cantidad de 5 sanciones, ");
-        jPanel5.add(Sanciones5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, -1));
+        Sanciones5.setText("Si sobrepasa la cantidad de 5 sanciones, ");
+        jPanel5.add(Sanciones5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 260, -1));
 
         Sanciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Sanciones.setText("Tendra una sancion economica por daños");
-        jPanel5.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        Sanciones.setText("Tendra una sancion economica por daños.");
+        jPanel5.add(Sanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, -1));
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 400, 140));
+        Sanciones4.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+        Sanciones4.setForeground(new java.awt.Color(204, 0, 0));
+        Sanciones4.setText("Nota: ");
+        jPanel5.add(Sanciones4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 40, 270, 80));
 
         TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -600,11 +597,15 @@ private void toggleMiniChat() {
         });
         jScrollPane3.setViewportView(TblSanciones);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 1460, 540));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 1460, 610));
 
         Sanciones3.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Sanciones3.setText("Cantidad de Sanciones Recibidas");
-        jPanel2.add(Sanciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        jPanel2.add(Sanciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        Sanciones2.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Sanciones2.setText("Sanciones del Usuario");
+        jPanel2.add(Sanciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1500, 760));
 

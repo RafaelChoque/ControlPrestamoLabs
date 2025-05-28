@@ -11,6 +11,7 @@ import ConexionLogin.SesionUsuario;
 import static ConexionLogin.SesionUsuario.username;
 import Materiales.Materiales;
 import Materiales.MaterialesHardware;
+import OpenAi.OpenAIClient;
 import Reportes.ReportesMantenimiento;
 import Reportes.ReportesPrestamos;
 import Reportes.ReportesSanciones;
@@ -48,6 +49,10 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -67,6 +72,20 @@ private int idTecnicoActual = -1;
     public SancionesParaDesignar(int idusuario) {
         this.idusuario = idusuario;
         initComponents();
+        agregarMensajeEstilizado("¡Hola! Soy tu asistente. Puedes preguntarme cualquier cosa sobre cómo solicitar un laboratorio. Estoy aquí para ayudarte.", "asistente");
+        OpenAIClient.setSystemMessage(
+       "Eres un asistente amigable, claro y experto en el sistema de control y préstamos de laboratorios. " +
+"Estás asistiendo al Técnico de Préstamos dentro de la interfaz de Sanciones para Designar. " +
+"En esta sección puedes asignar sanciones a usuarios con el rol de Personal Académico. " +
+"Para registrar una sanción, debes completar los siguientes campos: " +
+"'Sancionado', que es el usuario al que aplicarás la sanción; 'Técnico', que eres tú como responsable de aplicar la medida; " +
+"'Descripción', donde detallas el motivo o situación que justifica la sanción; " +
+"'Fecha', que indica cuándo ocurrió o se registra la infracción; y 'Tipo de sanción', donde puedes seleccionar entre: 'Daño de material', 'Pérdida de material', o 'Incumplimiento de horario'. " +
+"Recuerda registrar la información de forma clara y precisa. " +
+"Responde de forma directa y sin repetir todo el contexto si el usuario hace una pregunta específica. " +
+"Evita respuestas extensas a menos que el usuario las pida. Si agradece o se despide, responde de forma natural, por ejemplo: '¡Con gusto! Si necesitas algo más, aquí estaré 😊'. " +
+"Si se confunde con algún campo, ayúdalo con explicaciones breves y ejemplos simples."
+);
         aplicarColorFilasAlternadas(TblPrestamosAntiguos);
         aplicarColorFilasAlternadas(TblSanciones);
         cargarNombreCompleto();
@@ -124,6 +143,101 @@ panelSubReportes.setVisible(false);
 
         this.setLocationRelativeTo(null);
     }
+            private void agregarMensajeEstilizado(String mensaje, String rol) {
+    StyledDocument doc = txtPaneChat.getStyledDocument();
+    Style estiloPrefijo = txtPaneChat.addStyle("estiloPrefijo_" + rol, null);
+    StyleConstants.setFontSize(estiloPrefijo, 14);
+    StyleConstants.setFontFamily(estiloPrefijo, "Segoe UI");
+    StyleConstants.setBold(estiloPrefijo, true);
+    if (rol.equals("usuario")) {
+        StyleConstants.setForeground(estiloPrefijo, new Color(33, 150, 243));
+        StyleConstants.setAlignment(estiloPrefijo, StyleConstants.ALIGN_RIGHT);
+    } else {
+        StyleConstants.setForeground(estiloPrefijo, new Color(76, 175, 80));
+        StyleConstants.setAlignment(estiloPrefijo, StyleConstants.ALIGN_LEFT);
+    }
+    StyleConstants.setSpaceBelow(estiloPrefijo, 8);
+    Style estiloMensaje = txtPaneChat.addStyle("estiloMensaje_" + rol, null);
+    StyleConstants.setFontSize(estiloMensaje, 14);
+    StyleConstants.setFontFamily(estiloMensaje, "Segoe UI");
+    StyleConstants.setForeground(estiloMensaje, Color.BLACK);
+    StyleConstants.setAlignment(estiloMensaje, rol.equals("usuario") ? StyleConstants.ALIGN_RIGHT : StyleConstants.ALIGN_LEFT);
+
+    try {
+        int longitud = doc.getLength();
+        String prefijo = (rol.equals("usuario") ? "Tú: " : "Asistente: ");
+        doc.insertString(longitud, prefijo, estiloPrefijo);
+        doc.insertString(doc.getLength(), mensaje + "\n", estiloMensaje);
+        doc.setParagraphAttributes(longitud, mensaje.length() + prefijo.length() + 1, estiloPrefijo, false);
+        SwingUtilities.invokeLater(() -> txtPaneChat.setCaretPosition(txtPaneChat.getDocument().getLength()));
+    } catch (BadLocationException e) {
+        e.printStackTrace();
+    }
+}
+private void enviarMensaje() {
+    String mensaje = txtMensaje.getText().trim();
+    if (!mensaje.isEmpty()) {
+        agregarMensajeEstilizado(mensaje, "usuario");
+        txtMensaje.setText("");
+
+        new Thread(() -> {
+            String respuesta = OpenAIClient.enviarMensaje(mensaje);
+
+            SwingUtilities.invokeLater(() -> {
+                agregarMensajeEstilizado(respuesta, "asistente"); 
+            });
+        }).start();
+    }
+}
+private boolean miniChatVisible = false;
+private volatile boolean animacionEnCurso = false;
+
+private final int posYVisible = 460;
+private final int posYOculto = 835;
+private final int paso = 7;
+private final int delay = 5; // ms
+
+private void toggleMiniChat() {
+    if (animacionEnCurso) return;
+    animacionEnCurso = true;
+
+    final int posXActual = MiniChat.getX();
+    final int posYActual = MiniChat.getY();
+
+    if (!miniChatVisible) {
+        MiniChat.setVisible(true);
+        new Thread(() -> {
+            int y = posYActual;
+            while (y > posYVisible) {
+                y -= paso;
+                if (y < posYVisible) y = posYVisible;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> MiniChat.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = true;
+            animacionEnCurso = false;
+        }).start();
+
+    } else {
+        new Thread(() -> {
+            int y = posYActual;
+            while (y < posYOculto) {
+                y += paso;
+                if (y > posYOculto) y = posYOculto;
+
+                final int posY = y;
+                SwingUtilities.invokeLater(() -> MiniChat.setLocation(posXActual, posY));
+
+                try { Thread.sleep(delay); } catch (InterruptedException e) { e.printStackTrace(); }
+            }
+            miniChatVisible = false;
+            animacionEnCurso = false;
+        }).start();
+    }
+}
     private void aplicarColorFilasAlternadas(JTable tabla) {
     TableCellRenderer renderer = new DefaultTableCellRenderer() {
         @Override
@@ -310,6 +424,34 @@ private boolean subReportesMostrado = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelSidebar = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblFlecha = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        LogoSale2 = new javax.swing.JLabel();
+        btnListaLaboratorios = new javax.swing.JButton();
+        btnListaPrestamos = new javax.swing.JButton();
+        btnSolicitudes = new javax.swing.JButton();
+        btnSancionesDesignar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnMateriales = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
+        panelSubReportes = new javax.swing.JPanel();
+        btnReporteLaboratorios = new javax.swing.JButton();
+        btnReporteMantenimiento = new javax.swing.JButton();
+        btnReporteSanciones = new javax.swing.JButton();
+        panelOverlay = new javax.swing.JLayeredPane();
+        MiniChat = new javax.swing.JPanel();
+        txtMensaje = new javax.swing.JTextField();
+        ScrollChat = new javax.swing.JScrollPane();
+        txtPaneChat = new javax.swing.JTextPane();
+        TextoChat = new javax.swing.JLabel();
+        BotonChat = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
+        ChatPersonalizacion = new javax.swing.JPanel();
         Nombretxt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblPrestamosAntiguos = new javax.swing.JTable();
@@ -343,219 +485,10 @@ private boolean subReportesMostrado = false;
         Superior = new javax.swing.JLabel();
         FondoGris1 = new javax.swing.JLabel();
         FondoBlanco = new javax.swing.JLabel();
-        panelSidebar = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        lblFlecha = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
-        btnInicio = new javax.swing.JButton();
-        LogoSale2 = new javax.swing.JLabel();
-        btnListaLaboratorios = new javax.swing.JButton();
-        btnListaPrestamos = new javax.swing.JButton();
-        btnSolicitudes = new javax.swing.JButton();
-        btnSancionesDesignar = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
-        btnMateriales = new javax.swing.JButton();
-        btnComputadoras = new javax.swing.JButton();
-        panelSubReportes = new javax.swing.JPanel();
-        btnReporteLaboratorios = new javax.swing.JButton();
-        btnReporteMantenimiento = new javax.swing.JButton();
-        btnReporteSanciones = new javax.swing.JButton();
-        panelOverlay = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
-        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
-        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
-
-        TblPrestamosAntiguos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID Prestamo", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Docente"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TblPrestamosAntiguos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TblPrestamosAntiguosmouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(TblPrestamosAntiguos);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 910, 290));
-
-        TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Descripcion", "Fecha", "Tipo", "Tecnico", "Sancionado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(TblSanciones);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 1440, 370));
-
-        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
-
-        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
-        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
-        btnMenu.setBorder(null);
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        AsignacionSancion.setText("Asignar Sancion");
-        jPanel1.add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
-        jPanel1.add(NombreSancionadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 380, -1));
-
-        NombreSancionado.setText("Sancionado:");
-        jPanel1.add(NombreSancionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
-
-        Descripcion.setText("Descripcion:");
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
-        Descripciontxt.setColumns(20);
-        Descripciontxt.setRows(5);
-        jScrollPane2.setViewportView(Descripciontxt);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 380, 100));
-
-        Fecha.setText("Fecha:");
-        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 20));
-        jPanel1.add(Fechadate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 380, -1));
-
-        TipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daño de Material", "Perdida de Material", "Incumplimiento de Horario", "Otro"}));
-        TipoBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TipoBoxActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 380, -1));
-
-        Tipo.setText("Tipo:");
-        jPanel1.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
-
-        Guardar.setText("Guardar");
-        Guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 290, 90, -1));
-
-        Nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 300, -1));
-
-        jLabel1.setText("Tecnico:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
-
-        BuscarRu.setText("Buscar");
-        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarRuActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 510, 330));
-
-        FondoBlanco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 0, 740));
-
-        FondoBlanco2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        jPanel2.add(FondoBlanco2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 1450, 380));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        BuscarPrestamo.setText("Buscar Prestamo");
-        BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuscarPrestamoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
-        jPanel3.add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 160, -1));
-
-        FechaPrestam.setText("Fecha del Prestamo");
-        jPanel3.add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 910, 130));
-
-        Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        Formulario1.setText("Docentes Sancionados");
-        jPanel2.add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 270, -1));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
-
-        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
-        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
-
-        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
-        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
-
-        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
-        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         panelSidebar.setBackground(new java.awt.Color(29, 41, 57));
         panelSidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -814,6 +747,284 @@ private boolean subReportesMostrado = false;
         panelOverlay.setOpaque(true);
         panelOverlay.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(panelOverlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 860));
+
+        MiniChat.setBackground(new java.awt.Color(255, 255, 255));
+        MiniChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        MiniChat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtMensaje.setText("Escribe un mensaje...");
+        txtMensaje.setForeground(Color.GRAY);
+        txtMensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensajeKeyPressed(evt);
+            }
+        });
+        MiniChat.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 340, 30));
+        txtMensaje.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtMensaje.getText().equals("Escribe un mensaje...")) {
+                    txtMensaje.setText("");
+                    txtMensaje.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtMensaje.getText().isEmpty()) {
+                    txtMensaje.setForeground(Color.GRAY);
+                    txtMensaje.setText("Escribe un mensaje...");
+                }
+            }
+        });
+
+        txtMensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMensajeKeyPressed(evt);
+            }
+        });
+
+        MiniChat.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 330, 30));
+
+        txtPaneChat.setEditable(false);
+        txtPaneChat.setBackground(new java.awt.Color(255, 255, 255));
+        ScrollChat.setViewportView(txtPaneChat);
+
+        MiniChat.add(ScrollChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 420, 320));
+
+        TextoChat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TextoChat.setForeground(new java.awt.Color(255, 255, 255));
+        TextoChat.setText("Chat AI");
+        MiniChat.add(TextoChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 280, -1));
+
+        BotonChat.setBackground(new java.awt.Color(29, 41, 57));
+        BotonChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        BotonChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonChatActionPerformed(evt);
+            }
+        });
+        MiniChat.add(BotonChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 33));
+
+        btnEnviar.setBackground(new java.awt.Color(29, 41, 57));
+        btnEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonEnviar.png"))); // NOI18N
+        btnEnviar.setBorder(null);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+        btnEnviar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEnviarKeyPressed(evt);
+            }
+        });
+        MiniChat.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 80, 30));
+
+        ChatPersonalizacion.setBackground(new java.awt.Color(29, 41, 57));
+        MiniChat.add(ChatPersonalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 368, 424, 34));
+
+        getContentPane().add(MiniChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 840, 450, 420));
+
+        Nombretxt.setBackground(new java.awt.Color(255, 255, 255));
+        Nombretxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nombretxt.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(Nombretxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 15, 240, 30));
+
+        TblPrestamosAntiguos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Prestamo", "Laboratorio", "Fecha", "Horario Inicio", "Horario Fin", "Docente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TblPrestamosAntiguos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TblPrestamosAntiguosmouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TblPrestamosAntiguos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 910, 290));
+
+        TblSanciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Descripcion", "Fecha", "Tipo", "Tecnico", "Sancionado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TblSanciones);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 1440, 370));
+
+        perfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconouser.png"))); // NOI18N
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 10, 40, -1));
+
+        btnMenu.setBackground(new java.awt.Color(178, 191, 207));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BotonBurger3.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, 30, 30));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        AsignacionSancion.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        AsignacionSancion.setText("Asignar Sanción");
+        jPanel1.add(AsignacionSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 270, -1));
+
+        NombreSancionadotxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreSancionadotxtActionPerformed(evt);
+            }
+        });
+        jPanel1.add(NombreSancionadotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 380, -1));
+
+        NombreSancionado.setText("Sancionado:");
+        jPanel1.add(NombreSancionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        Descripcion.setText("Descripcion:");
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        Descripciontxt.setColumns(20);
+        Descripciontxt.setRows(5);
+        jScrollPane2.setViewportView(Descripciontxt);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 380, 100));
+
+        Fecha.setText("Fecha:");
+        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 20));
+        jPanel1.add(Fechadate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 380, -1));
+
+        TipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daño de Material", "Perdida de Material", "Incumplimiento de Horario", "Otro"}));
+        TipoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 380, -1));
+
+        Tipo.setText("Tipo:");
+        jPanel1.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
+
+        Guardar.setBackground(new java.awt.Color(29, 41, 57));
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 290, 90, -1));
+
+        Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 300, -1));
+
+        jLabel1.setText("Tecnico:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
+
+        BuscarRu.setBackground(new java.awt.Color(29, 41, 57));
+        BuscarRu.setForeground(new java.awt.Color(255, 255, 255));
+        BuscarRu.setText("Buscar");
+        BuscarRu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarRuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BuscarRu, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 510, 330));
+
+        FondoBlanco1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 0, 740));
+
+        FondoBlanco2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        jPanel2.add(FondoBlanco2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 1450, 380));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BuscarPrestamo.setBackground(new java.awt.Color(29, 41, 57));
+        BuscarPrestamo.setForeground(new java.awt.Color(255, 255, 255));
+        BuscarPrestamo.setText("Buscar Prestamo");
+        BuscarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarPrestamoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(BuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        jPanel3.add(FechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 160, -1));
+
+        FechaPrestam.setText("Fecha del Prestamo");
+        jPanel3.add(FechaPrestam, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 910, 130));
+
+        Formulario1.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        Formulario1.setText("Docentes Sancionados");
+        jPanel2.add(Formulario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 270, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1480, 770));
+
+        Superior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SuperiorInterfaz.png"))); // NOI18N
+        getContentPane().add(Superior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 60));
+
+        FondoGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_3.png"))); // NOI18N
+        getContentPane().add(FondoGris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1680, 920));
+
+        FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
+        getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1450, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1271,6 +1482,28 @@ private boolean subReportesMostrado = false;
         this.dispose();
     }//GEN-LAST:event_btnReporteSancionesActionPerformed
 
+    private void txtMensajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensajeKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            enviarMensaje();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMensajeKeyPressed
+
+    private void BotonChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonChatActionPerformed
+        toggleMiniChat();        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonChatActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        enviarMensaje();
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnEnviarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEnviarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnviarKeyPressed
+
+    private void NombreSancionadotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreSancionadotxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreSancionadotxtActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1312,8 +1545,10 @@ private boolean subReportesMostrado = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AsignacionSancion;
+    private javax.swing.JButton BotonChat;
     private javax.swing.JButton BuscarPrestamo;
     private javax.swing.JButton BuscarRu;
+    private javax.swing.JPanel ChatPersonalizacion;
     private javax.swing.JLabel Descripcion;
     private javax.swing.JTextArea Descripciontxt;
     private javax.swing.JLabel Fecha;
@@ -1327,17 +1562,21 @@ private boolean subReportesMostrado = false;
     private javax.swing.JLabel Formulario1;
     private javax.swing.JButton Guardar;
     private javax.swing.JLabel LogoSale2;
+    private javax.swing.JPanel MiniChat;
     private javax.swing.JTextField Nombre;
     private javax.swing.JLabel NombreSancionado;
     private javax.swing.JTextField NombreSancionadotxt;
     private javax.swing.JLabel Nombretxt;
+    private javax.swing.JScrollPane ScrollChat;
     private javax.swing.JLabel Superior;
     private javax.swing.JTable TblPrestamosAntiguos;
     private javax.swing.JTable TblSanciones;
+    private javax.swing.JLabel TextoChat;
     private javax.swing.JLabel Tipo;
     private javax.swing.JComboBox<String> TipoBox;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnComputadoras;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnListaLaboratorios;
     private javax.swing.JButton btnListaPrestamos;
@@ -1364,5 +1603,7 @@ private boolean subReportesMostrado = false;
     private javax.swing.JPanel panelSidebar;
     private javax.swing.JPanel panelSubReportes;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTextField txtMensaje;
+    private javax.swing.JTextPane txtPaneChat;
     // End of variables declaration//GEN-END:variables
 }
