@@ -18,6 +18,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -307,6 +308,7 @@ private void aplicarFiltros() {
         FondoBlanco = new javax.swing.JLabel();
         cargardatos = new javax.swing.JButton();
         cbAccion = new javax.swing.JComboBox<>();
+        ExportarExcel = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         perfil = new javax.swing.JLabel();
         Superior = new javax.swing.JLabel();
@@ -475,6 +477,16 @@ private void aplicarFiltros() {
             }
         });
         jPanel2.add(cbAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 190, 40));
+
+        ExportarExcel.setBackground(new java.awt.Color(29, 41, 57));
+        ExportarExcel.setForeground(new java.awt.Color(255, 255, 255));
+        ExportarExcel.setText("Exportar a Excel");
+        ExportarExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportarExcelActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ExportarExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1205, 70, 130, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 1490, 760));
 
@@ -831,6 +843,16 @@ tablaLogs.getColumnModel().getColumn(5).setPreferredWidth(150);
 aplicarFiltros();     // TODO add your handling code here:
     }//GEN-LAST:event_cbAccionActionPerformed
 
+    private void ExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarExcelActionPerformed
+        try {
+            ExportarExcel exportador = new ExportarExcel(tablaLogs); // Usa tu tabla JTable aquí
+            exportador.exportarExcel();
+        } catch (IOException e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ExportarExcelActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -857,6 +879,7 @@ aplicarFiltros();     // TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ExportarExcel;
     private javax.swing.JLabel FondoBlanco;
     private javax.swing.JLabel FondoGris;
     private javax.swing.JLabel ListaPersonal;
