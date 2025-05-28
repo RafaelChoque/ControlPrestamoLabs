@@ -14,7 +14,7 @@ import org.json.JSONObject;
  * @author Erlan
  */
 public class OpenAIClient {
-    private static final String API_KEY = "ummguys?";
+    private static final String API_KEY = "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";
     private static final String ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
     private static String systemMessage = "Eres un asistente útil.";
