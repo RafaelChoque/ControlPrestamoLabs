@@ -6,6 +6,8 @@ package PersonalAcademico;
 
 import ConexionLogin.Conexion;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -24,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -38,11 +42,41 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
     private JTextField campoDestino;
     public DisponibilidadPrestamos(JTextField campoDestino) {
         initComponents();
+        aplicarColorFilasAlternadas(Reservas);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         cargarTablaCompleta();
         this.campoDestino = campoDestino;
     }
+    
+    private void aplicarColorFilasAlternadas(JTable tabla) {
+    TableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
 
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (isSelected) {
+                setBackground(table.getSelectionBackground());
+                setForeground(table.getSelectionForeground());
+            } else {
+                if (row % 2 == 0) {
+                    setBackground(Color.WHITE);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(new Color(240, 240, 240));
+                    setForeground(Color.BLACK);
+                }
+            }
+
+            return this;
+        }
+    };
+
+    for (int i = 0; i < tabla.getColumnCount(); i++) {
+        tabla.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+}
     private DisponibilidadPrestamos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -70,9 +104,9 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("VER DISPONIBILIDAD");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, -1));
-        getContentPane().add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 130, -1));
+        jLabel1.setText("Disponibilidad:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 20));
+        getContentPane().add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, -1));
 
         Reservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,27 +131,31 @@ public class DisponibilidadPrestamos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Reservas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 870, 410));
-        getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 130, 20));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 880, 420));
+        getContentPane().add(Bloque, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 130, 20));
 
-        jLabel2.setText("BLOQUE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
+        jLabel2.setText("Bloque:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, 20));
 
+        btnBuscar.setBackground(new java.awt.Color(29, 41, 57));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
+        Guardar.setBackground(new java.awt.Color(51, 153, 0));
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 90, -1));
+        getContentPane().add(Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 140, 30));
 
         FondoBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Fondo_2.png"))); // NOI18N
         getContentPane().add(FondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 900, 510));

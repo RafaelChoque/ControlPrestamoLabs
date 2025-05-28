@@ -571,7 +571,7 @@ private void enviarMensaje() {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 150, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 150, -1));
 
         Limpiar.setBackground(new java.awt.Color(29, 41, 57));
         Limpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -581,7 +581,7 @@ private void enviarMensaje() {
                 LimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 110, -1));
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 110, -1));
 
         Formulario.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
         Formulario.setText("Formulario de Solicitud");
@@ -646,15 +646,15 @@ private void enviarMensaje() {
                 HorarioFijoActionPerformed(evt);
             }
         });
-        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 110, -1));
+        jPanel1.add(HorarioFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 80, -1));
 
         jLabel13.setText("Personalizado:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 20));
-        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 110, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, -1, 20));
+        jPanel1.add(HorarioPersonalizadoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 80, -1));
 
         jLabel2.setText("Hasta:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, 20));
-        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 110, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, -1, 20));
+        jPanel1.add(HorarioPersonalizadoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 80, -1));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 610, 350));
 
